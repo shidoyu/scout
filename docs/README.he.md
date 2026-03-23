@@ -13,6 +13,8 @@
 
 ## התקנה
 
+הריצו בטרמינל:
+
 ```bash
 claude plugin add shidoyu/scout
 ```

@@ -13,6 +13,8 @@ Claude Code का built-in WebSearch सिर्फ 125-character snippets ret
 
 ## इंस्टॉलेशन
 
+अपने टर्मिनल में चलाएँ:
+
 ```bash
 claude plugin add shidoyu/scout
 ```

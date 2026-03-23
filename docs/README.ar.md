@@ -13,6 +13,8 @@
 
 ## التثبيت
 
+نفّذ في الطرفية:
+
 ```bash
 claude plugin add shidoyu/scout
 ```

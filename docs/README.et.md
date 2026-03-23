@@ -13,6 +13,8 @@ Claude Code'i sisseehitatud WebSearch tagastab 125-tähemärgilisi katkendeid ja
 
 ## Paigaldamine
 
+Käivita terminalis:
+
 ```bash
 claude plugin add shidoyu/scout
 ```

@@ -13,6 +13,8 @@
 
 ## Установка
 
+Выполните в терминале:
+
 ```bash
 claude plugin add shidoyu/scout
 ```

@@ -13,6 +13,8 @@ Claude Code'un yerleşik WebSearch aracı 125 karakterlik snippets döndürür v
 
 ## Kurulum
 
+Terminalinizde çalıştırın:
+
 ```bash
 claude plugin add shidoyu/scout
 ```

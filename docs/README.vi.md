@@ -13,6 +13,8 @@ WebSearch tích hợp sẵn trong Claude Code chỉ trả về đoạn trích 12
 
 ## Cài đặt
 
+Chạy trong terminal:
+
 ```bash
 claude plugin add shidoyu/scout
 ```

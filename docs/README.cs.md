@@ -13,6 +13,8 @@ Vestavěný WebSearch v Claude Code vrací úryvky o délce 125 znaků a spoléh
 
 ## Instalace
 
+Spusťte v terminálu:
+
 ```bash
 claude plugin add shidoyu/scout
 ```

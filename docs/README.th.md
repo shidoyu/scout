@@ -13,6 +13,8 @@ WebSearch ที่ติดมากับ Claude Code นั้นคืนผ
 
 ## การติดตั้ง
 
+รันในเทอร์มินัล:
+
 ```bash
 claude plugin add shidoyu/scout
 ```
