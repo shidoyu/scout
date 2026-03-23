@@ -1,0 +1,14 @@
+{
+  "name": "scout",
+  "description": "Web search and content fetching with privacy-aware tool selection. Find relevant sources, read web pages, and fetch content locally when privacy matters.",
+  "version": "1.0.0",
+  "author": {
+    "name": "shidoyu",
+    "url": "https://github.com/shidoyu"
+  },
+  "homepage": "https://github.com/shidoyu/scout",
+  "repository": "https://github.com/shidoyu/scout",
+  "license": "MIT",
+  "keywords": ["search", "web-search", "fetch", "url", "privacy", "query-design", "research"]
+}
+
