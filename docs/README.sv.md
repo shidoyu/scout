@@ -16,7 +16,11 @@ Claude Codes inbyggda WebSearch returnerar 125 tecken långa utdrag och förlita
 Kör i din terminal:
 
 ```bash
-claude plugin add shidoyu/scout
+# Steg 1: Registrera marketplace
+claude plugin marketplace add shidoyu/scout
+
+# Steg 2: Installera plugin
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Snabbstart

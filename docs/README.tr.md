@@ -16,7 +16,11 @@ Claude Code'un yerleşik WebSearch aracı 125 karakterlik snippets döndürür v
 Terminalinizde çalıştırın:
 
 ```bash
-claude plugin add shidoyu/scout
+# Adım 1: Marketplace'i kaydedin
+claude plugin marketplace add shidoyu/scout
+
+# Adım 2: Eklentiyi kurun
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Hızlı Başlangıç

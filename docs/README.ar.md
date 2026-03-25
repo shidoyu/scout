@@ -16,7 +16,11 @@
 نفّذ في الطرفية:
 
 ```bash
-claude plugin add shidoyu/scout
+# الخطوة 1: تسجيل الـ marketplace
+claude plugin marketplace add shidoyu/scout
+
+# الخطوة 2: تثبيت الإضافة
+claude plugin install scout@shidoyu-scout
 ```
 
 ## البدء السريع

@@ -14,7 +14,11 @@ Claude Code's built-in WebSearch returns 125-character snippets and relies on ke
 Run in your terminal:
 
 ```bash
-claude plugin add shidoyu/scout
+# Step 1: Register the marketplace
+claude plugin marketplace add shidoyu/scout
+
+# Step 2: Install the plugin
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Quick Start

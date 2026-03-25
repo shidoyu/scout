@@ -16,7 +16,11 @@
 הריצו בטרמינל:
 
 ```bash
-claude plugin add shidoyu/scout
+# שלב 1: רישום ה-marketplace
+claude plugin marketplace add shidoyu/scout
+
+# שלב 2: התקנת התוסף
+claude plugin install scout@shidoyu-scout
 ```
 
 ## התחלה מהירה

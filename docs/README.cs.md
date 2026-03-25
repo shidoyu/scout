@@ -16,7 +16,11 @@ Vestavěný WebSearch v Claude Code vrací úryvky o délce 125 znaků a spoléh
 Spusťte v terminálu:
 
 ```bash
-claude plugin add shidoyu/scout
+# Krok 1: Zaregistrujte marketplace
+claude plugin marketplace add shidoyu/scout
+
+# Krok 2: Nainstalujte plugin
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Rychlý start

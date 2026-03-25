@@ -16,7 +16,11 @@ Die in Claude Code integrierte WebSearch liefert lediglich 125-Zeichen-Ausschnit
 Im Terminal ausführen:
 
 ```bash
-claude plugin add shidoyu/scout
+# Schritt 1: Marketplace registrieren
+claude plugin marketplace add shidoyu/scout
+
+# Schritt 2: Plugin installieren
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Schnellstart

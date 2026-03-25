@@ -16,7 +16,11 @@ Claude Code'i sisseehitatud WebSearch tagastab 125-tähemärgilisi katkendeid ja
 Käivita terminalis:
 
 ```bash
-claude plugin add shidoyu/scout
+# 1. samm: Registreeri marketplace
+claude plugin marketplace add shidoyu/scout
+
+# 2. samm: Paigalda plugin
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Kiirstart

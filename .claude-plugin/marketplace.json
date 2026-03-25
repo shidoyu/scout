@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "shidoyu-scout",
+  "description": "Web search and content fetching plugin for Claude Code",
+  "owner": {
+    "name": "shidoyu",
+    "email": "30531733+shidoyu@users.noreply.github.com"
+  },
+  "plugins": [
+    {
+      "name": "scout",
+      "description": "Web search and content fetching with privacy-aware tool selection. Find relevant sources, read web pages, and fetch content locally when privacy matters.",
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/shidoyu/scout"
+    }
+  ]
+}

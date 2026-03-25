@@ -16,7 +16,11 @@ WebSearch bawaan Claude Code hanya mengembalikan cuplikan 125 karakter dan menga
 Jalankan di terminal:
 
 ```bash
-claude plugin add shidoyu/scout
+# Langkah 1: Daftarkan marketplace
+claude plugin marketplace add shidoyu/scout
+
+# Langkah 2: Instal plugin
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Mulai Cepat

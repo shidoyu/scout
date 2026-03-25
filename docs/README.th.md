@@ -16,7 +16,11 @@ WebSearch ที่ติดมากับ Claude Code นั้นคืนผ
 รันในเทอร์มินัล:
 
 ```bash
-claude plugin add shidoyu/scout
+# ขั้นตอนที่ 1: ลงทะเบียน Marketplace
+claude plugin marketplace add shidoyu/scout
+
+# ขั้นตอนที่ 2: ติดตั้งปลั๊กอิน
+claude plugin install scout@shidoyu-scout
 ```
 
 ## เริ่มต้นใช้งานอย่างรวดเร็ว

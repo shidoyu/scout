@@ -16,7 +16,11 @@ Le WebSearch intégré à Claude Code retourne des extraits de 125 caractères e
 Exécutez dans votre terminal :
 
 ```bash
-claude plugin add shidoyu/scout
+# Étape 1 : Enregistrer le marketplace
+claude plugin marketplace add shidoyu/scout
+
+# Étape 2 : Installer le plugin
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Démarrage rapide

@@ -16,7 +16,11 @@ Wbudowany WebSearch w Claude Code zwraca fragmenty tekstu o długości 125 znak�
 Uruchom w terminalu:
 
 ```bash
-claude plugin add shidoyu/scout
+# Krok 1: Zarejestruj marketplace
+claude plugin marketplace add shidoyu/scout
+
+# Krok 2: Zainstaluj plugin
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Szybki start

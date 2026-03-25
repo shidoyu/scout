@@ -16,7 +16,11 @@ WebSearch tích hợp sẵn trong Claude Code chỉ trả về đoạn trích 12
 Chạy trong terminal:
 
 ```bash
-claude plugin add shidoyu/scout
+# Bước 1: Đăng ký marketplace
+claude plugin marketplace add shidoyu/scout
+
+# Bước 2: Cài đặt plugin
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Bắt đầu nhanh

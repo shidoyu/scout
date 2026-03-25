@@ -16,7 +16,11 @@
 Выполните в терминале:
 
 ```bash
-claude plugin add shidoyu/scout
+# Шаг 1: Зарегистрируйте маркетплейс
+claude plugin marketplace add shidoyu/scout
+
+# Шаг 2: Установите плагин
+claude plugin install scout@shidoyu-scout
 ```
 
 ## Быстрый старт
