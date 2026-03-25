@@ -1,6 +1,6 @@
 {
   "name": "scout",
-  "description": "Web search and content fetching with privacy-aware tool selection. Find relevant sources, read web pages, and fetch content locally when privacy matters.",
+  "description": "Web research plugin that thinks before it searches. Query design, multi-engine search, privacy-aware fetching.",
   "version": "1.0.0",
   "author": {
     "name": "shidoyu",
@@ -11,4 +11,3 @@
   "license": "MIT",
   "keywords": ["search", "web-search", "fetch", "url", "privacy", "query-design", "research"]
 }
-

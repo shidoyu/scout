@@ -1,6 +1,12 @@
 🇯🇵 [日本語](docs/README.ja.md) · 🇰🇷 [한국어](docs/README.ko.md) · 🇨🇳 [简体中文](docs/README.zh-CN.md) · 🇹🇼 [繁體中文](docs/README.zh-TW.md) · 🇮🇳 [हिन्दी](docs/README.hi.md) · 🇩🇪 [Deutsch](docs/README.de.md) · 🇫🇷 [Français](docs/README.fr.md) · 🇪🇸 [Español](docs/README.es.md) · 🇧🇷 [Português](docs/README.pt-BR.md) · 🇮🇹 [Italiano](docs/README.it.md) · 🇳🇱 [Nederlands](docs/README.nl.md) · 🇵🇱 [Polski](docs/README.pl.md) · 🇨🇿 [Čeština](docs/README.cs.md) · 🇺🇦 [Українська](docs/README.uk.md) · 🇷🇺 [Русский](docs/README.ru.md) · 🇸🇪 [Svenska](docs/README.sv.md) · 🇩🇰 [Dansk](docs/README.da.md) · 🇪🇪 [Eesti](docs/README.et.md) · 🇹🇷 [Türkçe](docs/README.tr.md) · 🇸🇦 [العربية](docs/README.ar.md) · 🇮🇱 [עברית](docs/README.he.md) · 🇻🇳 [Tiếng Việt](docs/README.vi.md) · 🇮🇩 [Bahasa Indonesia](docs/README.id.md) · 🇹🇭 [ไทย](docs/README.th.md)
 
-# scout — Web Search & Content Fetching
+# scout
+
+**Think first. Search second.**
+
+Web research plugin that thinks before it searches. Query design, multi-engine search, privacy-aware fetching.
+
+---
 
 Claude Code's built-in WebSearch returns 125-character snippets and relies on keyword matching alone. scout turns a vague question into optimized multi-engine queries, evaluates result quality, and re-searches when needed — reaching primary sources faster and more reliably.
 
@@ -149,4 +155,3 @@ All product names, logos, and trademarks are the property of their respective ow
 ## License
 
 [MIT License](LICENSE) — free to use, modify, and distribute. Copyright (c) 2026 shidoyu.
-
