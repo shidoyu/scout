@@ -8,7 +8,7 @@ Web research plugin that thinks before it searches. Query design, multi-engine s
 
 ---
 
-Claude Code’s built-in WebSearch returns 125-character snippets and relies on keyword matching alone. scout turns a vague question into optimized multi-engine queries, evaluates result quality, and re-searches when needed — reaching primary sources faster and more reliably.
+Claude Code's built-in WebSearch returns 125-character snippets and relies on keyword matching alone. scout turns a vague question into optimized multi-engine queries, evaluates result quality, and re-searches when needed — reaching primary sources faster and more reliably.
 
 ## Features
 
@@ -126,7 +126,7 @@ This plugin is provided "as is" under the MIT License, without warranty of any k
 
 **Content Classification.** When fetching web content, the plugin may use LLM-based classification to assess privacy sensitivity and determine appropriate retrieval methods. Such classifications are best-effort and may contain errors. Do not rely on automated classification as the sole safeguard for sensitive or confidential information.
 
-**Web Fetching & Browser Automation.** This plugin includes tools for headless browser automation via Playwright and Chrome DevTools. You are responsible for ensuring your use complies with target websites’ terms of service, robots.txt policies, and applicable laws. The author is not liable for site blocking, account suspension, IP restrictions, unexpected script execution, resource consumption, or compatibility issues resulting from browser automation.
+**Web Fetching & Browser Automation.** This plugin includes tools for headless browser automation via Playwright and Chrome DevTools. You are responsible for ensuring your use complies with target websites' terms of service, robots.txt policies, and applicable laws. The author is not liable for site blocking, account suspension, IP restrictions, unexpected script execution, resource consumption, or compatibility issues resulting from browser automation.
 
 **MCP Servers.** This plugin connects to third-party MCP (Model Context Protocol) servers. The author does not control, audit, or guarantee the behavior or security of these servers.
 
