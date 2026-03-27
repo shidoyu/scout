@@ -31,6 +31,22 @@ O scout funciona imediatamente após a instalação — a busca utiliza WebSearc
 bash tools/setup.sh
 ```
 
+### Experimente agora
+
+Após instalar, pergunte ao Claude:
+
+**Encontrar conceitos que você ainda não sabe nomear:**
+> "Aquele conceito em programação onde você transforma uma função que recebe vários argumentos em uma cadeia de funções que recebem um argumento de cada vez"
+
+**Descobrir equivalentes internacionais de conceitos brasileiros:**
+> "Existe um equivalente em inglês pro 'jeitinho brasileiro' na programação — aquele improviso criativo pra contornar uma limitação técnica que não deveria existir?"
+
+**Obter respostas de especialista a partir de perguntas simples:**
+> "Minha aplicação Node.js funciona normal no meu Mac mas no servidor Linux dá erro de 'file not found' em arquivos que existem — os nomes estão certos"
+
+**Ler uma página específica:**
+> "Leia https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick e me explique a diferença entre setImmediate e process.nextTick"
+
 ## Skills
 
 ### scout:search

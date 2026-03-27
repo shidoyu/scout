@@ -31,6 +31,22 @@ scout fonctionne immédiatement après l'installation — la recherche utilise W
 bash tools/setup.sh
 ```
 
+### Essayez maintenant
+
+Après l'installation, demandez à Claude :
+
+**Trouver des concepts que vous ne savez pas encore nommer :**
+> « Le mécanisme qui permet à une fonction de se souvenir des variables de son contexte de création, même après que ce contexte a disparu »
+
+**Découvrir les équivalents internationaux de concepts français :**
+> « Le 'droit à la déconnexion' existe en France pour les salariés — y a-t-il des équivalents techniques ou légaux dans d'autres pays pour les équipes de dev ? »
+
+**Obtenir des réponses d'expert à partir de questions simples :**
+> « Mon script Python marche dans le terminal mais plante quand je le lance avec cron — 'ModuleNotFoundError' alors que le module est bien installé »
+
+**Lire une page spécifique :**
+> « Lis https://docs.python.org/fr/3/library/venv.html et explique comment activer un environnement virtuel »
+
 ## Skills
 
 ### scout:search

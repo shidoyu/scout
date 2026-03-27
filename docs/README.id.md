@@ -31,6 +31,22 @@ scout langsung berfungsi setelah diinstal — pencarian menggunakan WebSearch (b
 bash tools/setup.sh
 ```
 
+### Coba sekarang
+
+Setelah menginstal, tanya Claude:
+
+**Temukan konsep yang belum bisa kamu sebut namanya:**
+> "teknik di mana program bisa jalan terus tanpa harus nunggu proses sebelumnya selesai"
+
+**Temukan padanan internasional konsep Indonesia:**
+> "QRIS itu kalau di luar negeri padanannya apa untuk integrasi pembayaran?"
+
+**Dapatkan jawaban ahli dari pertanyaan sederhana:**
+> "aplikasi Android saya force close terus di HP murah tapi di HP mahal lancar"
+
+**Baca halaman tertentu:**
+> "baca https://vuejs.org/guide/essentials/reactivity-fundamentals.html"
+
 ## Skill
 
 ### scout:search

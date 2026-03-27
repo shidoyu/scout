@@ -31,6 +31,22 @@ scout działa od razu po instalacji — wyszukiwanie korzysta z WebSearch (wbudo
 bash tools/setup.sh
 ```
 
+### Wypróbuj teraz
+
+Po zainstalowaniu zapytaj Claude:
+
+**Znajdź koncepcje, których jeszcze nie potrafisz nazwać:**
+> "wzorzec w którym obiekt zapamiętuje swoje poprzednie stany i można cofnąć zmiany jak ctrl+z"
+
+**Odkryj międzynarodowe odpowiedniki polskich koncepcji:**
+> "jak wytłumaczyć zagranicznemu klientowi czym jest polski e-Doręczenia i jak to się ma do systemów typu certified email w EU"
+
+**Uzyskaj eksperckie odpowiedzi z prostych pytań:**
+> "aplikacja Node.js działa dobrze ale co kilka godzin nagle zużywa całą pamięć i trzeba restartować"
+
+**Przeczytaj konkretną stronę:**
+> "przeczytaj https://react.dev/reference/react/useEffect"
+
 ## Skills
 
 ### scout:search

@@ -31,6 +31,22 @@ scout fungerer umiddelbart efter installation — søgning bruger WebSearch (ind
 bash tools/setup.sh
 ```
 
+### Prøv det nu
+
+Efter installationen, spørg Claude:
+
+**Find begreber du endnu ikke kan navngive:**
+> "det mønster hvor man pakker et gammelt API ind i en ny grænseflade uden at ændre det bagvedliggende"
+
+**Opdag internationale ækvivalenter til danske koncepter:**
+> "vi bruger NemID/MitID til alt i Danmark – hvordan løser andre lande digital identitet i deres API'er?"
+
+**Få ekspertsvar fra simple spørgsmål:**
+> "min Node.js app virker fint lokalt men på serveren fejler den med 'Cannot find module' selvom alt er installeret"
+
+**Læs en bestemt side:**
+> "læs https://react.dev/reference/react/useEffect"
+
 ## Skills
 
 ### scout:search

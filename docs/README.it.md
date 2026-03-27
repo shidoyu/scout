@@ -31,6 +31,22 @@ scout funziona immediatamente dopo l'installazione — la ricerca utilizza WebSe
 bash tools/setup.sh
 ```
 
+### Provalo subito
+
+Dopo l'installazione, chiedi a Claude:
+
+**Trova concetti che non sai ancora nominare:**
+> "quel meccanismo dove il programma reagisce automaticamente quando un dato cambia senza dover controllare continuamente"
+
+**Scopri gli equivalenti internazionali di concetti italiani:**
+> "come funziona la fatturazione elettronica italiana (SDI) rispetto ai sistemi di fatturazione di altri paesi?"
+
+**Ottieni risposte da esperto da domande semplici:**
+> "il mio sito è lentissimo sulla prima visita ma poi va bene"
+
+**Leggi una pagina specifica:**
+> "leggi https://tailwindcss.com/docs/configuration"
+
 ## Skills
 
 ### scout:search

@@ -31,6 +31,22 @@ scout hoạt động ngay sau khi cài đặt — tìm kiếm sử dụng WebSea
 bash tools/setup.sh
 ```
 
+### Thử ngay
+
+Sau khi cài đặt, hãy hỏi Claude:
+
+**Tìm những khái niệm bạn chưa biết tên:**
+> "thuật toán mà app tự gợi ý sản phẩm dựa trên những gì người dùng khác có sở thích giống mình đã mua"
+
+**Khám phá tương đương quốc tế của khái niệm Việt Nam:**
+> "Tích hợp cổng thanh toán VNPay và MoMo vào app, cái nào dễ hơn cho developer?"
+
+**Nhận câu trả lời chuyên gia từ câu hỏi đơn giản:**
+> "Gõ tiếng Việt có dấu trong input field bị mất dấu hoặc hiện ký tự lạ khi submit form"
+
+**Đọc một trang cụ thể:**
+> "Đọc trang này https://nextjs.org/docs/getting-started/installation"
+
 ## Skills
 
 ### scout:search

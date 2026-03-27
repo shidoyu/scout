@@ -31,6 +31,22 @@ scout kurulumun hemen ardından çalışmaya hazırdır — arama WebSearch (yer
 bash tools/setup.sh
 ```
 
+### Hemen deneyin
+
+Kurulumdan sonra Claude'a sorun:
+
+**Henüz adını koyamadığınız kavramları bulun:**
+> "bir fonksiyonun çalışma sırasında kendini farklı bir versiyonuyla değiştirdiği teknik"
+
+**Türk kavramlarının uluslararası karşılıklarını keşfedin:**
+> "Türkiye'deki e-fatura ve e-arşiv fatura sistemi diğer ülkelerde nasıl çalışıyor?"
+
+**Basit sorulardan uzman yanıtları alın:**
+> "SSL sertifikası yeniledim ama site hâlâ güvensiz diyor"
+
+**Belirli bir sayfayı okuyun:**
+> "oku https://kubernetes.io/docs/concepts/workloads/pods/"
+
 ## Skills
 
 ### scout:search

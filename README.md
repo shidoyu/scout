@@ -35,6 +35,22 @@ scout works immediately after install — search uses WebSearch (built-in) and E
 bash tools/setup.sh
 ```
 
+### Try it now
+
+After installing, ask Claude:
+
+**Find concepts you can't name yet:**
+> "I want something like Git blame but for design decisions — I know the concept exists but not what it's called"
+
+**Get expert answers from plain language:**
+> "ENOSPC error but I have plenty of disk space — what's the real fix?"
+
+**Cut through SEO noise:**
+> "What should I actually migrate to from Terraform — not the sponsored lists, real migration stories"
+
+**Read a specific page:**
+> "Fetch and summarize https://docs.anthropic.com/en/docs/claude-code"
+
 ## Skills
 
 ### scout:search

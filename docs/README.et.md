@@ -31,6 +31,22 @@ scout töötab kohe pärast paigaldamist — otsing kasutab WebSearch'i (sisseeh
 bash tools/setup.sh
 ```
 
+### Proovi kohe
+
+Pärast paigaldamist küsi Claude'ilt:
+
+**Leia kontseptsioonid, mida sa veel nimetada ei oska:**
+> "see programmeerimisvõte kus funktsioon jätab enda meelde eelmised tulemused et mitte uuesti arvutada"
+
+**Avasta Eesti kontseptsioonide rahvusvahelised vasted:**
+> "kas mujal maailmas on midagi sarnast e-residentsuse API-ga?"
+
+**Saa ekspertvastuseid lihtsatest küsimustest:**
+> "minu Python skript töötab terminalis aga cron job ei leia mooduleid — ModuleNotFoundError"
+
+**Loe konkreetset lehte:**
+> "loe https://nextjs.org/docs/app/building-your-application/routing"
+
 ## Skills
 
 ### scout:search

@@ -31,6 +31,22 @@ scout funktioniert sofort nach der Installation — die Suche verwendet WebSearc
 bash tools/setup.sh
 ```
 
+### Jetzt ausprobieren
+
+Nach der Installation, frag Claude:
+
+**Konzepte finden, die du noch nicht benennen kannst:**
+> „Das Designmuster, bei dem man ein Objekt Schritt für Schritt zusammenbaut, statt alles im Konstruktor zu übergeben"
+
+**Deutsche Fachbegriffe international einordnen:**
+> „Gibt es in der englischsprachigen Softwareentwicklung ein Äquivalent zum deutschen Konzept 'Fachlichkeit' — also die reine Geschäftslogik ohne Technik?"
+
+**Klare Antworten aus vagen Fragen:**
+> „Mein Docker-Container startet, aber die App darin kann sich nicht mit der Datenbank auf dem Host verbinden — 'connection refused' obwohl alles lokal läuft"
+
+**Eine bestimmte Seite lesen:**
+> „Lies https://docs.docker.com/compose/networking/ und fasse die wichtigsten Punkte zusammen"
+
 ## Skills
 
 ### scout:search

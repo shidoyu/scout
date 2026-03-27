@@ -31,6 +31,22 @@ claude plugin install scout@shidoyu-scout
 bash tools/setup.sh
 ```
 
+### 立即体验
+
+安装后，向 Claude 提问：
+
+**发现你还无法命名的概念：**
+> "数据库里那个不用锁也能并发读写的技术叫什么"
+
+**发现本地概念的国际对应：**
+> "996工作制在硅谷有对应的说法吗"
+
+**用大白话获取专业知识：**
+> "Docker容器里时间和宿主机不一样 差了8小时"
+
+**阅读指定页面：**
+> "https://cn.vuejs.org/guide/essentials/reactivity-fundamentals.html 读一下这个页面"
+
 ## Skills
 
 ### scout:search

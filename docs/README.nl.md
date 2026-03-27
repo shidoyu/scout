@@ -31,6 +31,22 @@ scout werkt direct na installatie — zoeken maakt gebruik van WebSearch (ingebo
 bash tools/setup.sh
 ```
 
+### Probeer het nu
+
+Na installatie, vraag Claude:
+
+**Vind concepten die je nog niet kunt benoemen:**
+> "dat patroon waarbij je code uitvoert op het moment dat een object uit scope gaat"
+
+**Ontdek internationale equivalenten van Nederlandse concepten:**
+> "hoe werkt iDEAL vergeleken met betaalsystemen in andere landen?"
+
+**Krijg expertantwoorden van simpele vragen:**
+> "mijn git branch is helemaal in de war na een rebase en ik zie dubbele commits"
+
+**Lees een specifieke pagina:**
+> "lees https://docs.docker.com/compose/compose-file/"
+
 ## Skills
 
 ### scout:search

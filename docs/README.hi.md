@@ -31,6 +31,22 @@ scout install के तुरंत बाद काम करता है —
 bash tools/setup.sh
 ```
 
+### अभी आज़माएं
+
+इंस्टॉल करने के बाद, Claude से पूछें:
+
+**उन concepts को खोजें जिनका नाम आप अभी तक नहीं जानते:**
+> "वो technique जिसमें database अपने आप बार-बार पूछे जाने वाले queries का result याद रख लेता है"
+
+**भारतीय concepts के international equivalents खोजें:**
+> "UPI payment integration के लिए कौन सा API best है? Razorpay vs Paytm vs PhonePe difference क्या है?"
+
+**सरल सवालों से expert जवाब पाएं:**
+> "Hindi text का font browser में सही दिख रहा है लेकिन PDF generate करने पर टूट जाता है"
+
+**कोई specific page पढ़ें:**
+> "ये page पढ़ो https://docs.github.com/en/actions/quickstart"
+
 ## Skills
 
 ### scout:search

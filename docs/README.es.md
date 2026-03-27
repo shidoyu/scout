@@ -31,6 +31,22 @@ scout funciona de inmediato tras la instalación — la búsqueda utiliza WebSea
 bash tools/setup.sh
 ```
 
+### Pruébalo ahora
+
+Después de instalar, pregúntale a Claude:
+
+**Encontrar conceptos que aún no puedes nombrar:**
+> "El patrón de diseño donde un objeto actúa como intermediario para controlar el acceso a otro objeto, por ejemplo para añadir caché o validación sin modificar el original"
+
+**Descubrir equivalentes internacionales de conceptos locales:**
+> "¿Existe un equivalente en inglés al concepto de 'chapuza' en programación — ese arreglo rápido y feo que funciona pero que sabes que te va a dar problemas?"
+
+**Obtener respuestas expertas desde preguntas simples:**
+> "Git no me deja hacer push porque dice que mi rama está detrás del remoto, pero yo no cambié nada — alguien más hizo push antes que yo"
+
+**Leer una página específica:**
+> "Lee https://git-scm.com/docs/git-rebase y explícame cuándo debería usar rebase en vez de merge"
+
 ## Skills
 
 ### scout:search

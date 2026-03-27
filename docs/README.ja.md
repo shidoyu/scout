@@ -31,6 +31,22 @@ claude plugin install scout@shidoyu-scout
 bash tools/setup.sh
 ```
 
+### 今すぐ試す
+
+インストール後、Claude に聞いてみてください:
+
+**名前がわからない概念を見つける:**
+> 「Git blame みたいに、なぜこの設計にしたのかを追跡する方法はある？」
+
+**日本のプラクティスの海外版を発見:**
+> 「KPT ふりかえりに近い英語圏のプラクティスを探して — retrospective 以外のバリエーションも」
+
+**曖昧な質問から専門知識へ:**
+> 「ENOSPC エラーが出るけどディスク容量は余ってる、本当の原因は？」
+
+**特定のページを読む:**
+> 「https://docs.anthropic.com/en/docs/claude-code を取得して要約して」
+
 ## スキル
 
 ### scout:search

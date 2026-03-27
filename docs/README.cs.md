@@ -31,6 +31,22 @@ scout funguje okamžitě po instalaci — vyhledávání využívá WebSearch (v
 bash tools/setup.sh
 ```
 
+### Vyzkoušejte hned
+
+Po instalaci se zeptejte Claude:
+
+**Najít koncepty, které ještě neumíte pojmenovat:**
+> „návrhový vzor kdy se víc malých objektů tváří jako jeden velký a klient nepozná rozdíl"
+
+**Objevit mezinárodní ekvivalenty českých konceptů:**
+> „jak vysvětlit zahraničnímu týmu český koncept datových schránek a najít obdobu v jiných zemích"
+
+**Získat odborné odpovědi z jednoduchých otázek:**
+> „Git říká že nemůžu pushovat protože remote obsahuje práci kterou nemám lokálně ale já nic neměnil"
+
+**Přečíst konkrétní stránku:**
+> „přečti https://docs.python.org/3/library/asyncio-task.html"
+
 ## Skills
 
 ### scout:search

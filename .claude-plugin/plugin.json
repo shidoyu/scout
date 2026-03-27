@@ -9,5 +9,13 @@
   "homepage": "https://github.com/shidoyu/scout",
   "repository": "https://github.com/shidoyu/scout",
   "license": "MIT",
-  "keywords": ["search", "web-search", "fetch", "url", "privacy", "query-design", "research", "research-workflow"]
+  "keywords": ["search", "web-search", "fetch", "url", "privacy", "query-design", "research", "research-workflow"],
+  "hooks": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/session-start.sh"
+      }
+    ]
+  }
 }

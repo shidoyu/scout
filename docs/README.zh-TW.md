@@ -31,6 +31,22 @@ claude plugin install scout@shidoyu-scout
 bash tools/setup.sh
 ```
 
+### 立即體驗
+
+安裝後，向 Claude 提問：
+
+**發現你還無法命名的概念：**
+> 「API 回傳太快前端來不及處理 要怎麼控制速度」
+
+**發現台灣概念的國際對應：**
+> 「台灣的便利商店密度全球最高 其他國家超商文化差在哪」
+
+**用白話獲取專業知識：**
+> 「Mac 上開發的 Node.js 專案部署到 Linux 後 require 找不到模組 但路徑明明一樣」
+
+**閱讀指定頁面：**
+> 「https://react.dev/reference/react/useState 幫我讀這個頁面」
+
 ## Skills
 
 ### scout:search

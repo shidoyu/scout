@@ -31,6 +31,22 @@ scout fungerar direkt efter installation — sökning använder WebSearch (inbyg
 bash tools/setup.sh
 ```
 
+### Prova nu
+
+Efter installationen, fråga Claude:
+
+**Hitta koncept du inte kan namnge ännu:**
+> "det där mönstret där man skickar tillbaka ett objekt som bygger sig själv steg för steg"
+
+**Upptäck internationella motsvarigheter till svenska koncept:**
+> "finns det något som personnummer-validering i andra länders API:er?"
+
+**Få expertkunskap från enkla frågor:**
+> "min Docker-container funkar lokalt men kraschar på servern med 'killed'"
+
+**Läs en specifik sida:**
+> "läs https://docs.pydantic.dev/latest/concepts/validators/"
+
 ## Skills
 
 ### scout:search
