@@ -1,6 +1,6 @@
 ---
 name: search
-description: "Web search and content fetching. Find relevant sources and read web pages with precision."
+description: "Web search with query design and multi-engine execution. Use this skill when the user asks to \"search the web\", \"look up\", \"find online\", \"search for\", \"google\", \"research\", \"what is the latest\", \"find information about\", \"look this up\", or needs to find something on the internet. Also use when the user describes a concept they can't name, asks about recent events or current state of technology, needs to verify facts against web sources, or wants to compare tools/libraries/frameworks. Handles vague conceptual queries by extracting core concepts and designing effective search queries before execution. Multi-engine (WebSearch, Jina, Exa), privacy-aware fetching, automatic source quality evaluation."
 ---
 
 # scout:search v1.0 — Query Design + Search Execution
@@ -84,6 +84,48 @@ After Execute completes, evaluate search results against three criteria. **If al
 ## Search Tools
 
 Query design (Steps 1-3) and search tools are independent. Tool failures do not change query design. If a tool is unavailable, fall back to another.
+
+### MCP Server Availability Check
+
+Before executing queries, check which MCP tools are available in this session. This determines which search engines you can use.
+
+**How to check**: Look at the tools listed in your system prompt or available tools list. Search for tool names containing `exa` or `jina`.
+
+| Look for these tool names | Server | What it provides |
+|---|---|---|
+| `web_search_exa`, `get_code_context_exa` | exa-free (free, no API key) | Semantic search, code search |
+| `web_search_advanced_exa`, `crawling_exa`, `company_research_exa`, `people_search_exa`, `deep_researcher_start` | exa (paid, API key required) | Advanced search, company/people research |
+| `read_url`, `search_web` (from jina-reader server) | Jina Reader | URL content fetching, web search |
+
+Note: Actual tool names in your tools list may have MCP prefixes like `mcp__exa-free__web_search_exa`. The base names above are what to look for.
+
+**If Exa tools are NOT available**: Execute all queries with WebSearch instead. Do not attempt to call Exa tools. HyDE queries (designed for Exa's semantic search) should be converted to keyword queries when using WebSearch, because WebSearch matches keywords, not meaning.
+
+**If Exa tools ARE available**: Use the Tool Selection Table below to choose the best tool for each query.
+
+**If Exa is not available and user wants to enable it**:
+
+The plugin includes a `.mcp.json` that configures Exa free tier automatically. If it did not load, run the setup script and restart Claude Code:
+
+```bash
+bash tools/setup.sh
+# Then restart Claude Code, or run /mcp to reload MCP servers
+```
+
+To add Exa paid features, add this to the project `.mcp.json` (merge with existing `mcpServers` if the file already exists):
+
+```json
+{
+  "mcpServers": {
+    "exa": {
+      "type": "http",
+      "url": "https://mcp.exa.ai/mcp?exaApiKey=YOUR_API_KEY&tools=web_search_advanced_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+    }
+  }
+}
+```
+
+Replace `YOUR_API_KEY` with the user's Exa API key from https://dashboard.exa.ai/api-keys.
 
 ### Tool Selection Table
 
@@ -370,4 +412,3 @@ Search Plan
 ## Changelog
 
 - **v1.0** (2026-03-23): Initial release.
-
