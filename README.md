@@ -2,6 +2,8 @@
 
 # scout
 
+**Wrong search, wrong decision.**
+
 **Think first. Search second.**
 
 Web research plugin that thinks before it searches. Query design, multi-engine search, privacy-aware fetching.
