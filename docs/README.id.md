@@ -2,9 +2,13 @@
 
 > **Catatan:** Terjemahan ini disediakan untuk kemudahan saja. [Versi asli dalam bahasa Inggris](../README.md) adalah versi resmi.
 
-# scout — Pencarian Web & Pengambilan Konten
+# scout
 
-WebSearch bawaan Claude Code hanya mengembalikan cuplikan 125 karakter dan mengandalkan pencocokan kata kunci semata. scout mengubah pertanyaan yang samar menjadi kueri multi-mesin yang teroptimasi, mengevaluasi kualitas hasil, dan melakukan pencarian ulang bila diperlukan — menjangkau sumber primer lebih cepat dan lebih andal.
+**Wrong search, wrong decision.**
+
+> Pikir dulu, baru cari. — Plugin riset web untuk Claude Code.
+
+Desain kueri, pencarian multi-mesin, pengambilan konten yang menjaga privasi.
 
 ## Fitur
 

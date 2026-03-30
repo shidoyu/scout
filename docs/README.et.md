@@ -2,9 +2,13 @@
 
 > **Märkus:** See tõlge on esitatud mugavuse huvides. [Ingliskeelne originaal](../README.md) on ametlik versioon.
 
-# scout — Veebiotsing ja sisu toomine
+# scout
 
-Claude Code'i sisseehitatud WebSearch tagastab 125-tähemärgilisi katkendeid ja tugineb ainult märksõnapõhisele otsimisele. scout muudab ebamäärase küsimuse optimeeritud mitmemootorseteks päringuteks, hindab tulemuste kvaliteeti ja otsib vajadusel uuesti — jõudes esmaallikateni kiiremini ja usaldusväärsemalt.
+**Wrong search, wrong decision.**
+
+> Kõigepealt mõtle, siis otsi. — Veebiuuringu plugin Claude Code jaoks.
+
+Päringuteostus, mitmemootorine otsing, privaatsust arvestav toomine.
 
 ## Funktsioonid
 

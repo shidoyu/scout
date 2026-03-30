@@ -2,9 +2,13 @@
 
 > **Obs:** Denna översättning tillhandahålls för bekvämlighet. [Det engelska originalet](../README.md) är den officiella versionen.
 
-# scout — Webbsökning & Innehållshämtning
+# scout
 
-Claude Codes inbyggda WebSearch returnerar 125 tecken långa utdrag och förlitar sig enbart på nyckelordsmatchning. scout omvandlar en vag fråga till optimerade flermotor-sökfrågor, utvärderar resultatens kvalitet och söker om vid behov — och når primärkällor snabbare och mer tillförlitligt.
+**Wrong search, wrong decision.**
+
+> Tänk först, sök sedan. — Webbforskningsplugin för Claude Code.
+
+Frågedesign, flermotor-sökning, integritetsmedveten hämtning.
 
 ## Funktioner
 

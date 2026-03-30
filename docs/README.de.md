@@ -2,9 +2,13 @@
 
 > **Hinweis:** Diese Übersetzung dient nur der Bequemlichkeit. Das [englische Original](../README.md) ist die offizielle Version.
 
-# scout — Websuche & Inhaltabruf
+# scout
 
-Die in Claude Code integrierte WebSearch liefert lediglich 125-Zeichen-Ausschnitte und basiert ausschließlich auf Keyword-Matching. scout wandelt eine vage Frage in optimierte Multi-Engine-Abfragen um, bewertet die Qualität der Ergebnisse und führt bei Bedarf erneute Suchen durch — so gelangt es schneller und zuverlässiger zu primären Quellen.
+**Wrong search, wrong decision.**
+
+> Erst denken, dann suchen. — Web-Research-Plugin für Claude Code.
+
+Query-Design, Multi-Engine-Suche, datenschutzbewusstes Abrufen.
 
 ## Funktionen
 

@@ -2,9 +2,13 @@
 
 > **Nota:** Esta tradução é apenas para conveniência. O [original em inglês](../README.md) é a versão oficial.
 
-# scout — Busca na Web e Obtenção de Conteúdo
+# scout
 
-O WebSearch integrado ao Claude Code retorna trechos de 125 caracteres e depende apenas de correspondência por palavras-chave. O scout transforma uma pergunta vaga em consultas otimizadas para múltiplos motores de busca, avalia a qualidade dos resultados e realiza novas buscas quando necessário — alcançando fontes primárias com mais rapidez e confiabilidade.
+**Wrong search, wrong decision.**
+
+> Primeiro pensar, depois pesquisar. — Plugin de pesquisa web para Claude Code.
+
+Design de consultas, busca multi-motor, obtenção com privacidade.
 
 ## Funcionalidades
 

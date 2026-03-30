@@ -2,9 +2,13 @@
 
 > **नोट:** यह अनुवाद केवल सुविधा के लिए है। [अंग्रेज़ी मूल](../README.md) आधिकारिक संस्करण है।
 
-# scout — Web Search & Content Fetching
+# scout
 
-Claude Code का built-in WebSearch सिर्फ 125-character snippets return करता है और केवल keyword matching पर depend करता है। scout एक vague question को optimized multi-engine queries में बदलता है, result quality evaluate करता है, और ज़रूरत पड़ने पर re-search करता है — primary sources तक तेज़ी से और reliably पहुँचने के लिए।
+**Wrong search, wrong decision.**
+
+> पहले सोचो, फिर खोजो। — Claude Code के लिए वेब रिसर्च प्लगइन।
+
+क्वेरी डिज़ाइन, मल्टी-इंजन सर्च, प्राइवेसी-अवेयर फ़ेचिंग।
 
 ## विशेषताएँ
 

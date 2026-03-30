@@ -2,9 +2,13 @@
 
 > **Lưu ý:** Bản dịch này chỉ mang tính chất tham khảo. [Bản gốc tiếng Anh](../README.md) là phiên bản chính thức.
 
-# scout — Tìm kiếm Web & Lấy nội dung
+# scout
 
-WebSearch tích hợp sẵn trong Claude Code chỉ trả về đoạn trích 125 ký tự và dựa hoàn toàn vào khớp từ khóa. scout biến câu hỏi mơ hồ thành các truy vấn đa công cụ được tối ưu hóa, đánh giá chất lượng kết quả và tìm kiếm lại khi cần — giúp tiếp cận nguồn thông tin gốc nhanh hơn và đáng tin cậy hơn.
+**Wrong search, wrong decision.**
+
+> Suy nghĩ trước, tìm kiếm sau. — Plugin nghiên cứu web cho Claude Code.
+
+Thiết kế truy vấn, tìm kiếm đa công cụ, tải nội dung bảo vệ quyền riêng tư.
 
 ## Tính năng
 

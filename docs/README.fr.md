@@ -2,9 +2,13 @@
 
 > **Note :** Cette traduction est fournie à titre indicatif. La [version originale en anglais](../README.md) fait foi.
 
-# scout — Recherche Web & Récupération de Contenu
+# scout
 
-Le WebSearch intégré à Claude Code retourne des extraits de 125 caractères et repose uniquement sur la correspondance par mots-clés. scout transforme une question vague en requêtes optimisées pour plusieurs moteurs, évalue la qualité des résultats et relance la recherche si nécessaire — pour atteindre les sources primaires plus rapidement et de manière plus fiable.
+**Wrong search, wrong decision.**
+
+> Réfléchir d'abord, chercher ensuite. — Plugin de recherche web pour Claude Code.
+
+Conception de requêtes, recherche multi-moteurs, récupération respectueuse de la vie privée.
 
 ## Fonctionnalités
 

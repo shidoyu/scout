@@ -4,9 +4,9 @@
 
 **Wrong search, wrong decision.**
 
-**Think first. Search second.**
+> Think first. Search second. — Web research plugin for Claude Code.
 
-Web research plugin that thinks before it searches. Query design, multi-engine search, privacy-aware fetching.
+Query design, multi-engine search, privacy-aware fetching.
 
 ---
 

@@ -2,9 +2,13 @@
 
 > **Poznámka:** Tento překlad je poskytnut pouze pro pohodlí. [Anglický originál](../README.md) je oficiální verze.
 
-# scout — Webové vyhledávání a načítání obsahu
+# scout
 
-Vestavěný WebSearch v Claude Code vrací úryvky o délce 125 znaků a spoléhá výhradně na shodu klíčových slov. scout převede vágní otázku na optimalizované dotazy pro více vyhledávačů, vyhodnotí kvalitu výsledků a v případě potřeby vyhledá znovu — přičemž se k primárním zdrojům dostane rychleji a spolehlivěji.
+**Wrong search, wrong decision.**
+
+> Nejdřív přemýšlej, pak hledej. — Plugin pro webový výzkum pro Claude Code.
+
+Návrh dotazů, vícemotorové vyhledávání, načítání s ohledem na soukromí.
 
 ## Funkce
 

@@ -2,9 +2,13 @@
 
 > **Uwaga:** To tłumaczenie jest udostępnione wyłącznie dla wygody. [Oryginał w języku angielskim](../README.md) jest wersją oficjalną.
 
-# scout — Wyszukiwanie w sieci i pobieranie treści
+# scout
 
-Wbudowany WebSearch w Claude Code zwraca fragmenty tekstu o długości 125 znaków i opiera się wyłącznie na dopasowaniu słów kluczowych. scout zamienia niejasne pytanie w zoptymalizowane zapytania do wielu wyszukiwarek, ocenia jakość wyników i w razie potrzeby wyszukuje ponownie — docierając do pierwotnych źródeł szybciej i pewniej.
+**Wrong search, wrong decision.**
+
+> Najpierw pomyśl, potem szukaj. — Plugin do badań internetowych dla Claude Code.
+
+Projektowanie zapytań, wyszukiwanie wielosilnikowe, pobieranie z uwzględnieniem prywatności.
 
 ## Funkcje
 

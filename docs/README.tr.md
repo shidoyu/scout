@@ -2,9 +2,13 @@
 
 > **Not:** Bu çeviri yalnızca kolaylık sağlamak amacıyla sunulmuştur. [İngilizce orijinal](../README.md) resmi sürümdür.
 
-# scout — Web Araması ve İçerik Getirme
+# scout
 
-Claude Code'un yerleşik WebSearch aracı 125 karakterlik snippets döndürür ve yalnızca anahtar kelime eşleştirmesine dayanır. scout, belirsiz bir soruyu optimize edilmiş çok motorlu sorgulara dönüştürür, sonuç kalitesini değerlendirir ve gerektiğinde yeniden arama yapar — birincil kaynaklara daha hızlı ve güvenilir bir şekilde ulaşır.
+**Wrong search, wrong decision.**
+
+> Önce düşün, sonra ara. — Claude Code için web araştırma eklentisi.
+
+Sorgu tasarımı, çok motorlu arama, gizlilik odaklı getirme.
 
 ## Özellikler
 

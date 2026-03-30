@@ -2,9 +2,13 @@
 
 🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇸🇦 [العربية](README.ar.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇵🇱 [Polski](README.pl.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇺🇦 [Українська](README.uk.md) · 🇹🇭 [ไทย](README.th.md) · 🇷🇺 [Русский](README.ru.md) · 🇮🇹 [**Italiano**](README.it.md)
 
-# scout — Ricerca Web e Recupero Contenuti
+# scout
 
-Il WebSearch integrato di Claude Code restituisce snippet di 125 caratteri e si basa esclusivamente sul matching per parole chiave. scout trasforma una domanda vaga in query ottimizzate per più motori di ricerca, valuta la qualità dei risultati e riesegue la ricerca quando necessario — raggiungendo le fonti primarie in modo più rapido e affidabile.
+**Wrong search, wrong decision.**
+
+> Prima pensare, poi cercare. — Plugin di ricerca web per Claude Code.
+
+Progettazione query, ricerca multi-motore, recupero rispettoso della privacy.
 
 ## Funzionalità
 

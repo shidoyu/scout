@@ -2,9 +2,13 @@
 
 > **Opmerking:** Deze vertaling is uitsluitend bedoeld voor het gemak. Het [Engelse origineel](../README.md) is de officiële versie.
 
-# scout — Webzoeken & Inhoud Ophalen
+# scout
 
-De ingebouwde WebSearch van Claude Code retourneert fragmenten van 125 tekens en vertrouwt uitsluitend op trefwoordovereenkomst. scout vertaalt een vage vraag naar geoptimaliseerde zoekopdrachten voor meerdere zoekmachines, beoordeelt de kwaliteit van de resultaten en zoekt opnieuw wanneer dat nodig is — waarmee primaire bronnen sneller en betrouwbaarder worden bereikt.
+**Wrong search, wrong decision.**
+
+> Eerst denken, dan zoeken. — Webonderzoek-plugin voor Claude Code.
+
+Query-ontwerp, multi-engine zoeken, privacybewust ophalen.
 
 ## Functies
 

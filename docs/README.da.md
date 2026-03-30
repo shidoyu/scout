@@ -2,9 +2,13 @@
 
 > **Bemærk:** Denne oversættelse er kun til orientering. Den [engelske original](../README.md) er den officielle version.
 
-# scout — Websøgning og indhentning af indhold
+# scout
 
-Claude Codes indbyggede WebSearch returnerer uddrag på 125 tegn og anvender udelukkende nøgleordsmatching. scout omdanner et vagt spørgsmål til optimerede forespørgsler på tværs af flere søgemaskiner, vurderer resultaternes kvalitet og søger igen ved behov — og når primære kilder hurtigere og mere pålideligt.
+**Wrong search, wrong decision.**
+
+> Tænk først, søg bagefter. — Webforskningsplugin til Claude Code.
+
+Forespørgselsdesign, flermotorsøgning, privatlivsbeskyttende indhentning.
 
 ## Funktioner
 
