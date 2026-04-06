@@ -1,7 +1,7 @@
 {
   "name": "scout",
   "description": "Web research plugin that thinks before it searches. Query design, multi-engine search, privacy-aware fetching.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": {
     "name": "shidoyu",
     "url": "https://github.com/shidoyu"
@@ -9,5 +9,17 @@
   "homepage": "https://github.com/shidoyu/scout",
   "repository": "https://github.com/shidoyu/scout",
   "license": "MIT",
-  "keywords": ["search", "web-search", "fetch", "url", "privacy", "query-design", "research", "research-workflow"]
+  "keywords": ["search", "web-search", "fetch", "url", "privacy", "query-design", "research", "research-workflow"],
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/session-start.sh"
+          }
+        ]
+      }
+    ]
+  }
 }

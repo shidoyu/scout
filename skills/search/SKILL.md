@@ -1,13 +1,13 @@
 ---
 name: search
-description: "Web search with query design and multi-engine execution. Use this skill when the user asks to \"search the web\", \"look up\", \"find online\", \"search for\", \"google\", \"research\", \"what is the latest\", \"find information about\", \"look this up\", or needs to find something on the internet. Also use when the user describes a concept they can't name, asks about recent events or current state of technology, needs to verify facts against web sources, or wants to compare tools/libraries/frameworks. Handles vague conceptual queries by extracting core concepts and designing effective search queries before execution. Multi-engine (WebSearch, Jina, Exa), privacy-aware fetching, automatic source quality evaluation."
+description: "Web search and content fetching. Find relevant sources and read web pages with precision."
 ---
 
-# scout:search v1.0 — Query Design + Search Execution
+# scout:search v2.0 — Adaptive Search with Primary-Source Focus
 
 ## Purpose
 
-Improve the rate of reaching primary sources via web search. Instead of relying on LLM prior knowledge, leverage search engine characteristics to reliably retrieve information. Preserve proper nouns rather than over-generalizing, and reach the target information with fewer queries.
+Maximize the rate of reaching primary sources via web search. Refine query precision through iterative abstraction, adapt search depth and tool selection to domain characteristics, and prioritize authoritative sources in evaluation and synthesis.
 
 ## Usage
 
@@ -15,117 +15,206 @@ Improve the rate of reaching primary sources via web search. Instead of relying 
 /scout:search what you want to find (natural language)
 ```
 
+## Design Principles
+
+1. **Query refinement is the core.** Pre-Research → Abstraction → vocabulary acquisition → refined queries. This pipeline is the primary mechanism for reaching accurate information. Do not shortcut it.
+2. **Primary sources are the goal, not the starting point.** Early phases (Pre-Research) may use secondary sources for concept understanding. Later phases (Main Search, Re-search) use refined queries to reach primary sources.
+3. **Adapt to the domain.** Tool selection and search depth vary by domain characteristics. Not all queries need the same treatment.
+4. **Quality over quantity.** Fewer high-quality sources beat many low-quality ones. Collect what's needed, not everything available.
+
 ## Execution Flow
 
-### Step 1: Analyze (Tentative Intent Classification)
+### Step 0.5: Clarify (Conditional)
 
-From the user's input, tentatively determine the following (may change after Step 2 Pre-Research):
+**Execute only when the query is ambiguous** and the search outcome would significantly differ based on interpretation.
+
+Ambiguity indicators:
+- Comparison axis is unclear (e.g., "best database" — for what use case?)
+- Target version/era is unspecified for version-dependent topics
+- Jurisdiction/region is omitted for location-dependent topics
+- Scope is too broad to design effective queries (e.g., "Rust async best practices" — web backend? embedded? library design?)
+
+**If ambiguous**: Ask one clarification question. Offer to proceed with an assumed interpretation if the user prefers not to answer.
+
+**If clear**: Skip entirely. Do not ask unnecessary questions.
+
+### Step 1: Analyze
+
+From the user's input, determine:
 
 1. **Search intent** → See Intent Classification Table
 2. **Presence of proper nouns**
 3. **Information category** → See Language Selection Table
 4. **User's language**
+5. **Domain characteristics** → See Domain Classification Table
+6. **Risk level** — Is this a high-risk topic? (security, compliance, destructive operations, incident response)
+
+All classifications are tentative and may change after Step 2 Pre-Research.
 
 ### Step 2: Pre-Research
 
-**Always execute.** Investigate the search target with one query to improve query design accuracy.
+**Always execute** unless Source-Type Routing (Step 2.5) can fully answer the query without any search. Investigate the search target with one query to improve query design accuracy.
 
 1. **Search the target** (budget: 1 query, separate from main search budget)
    - Use the language closest to the target, with proper noun + attribute keywords
    - Default to WebSearch (Pre-Research prioritizes speed for concept understanding)
    - If needed, fetch source articles following the scout:fetch workflow (max 2 pages; the goal is concept understanding, not exhaustive research)
+   - **Secondary sources are acceptable here** — the goal is concept understanding and vocabulary acquisition, not authoritative answers
 2. **Abstract the essence** — Describe the target's mechanism in one sentence
    - Example: "Stripe pricing" → "Online payment platform. Transaction fee-based (2.9% + 30¢/txn) + additional service-specific charges"
 3. **Decompose into query vocabulary** — List keyword candidates derived from the abstraction
    - Example: `Stripe`, `pricing`, `fees`, `transaction`, `payment processing`, `plans`
+4. **Re-evaluate domain classification** — Pre-Research may reveal that the domain is different from initial assessment (e.g., what looked like a simple technical query turns out to require academic research)
 
-**If Pre-Research does not reach full understanding**: Proceed to Step 3 based on current understanding. Note uncertain parts in the abstraction. Design main search queries using only what was reliably understood.
+**If Pre-Research does not reach full understanding**: Proceed to Step 3 based on current understanding. Design main search queries using only what was reliably understood. Note uncertain parts in the abstraction for later verification.
 
 **For navigational intent**: Pre-Research only needs to confirm the target exists. Abstraction and vocabulary decomposition can be skipped.
 
-### Step 3: Plan (Query Design)
+### Step 2.5: Route (Source-Type Routing)
 
-Based on intent classification and language selection results, generate 1–3 queries following the output template. Design queries based on the **abstracted concept and query vocabulary** from Pre-Research.
+**Check if the query can be answered by direct lookup** without general web search.
 
-- **Budget**: 2 queries by default, 3 max (Pre-Research query is separate). A 3rd query is added only when primary source language, English, and user language are all different. Navigational intent may complete with 1 query.
+| Query type | Direct source | Action |
+|---|---|---|
+| Package version / dependency info | npm, PyPI, crates.io, Maven Central | Fetch API/registry directly |
+| RFC / Internet standard | IETF | Fetch directly |
+| CVE / vulnerability | NVD, GitHub Advisory | Fetch directly |
+| GitHub issue / PR / release | GitHub API | Fetch directly |
+| Standard library docs | Official docs (MDN, docs.python.org, etc.) | Fetch directly |
+| Law / regulation text | e-Gov, official gazette | Fetch directly |
+| Kubernetes API / resource spec | kubernetes.io | Fetch directly |
+
+**If routable**: Fetch the direct source. Route fetches are executed synchronously before proceeding to Step 3. If the direct source fully answers the query → skip to Step 6: Synthesize. If partially answers → continue to Step 3 with the direct source as baseline.
+
+**If not routable**: Continue to Step 3.
+
+### Step 3: Plan (Query Design + Budget + Tool Selection)
+
+Based on Pre-Research results, design the search plan.
+
+#### 3a: Budget Allocation
+
+Assign a budget tier based on intent and domain complexity:
+
+| Tier | Queries | When | Re-search cycles |
+|---|---|---|---|
+| **S** | 1–2 | Navigational, source routing partial hit, simple factoid | 0 |
+| **M** | 3–5 | Standard factual, comparison, how-to | max 1 |
+| **L** | 6–8 | Multi-hop, conflicting claims, specialized research, multi-language | max 2 |
+
+Budget is a **ceiling**, not a target. Use fewer queries if sufficient information is found early.
+
+#### 3b: Domain-Aware Tool Selection
+
+Select tool emphasis based on domain classification. This is a **directional guideline**, not a rigid allocation. For Tier S (1-2 queries), use the single best tool — the tool-diversity requirement is waived.
+
+| Domain | Primary tool | Secondary tool | Rationale |
+|---|---|---|---|
+| **Technical** (official docs exist) | WebSearch | Exa supplements | WebSearch reaches official docs directly. Exa adds community context |
+| **Empirical** (academic/research) | Exa | WebSearch supplements | Exa HyDE excels at finding papers by meaning. WebSearch for DOI/publisher lookup |
+| **Conceptual** (theory/philosophy) | Balanced | — | Both contribute; balance breadth and depth |
+| **Regulatory** (law/policy/compliance) | WebSearch | Exa supplements | WebSearch for official sources + freshness. Exa for analytical context |
+
+**Note**: Pre-Research is exempt from this guideline — use whatever tool is fastest for concept understanding.
+
+#### 3c: Query Design
+
+Design queries based on the **abstracted concept and query vocabulary** from Pre-Research.
+
+- **Budget**: Per tier allocation (Tier S: 1–2, Tier M: 3–5, Tier L: 6–8). Pre-Research query is separate.
 - **Differentiation**: Each query must differ in at least one of: language, intent axis (attribute/concept), or tool (WebSearch / Exa). Do not generate multiple queries with the same language + intent + tool combination.
-- **HyDE mode**: When Exa is selected as the tool and the query's purpose is conceptual search (intent is `general` or `practice`), generate a hypothetical answer (2-3 sentences) to the user's question instead of keywords, and use it as the Exa query. Exa's semantic search performs better with semantically similar text than with keywords. Skip HyDE for `navigational` / `target` / `comparison` where keywords are more effective — use standard keyword queries for Exa in those cases (same format as WebSearch queries). Mark HyDE queries with `[HyDE]` tag in the output template (e.g., `Query 2: en [HyDE] "Persistent markdown files enable AI agents to carry context across sessions..." → Exa`).
+- **Tool allocation**: Follow the domain-aware ratio from Step 3b.
+- **HyDE mode**: When Exa is selected and the query's purpose is conceptual search (intent is `general` or `practice`), generate a hypothetical answer (2-3 sentences) as the Exa query. Skip HyDE for `navigational` / `target` / `comparison` — use keyword queries instead. Mark HyDE queries with `[HyDE]` tag in the output template (e.g., `Query 2: en [HyDE] "Teams using Terraform typically store state in remote backends..." → Exa`).
+- **Freshness constraint**: For time-sensitive topics (pricing, regulations, benchmarks, API specs, version-dependent info), append the current year to queries and/or use date-range filters. Explicitly note freshness requirements in the plan.
+- **Counter-Query** (conditional): When intent is `comparison`, add one counter-query per comparison target (e.g., "X drawbacks", "Y problems"). When risk level is high, add one counter-query (e.g., "X production issues", "why not X"). Counter-queries count toward the budget. This prevents confirmation bias in evaluative searches.
+- **Primary source targeting**: For Tier M/L, design at least one query specifically aimed at primary sources (e.g., `site:docs.*`, `site:github.com`, official domain targeting). This leverages the refined vocabulary from Pre-Research to reach authoritative sources.
 
 ### Step 4: Execute (Search Execution)
 
-Refer to the Tool Selection Table and execute each query with the optimal tool.
+Refer to the Tool Selection Table and execute each query with the assigned tool.
 
 **Early termination**: Only skip remaining queries when a navigational search has reached the target page. All other quality judgments happen in Step 5: Assess.
 
 **Parallel execution**: Execute queries with the same language AND same tool sequentially (to allow refinement based on previous results). All other combinations (different language OR different tool) should be executed in parallel via the Agent tool.
 
-**Source article deep-dive**: When search result snippets (125 characters) are insufficient for judgment, fetch URL content following the scout:fetch workflow. Source article retrieval is especially useful for verifying numbers, procedures, and specifications.
+**Source article deep-dive**: When search result snippets (125 characters) are insufficient for judgment, fetch URL content following the scout:fetch workflow.
 
 ### Step 5: Assess (Search Result Evaluation)
 
-After Execute completes, evaluate search results against three criteria. **If all are met, proceed to answering (no additional search).**
+After Execute completes, evaluate search results against three criteria. **If all are met, proceed to synthesis (no additional search).**
 
 | Criterion | How to judge |
 |---|---|
 | **Sufficiency** | Can the user's question be directly answered? |
-| **Reliability** | Did we reach a primary source OR have corroboration from multiple independent sources? For time-sensitive information, do results include recent dates? |
+| **Reliability** | See Reliability sub-criteria below |
 | **Specificity** | Did we obtain concrete information such as numbers, procedures, or specifications? (If snippets are insufficient, deep-dive with scout:fetch) |
 
-**If any criterion is unmet → Re-search (max 2 queries, 1 cycle only)**:
+#### Reliability Sub-Criteria
 
-1. Identify which criteria are unmet
-2. Design additional queries using new vocabulary/concepts from existing results
-3. Apply differentiation rule: queries must differ from previous queries in at least one of language, tool, or intent axis
+Reliability is evaluated along five dimensions (internal checklist, not separate pass/fail criteria):
+
+| Dimension | What to check |
+|---|---|
+| **Provenance** | Source tier: primary (official docs, peer-reviewed papers, government sites) > secondary (expert blogs, reputable journalism) > tertiary (aggregator sites, forums, Wikipedia). Are primary sources present? |
+| **Corroboration** | Do multiple independent sources agree? |
+| **Recency** | Is the information fresh enough for the topic? (Critical for time-sensitive domains) |
+| **Consistency** | Are there contradictions across sources? |
+| **Perspective diversity** | Is the information from a single vendor/author, or are multiple viewpoints represented? (Especially important for comparison queries) |
+
+**Tier scaling**: For Tier S, Reliability reduces to "did we reach the target page / official source?" For Tier M/L, evaluate all five dimensions.
+
+**Primary-source check**: If the collected sources lack primary sources for key claims, flag this in the Reliability assessment. This becomes a trigger for Re-search.
+
+#### Novelty Check (Re-search decision aid)
+
+Before triggering Re-search, estimate whether additional searching will yield new information:
+
+- Are there unexplored source types (e.g., searched blogs but not issue trackers)?
+- Did the last search cycle produce genuinely new claims, or just restatements?
+- Would new queries use significantly different vocabulary?
+
+```
+Re-search decision:
+  IF criteria unmet AND novelty estimate is positive → Re-search
+  IF criteria unmet AND novelty estimate is low → Finalize with uncertainty disclosure
+```
+
+#### Failure Mode Handling
+
+| Failure mode | Action |
+|---|---|
+| **Zero results** | Reformulate query (generalize terms, try alternate spelling/transliteration). If still zero, report failure honestly |
+| **All low-quality** | Switch tool (e.g., Exa → WebSearch) and target primary source domains specifically |
+| **Contradictory results** | Present the contradiction explicitly with source attribution. Note which sources are primary vs. secondary |
+| **Primary-source gap** | Re-search with primary-source-targeted queries (site: operators, official domain targeting) using refined vocabulary from current results |
+| **Information saturation** | Novelty is low but criteria still unmet → Finalize with uncertainty disclosure. "Additional searching did not yield new authoritative sources" |
+
+**If any criterion is unmet and novelty is positive → Re-search (max 2 queries per cycle, cycles per tier as defined in Budget Allocation table — Tier S: 0, Tier M: max 1, Tier L: max 2)**:
+
+1. Identify which criteria are unmet and what's missing
+2. Design additional queries using new vocabulary/concepts from existing results (apply the differentiation rule from Hard Constraints)
+3. **If primary-source gap was flagged**: Prioritize primary-source-targeted queries in this cycle
 4. Execute additional queries
-5. Re-search runs only once (no recursion — one correction cycle for maximum effect; recursion risks query drift)
+5. Re-assess after each cycle
 
-**Skip condition**: Only when Step 4 navigational early termination occurred.
+Re-search cycles per tier are defined in the Budget Allocation table (Step 3a). Absolute ceiling: Tier L main (8) + Re-search (2 cycles × 2 queries = 4) + Pre-Research (1) = 13 queries.
+
+### Step 6: Synthesize (Answer Generation)
+
+Generate the answer based on collected sources.
+
+**Source weighting in synthesis**:
+- Primary sources form the backbone of the answer
+- Secondary sources provide supplementary context and explanation
+- Tertiary sources are cited only when no better source exists, with appropriate caveats
+
+**Uncertainty disclosure**: When the answer relies on secondary/tertiary sources for key claims, note this:
+- "This is based on [source type] — official documentation should be consulted for authoritative confirmation"
+- "Sources disagree on [point] — [Source A] states X while [Source B] states Y"
 
 ## Search Tools
 
 Query design (Steps 1-3) and search tools are independent. Tool failures do not change query design. If a tool is unavailable, fall back to another.
-
-### MCP Server Availability Check
-
-Before executing queries, check which MCP tools are available in this session. This determines which search engines you can use.
-
-**How to check**: Look at the tools listed in your system prompt or available tools list. Search for tool names containing `exa` or `jina`.
-
-| Look for these tool names | Server | What it provides |
-|---|---|---|
-| `web_search_exa`, `get_code_context_exa` | exa-free (free, no API key) | Semantic search, code search |
-| `web_search_advanced_exa`, `crawling_exa`, `company_research_exa`, `people_search_exa`, `deep_researcher_start` | exa (paid, API key required) | Advanced search, company/people research |
-| `read_url`, `search_web` (from jina-reader server) | Jina Reader | URL content fetching, web search |
-
-Note: Actual tool names in your tools list may have MCP prefixes like `mcp__exa-free__web_search_exa`. The base names above are what to look for.
-
-**If Exa tools are NOT available**: Execute all queries with WebSearch instead. Do not attempt to call Exa tools. HyDE queries (designed for Exa's semantic search) should be converted to keyword queries when using WebSearch, because WebSearch matches keywords, not meaning.
-
-**If Exa tools ARE available**: Use the Tool Selection Table below to choose the best tool for each query.
-
-**If Exa is not available and user wants to enable it**:
-
-The plugin includes a `.mcp.json` that configures Exa free tier automatically. If it did not load, run the setup script and restart Claude Code:
-
-```bash
-bash tools/setup.sh
-# Then restart Claude Code, or run /mcp to reload MCP servers
-```
-
-To add Exa paid features, add this to the project `.mcp.json` (merge with existing `mcpServers` if the file already exists):
-
-```json
-{
-  "mcpServers": {
-    "exa": {
-      "type": "http",
-      "url": "https://mcp.exa.ai/mcp?exaApiKey=YOUR_API_KEY&tools=web_search_advanced_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
-    }
-  }
-}
-```
-
-Replace `YOUR_API_KEY` with the user's Exa API key from https://dashboard.exa.ai/api-keys.
 
 ### Tool Selection Table
 
@@ -172,12 +261,29 @@ Semantic search engine. Finds pages by meaning similarity rather than keyword ma
 - Content included: Retrieves article content without needing WebFetch
 - Code-specialized tool: High accuracy for programming-related searches
 
+**Exa's known bias**: HyDE tends to surface secondary sources (blog posts, explanatory articles) over primary sources (official docs, specs). This is a feature for concept understanding but a liability when authoritative answers are needed. Mitigate by using WebSearch for primary-source-targeted queries.
+
 **Usage**: Use `exa-free` tools by default (free). Use `exa` tools only when: (a) `exa-free` returned insufficient results, (b) company or people-specific research is needed, or (c) the user explicitly requests deep multi-step research. When `exa-free` rate limit is reached, fall back to WebSearch.
 
 ### URL Content Retrieval (Auxiliary)
 
 For deep-diving into source articles from search results. Retrieves URL content. Not a search tool — used to follow up on search results.
 Tool selection follows the **scout:fetch workflow** (privacy classification → tool selection → fallback). If the scout:fetch skill is not available, use WebFetch or Jina Reader directly for public URLs.
+
+## Domain Classification Table
+
+Classify the query's domain to guide tool selection and search strategy.
+
+| Domain | Characteristics | Primary source types | Tool emphasis |
+|---|---|---|---|
+| **Technical** | Official docs exist, version-dependent, API/spec queries | Official docs, GitHub repos, release notes, changelogs, CVE/NVD | WebSearch-primary |
+| **Empirical** | Academic research, statistical data, effect sizes, experimental results | Peer-reviewed papers, systematic reviews, meta-analyses | Exa-primary |
+| **Conceptual** | Theoretical frameworks, philosophical debates, design patterns | Foundational texts, survey papers, expert analyses | Balanced |
+| **Regulatory** | Laws, regulations, compliance, policy, government actions | Official gazettes, regulatory bodies, legislative text | WebSearch-leaning |
+
+**Default**: When uncertain, treat as Conceptual (balanced approach).
+
+**Re-classification**: Domain classification may change after Pre-Research. If it does, adjust tool allocation accordingly before proceeding to Main Search.
 
 ## Intent Classification Table
 
@@ -214,25 +320,32 @@ Tool selection follows the **scout:fetch workflow** (privacy classification → 
 Output the following format before executing queries:
 
 ```
---- Phase A: Pre-Research (output → tool execution → results) ---
+--- Phase A: Pre-Research ---
 0. Pre-Research: [lang] [query] → [tool]
 
---- Phase B: Analysis & Main Search Plan (output after Pre-Research results) ---
+--- Phase B: Analysis & Plan ---
 0a. Abstraction: [one-sentence essence]
 0b. Keywords: [query vocabulary derived from abstraction]
 1. Intent: [target / practice / general / navigational / comparison]
-2. Primary language: [Language Selection Table result]
-3. Query 1: [lang] [query] → [WebSearch / Exa]
-4. Query 2: [lang] [query or HyDE text] → [WebSearch / Exa] (optional, HyDE: [HyDE] tag)
-5. Query 3: [lang] [query] → [WebSearch / Exa] (optional, 3-language condition only)
+2. Domain: [technical / empirical / conceptual / regulatory]
+3. Budget: Tier [S/M/L] ([N] queries)
+4. Tool allocation: WebSearch [N]% / Exa [N]%
+5. Primary language: [Language Selection Table result]
+6. Query 1: [lang] [query] → [WebSearch / Exa] [primary-source-targeted? Y/N]
+7. Query 2: [lang] [query or HyDE text] → [tool] (optional)
+8. Query 3+: ... (as budget allows)
+9. Counter-Query: [lang] [query] → [tool] (only if comparison/high-risk)
+10. Freshness constraint: [year/date filter if applicable]
 
---- Phase C: Evaluation (output after Execute completes) ---
-6. Assess: [Sufficiency ✓/✗] [Reliability ✓/✗] [Specificity ✓/✗]
-7. Re-search 1: [lang] [query] → [tool] (reason: [unmet criterion]) (only if ✗)
-8. Re-search 2: [lang] [query] → [tool] (reason: [unmet criterion]) (optional)
+--- Phase C: Evaluation ---
+11. Assess: [Sufficiency ✓/✗] [Reliability ✓/✗] [Specificity ✓/✗]
+12. Primary sources found: [N] / [total sources]
+13. Novelty estimate: [high/medium/low]
+14. Re-search 1: [lang] [query] → [tool] (reason: [unmet criterion]) (only if ✗ and novelty > low)
+15. Re-search 2: [lang] [query] → [tool] (optional)
 ```
 
-If Pre-Research results change the initial intent classification or query composition, **redesign Intent and queries based on the post-Pre-Research understanding**.
+If Pre-Research results change the initial intent/domain classification or query composition, **redesign from Step 3 based on the updated understanding**.
 
 ## Transliteration Rules
 
@@ -247,168 +360,120 @@ If Pre-Research results change the initial intent classification or query compos
 - Do not drop country/region names in searches involving jurisdictions, regulations, or government
 - For comparisons, include proper nouns for both sides
 - Use phrase matching (double quotes) only for official names and precise technical terms
-- Initial plan: max 3 queries (Pre-Research is separate). Only +2 queries if Assess finds unmet criteria (total 5 queries + Pre-Research is the ceiling)
-- Each query must be differentiated by language, intent axis, or tool (no redundant query repetition)
-- For time-sensitive topics (pricing, regulations, benchmarks), append the current year to queries to prioritize recent results
+- Each query must be differentiated by language, intent axis, or tool (no redundant query repetition). This applies to both Main Search and Re-search
+- For time-sensitive topics, append the current year to queries to prioritize recent results
 - Never send confidential URLs to `crawling_exa` — use scout:fetch for URL content retrieval instead
 - If all available tools fail during both Execute and Re-search, report the failure to the user with the specific errors encountered. Do not fabricate results from prior knowledge
+- **Primary sources are the goal, not the starting point**: Do not force primary-source-only collection in Pre-Research. Allow concept understanding from any source type, then use refined queries to reach primary sources in Main Search and Re-search
 
 ## Examples
 
-### Example 1: Target Information (Proper Noun + Attribute)
+### Example 1: Technical Domain — WebSearch-Primary + Source-Type Routing
 
-**Input**: "What are Stripe's pricing plans?"
+**Input**: "What's the latest version of lodash and its bundle size?"
 
 ```
-Search Plan
-0. Pre-Research: en Stripe payment processing pricing model → WebSearch
-0a. Abstraction: Online payment platform. Transaction fee-based (2.9% + 30¢/txn) + additional service-specific charges
-0b. Keywords: Stripe, pricing, fees, transaction, payment processing, plans
+--- Phase A ---
+0. Pre-Research: (skipped — Source-Type Routing applies)
+
+--- Route ---
+Route: npm registry → fetch `npm view lodash version` directly
+Result: Partial answer (version found, bundle size not in registry)
+
+--- Phase B ---
+0a. Abstraction: Popular JS utility library. Version from npm, bundle size from bundlephobia or official docs
+0b. Keywords: lodash, bundle size, minified, gzipped
 1. Intent: target
-2. Primary language: en (Product/service → provider language)
-3. Query 1: en Stripe pricing plans fees 2026 → WebSearch
-4. (Query 2 omitted — single-language target search; 1 query sufficient)
+2. Domain: technical
+3. Budget: Tier S (1 query, routing answered half)
+4. Tool emphasis: WebSearch-primary (technical domain)
+5. Primary language: en
+6. Query 1: en lodash bundle size minified gzipped 2026 → WebSearch [primary-source: Y]
+
+--- Phase C ---
+11. Assess: [Sufficiency ✓] [Reliability ✓] [Specificity ✓]
+12. Primary sources: 2/2 (npm registry + bundlephobia)
+13. Novelty estimate: n/a
 ```
 
-### Example 2: Pre-Research → Abstraction → Query Design
+**Key point**: Source-Type Routing answered part of the query directly. Only 1 search query needed for the remainder.
 
-**Input**: "How does Terraform manage state in multi-team environments?"
+### Example 2: Empirical Domain — Exa-Primary + Re-search with Novelty Check
+
+**Input**: "What's the evidence for spaced repetition effectiveness in language learning?"
 
 ```
-Search Plan
-0. Pre-Research: en Terraform state management multi-team → WebSearch
-0a. Abstraction: Terraform uses remote backends (S3, GCS, Terraform Cloud) with state locking and workspaces to isolate and share infrastructure state across teams
-0b. Keywords: Terraform, remote state, backend, state locking, workspaces, multi-team, isolation
+--- Phase A ---
+0. Pre-Research: en spaced repetition language learning research → WebSearch
+
+--- Phase B ---
+0a. Abstraction: Spaced repetition (expanding interval review) is widely used in language learning. Meta-analyses show moderate-to-large effect sizes for vocabulary retention
+0b. Keywords: spaced repetition, language learning, meta-analysis, effect size, vocabulary retention, Leitner, Anki
 1. Intent: practice
-2. Primary language: en (Technical → English)
-3. Query 1: en Terraform remote state multi-team best practices workspaces → WebSearch
-4. Query 2: en [HyDE] "Teams using Terraform typically store state in remote backends like S3 or Terraform Cloud, enabling state locking to prevent concurrent modifications and using workspaces to isolate environments per team." → Exa
+2. Domain: empirical
+3. Budget: Tier L (6 queries — academic research needs breadth)
+4. Tool emphasis: Exa-primary (empirical domain)
+5. Primary language: en
+6. Query 1: en [HyDE] "Meta-analyses of spaced repetition in L2 vocabulary acquisition show effect sizes of 0.5-0.8, with expanding schedules outperforming fixed intervals for long-term retention." → Exa [primary-source: Y]
+7. Query 2: en spaced repetition language learning meta-analysis systematic review 2024 2025 → WebSearch [primary-source: Y]
+8. Query 3: en spaced repetition vs massed practice vocabulary retention effect size → Exa
+9. Counter-Query: n/a (not comparison/high-risk)
+10. Freshness: 2024-2025 preferred for meta-analyses
+
+--- Phase C ---
+11. Assess: [Sufficiency ✓] [Reliability ✗ — only 1 primary paper found, most results are blog summaries] [Specificity ✗ — need specific effect sizes]
+12. Primary sources: 1/8
+13. Novelty estimate: high (issue trackers / publisher databases unexplored)
+14. Re-search 1: en site:scholar.google.com OR site:pubmed.ncbi.nlm.nih.gov spaced repetition vocabulary meta-analysis → WebSearch (reason: primary-source gap)
+15. Re-search 2: en Nakata 2015 OR Ullman 2020 spaced repetition L2 acquisition → Exa (reason: specificity — need named studies)
 ```
 
-### Example 3: General Knowledge + HyDE (Conceptual Search × Exa)
+**Key point**: Pre-Research with secondary sources (blogs) acquired the vocabulary ("L2 acquisition", "expanding schedules", "Leitner"). Refined queries then targeted primary sources (papers). Re-search was triggered by primary-source gap in Assess.
 
-**Input**: "Best practices for LLM context management"
+### Example 3: Comparison with Counter-Query + Freshness
+
+**Input**: "Prisma vs Drizzle for TypeScript backend in 2026"
 
 ```
 --- Phase A ---
-0. Pre-Research: en LLM context management techniques overview → WebSearch
+0. Pre-Research: en Prisma Drizzle ORM TypeScript comparison → WebSearch
 
 --- Phase B ---
-0a. Abstraction: Techniques for efficiently managing information within LLM's finite context window (summarization, compression, external memory, RAG, etc.)
-0b. Keywords: context window, memory management, summarization, RAG, external memory, token optimization
-1. Intent: general
-2. Primary language: en (Academic/technical → English)
-3. Query 1: en LLM context management best practices 2026 → WebSearch
-4. Query 2: en [HyDE] "Modern LLM applications manage context windows through hierarchical summarization, external memory stores like vector databases, and retrieval-augmented generation pipelines that dynamically inject relevant context." → Exa
-
---- Phase C ---
-6. Assess: [Sufficiency ✓] [Reliability ✓] [Specificity ✓]
-```
-
-**Key point**: Query 2 uses HyDE mode. Since the intent is `general` and Exa is the selected tool, a hypothetical answer is used as the query instead of keywords. All criteria ✓ in Assess, so no Re-search needed.
-
-### Example 4: Jurisdiction-Specific (Region Explicit)
-
-**Input**: "Overview of the EU AI Act"
-
-```
-Search Plan
-0. Pre-Research: en EU AI Act regulation overview → WebSearch
-0a. Abstraction: EU regulation classifying AI systems by risk level (unacceptable/high/limited/minimal), imposing obligations on providers and deployers, with phased enforcement starting 2024
-0b. Keywords: EU AI Act, risk classification, high-risk AI, compliance, regulation, enforcement
-1. Intent: target
-2. Primary language: en (Regulation → jurisdiction language; EU publishes in English)
-3. Query 1: en EU AI Act risk classification compliance requirements 2026 → WebSearch
-4. Query 2: en EU AI Act provider obligations enforcement timeline → Exa
-```
-
-### Example 5: Comparison (A vs B)
-
-**Input**: "Compare Exa and Tavily search APIs"
-
-```
-Search Plan
-0. Pre-Research: en Exa Tavily search API comparison → WebSearch
-0a. Abstraction: Two leading AI-native search APIs. Exa uses semantic search (proprietary index); Tavily is RAG-optimized (cited results)
-0b. Keywords: Exa, Tavily, semantic search, RAG, API, agent score, benchmark, pricing
+0a. Abstraction: Two TypeScript ORMs. Prisma: schema-first, generated client, mature ecosystem. Drizzle: SQL-like, lightweight, type-safe, growing rapidly
+0b. Keywords: Prisma, Drizzle, ORM, TypeScript, performance, migration, type safety, bundle size, serverless
 1. Intent: comparison
-2. Primary language: en (Tech services → English)
-3. Query 1: en Exa vs Tavily search API comparison benchmark 2026 → WebSearch
-4. Query 2: en Exa Tavily agent score accuracy pricing → Exa
-```
-
-### Example 6: Navigational (Find Official Site)
-
-**Input**: "Find the Linkup official site"
-
-```
-Search Plan
-0. Pre-Research: en Linkup search API official → WebSearch
-0a. Abstraction: Search API service that emerged after Bing API deprecation. GDPR-compliant, premium content source access
-0b. Keywords: Linkup, search API, official, documentation
-1. Intent: navigational
-2. Primary language: en
-3. Query 1: en Linkup search API official site → WebSearch
-```
-
-### Example 7: "Does X already exist?" (Pre-Research → Abstraction → Conceptual Search)
-
-**Input**: "Is there an existing approach for AI agents to auto-generate daily work plans?"
-
-```
-Search Plan
-0. Pre-Research: en AI agent daily planning automation → WebSearch
-0a. Abstraction: Using persistent markdown files (e.g., CLAUDE.md) with trigger definitions + Skills to have AI auto-generate daily work plans
-0b. Keywords: AI agent, daily planning, markdown, persistent schedule, skill trigger, automated daily workflow
-1. Intent: general (post-abstraction: conceptual search; no specific proper noun needed)
-2. Primary language: en (Technical → English)
-3. Query 1: en AI agent daily planning markdown persistent schedule automation → WebSearch
-4. Query 2: en [HyDE] "AI coding agents can be configured to automatically generate daily work plans by reading persistent markdown instruction files and triggering scheduled skills that output structured task lists." → Exa
-```
-
-**Key point**: After Pre-Research, the intent shifts from `practice` (proper noun + concept) to `general` (concept only). The question "does X exist?" requires searching by the essence of X, not its name.
-
-### Example 8: Re-search Cycle (Assess Finds Unmet Criteria)
-
-**Input**: "What are the specific token limits for OpenAI's embedding models?"
-
-```
---- Phase A ---
-0. Pre-Research: en OpenAI embedding models token limits → WebSearch
-
---- Phase B ---
-0a. Abstraction: OpenAI provides several embedding models (text-embedding-3-small, text-embedding-3-large, ada-002) with different dimension sizes and token input limits
-0b. Keywords: OpenAI, embedding, token limit, text-embedding-3, dimensions, max input
-1. Intent: target
-2. Primary language: en (Product → provider language)
-3. Query 1: en OpenAI embedding models token limit dimensions comparison 2026 → WebSearch
-4. Query 2: en OpenAI text-embedding-3 API specification max tokens → Exa
+2. Domain: technical
+3. Budget: Tier M (4 queries — comparison needs multiple perspectives)
+4. Tool emphasis: WebSearch-primary (technical domain)
+5. Primary language: en
+6. Query 1: en Prisma vs Drizzle TypeScript ORM comparison 2026 → WebSearch
+7. Query 2: en Drizzle ORM production experience migration Prisma → Exa
+8. Counter-Query: en Prisma drawbacks limitations 2025 2026 → WebSearch
+9. Counter-Query: en Drizzle ORM problems issues production → WebSearch
+10. Freshness: 2025-2026 required (rapid ecosystem changes)
 
 --- Phase C ---
-6. Assess: [Sufficiency ✓] [Reliability ✗] [Specificity ✗]
-   — Snippets mention limits but exact numbers vary across sources. No primary source (OpenAI docs) reached.
-7. Re-search 1: en site:platform.openai.com embedding models limits → WebSearch (reason: Reliability — need primary source)
+11. Assess: [Sufficiency ✓] [Reliability ✓] [Specificity ✓]
+12. Primary sources: 3/10 (Prisma docs, Drizzle docs, GitHub benchmarks)
+13. Novelty estimate: n/a
 ```
 
-**Key point**: Assess found Reliability and Specificity unmet — snippets gave conflicting numbers and no official source was reached. Re-search targets the primary source directly using `site:` operator. After Re-search, fetch the OpenAI docs page via scout:fetch if the snippet is still insufficient.
-
-### Example 9: Multi-Language Search with Transliteration
-
-**Input**: "What is Samsung's latest semiconductor investment plan?"
-
-```
-Search Plan
-0. Pre-Research: en Samsung semiconductor investment plan 2026 → WebSearch
-0a. Abstraction: Samsung Electronics announced major fab investments in Texas and South Korea, expanding advanced chip manufacturing capacity (3nm/2nm GAA process)
-0b. Keywords: Samsung, semiconductor, fab investment, Texas, foundry, GAA, 3nm, 2nm
-1. Intent: target
-2. Primary language: ko (Company → headquarters language: Korean)
-3. Query 1: ko 삼성전자 반도체 투자 계획 2026 → WebSearch
-4. Query 2: en Samsung semiconductor foundry investment plan 2026 → Exa
-```
-
-**Key point**: Samsung's primary language is Korean. Query 1 uses Korean with transliterated proper noun (삼성전자 = Samsung Electronics). Query 2 uses English for international coverage. The two queries are differentiated by language.
+**Key point**: Counter-queries ("drawbacks", "problems") are automatically added for comparison intent. Both sides get counter-queries to avoid one-sided evaluation. Freshness constraint ensures 2025-2026 results for rapidly evolving ecosystem.
 
 ## Changelog
 
-- **v1.0** (2026-03-23): Initial release.
+- **v2.0** (2026-04-06): Major redesign based on 3-model cross-model discussion (3 rounds) + effectiveness evaluation data (4-domain cross-validation). Key changes:
+  - Added Step 0.5 Clarify (conditional clarification for ambiguous queries)
+  - Added Step 2.5 Route (Source-Type Routing for direct lookup)
+  - Added Domain Classification (technical/empirical/conceptual/regulatory) with domain-aware tool selection
+  - Added Budget Tiers (S/M/L) replacing fixed 6-query limit
+  - Expanded Assess with Reliability sub-criteria (Provenance, Corroboration, Recency, Consistency, Perspective diversity)
+  - Added Novelty Check as Re-search decision aid
+  - Added Failure Mode Handling (zero results, all low-quality, contradictions, primary-source gap, information saturation)
+  - Added Freshness constraints for time-sensitive topics
+  - Added Counter-Query for comparison and high-risk queries
+  - Expanded Re-search to max 2 cycles (intent-dependent) from 1 cycle
+  - Added uncertainty disclosure guidance in synthesis
+  - Documented Exa's secondary-source bias with mitigation strategy
+  - Design principle: "Primary sources are the goal, not the starting point"
+- **v1.0** (2026-03-23): Initial release
