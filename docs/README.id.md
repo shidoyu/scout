@@ -27,17 +27,20 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Mulai Cepat
+**Langkah 3** — Siapkan mesin pencari dan alat pengambilan
 
-scout langsung berfungsi setelah diinstal — pencarian menggunakan WebSearch (bawaan) dan Exa (gratis, tidak perlu kunci API). Pengaturan opsional menambahkan kemampuan lebih lanjut:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Coba sekarang
+`scout:setup` memandu Anda secara interaktif untuk mengonfigurasi [Jina Reader](https://jina.ai) (pengambilan halaman web), [Exa](https://exa.ai) (pencarian semantik), dan [Playwright](https://playwright.dev) (halaman yang dirender JavaScript). Setiap langkah bersifat opsional dan dapat dilewati.
 
-Setelah menginstal, tanya Claude:
+> **Catatan:** Jika Anda melewati langkah ini, scout akan meminta pengaturan pada awal sesi berikutnya. Pencarian dasar langsung berfungsi tanpa pengaturan.
+
+## Mulai Cepat
+
+Setelah menginstal, tanya Claude (tidak perlu pengaturan — pencarian dasar langsung berfungsi):
 
 **Temukan konsep yang belum bisa kamu sebut namanya:**
 > "teknik di mana program bisa jalan terus tanpa harus nunggu proses sebelumnya selesai"
@@ -67,22 +70,22 @@ Penggunaan: `/scout:search pertanyaan Anda di sini`
 ### scout:fetch
 
 Ambil konten halaman web dengan klasifikasi privasi otomatis:
-- **Halaman publik** → Jina Reader (memerlukan kunci API) / WebFetch (fallback bawaan)
+- **Halaman publik** → Jina Reader / WebFetch (fallback bawaan)
 - **Halaman rahasia** → Playwright lokal (tanpa panggilan API eksternal)
 - **Halaman terautentikasi** → Chrome DevTools (sesi browser)
 
 Penggunaan: `/scout:fetch URL`
 
-## Pengaturan (Opsional)
+### scout:setup
 
-Jalankan `tools/setup.sh` untuk mengonfigurasi:
+Pengaturan interaktif terpandu untuk mesin pencari dan alat pengambilan:
+- **Jina Reader** — Pengambilan halaman web berkualitas tinggi dalam format Markdown ([kunci API gratis](https://jina.ai/?newKey))
+- **Exa** — Pencarian semantik AI-native canggih ([kunci API](https://exa.ai))
+- **Playwright** — Pengambilan berbasis browser untuk halaman yang dirender JavaScript dan halaman rahasia (unduhan ~200MB)
 
-1. **Exa** — Alat pencarian AI-native canggih (kunci API untuk fitur berbayar; tier gratis berfungsi tanpa pengaturan)
-2. **Jina Reader** — Pengambilan halaman web berkualitas tinggi dalam format Markdown (kunci API diperlukan; tanpanya, halaman publik akan kembali menggunakan WebFetch)
-3. **Playwright** — Pengambilan berbasis browser untuk halaman yang dirender JavaScript dan halaman rahasia (unduhan ~200MB)
+Semua langkah bersifat opsional. Jalankan ulang kapan saja untuk memperbarui pengaturan.
 
-Semua langkah dapat dilewati. Jalankan ulang kapan saja untuk memperbarui pengaturan.
-Setelah pengaturan, mulai ulang Claude Code (atau jalankan `/mcp`) agar server MCP baru dapat berfungsi.
+Penggunaan: `/scout:setup`
 
 ## Privasi
 
@@ -96,7 +99,7 @@ Klasifikasi ini bersifat otomatis tetapi didasarkan pada penilaian LLM, bukan pe
 ## Persyaratan
 
 - Claude Code
-- `jq` (hanya untuk skrip pengaturan)
+- `jq` (hanya untuk pengaturan)
 - `npm`/`npx` (untuk server [MCP](https://modelcontextprotocol.io/): chrome-devtools)
 - Python 3.10+ (opsional, untuk pengambilan lokal Playwright)
 - `uvx` atau `uv` (opsional, untuk server MCP: markitdown — konversi HTML→Markdown)
@@ -129,7 +132,7 @@ Instruksi yang diterjemahkan hanya untuk kemudahan — **versi asli dalam bahasa
 
 ## Catatan Keamanan
 
-Setelah menjalankan `setup.sh`, kunci API disimpan di `.mcp.json`.
+Setelah pengaturan, kunci API disimpan di `.mcp.json`.
 **Jangan commit `.mcp.json` ke Git.** Gunakan `.mcp.json.dist` sebagai templat untuk distribusi.
 
 ## Penafian

@@ -27,17 +27,22 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Démarrage rapide
+**Étape 3** — Configurer les moteurs de recherche et les outils de récupération
 
-scout fonctionne immédiatement après l'installation — la recherche utilise WebSearch (intégré) et Exa (gratuit, sans clé requise). Une configuration optionnelle ajoute des capacités supplémentaires :
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Essayez maintenant
+scout:setup vous guide de manière interactive dans la configuration de Jina Reader (récupération de pages web), Exa (recherche sémantique) et Playwright (pages rendues par JavaScript). Chaque étape est optionnelle et peut être ignorée.
 
-Après l'installation, demandez à Claude :
+> **Note :** Si vous ignorez cette étape, scout vous le proposera au prochain démarrage de session. La recherche de base fonctionne immédiatement sans configuration.
+
+## Démarrage rapide
+
+Après l'installation, demandez à Claude (aucune configuration requise — la recherche de base fonctionne immédiatement) :
+
+### Essayez maintenant
 
 **Trouver des concepts que vous ne savez pas encore nommer :**
 > « Le mécanisme qui permet à une fonction de se souvenir des variables de son contexte de création, même après que ce contexte a disparu »
@@ -67,22 +72,22 @@ Utilisation : `/scout:search votre question ici`
 ### scout:fetch
 
 Récupération du contenu d'une page web avec classification automatique de la confidentialité :
-- **Pages publiques** → Jina Reader (clé API requise) / WebFetch (solution de repli intégrée)
+- **Pages publiques** → Jina Reader / WebFetch (solution de repli intégrée)
 - **Pages confidentielles** → Playwright local (aucun appel API externe)
 - **Pages authentifiées** → Chrome DevTools (session navigateur)
 
 Utilisation : `/scout:fetch URL`
 
-## Configuration (optionnelle)
+### scout:setup
 
-Exécutez `tools/setup.sh` pour configurer :
+Configuration interactive guidée des moteurs de recherche et outils de récupération :
+- **Jina Reader** — Récupération de pages web de haute qualité en Markdown (clé API gratuite)
+- **Exa** — Recherche sémantique avancée native IA (clé API)
+- **Playwright** — Récupération basée sur le navigateur pour les pages rendues par JavaScript et les pages confidentielles (~200 Mo à télécharger)
 
-1. **Exa** — Outils de recherche avancés natifs IA (clé API pour les fonctionnalités payantes ; le niveau gratuit fonctionne sans configuration)
-2. **Jina Reader** — Récupération de pages web de haute qualité en Markdown (clé API requise ; sans elle, les pages publiques utilisent WebFetch comme solution de repli)
-3. **Playwright** — Récupération basée sur le navigateur pour les pages rendues par JavaScript et les pages confidentielles (~200 Mo à télécharger)
+Toutes les étapes sont optionnelles. Relancez à tout moment pour mettre à jour les paramètres.
 
-Toutes les étapes sont facultatives. Relancez le script à tout moment pour mettre à jour les paramètres.
-Après la configuration, redémarrez Claude Code (ou exécutez `/mcp`) pour que les nouveaux serveurs MCP prennent effet.
+Utilisation : `/scout:setup`
 
 ## Confidentialité
 
@@ -96,7 +101,7 @@ Ce classement est automatique mais basé sur le jugement du LLM, et non sur une 
 ## Prérequis
 
 - Claude Code
-- `jq` (pour le script de configuration uniquement)
+- `jq` (pour la configuration uniquement)
 - `npm`/`npx` (pour le serveur [MCP](https://modelcontextprotocol.io/) : chrome-devtools)
 - Python 3.10+ (optionnel, pour la récupération locale via Playwright)
 - `uvx` ou `uv` (optionnel, pour le serveur MCP : markitdown — conversion HTML→Markdown)
@@ -129,7 +134,7 @@ Les instructions traduites sont fournies à titre indicatif uniquement — **la 
 
 ## Note de sécurité
 
-Après l'exécution de `setup.sh`, les clés API sont stockées dans `.mcp.json`.
+Après la configuration, les clés API sont stockées dans `.mcp.json`.
 **Ne commitez pas `.mcp.json` dans Git.** Utilisez `.mcp.json.dist` comme modèle pour la distribution.
 
 ## Avertissement général

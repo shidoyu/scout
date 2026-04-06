@@ -27,17 +27,22 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Snabbstart
+**Steg 3** — Konfigurera sökmotorer och hämtningsverktyg
 
-scout fungerar direkt efter installation — sökning använder WebSearch (inbyggd) och Exa (gratis, ingen nyckel krävs). Valfri konfiguration lägger till fler funktioner:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Prova nu
+scout:setup guidar dig interaktivt genom konfigurationen av Jina Reader (hämtning av webbsidor), Exa (semantisk sökning) och Playwright (JavaScript-renderade sidor). Alla steg är valfria och kan hoppas över.
 
-Efter installationen, fråga Claude:
+> **Obs:** Om du hoppar över detta steg kommer scout att fråga dig vid nästa sessionsstart. Grundläggande sökning fungerar direkt utan konfiguration.
+
+## Snabbstart
+
+Efter installationen, fråga Claude (ingen konfiguration behövs — grundläggande sökning fungerar direkt):
+
+### Prova nu
 
 **Hitta koncept du inte kan namnge ännu:**
 > "det där mönstret där man skickar tillbaka ett objekt som bygger sig själv steg för steg"
@@ -67,22 +72,22 @@ Användning: `/scout:search din fråga här`
 ### scout:fetch
 
 Hämta webbsidors innehåll med automatisk sekretessklassificering:
-- **Offentliga sidor** → Jina Reader (API-nyckel krävs) / WebFetch (inbyggd reservlösning)
+- **Offentliga sidor** → Jina Reader / WebFetch (inbyggd reservlösning)
 - **Konfidentiella sidor** → Lokal Playwright (inga externa API-anrop)
 - **Autentiserade sidor** → Chrome DevTools (webbläsarsession)
 
 Användning: `/scout:fetch URL`
 
-## Konfiguration (valfri)
+### scout:setup
 
-Kör `tools/setup.sh` för att konfigurera:
+Interaktiv guidad konfiguration för sökmotorer och hämtningsverktyg:
+- **Jina Reader** — Högkvalitativ hämtning av webbsidor som Markdown (gratis API-nyckel)
+- **Exa** — Avancerad AI-native semantisk sökning (API-nyckel)
+- **Playwright** — Webbläsarbaserad hämtning för JavaScript-renderade och konfidentiella sidor (~200 MB nedladdning)
 
-1. **Exa** — Avancerade AI-native sökverktyg (API-nyckel för betalfunktioner; gratisnivån fungerar utan konfiguration)
-2. **Jina Reader** — Högkvalitativ hämtning av webbsidor som Markdown (API-nyckel krävs; utan den faller offentliga sidor tillbaka på WebFetch)
-3. **Playwright** — Webbläsarbaserad hämtning för JavaScript-renderade och konfidentiella sidor (~200 MB nedladdning)
+Alla steg är valfria. Kör om när som helst för att uppdatera inställningar.
 
-Alla steg kan hoppas över. Kör om när som helst för att uppdatera inställningar.
-Efter konfiguration, starta om Claude Code (eller kör `/mcp`) för att nya MCP-servrar ska börja gälla.
+Användning: `/scout:setup`
 
 ## Sekretess
 
@@ -96,7 +101,7 @@ Denna klassificering är automatisk men baserad på LLM-bedömning, inte systemm
 ## Krav
 
 - Claude Code
-- `jq` (enbart för konfigurationsskript)
+- `jq` (enbart för konfiguration)
 - `npm`/`npx` (för [MCP](https://modelcontextprotocol.io/)-server: chrome-devtools)
 - Python 3.10+ (valfritt, för lokal Playwright-hämtning)
 - `uvx` eller `uv` (valfritt, för MCP-server: markitdown — HTML→Markdown-konvertering)
@@ -129,7 +134,7 @@ Konfigurationsinstruktioner tillhandahålls på ditt språk av AI-assistenten.
 
 ## Säkerhetsnotering
 
-Efter att ha kört `setup.sh` lagras API-nycklar i `.mcp.json`.
+Efter konfiguration lagras API-nycklar i `.mcp.json`.
 **Commita inte `.mcp.json` till Git.** Använd `.mcp.json.dist` som mall för distribution.
 
 ## Ansvarsfriskrivning

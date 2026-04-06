@@ -27,17 +27,22 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Rychlý start
+**Krok 3** — Nastavte vyhledávače a nástroje pro načítání
 
-scout funguje okamžitě po instalaci — vyhledávání využívá WebSearch (vestavěný) a Exa (zdarma, bez potřeby klíče). Volitelné nastavení přidá další možnosti:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Vyzkoušejte hned
+scout:setup vás interaktivně provede konfigurací Jina Reader (načítání webových stránek), Exa (sémantické vyhledávání) a Playwright (stránky vykreslované JavaScriptem). Všechny kroky jsou volitelné a lze je přeskočit.
 
-Po instalaci se zeptejte Claude:
+> **Poznámka:** Pokud tento krok přeskočíte, scout vás vyzve k nastavení při dalším spuštění relace. Základní vyhledávání funguje okamžitě bez nastavení.
+
+## Rychlý start
+
+Po instalaci se zeptejte Claude (nastavení není potřeba — základní vyhledávání funguje okamžitě):
+
+### Vyzkoušejte hned
 
 **Najít koncepty, které ještě neumíte pojmenovat:**
 > „návrhový vzor kdy se víc malých objektů tváří jako jeden velký a klient nepozná rozdíl"
@@ -67,22 +72,22 @@ Použití: `/scout:search vaše otázka zde`
 ### scout:fetch
 
 Načítání obsahu webových stránek s automatickou klasifikací soukromí:
-- **Veřejné stránky** → Jina Reader (vyžaduje API klíč) / WebFetch (vestavěná záloha)
+- **Veřejné stránky** → Jina Reader / WebFetch (vestavěná záloha)
 - **Důvěrné stránky** → Lokální Playwright (bez volání externích API)
 - **Stránky vyžadující přihlášení** → Chrome DevTools (relace prohlížeče)
 
 Použití: `/scout:fetch URL`
 
-## Nastavení (volitelné)
+### scout:setup
 
-Spusťte `tools/setup.sh` pro konfiguraci:
+Interaktivní průvodce nastavením vyhledávačů a nástrojů pro načítání:
+- **Jina Reader** — Vysoce kvalitní načítání webových stránek jako Markdown (bezplatný API klíč)
+- **Exa** — Pokročilé sémantické vyhledávání s podporou AI (API klíč)
+- **Playwright** — Načítání prostřednictvím prohlížeče pro stránky vykreslované JavaScriptem a důvěrné stránky (~200 MB stažení)
 
-1. **Exa** — Pokročilé nástroje pro vyhledávání s podporou AI (API klíč pro placené funkce; bezplatná úroveň funguje bez nastavení)
-2. **Jina Reader** — Vysoce kvalitní načítání webových stránek jako Markdown (vyžaduje API klíč; bez něj veřejné stránky přecházejí na WebFetch)
-3. **Playwright** — Načítání prostřednictvím prohlížeče pro stránky vykreslované JavaScriptem a důvěrné stránky (stažení ~200 MB)
+Všechny kroky jsou volitelné. Spusťte znovu kdykoliv pro aktualizaci nastavení.
 
-Všechny kroky lze přeskočit. Spusťte znovu kdykoliv pro aktualizaci nastavení.
-Po nastavení restartujte Claude Code (nebo spusťte `/mcp`), aby se nové MCP servery aktivovaly.
+Použití: `/scout:setup`
 
 ## Soukromí
 
@@ -96,7 +101,7 @@ Tato klasifikace je automatická, ale vychází z úsudku LLM, nikoli ze systém
 ## Požadavky
 
 - Claude Code
-- `jq` (pouze pro instalační skript)
+- `jq` (pouze pro nastavení)
 - `npm`/`npx` (pro [MCP](https://modelcontextprotocol.io/) server: chrome-devtools)
 - Python 3.10+ (volitelné, pro lokální načítání pomocí Playwright)
 - `uvx` nebo `uv` (volitelné, pro MCP server: markitdown — konverze HTML→Markdown)
@@ -129,7 +134,7 @@ Přeložené pokyny jsou pouze pro pohodlí — **anglický originál je autorit
 
 ## Bezpečnostní poznámka
 
-Po spuštění `setup.sh` jsou API klíče uloženy v `.mcp.json`.
+Po nastavení jsou API klíče uloženy v `.mcp.json`.
 **Necommitujte `.mcp.json` do Gitu.** Jako šablonu pro distribuci používejte `.mcp.json.dist`.
 
 ## Právní upozornění

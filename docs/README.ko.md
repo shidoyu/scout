@@ -27,13 +27,20 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
+**3단계** — 검색 엔진 및 페칭 도구 설정
+
+```
+/reload-plugins
+/scout:setup
+```
+
+scout:setup은 Jina Reader(웹 페이지 가져오기), Exa(시맨틱 검색), Playwright(JavaScript 렌더링 페이지)를 대화형으로 설정할 수 있도록 안내합니다. 모든 단계는 선택 사항이며 건너뛸 수 있습니다.
+
+> **참고:** 이 단계를 건너뛰면 다음 세션 시작 시 안내가 표시됩니다. 기본 검색 기능은 설정 없이 바로 사용할 수 있습니다.
+
 ## 빠른 시작
 
-scout는 설치 즉시 사용할 수 있습니다. 검색에는 WebSearch(내장)와 Exa(무료, 키 불필요)가 사용됩니다. 선택적 설정으로 더 많은 기능을 추가할 수 있습니다:
-
-```bash
-bash tools/setup.sh
-```
+설치 후 바로 사용할 수 있습니다 (설정 불필요 — 기본 검색이 즉시 동작합니다):
 
 ### 지금 사용해 보기
 
@@ -67,22 +74,22 @@ bash tools/setup.sh
 ### scout:fetch
 
 자동 프라이버시 분류를 통한 웹 페이지 콘텐츠 가져오기:
-- **공개 페이지** → Jina Reader (API 키 필요) / WebFetch (내장 폴백)
+- **공개 페이지** → Jina Reader / WebFetch (내장 폴백)
 - **기밀 페이지** → 로컬 Playwright (외부 API 호출 없음)
 - **인증 필요 페이지** → Chrome DevTools (브라우저 세션 사용)
 
 사용법: `/scout:fetch URL`
 
-## 설정 (선택 사항)
+### scout:setup
 
-`tools/setup.sh`를 실행하여 다음을 구성합니다:
+검색 엔진 및 페칭 도구를 위한 대화형 설정 가이드:
+- **Jina Reader** — 웹 페이지를 Markdown으로 고품질 가져오기 (무료 API 키)
+- **Exa** — 고급 AI 네이티브 시맨틱 검색 (API 키)
+- **Playwright** — JavaScript 렌더링 및 기밀 페이지를 위한 브라우저 기반 가져오기 (~200MB 다운로드)
 
-1. **Exa** — 고급 AI 네이티브 검색 도구 (유료 기능에는 API 키 필요; 무료 티어는 설정 없이 사용 가능)
-2. **Jina Reader** — 웹 페이지를 Markdown으로 고품질 가져오기 (API 키 필요; 없을 경우 공개 페이지는 WebFetch로 폴백)
-3. **Playwright** — JavaScript 렌더링 페이지 및 기밀 페이지를 위한 브라우저 기반 가져오기 (~200MB 다운로드)
+모든 단계는 선택 사항입니다. 설정을 업데이트하려면 언제든지 다시 실행하세요.
 
-모든 단계는 건너뛸 수 있습니다. 설정 변경 시 언제든지 재실행할 수 있습니다.
-설정 후 새 MCP 서버가 적용되려면 Claude Code를 재시작하거나 `/mcp`를 실행하세요.
+사용법: `/scout:setup`
 
 ## 프라이버시
 
@@ -96,7 +103,7 @@ scout는 콘텐츠를 가져오기 전에 URL을 세 가지 수준으로 분류�
 ## 요구 사항
 
 - Claude Code
-- `jq` (설정 스크립트에만 필요)
+- `jq` (설정 시에만 필요)
 - `npm`/`npx` ([MCP](https://modelcontextprotocol.io/) 서버: chrome-devtools)
 - Python 3.10+ (선택 사항, Playwright 로컬 가져오기용)
 - `uvx` 또는 `uv` (선택 사항, MCP 서버: markitdown — HTML→Markdown 변환)
@@ -129,7 +136,7 @@ scout는 URL을 민감도에 따라 분류하고 기밀 URL을 로컬 전용 도
 
 ## 보안 주의사항
 
-`setup.sh` 실행 후 API 키는 `.mcp.json`에 저장됩니다.
+설정 후 API 키는 `.mcp.json`에 저장됩니다.
 **`.mcp.json`을 Git에 커밋하지 마세요.** 배포용 템플릿으로는 `.mcp.json.dist`를 사용하세요.
 
 ## 면책 조항

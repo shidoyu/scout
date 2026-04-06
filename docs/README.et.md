@@ -27,17 +27,20 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Kiirstart
+**3. samm** — Seadista otsingumootorid ja toomistööriistad
 
-scout töötab kohe pärast paigaldamist — otsing kasutab WebSearch'i (sisseehitatud) ja Exa-t (tasuta, võtit pole vaja). Valikuline seadistus lisab täiendavaid võimalusi:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Proovi kohe
+`scout:setup` juhendab sind interaktiivselt [Jina Reader](https://jina.ai) (veebilehtede toomine), [Exa](https://exa.ai) (semantiline otsing) ja [Playwright](https://playwright.dev) (JavaScriptiga renderdatud lehed) seadistamisel. Kõik sammud on valikulised ja vahelejätavad.
 
-Pärast paigaldamist küsi Claude'ilt:
+> **Märkus:** Kui jätad selle sammu vahele, palub scout seadistust järgmisel seansi alguses. Põhiotsing töötab kohe ilma seadistuseta.
+
+## Kiirstart
+
+Pärast paigaldamist küsi Claude'ilt (seadistus pole vajalik — põhiotsing töötab kohe):
 
 **Leia kontseptsioonid, mida sa veel nimetada ei oska:**
 > "see programmeerimisvõte kus funktsioon jätab enda meelde eelmised tulemused et mitte uuesti arvutada"
@@ -67,22 +70,22 @@ Kasutus: `/scout:search sinu küsimus siia`
 ### scout:fetch
 
 Veebilehe sisu toomine automaatse privaatsusklassifikatsiooniga:
-- **Avalikud lehed** → Jina Reader (vajalik API-võti) / WebFetch (sisseehitatud varuvõimalus)
+- **Avalikud lehed** → Jina Reader / WebFetch (sisseehitatud varuvõimalus)
 - **Konfidentsiaalsed lehed** → Kohalik Playwright (väliseid API-kõnesid ei tehta)
 - **Autentimist nõudvad lehed** → Chrome DevTools (brauseri seanss)
 
 Kasutus: `/scout:fetch URL`
 
-## Seadistamine (valikuline)
+### scout:setup
 
-Käivita `tools/setup.sh` konfigureerimiseks:
+Interaktiivne juhendatud seadistus otsingumootorite ja toomistööriistade jaoks:
+- **Jina Reader** — Kvaliteetne veebilehtede toomine Markdownina ([tasuta API-võti](https://jina.ai/?newKey))
+- **Exa** — Täiustatud AI-põhine semantiline otsing ([API-võti](https://exa.ai))
+- **Playwright** — Brauseripõhine toomine JavaScriptiga renderdatud ja konfidentsiaalsete lehtede jaoks (~200 MB allalaadimine)
 
-1. **Exa** — Täiustatud AI-põhised otsitööriistad (API-võti tasuliste funktsioonide jaoks; tasuta tase toimib ilma seadistuseta)
-2. **Jina Reader** — Kvaliteetne veebilehtede toomine Markdownina (vajalik API-võti; ilma selleta langevad avalikud lehed tagasi WebFetch'ile)
-3. **Playwright** — Brauseripõhine toomine JavaScriptiga renderdatud ja konfidentsiaalsete lehtede jaoks (~200 MB allalaadimine)
+Kõik sammud on valikulised. Käivita uuesti igal ajal seadete uuendamiseks.
 
-Kõik sammud on vahelejätavad. Käivita uuesti igal ajal seadete uuendamiseks.
-Pärast seadistamist taaskäivita Claude Code (või käivita `/mcp`), et uued MCP-serverid rakenduks.
+Kasutus: `/scout:setup`
 
 ## Privaatsus
 
@@ -96,7 +99,7 @@ See klassifikatsioon on automaatne, kuid põhineb LLM-i otsusel, mitte süsteemi
 ## Nõuded
 
 - Claude Code
-- `jq` (ainult seadistussrkipti jaoks)
+- `jq` (ainult seadistuse jaoks)
 - `npm`/`npx` ([MCP](https://modelcontextprotocol.io/) serveri jaoks: chrome-devtools)
 - Python 3.10+ (valikuline, Playwright'i kohaliku toomise jaoks)
 - `uvx` või `uv` (valikuline, MCP serveri jaoks: markitdown — HTML→Markdown teisendus)
@@ -129,7 +132,7 @@ Tõlgitud juhised on ainult mugavuse huvides — **ingliskeelne originaal on aut
 
 ## Turvamarginaal
 
-Pärast `setup.sh` käivitamist salvestatakse API-võtmed `.mcp.json`-faili.
+Pärast seadistamist salvestatakse API-võtmed `.mcp.json`-faili.
 **Ära tee `.mcp.json` kohta Giti commit'i.** Kasuta jaotuseks malli `.mcp.json.dist`.
 
 ## Lahtiütlemine

@@ -27,13 +27,20 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
+**चरण 3** — सर्च इंजन और फ़ेचिंग टूल सेट करें
+
+```
+/reload-plugins
+/scout:setup
+```
+
+scout:setup आपको Jina Reader (वेब पेज फ़ेचिंग), Exa (सिमैंटिक सर्च), और Playwright (JavaScript-रेंडर्ड पेज) को इंटरैक्टिव तरीक़े से कॉन्फ़िगर करने में मदद करता है। हर स्टेप वैकल्पिक है और स्किप किया जा सकता है।
+
+> **नोट:** अगर आप यह स्टेप स्किप करते हैं, तो scout अगले सेशन शुरू होने पर आपसे पूछेगा। बेसिक सर्च बिना सेटअप के तुरंत काम करता है।
+
 ## Quick Start
 
-scout install के तुरंत बाद काम करता है — search WebSearch (built-in) और Exa (free, no key needed) use करता है। Optional setup से और capabilities मिलती हैं:
-
-```bash
-bash tools/setup.sh
-```
+इंस्टॉल करने के बाद तुरंत उपयोग करें (सेटअप ज़रूरी नहीं — बेसिक सर्च तुरंत काम करता है):
 
 ### अभी आज़माएं
 
@@ -67,22 +74,22 @@ Usage: `/scout:search your question here`
 ### scout:fetch
 
 Automatic privacy classification के साथ web page content fetch करें:
-- **Public pages** → Jina Reader (API key required) / WebFetch (built-in fallback)
+- **Public pages** → Jina Reader / WebFetch (built-in fallback)
 - **Confidential pages** → Local Playwright (no external API calls)
 - **Authenticated pages** → Chrome DevTools (browser session)
 
 Usage: `/scout:fetch URL`
 
-## Setup (Optional)
+### scout:setup
 
-Configure करने के लिए `tools/setup.sh` run करें:
+सर्च इंजन और फ़ेचिंग टूल के लिए इंटरैक्टिव गाइडेड सेटअप:
+- **Jina Reader** — वेब पेज को Markdown के रूप में उच्च गुणवत्ता में फ़ेच करें (मुफ़्त API key)
+- **Exa** — एडवांस्ड AI-नेटिव सिमैंटिक सर्च (API key)
+- **Playwright** — JavaScript-रेंडर्ड और गोपनीय पेजों के लिए ब्राउज़र-आधारित फ़ेचिंग (~200MB डाउनलोड)
 
-1. **Exa** — Advanced AI-native search tools (paid features के लिए API key; free tier बिना setup के काम करती है)
-2. **Jina Reader** — High-quality web page fetching as Markdown (API key required; इसके बिना public pages WebFetch पर fall back करती हैं)
-3. **Playwright** — JavaScript-rendered और confidential pages के लिए browser-based fetching (~200MB download)
+सभी स्टेप वैकल्पिक हैं। सेटिंग्स अपडेट करने के लिए कभी भी दोबारा चलाएँ।
 
-सभी steps skippable हैं। Settings update करने के लिए कभी भी re-run करें।
-Setup के बाद, नए MCP servers को effect में लाने के लिए Claude Code restart करें (या `/mcp` run करें)।
+उपयोग: `/scout:setup`
 
 ## Privacy
 
@@ -96,7 +103,7 @@ scout fetch करने से पहले URLs को तीन levels मे
 ## ज़रूरतें
 
 - Claude Code
-- `jq` (सिर्फ setup script के लिए)
+- `jq` (सिर्फ setup के लिए)
 - `npm`/`npx` ([MCP](https://modelcontextprotocol.io/) server के लिए: chrome-devtools)
 - Python 3.10+ (optional, Playwright local fetching के लिए)
 - `uvx` या `uv` (optional, MCP server के लिए: markitdown — HTML→Markdown conversion)
@@ -129,7 +136,7 @@ Setup instructions AI assistant द्वारा आपकी भाषा म
 
 ## Security Note
 
-`setup.sh` run करने के बाद, API keys `.mcp.json` में store होती हैं।
+सेटअप के बाद, API keys `.mcp.json` में store होती हैं।
 **`.mcp.json` को Git पर commit न करें।** Distribution के लिए template के रूप में `.mcp.json.dist` use करें।
 
 ## Disclaimer

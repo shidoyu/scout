@@ -33,26 +33,27 @@ claude plugin install scout@shidoyu-scout
 
 **Step 3** — Set up search engines and fetching tools
 
-This configures Jina Reader (web page fetching), Exa (advanced search), and Playwright (JavaScript-rendered pages). Without this step, page fetching falls back to basic WebFetch.
-
-```bash
-bash ~/.claude/plugins/cache/shidoyu-scout/scout/*/tools/setup.sh
 ```
+/reload-plugins
+/scout:setup
+```
+
+`scout:setup` walks you through configuring [Jina Reader](https://jina.ai) (web page fetching), [Exa](https://exa.ai) (semantic search), and [Playwright](https://playwright.dev) (JavaScript-rendered pages) interactively. Every step is optional and skippable.
+
+> **Note:** If you skip this step, scout will prompt you on the next session start. Basic search works immediately without setup.
 
 ## Quick Start
 
-### Try it now
-
-After installing, ask Claude:
+After installing, ask Claude (no setup required — basic search works immediately):
 
 **Find concepts you can't name yet:**
 > "I want something like Git blame but for design decisions — I know the concept exists but not what it's called"
 
-**Get expert answers from plain language:**
-> "ENOSPC error but I have plenty of disk space — what's the real fix?"
-
 **Cut through SEO noise:**
 > "What should I actually migrate to from Terraform — not the sponsored lists, real migration stories"
+
+**Get expert answers from plain language:**
+> "ENOSPC error but I have plenty of disk space — what's the real fix?"
 
 **Read a specific page:**
 > "Fetch and summarize https://docs.anthropic.com/en/docs/claude-code"
@@ -73,22 +74,22 @@ Usage: `/scout:search your question here`
 ### scout:fetch
 
 Fetch web page content with automatic privacy classification:
-- **Public pages** → Jina Reader (API key required) / WebFetch (built-in fallback)
+- **Public pages** → Jina Reader / WebFetch (built-in fallback)
 - **Confidential pages** → Local Playwright (no external API calls)
 - **Authenticated pages** → Chrome DevTools (browser session)
 
 Usage: `/scout:fetch URL`
 
-## Setup (Optional)
+### scout:setup
 
-Run `tools/setup.sh` to configure:
+Interactive guided setup for search engines and fetching tools:
+- **Jina Reader** — High-quality web page fetching as Markdown ([free API key](https://jina.ai/?newKey))
+- **Exa** — Advanced AI-native semantic search ([API key](https://exa.ai))
+- **Playwright** — Browser-based fetching for JavaScript-rendered and confidential pages (~200MB download)
 
-1. **Exa** — Advanced AI-native search tools (API key for paid features; free tier works without setup)
-2. **Jina Reader** — High-quality web page fetching as Markdown (API key required; without it, public pages fall back to WebFetch)
-3. **Playwright** — Browser-based fetching for JavaScript-rendered and confidential pages (~200MB download)
+All steps are optional. Re-run anytime to update settings.
 
-All steps are skippable. Re-run anytime to update settings.
-After setup, restart Claude Code (or run `/mcp`) for new MCP servers to take effect.
+Usage: `/scout:setup`
 
 ## Privacy
 
@@ -102,7 +103,7 @@ This classification is automatic but based on LLM judgment, not system enforceme
 ## Requirements
 
 - Claude Code
-- `jq` (for setup script only)
+- `jq` (for setup only)
 - `npm`/`npx` (for [MCP](https://modelcontextprotocol.io/) server: chrome-devtools)
 - Python 3.10+ (optional, for Playwright local fetching)
 - `uvx` or `uv` (optional, for MCP server: markitdown — HTML→Markdown conversion)
@@ -135,7 +136,7 @@ Translated instructions are for convenience only — **the English original is a
 
 ## Security Note
 
-After running `setup.sh`, API keys are stored in `.mcp.json`.
+After setup, API keys are stored in `.mcp.json`.
 **Do not commit `.mcp.json` to Git.** Use `.mcp.json.dist` as the template for distribution.
 
 ## Disclaimer

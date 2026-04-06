@@ -27,17 +27,20 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Hızlı Başlangıç
+**Adım 3** — Arama motorlarını ve getirme araçlarını ayarlayın
 
-scout kurulumun hemen ardından çalışmaya hazırdır — arama WebSearch (yerleşik) ve Exa (ücretsiz, anahtar gerekmez) kullanır. İsteğe bağlı kurulum daha fazla özellik ekler:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Hemen deneyin
+`scout:setup`, [Jina Reader](https://jina.ai) (web sayfası getirme), [Exa](https://exa.ai) (semantik arama) ve [Playwright](https://playwright.dev) (JavaScript ile render edilen sayfalar) yapılandırmasında sizi interaktif olarak yönlendirir. Her adım isteğe bağlıdır ve atlanabilir.
 
-Kurulumdan sonra Claude'a sorun:
+> **Not:** Bu adımı atlarsanız, scout bir sonraki oturum başlangıcında sizden ayarlama yapmanızı isteyecektir. Temel arama, kurulum gerekmeden hemen çalışır.
+
+## Hızlı Başlangıç
+
+Kurulumdan sonra Claude'a sorun (kurulum gerekmez — temel arama hemen çalışır):
 
 **Henüz adını koyamadığınız kavramları bulun:**
 > "bir fonksiyonun çalışma sırasında kendini farklı bir versiyonuyla değiştirdiği teknik"
@@ -67,22 +70,22 @@ Kullanım: `/scout:search sorunuzu buraya yazın`
 ### scout:fetch
 
 Otomatik gizlilik sınıflandırması ile web sayfası içeriği getirme:
-- **Genel sayfalar** → Jina Reader (API anahtarı gerekli) / WebFetch (yerleşik yedek)
+- **Genel sayfalar** → Jina Reader / WebFetch (yerleşik yedek)
 - **Gizli sayfalar** → Yerel Playwright (harici API çağrısı yok)
 - **Kimlik doğrulamalı sayfalar** → Chrome DevTools (tarayıcı oturumu)
 
 Kullanım: `/scout:fetch URL`
 
-## Kurulum (İsteğe Bağlı)
+### scout:setup
 
-Şunları yapılandırmak için `tools/setup.sh` çalıştırın:
+Arama motorları ve getirme araçları için interaktif rehberli kurulum:
+- **Jina Reader** — Markdown olarak yüksek kaliteli web sayfası getirme ([ücretsiz API anahtarı](https://jina.ai/?newKey))
+- **Exa** — Gelişmiş AI-native semantik arama ([API anahtarı](https://exa.ai))
+- **Playwright** — JavaScript ile render edilmiş ve gizli sayfalar için tarayıcı tabanlı getirme (~200MB indirme)
 
-1. **Exa** — Gelişmiş AI destekli arama araçları (ücretli özellikler için API anahtarı; ücretsiz katman kurulum gerektirmeden çalışır)
-2. **Jina Reader** — Markdown olarak yüksek kaliteli web sayfası getirme (API anahtarı gerekli; olmadan, genel sayfalar WebFetch'e düşer)
-3. **Playwright** — JavaScript ile render edilmiş ve gizli sayfalar için tarayıcı tabanlı getirme (~200MB indirme)
+Tüm adımlar isteğe bağlıdır. Ayarları güncellemek için istediğiniz zaman yeniden çalıştırın.
 
-Tüm adımlar atlanabilir. Ayarları güncellemek için istediğiniz zaman yeniden çalıştırın.
-Kurulumdan sonra, yeni MCP sunucularının etkinleşmesi için Claude Code'u yeniden başlatın (veya `/mcp` çalıştırın).
+Kullanım: `/scout:setup`
 
 ## Gizlilik
 
@@ -96,7 +99,7 @@ Bu sınıflandırma otomatiktir ancak sistem zorlaması değil, LLM değerlendir
 ## Gereksinimler
 
 - Claude Code
-- `jq` (yalnızca kurulum betiği için)
+- `jq` (yalnızca kurulum için)
 - `npm`/`npx` ([MCP](https://modelcontextprotocol.io/) sunucusu için: chrome-devtools)
 - Python 3.10+ (isteğe bağlı, Playwright yerel getirme için)
 - `uvx` veya `uv` (isteğe bağlı, MCP sunucusu için: markitdown — HTML→Markdown dönüşümü)
@@ -129,7 +132,7 @@ Kurulum talimatları, AI asistanı tarafından kendi dilinizde sağlanır.
 
 ## Güvenlik Notu
 
-`setup.sh` çalıştırıldıktan sonra API anahtarları `.mcp.json` içinde saklanır.
+Kurulumdan sonra API anahtarları `.mcp.json` içinde saklanır.
 **`.mcp.json` dosyasını Git'e commit etmeyin.** Dağıtım için şablon olarak `.mcp.json.dist` kullanın.
 
 ## Sorumluluk Reddi

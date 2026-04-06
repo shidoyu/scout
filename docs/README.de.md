@@ -27,17 +27,22 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Schnellstart
+**Schritt 3** — Suchmaschinen und Abruf-Tools einrichten
 
-scout funktioniert sofort nach der Installation — die Suche verwendet WebSearch (integriert) und Exa (kostenlos, kein API-Schlüssel erforderlich). Optionales Setup erschließt weitere Funktionen:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Jetzt ausprobieren
+scout:setup führt Sie interaktiv durch die Konfiguration von Jina Reader (Webseitenabruf), Exa (semantische Suche) und Playwright (JavaScript-gerenderte Seiten). Jeder Schritt ist optional und kann übersprungen werden.
 
-Nach der Installation, frag Claude:
+> **Hinweis:** Wenn Sie diesen Schritt überspringen, fordert scout Sie beim nächsten Sitzungsstart zur Einrichtung auf. Die einfache Suche funktioniert sofort ohne Setup.
+
+## Schnellstart
+
+Nach der Installation, frag Claude (kein Setup erforderlich — die einfache Suche funktioniert sofort):
+
+### Jetzt ausprobieren
 
 **Konzepte finden, die du noch nicht benennen kannst:**
 > „Das Designmuster, bei dem man ein Objekt Schritt für Schritt zusammenbaut, statt alles im Konstruktor zu übergeben"
@@ -67,22 +72,22 @@ Verwendung: `/scout:search Ihre Frage hier`
 ### scout:fetch
 
 Webseiteninhalt abrufen mit automatischer Datenschutzklassifizierung:
-- **Öffentliche Seiten** → Jina Reader (API-Schlüssel erforderlich) / WebFetch (integrierter Fallback)
+- **Öffentliche Seiten** → Jina Reader / WebFetch (integrierter Fallback)
 - **Vertrauliche Seiten** → Lokales Playwright (keine externen API-Aufrufe)
 - **Authentifizierte Seiten** → Chrome DevTools (Browser-Sitzung)
 
 Verwendung: `/scout:fetch URL`
 
-## Setup (Optional)
+### scout:setup
 
-`tools/setup.sh` ausführen, um Folgendes zu konfigurieren:
+Interaktive Einrichtung von Suchmaschinen und Abruf-Tools:
+- **Jina Reader** — Hochwertiger Webseitenabruf als Markdown (kostenloser API-Schlüssel)
+- **Exa** — Erweiterte KI-native semantische Suche (API-Schlüssel)
+- **Playwright** — Browserbasierter Abruf für JavaScript-gerenderte und vertrauliche Seiten (~200 MB Download)
 
-1. **Exa** — Erweiterte KI-native Suchwerkzeuge (API-Schlüssel für kostenpflichtige Funktionen; der kostenlose Tarif funktioniert ohne Setup)
-2. **Jina Reader** — Hochwertiger Webseiteninhalt als Markdown (API-Schlüssel erforderlich; ohne ihn greifen öffentliche Seiten auf WebFetch zurück)
-3. **Playwright** — Browserbasierter Abruf für JavaScript-gerenderte und vertrauliche Seiten (~200 MB Download)
+Alle Schritte sind optional. Kann jederzeit erneut ausgeführt werden, um Einstellungen zu aktualisieren.
 
-Alle Schritte können übersprungen werden. Das Skript kann jederzeit erneut ausgeführt werden, um Einstellungen zu aktualisieren.
-Nach dem Setup Claude Code neu starten (oder `/mcp` ausführen), damit neue MCP-Server wirksam werden.
+Verwendung: `/scout:setup`
 
 ## Datenschutz
 
@@ -96,7 +101,7 @@ Diese Klassifizierung erfolgt automatisch, basiert jedoch auf der Einschätzung 
 ## Voraussetzungen
 
 - Claude Code
-- `jq` (nur für das Setup-Skript)
+- `jq` (nur für das Setup)
 - `npm`/`npx` (für den [MCP](https://modelcontextprotocol.io/)-Server: chrome-devtools)
 - Python 3.10+ (optional, für lokalen Playwright-Abruf)
 - `uvx` oder `uv` (optional, für den MCP-Server: markitdown — HTML→Markdown-Konvertierung)
@@ -129,7 +134,7 @@ Setup-Anweisungen werden vom KI-Assistenten in Ihrer Sprache bereitgestellt.
 
 ## Sicherheitshinweis
 
-Nach dem Ausführen von `setup.sh` werden API-Schlüssel in `.mcp.json` gespeichert.
+Nach dem Setup werden API-Schlüssel in `.mcp.json` gespeichert.
 **`.mcp.json` nicht in Git committen.** Verwenden Sie `.mcp.json.dist` als Vorlage für die Weitergabe.
 
 ## Haftungsausschluss

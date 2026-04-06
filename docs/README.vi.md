@@ -27,17 +27,20 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Bắt đầu nhanh
+**Bước 3** — Thiết lập công cụ tìm kiếm và công cụ tải nội dung
 
-scout hoạt động ngay sau khi cài đặt — tìm kiếm sử dụng WebSearch (tích hợp sẵn) và Exa (miễn phí, không cần API key). Thiết lập tùy chọn bổ sung thêm khả năng:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Thử ngay
+`scout:setup` hướng dẫn bạn cấu hình [Jina Reader](https://jina.ai) (tải nội dung trang web), [Exa](https://exa.ai) (tìm kiếm ngữ nghĩa) và [Playwright](https://playwright.dev) (trang render bằng JavaScript) theo hình thức tương tác. Mọi bước đều là tùy chọn và có thể bỏ qua.
 
-Sau khi cài đặt, hãy hỏi Claude:
+> **Lưu ý:** Nếu bạn bỏ qua bước này, scout sẽ nhắc bạn thiết lập khi bắt đầu phiên tiếp theo. Tìm kiếm cơ bản hoạt động ngay mà không cần thiết lập.
+
+## Bắt đầu nhanh
+
+Sau khi cài đặt, hãy hỏi Claude (không cần thiết lập — tìm kiếm cơ bản hoạt động ngay):
 
 **Tìm những khái niệm bạn chưa biết tên:**
 > "thuật toán mà app tự gợi ý sản phẩm dựa trên những gì người dùng khác có sở thích giống mình đã mua"
@@ -67,22 +70,22 @@ Cách dùng: `/scout:search câu hỏi của bạn ở đây`
 ### scout:fetch
 
 Lấy nội dung trang web với phân loại bảo mật tự động:
-- **Trang công khai** → Jina Reader (cần API key) / WebFetch (dự phòng tích hợp sẵn)
+- **Trang công khai** → Jina Reader / WebFetch (dự phòng tích hợp sẵn)
 - **Trang bảo mật** → Playwright cục bộ (không gọi API bên ngoài)
 - **Trang yêu cầu xác thực** → Chrome DevTools (phiên trình duyệt)
 
 Cách dùng: `/scout:fetch URL`
 
-## Thiết lập (Tùy chọn)
+### scout:setup
 
-Chạy `tools/setup.sh` để cấu hình:
+Thiết lập tương tác có hướng dẫn cho công cụ tìm kiếm và công cụ tải nội dung:
+- **Jina Reader** — Lấy nội dung trang web chất lượng cao dưới dạng Markdown ([API key miễn phí](https://jina.ai/?newKey))
+- **Exa** — Tìm kiếm ngữ nghĩa AI-native nâng cao ([API key](https://exa.ai))
+- **Playwright** — Lấy nội dung qua trình duyệt cho trang render bằng JavaScript và trang bảo mật (~200MB tải về)
 
-1. **Exa** — Công cụ tìm kiếm AI-native nâng cao (API key cho tính năng trả phí; gói miễn phí hoạt động không cần thiết lập)
-2. **Jina Reader** — Lấy nội dung trang web chất lượng cao dưới dạng Markdown (cần API key; nếu không có, trang công khai sẽ dùng WebFetch)
-3. **Playwright** — Lấy nội dung qua trình duyệt cho trang render bằng JavaScript và trang bảo mật (~200MB tải về)
+Tất cả các bước đều là tùy chọn. Chạy lại bất cứ lúc nào để cập nhật cài đặt.
 
-Tất cả các bước đều có thể bỏ qua. Chạy lại bất cứ lúc nào để cập nhật cài đặt.
-Sau khi thiết lập, khởi động lại Claude Code (hoặc chạy `/mcp`) để các MCP server mới có hiệu lực.
+Cách dùng: `/scout:setup`
 
 ## Quyền riêng tư
 
@@ -96,7 +99,7 @@ Phân loại này là tự động nhưng dựa trên phán đoán của LLM, kh
 ## Yêu cầu
 
 - Claude Code
-- `jq` (chỉ dùng cho script thiết lập)
+- `jq` (chỉ dùng cho thiết lập)
 - `npm`/`npx` (cho [MCP](https://modelcontextprotocol.io/) server: chrome-devtools)
 - Python 3.10+ (tùy chọn, cho lấy nội dung cục bộ bằng Playwright)
 - `uvx` hoặc `uv` (tùy chọn, cho MCP server: markitdown — chuyển đổi HTML→Markdown)
@@ -129,7 +132,7 @@ Hướng dẫn đã dịch chỉ mang tính tiện lợi — **bản gốc tiế
 
 ## Lưu ý bảo mật
 
-Sau khi chạy `setup.sh`, các API key được lưu trong `.mcp.json`.
+Sau khi thiết lập, các API key được lưu trong `.mcp.json`.
 **Không commit `.mcp.json` lên Git.** Dùng `.mcp.json.dist` làm template phân phối.
 
 ## Tuyên bố miễn trừ trách nhiệm

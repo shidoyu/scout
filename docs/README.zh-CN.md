@@ -27,13 +27,20 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
+**第 3 步** — 设置搜索引擎和抓取工具
+
+```
+/reload-plugins
+/scout:setup
+```
+
+scout:setup 将以交互方式引导你配置 Jina Reader（网页抓取）、Exa（语义搜索）和 Playwright（JavaScript 渲染页面）。所有步骤均为可选，可随时跳过。
+
+> **注意：** 如果跳过此步骤，scout 将在下次会话开始时提示你。基本搜索功能无需设置即可立即使用。
+
 ## 快速开始
 
-安装后即可立即使用——搜索功能使用 WebSearch（内置）和 Exa（免费，无需 API 密钥）。可选配置可解锁更多功能：
-
-```bash
-bash tools/setup.sh
-```
+安装后即可使用（无需设置 — 基本搜索功能立即可用）：
 
 ### 立即体验
 
@@ -67,22 +74,22 @@ bash tools/setup.sh
 ### scout:fetch
 
 获取网页内容，并自动进行隐私分类：
-- **公开页面** → Jina Reader（需要 API 密钥）/ WebFetch（内置回退方案）
+- **公开页面** → Jina Reader / WebFetch（内置回退方案）
 - **机密页面** → 本地 Playwright（不调用外部 API）
 - **需登录的页面** → Chrome DevTools（使用浏览器会话）
 
 用法：`/scout:fetch URL`
 
-## 配置（可选）
+### scout:setup
 
-运行 `tools/setup.sh` 进行配置：
+搜索引擎和抓取工具的交互式设置向导：
+- **Jina Reader** — 将网页高质量转换为 Markdown（免费 API 密钥）
+- **Exa** — 先进的 AI 原生语义搜索（API 密钥）
+- **Playwright** — 基于浏览器的抓取，适用于 JavaScript 渲染页面及机密页面（下载约 200MB）
 
-1. **Exa** — 先进的 AI 原生搜索工具（付费功能需要 API 密钥；免费版无需配置即可使用）
-2. **Jina Reader** — 将网页高质量转换为 Markdown（需要 API 密钥；不配置时公开页面回退至 WebFetch）
-3. **Playwright** — 基于浏览器的获取方式，适用于 JavaScript 渲染页面及机密页面（下载约 200MB）
+所有步骤均为可选。随时重新运行以更新设置。
 
-所有步骤均可跳过。随时重新运行以更新设置。
-配置完成后，请重启 Claude Code（或运行 `/mcp`）以使新的 MCP 服务器生效。
+用法：`/scout:setup`
 
 ## 隐私
 
@@ -96,7 +103,7 @@ scout 在获取内容前会将 URL 分为三个级别：
 ## 依赖要求
 
 - Claude Code
-- `jq`（仅供安装脚本使用）
+- `jq`（仅供设置时使用）
 - `npm`/`npx`（用于 [MCP](https://modelcontextprotocol.io/) 服务器：chrome-devtools）
 - Python 3.10+（可选，用于 Playwright 本地获取）
 - `uvx` 或 `uv`（可选，用于 MCP 服务器：markitdown——HTML→Markdown 转换）
@@ -129,7 +136,7 @@ scout 根据敏感程度对 URL 进行分类，并将机密 URL 路由至仅限�
 
 ## 安全提示
 
-运行 `setup.sh` 后，API 密钥将存储在 `.mcp.json` 中。
+设置后，API 密钥将存储在 `.mcp.json` 中。
 **请勿将 `.mcp.json` 提交至 Git。** 请使用 `.mcp.json.dist` 作为分发模板。
 
 ## 免责声明

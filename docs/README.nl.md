@@ -27,17 +27,22 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Snel aan de slag
+**Stap 3** — Zoekmachines en ophaaltools instellen
 
-scout werkt direct na installatie — zoeken maakt gebruik van WebSearch (ingebouwd) en Exa (gratis, geen sleutel vereist). Optionele instelling voegt meer mogelijkheden toe:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Probeer het nu
+scout:setup begeleidt je interactief bij het configureren van Jina Reader (webpagina's ophalen), Exa (semantisch zoeken) en Playwright (JavaScript-gerenderde pagina's). Alle stappen zijn optioneel en kunnen worden overgeslagen.
 
-Na installatie, vraag Claude:
+> **Opmerking:** Als je deze stap overslaat, vraagt scout je bij de volgende sessiestart om de configuratie. Basiszoeken werkt direct zonder instelling.
+
+## Snel aan de slag
+
+Na installatie, vraag Claude (geen instelling nodig — basiszoeken werkt direct):
+
+### Probeer het nu
 
 **Vind concepten die je nog niet kunt benoemen:**
 > "dat patroon waarbij je code uitvoert op het moment dat een object uit scope gaat"
@@ -67,22 +72,22 @@ Gebruik: `/scout:search jouw vraag hier`
 ### scout:fetch
 
 Webpagina-inhoud ophalen met automatische privacyclassificatie:
-- **Openbare pagina's** → Jina Reader (API-sleutel vereist) / WebFetch (ingebouwde fallback)
+- **Openbare pagina's** → Jina Reader / WebFetch (ingebouwde fallback)
 - **Vertrouwelijke pagina's** → Lokale Playwright (geen externe API-aanroepen)
 - **Geverifieerde pagina's** → Chrome DevTools (browsersessie)
 
 Gebruik: `/scout:fetch URL`
 
-## Instelling (Optioneel)
+### scout:setup
 
-Voer `tools/setup.sh` uit om het volgende in te stellen:
+Interactieve begeleide instelling voor zoekmachines en ophaaltools:
+- **Jina Reader** — Webpagina's van hoge kwaliteit ophalen als Markdown (gratis API-sleutel)
+- **Exa** — Geavanceerd AI-native semantisch zoeken (API-sleutel)
+- **Playwright** — Op browser gebaseerd ophalen voor door JavaScript gerenderde en vertrouwelijke pagina's (~200 MB download)
 
-1. **Exa** — Geavanceerde AI-native zoektools (API-sleutel voor betaalde functies; gratis tier werkt zonder instelling)
-2. **Jina Reader** — Webpagina's van hoge kwaliteit ophalen als Markdown (API-sleutel vereist; zonder sleutel vallen openbare pagina's terug op WebFetch)
-3. **Playwright** — Op browser gebaseerd ophalen voor door JavaScript gerenderde en vertrouwelijke pagina's (~200 MB download)
+Alle stappen zijn optioneel. Voer opnieuw uit om instellingen bij te werken.
 
-Alle stappen zijn overgeslagen. Voer het script opnieuw uit om instellingen bij te werken.
-Na de instelling moet Claude Code opnieuw worden opgestart (of voer `/mcp` uit) zodat nieuwe MCP-servers van kracht worden.
+Gebruik: `/scout:setup`
 
 ## Privacy
 
@@ -96,7 +101,7 @@ Deze classificatie is automatisch maar gebaseerd op LLM-oordeel, niet op systeem
 ## Vereisten
 
 - Claude Code
-- `jq` (alleen voor het installatiesscript)
+- `jq` (alleen voor instelling)
 - `npm`/`npx` (voor [MCP](https://modelcontextprotocol.io/) server: chrome-devtools)
 - Python 3.10+ (optioneel, voor lokaal ophalen via Playwright)
 - `uvx` of `uv` (optioneel, voor MCP-server: markitdown — HTML→Markdown-conversie)
@@ -129,7 +134,7 @@ Vertaalde instructies zijn uitsluitend bedoeld voor het gemak — **het Engelse 
 
 ## Beveiligingsopmerking
 
-Na het uitvoeren van `setup.sh` worden API-sleutels opgeslagen in `.mcp.json`.
+Na de instelling worden API-sleutels opgeslagen in `.mcp.json`.
 **Commit `.mcp.json` niet naar Git.** Gebruik `.mcp.json.dist` als sjabloon voor distributie.
 
 ## Disclaimer

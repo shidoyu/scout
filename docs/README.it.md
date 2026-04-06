@@ -27,17 +27,22 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Avvio rapido
+**Passaggio 3** — Configurare i motori di ricerca e gli strumenti di recupero
 
-scout funziona immediatamente dopo l'installazione — la ricerca utilizza WebSearch (integrato) ed Exa (gratuito, nessuna chiave richiesta). La configurazione opzionale aggiunge ulteriori funzionalità:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Provalo subito
+scout:setup ti guida interattivamente nella configurazione di Jina Reader (recupero di pagine web), Exa (ricerca semantica) e Playwright (pagine renderizzate con JavaScript). Tutti i passaggi sono opzionali e possono essere saltati.
 
-Dopo l'installazione, chiedi a Claude:
+> **Nota:** Se salti questo passaggio, scout ti chiederà la configurazione al prossimo avvio di sessione. La ricerca di base funziona immediatamente senza configurazione.
+
+## Avvio rapido
+
+Dopo l'installazione, chiedi a Claude (nessuna configurazione necessaria — la ricerca di base funziona immediatamente):
+
+### Provalo subito
 
 **Trova concetti che non sai ancora nominare:**
 > "quel meccanismo dove il programma reagisce automaticamente quando un dato cambia senza dover controllare continuamente"
@@ -67,22 +72,22 @@ Utilizzo: `/scout:search la tua domanda qui`
 ### scout:fetch
 
 Recupera il contenuto di pagine web con classificazione automatica della privacy:
-- **Pagine pubbliche** → Jina Reader (API key richiesta) / WebFetch (fallback integrato)
+- **Pagine pubbliche** → Jina Reader / WebFetch (fallback integrato)
 - **Pagine riservate** → Playwright locale (nessuna chiamata a API esterne)
 - **Pagine autenticate** → Chrome DevTools (sessione del browser)
 
 Utilizzo: `/scout:fetch URL`
 
-## Configurazione (Opzionale)
+### scout:setup
 
-Esegui `tools/setup.sh` per configurare:
-
-1. **Exa** — Strumenti di ricerca avanzati AI-native (API key per le funzionalità a pagamento; il piano gratuito funziona senza configurazione)
-2. **Jina Reader** — Recupero di alta qualità di pagine web in Markdown (API key richiesta; senza di essa, le pagine pubbliche passano a WebFetch)
-3. **Playwright** — Recupero basato su browser per pagine con JavaScript e pagine riservate (~200MB di download)
+Configurazione interattiva guidata per motori di ricerca e strumenti di recupero:
+- **Jina Reader** — Recupero di alta qualità di pagine web in Markdown (API key gratuita)
+- **Exa** — Ricerca semantica avanzata AI-native (API key)
+- **Playwright** — Recupero basato su browser per pagine con JavaScript e pagine riservate (~200MB di download)
 
 Tutti i passaggi sono opzionali. Riesegui in qualsiasi momento per aggiornare le impostazioni.
-Dopo la configurazione, riavvia Claude Code (o esegui `/mcp`) affinché i nuovi server MCP abbiano effetto.
+
+Utilizzo: `/scout:setup`
 
 ## Privacy
 
@@ -96,7 +101,7 @@ Questa classificazione è automatica ma basata sul giudizio del LLM, non su mecc
 ## Requisiti
 
 - Claude Code
-- `jq` (solo per lo script di configurazione)
+- `jq` (solo per la configurazione)
 - `npm`/`npx` (per il server [MCP](https://modelcontextprotocol.io/): chrome-devtools)
 - Python 3.10+ (opzionale, per il recupero locale tramite Playwright)
 - `uvx` o `uv` (opzionale, per il server MCP: markitdown — conversione HTML→Markdown)
@@ -129,7 +134,7 @@ Le istruzioni tradotte sono fornite solo per comodità — **l'originale in ingl
 
 ## Nota sulla sicurezza
 
-Dopo aver eseguito `setup.sh`, le API key vengono memorizzate in `.mcp.json`.
+Dopo la configurazione, le API key vengono memorizzate in `.mcp.json`.
 **Non eseguire il commit di `.mcp.json` su Git.** Usa `.mcp.json.dist` come template per la distribuzione.
 
 ## Dichiarazione di non responsabilità

@@ -27,17 +27,20 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Kom hurtigt i gang
+**Trin 3** — Opsæt søgemaskiner og hentningsværktøjer
 
-scout fungerer umiddelbart efter installation — søgning bruger WebSearch (indbygget) og Exa (gratis, ingen nøgle kræves). Valgfri opsætning tilføjer yderligere funktioner:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Prøv det nu
+`scout:setup` guider dig interaktivt igennem konfiguration af [Jina Reader](https://jina.ai) (hentning af websider), [Exa](https://exa.ai) (semantisk søgning) og [Playwright](https://playwright.dev) (JavaScript-renderede sider). Alle trin er valgfrie og kan springes over.
 
-Efter installationen, spørg Claude:
+> **Bemærk:** Hvis du springer dette trin over, vil scout bede dig om opsætning ved næste sessionsstart. Grundlæggende søgning fungerer straks uden opsætning.
+
+## Kom hurtigt i gang
+
+Efter installationen, spørg Claude (ingen opsætning nødvendig — grundlæggende søgning fungerer straks):
 
 **Find begreber du endnu ikke kan navngive:**
 > "det mønster hvor man pakker et gammelt API ind i en ny grænseflade uden at ændre det bagvedliggende"
@@ -67,22 +70,22 @@ Brug: `/scout:search dit spørgsmål her`
 ### scout:fetch
 
 Hent websideindhold med automatisk klassificering af følsomhed:
-- **Offentlige sider** → Jina Reader (API-nøgle påkrævet) / WebFetch (indbygget reserve)
+- **Offentlige sider** → Jina Reader / WebFetch (indbygget reserve)
 - **Fortrolige sider** → Lokal Playwright (ingen eksterne API-kald)
 - **Godkendte sider** → Chrome DevTools (browsersession)
 
 Brug: `/scout:fetch URL`
 
-## Opsætning (valgfri)
+### scout:setup
 
-Kør `tools/setup.sh` for at konfigurere:
+Interaktiv guidet opsætning af søgemaskiner og hentningsværktøjer:
+- **Jina Reader** — Høj kvalitet websideindhentning som Markdown ([gratis API-nøgle](https://jina.ai/?newKey))
+- **Exa** — Avanceret AI-native semantisk søgning ([API-nøgle](https://exa.ai))
+- **Playwright** — Browserbaseret indhentning til JavaScript-renderede og fortrolige sider (~200 MB download)
 
-1. **Exa** — Avancerede AI-native søgeværktøjer (API-nøgle til betalte funktioner; gratis niveau fungerer uden opsætning)
-2. **Jina Reader** — Høj kvalitet websideindhentning som Markdown (API-nøgle påkrævet; uden den falder offentlige sider tilbage til WebFetch)
-3. **Playwright** — Browserbaseret indhentning til JavaScript-renderede og fortrolige sider (~200 MB download)
+Alle trin er valgfrie. Kør igen når som helst for at opdatere indstillinger.
 
-Alle trin kan springes over. Kør igen når som helst for at opdatere indstillinger.
-Efter opsætning skal du genstarte Claude Code (eller køre `/mcp`) for at nye MCP-servere træder i kraft.
+Brug: `/scout:setup`
 
 ## Privatliv
 
@@ -96,7 +99,7 @@ Denne klassificering sker automatisk, men er baseret på LLM-vurdering, ikke sys
 ## Krav
 
 - Claude Code
-- `jq` (kun til opsætningsscript)
+- `jq` (kun til opsætning)
 - `npm`/`npx` (til [MCP](https://modelcontextprotocol.io/)-server: chrome-devtools)
 - Python 3.10+ (valgfri, til Playwright lokal indhentning)
 - `uvx` eller `uv` (valgfri, til MCP-server: markitdown — HTML→Markdown-konvertering)
@@ -129,7 +132,7 @@ Oversatte instruktioner er kun til orientering — **den engelske original er au
 
 ## Sikkerhedsnote
 
-Efter at have kørt `setup.sh` gemmes API-nøgler i `.mcp.json`.
+Efter opsætning gemmes API-nøgler i `.mcp.json`.
 **Commit ikke `.mcp.json` til Git.** Brug `.mcp.json.dist` som skabelon til distribution.
 
 ## Fraskrivelse

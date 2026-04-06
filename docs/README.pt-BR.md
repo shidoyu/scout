@@ -27,17 +27,22 @@ claude plugin marketplace add shidoyu/scout
 claude plugin install scout@shidoyu-scout
 ```
 
-## Início Rápido
+**Passo 3** — Configurar motores de busca e ferramentas de obtenção
 
-O scout funciona imediatamente após a instalação — a busca utiliza WebSearch (integrado) e Exa (gratuito, sem necessidade de chave). A configuração opcional adiciona mais capacidades:
-
-```bash
-bash tools/setup.sh
+```
+/reload-plugins
+/scout:setup
 ```
 
-### Experimente agora
+scout:setup orienta você interativamente na configuração do Jina Reader (obtenção de páginas web), Exa (busca semântica) e Playwright (páginas renderizadas com JavaScript). Todas as etapas são opcionais e podem ser puladas.
 
-Após instalar, pergunte ao Claude:
+> **Nota:** Se você pular esta etapa, o scout solicitará a configuração no próximo início de sessão. A busca básica funciona imediatamente sem configuração.
+
+## Início Rápido
+
+Após instalar, pergunte ao Claude (sem necessidade de configuração — a busca básica funciona imediatamente):
+
+### Experimente agora
 
 **Encontrar conceitos que você ainda não sabe nomear:**
 > "Aquele conceito em programação onde você transforma uma função que recebe vários argumentos em uma cadeia de funções que recebem um argumento de cada vez"
@@ -67,22 +72,22 @@ Uso: `/scout:search sua pergunta aqui`
 ### scout:fetch
 
 Obtém conteúdo de páginas web com classificação automática de privacidade:
-- **Páginas públicas** → Jina Reader (chave de API necessária) / WebFetch (fallback integrado)
+- **Páginas públicas** → Jina Reader / WebFetch (fallback integrado)
 - **Páginas confidenciais** → Playwright local (sem chamadas a APIs externas)
 - **Páginas autenticadas** → Chrome DevTools (sessão do navegador)
 
 Uso: `/scout:fetch URL`
 
-## Configuração (Opcional)
+### scout:setup
 
-Execute `tools/setup.sh` para configurar:
+Configuração interativa guiada para motores de busca e ferramentas de obtenção:
+- **Jina Reader** — Obtenção de páginas web em alta qualidade como Markdown (chave de API gratuita)
+- **Exa** — Busca semântica avançada com IA nativa (chave de API)
+- **Playwright** — Obtenção baseada em navegador para páginas renderizadas com JavaScript e páginas confidenciais (~200MB de download)
 
-1. **Exa** — Ferramentas de busca avançadas com IA nativa (chave de API para recursos pagos; o nível gratuito funciona sem configuração)
-2. **Jina Reader** — Obtenção de páginas web em alta qualidade como Markdown (chave de API necessária; sem ela, páginas públicas usam WebFetch como fallback)
-3. **Playwright** — Obtenção baseada em navegador para páginas renderizadas com JavaScript e páginas confidenciais (~200MB de download)
+Todas as etapas são opcionais. Execute novamente a qualquer momento para atualizar as configurações.
 
-Todas as etapas podem ser puladas. Execute novamente a qualquer momento para atualizar as configurações.
-Após a configuração, reinicie o Claude Code (ou execute `/mcp`) para que os novos servidores MCP entrem em vigor.
+Uso: `/scout:setup`
 
 ## Privacidade
 
@@ -96,7 +101,7 @@ Esta classificação é automática, mas baseada no julgamento do LLM, não em i
 ## Requisitos
 
 - Claude Code
-- `jq` (somente para o script de configuração)
+- `jq` (somente para configuração)
 - `npm`/`npx` (para o servidor [MCP](https://modelcontextprotocol.io/): chrome-devtools)
 - Python 3.10+ (opcional, para obtenção local via Playwright)
 - `uvx` ou `uv` (opcional, para o servidor MCP: markitdown — conversão HTML→Markdown)
@@ -129,7 +134,7 @@ As instruções traduzidas são apenas para conveniência — **o original em in
 
 ## Nota de Segurança
 
-Após executar `setup.sh`, as chaves de API são armazenadas em `.mcp.json`.
+Após a configuração, as chaves de API são armazenadas em `.mcp.json`.
 **Não faça commit de `.mcp.json` no Git.** Use `.mcp.json.dist` como template para distribuição.
 
 ## Isenção de Responsabilidade
