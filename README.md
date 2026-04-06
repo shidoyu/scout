@@ -19,23 +19,27 @@ Claude Code's built-in WebSearch returns 125-character snippets and relies on ke
 
 ## Install
 
-Run in your terminal:
+**Step 1** — Register the marketplace
 
 ```bash
-# Step 1: Register the marketplace
 claude plugin marketplace add shidoyu/scout
+```
 
-# Step 2: Install the plugin
+**Step 2** — Install the plugin
+
+```bash
 claude plugin install scout@shidoyu-scout
 ```
 
-## Quick Start
+**Step 3** — Set up search engines and fetching tools
 
-scout works immediately after install — search uses WebSearch (built-in) and Exa (free, no key needed). Optional setup adds more capabilities:
+This configures Jina Reader (web page fetching), Exa (advanced search), and Playwright (JavaScript-rendered pages). Without this step, page fetching falls back to basic WebFetch.
 
 ```bash
-bash tools/setup.sh
+bash ~/.claude/plugins/cache/shidoyu-scout/scout/*/tools/setup.sh
 ```
+
+## Quick Start
 
 ### Try it now
 
