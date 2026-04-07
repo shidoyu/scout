@@ -55,32 +55,36 @@ fi
 
 Run this check first. Only present steps for tools that are not yet configured. If everything is already configured, tell the user and skip setup.
 
-## Setup Steps
+## Interaction Flow
 
-**Present one step at a time.** Show Step 1 first. After the user completes or skips it, show Step 2. After Step 2, show Step 3. Never list all steps at once — sequential progression reduces cognitive load and prevents drop-off.
+CRITICAL: This is a multi-turn dialogue. You MUST present only ONE step per response, then STOP and wait for the user's reply. Do NOT mention, preview, or summarize upcoming steps.
 
-Order (immediate value first):
+The flow is:
 
-### Step 1: Jina Reader
+1. Run pre-check
+2. Present the FIRST unconfigured item (see step details below). Then STOP.
+3. User responds (provides key, says "skip", asks a question, etc.)
+4. Handle the response (configure or skip). Then present the NEXT unconfigured item. Then STOP.
+5. Repeat until all items are addressed.
+6. Run "After Setup" once.
 
-**What it adds**: Web pages are fetched as clean Markdown text instead of raw HTML. Improves the quality of every URL fetch.
+### What to say for each item
 
-**How to set up**:
-1. Tell the user: "Jina Reader fetches web pages as clean Markdown. A free API key is available at https://jina.ai/?newKey"
-2. Wait for the user to provide a key
-3. If provided, configure it:
+**Jina Reader** (present first if unconfigured):
+
+Say: Jina Reader fetches web pages as clean Markdown instead of raw HTML. Improves every URL fetch. A free API key is available at https://jina.ai/?newKey — paste it here, or say "skip".
+
+If user provides a key, configure it:
 
 ```bash
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT}"
 MCP_JSON="$PLUGIN_ROOT/.mcp.json"
 MCP_DIST="$PLUGIN_ROOT/.mcp.json.dist"
 
-# Ensure .mcp.json exists
 if [ ! -f "$MCP_JSON" ]; then
   cp "$MCP_DIST" "$MCP_JSON"
 fi
 
-# Write Jina Reader config (replace JINA_KEY with the actual key)
 jq --arg key "JINA_KEY" \
   '.mcpServers["jina-reader"] = {
     "type": "http",
@@ -90,29 +94,25 @@ jq --arg key "JINA_KEY" \
 chmod 600 "$MCP_JSON"
 ```
 
-4. Confirm: "Jina Reader configured."
+Confirm briefly, then move to next item.
 
-### Step 2: Exa (API key)
+---
 
-**What it adds**: Semantic search that finds pages by meaning, not just keywords. Especially effective for conceptual queries where you can't name what you're looking for.
+**Exa** (present second if unconfigured):
 
-**How to set up**:
-1. Tell the user: "Exa adds meaning-based search. It excels at finding things when you don't have the right keywords yet. Get an API key at https://exa.ai"
-2. Note: The free `exa-free` MCP server is already included and works without a key. This step adds the paid `exa` tools for advanced features (company research, deep research, etc.)
-3. Wait for the user to provide a key
-4. If provided, configure it:
+Say: Exa adds meaning-based search — it finds pages by concept, not just keywords. The free exa-free tools are already included; this adds advanced features (company research, deep research). Get an API key at https://exa.ai — paste it here, or say "skip".
+
+If user provides a key, configure it:
 
 ```bash
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT}"
 MCP_JSON="$PLUGIN_ROOT/.mcp.json"
 MCP_DIST="$PLUGIN_ROOT/.mcp.json.dist"
 
-# Ensure .mcp.json exists
 if [ ! -f "$MCP_JSON" ]; then
   cp "$MCP_DIST" "$MCP_JSON"
 fi
 
-# Write Exa config (replace EXA_KEY with the actual key)
 jq --arg key "EXA_KEY" \
   '.mcpServers.exa = {
     "type": "http",
@@ -121,16 +121,15 @@ jq --arg key "EXA_KEY" \
 chmod 600 "$MCP_JSON"
 ```
 
-5. Confirm: "Exa configured."
+Confirm briefly, then move to next item.
 
-### Step 3: Playwright
+---
 
-**What it adds**: Reads JavaScript-rendered pages (SPAs, dashboards) that other tools can't access. Also handles confidential URLs locally without sending them to external APIs.
+**Playwright** (present last if not installed):
 
-**How to set up**:
-1. Tell the user: "Playwright lets scout read JavaScript-rendered pages locally. It downloads Chromium (~200MB)."
-2. Wait for explicit consent before proceeding
-3. If consented:
+Say: Playwright lets scout read JavaScript-rendered pages (SPAs, dashboards) locally. Also handles confidential URLs without sending them to external APIs. Downloads Chromium (~200MB). Install it? Or say "skip".
+
+If user consents:
 
 ```bash
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT}"
@@ -140,8 +139,7 @@ python3 -m venv "$VENV_DIR" && \
   "$VENV_DIR/bin/playwright" install chromium
 ```
 
-4. If the install fails, show the manual commands and move on. Do not retry.
-5. Confirm: "Playwright installed."
+If the install fails, show the manual commands and move on. Do not retry.
 
 ## After Setup
 
@@ -157,7 +155,7 @@ cat > "$STATE_DIR/setup-status.json" << 'STATUSEOF'
 STATUSEOF
 ```
 
-3. Show a summary of what was configured.
+3. Show a brief summary of what was configured.
 
 4. Propose a demo search to try out the configured tools. Suggest one of these queries that showcase scout's strength — where query redesign makes a clear difference:
    - "I want something like Git blame but for design decisions" — scout translates this concept into the right term (ADR) and reaches primary sources, while a plain keyword search returns git blame tutorials
