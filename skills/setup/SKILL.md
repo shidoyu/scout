@@ -13,6 +13,7 @@ Walk the user through configuring scout's optional search and fetching tools via
 
 **"scout already works. These options make it stronger. The user chooses."**
 
+- **Respond in the user's language** — detect from conversation context or system locale. All dialogue, explanations, and confirmations must be in the user's language. Only URLs and CLI commands stay in English.
 - Frame each tool as an upgrade, not a missing piece
 - Every step is skippable — do not ask why if the user declines
 - State facts about what each tool adds, not what's lost without it
