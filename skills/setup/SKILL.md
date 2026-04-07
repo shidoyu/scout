@@ -56,7 +56,9 @@ Run this check first. Only present steps for tools that are not yet configured. 
 
 ## Setup Steps
 
-Present steps in this order (immediate value first):
+**Present one step at a time.** Show Step 1 first. After the user completes or skips it, show Step 2. After Step 2, show Step 3. Never list all steps at once — sequential progression reduces cognitive load and prevents drop-off.
+
+Order (immediate value first):
 
 ### Step 1: Jina Reader
 
