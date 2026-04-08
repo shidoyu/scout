@@ -261,7 +261,7 @@ Official documentation search for libraries and frameworks. Retrieves current, i
 - Max 3 calls per tool per question (Context7 API constraint). Typical flow: resolve(1) + query(1) = 2 calls total
 - Not suitable for non-library technical topics (infrastructure, OS, networking)
 
-**Fallback conditions** (any triggers fallback to WebSearch):
+**Fallback conditions** (any triggers fallback to Step 3 — tool selection follows Domain-Aware Tool Selection in Step 3b):
 - Context7 MCP not connected
 - `resolve-library-id` returns no results or only ambiguous matches
 - `query-docs` returns insufficient content (low snippet count or irrelevant results)
