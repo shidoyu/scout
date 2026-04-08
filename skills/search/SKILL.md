@@ -3,7 +3,7 @@ name: search
 description: "Web search and content fetching. Find relevant sources and read web pages with precision."
 ---
 
-# scout:search v2.0 — Adaptive Search with Primary-Source Focus
+# scout:search v2.1 — Adaptive Search with Primary-Source Focus
 
 ## Purpose
 
@@ -53,7 +53,7 @@ All classifications are tentative and may change after Step 2 Pre-Research.
 
 ### Step 2: Pre-Research
 
-**Always execute** unless Source-Type Routing (Step 2.5) can fully answer the query without any search. Investigate the search target with one query to improve query design accuracy.
+**Always execute** unless the query is clearly routable (Step 2.5) — i.e., it names a specific library/framework and asks about API usage, config, or setup. In that case, attempt Source-Type Routing first; if it fully answers, Pre-Research is retrospectively unnecessary. If routing only partially answers or misses, execute Pre-Research before Step 3.
 
 1. **Search the target** (budget: 1 query, separate from main search budget)
    - Use the language closest to the target, with proper noun + attribute keywords
@@ -76,6 +76,7 @@ All classifications are tentative and may change after Step 2 Pre-Research.
 
 | Query type | Direct source | Action |
 |---|---|---|
+| **Library/framework docs, API usage, library/framework config** | **Context7 MCP** | **`resolve-library-id` → `query-docs`. If Context7 unavailable or library not indexed → continue to Step 3** |
 | Package version / dependency info | npm, PyPI, crates.io, Maven Central | Fetch API/registry directly |
 | RFC / Internet standard | IETF | Fetch directly |
 | CVE / vulnerability | NVD, GitHub Advisory | Fetch directly |
@@ -84,7 +85,7 @@ All classifications are tentative and may change after Step 2 Pre-Research.
 | Law / regulation text | e-Gov, official gazette | Fetch directly |
 | Kubernetes API / resource spec | kubernetes.io | Fetch directly |
 
-**If routable**: Fetch the direct source. Route fetches are executed synchronously before proceeding to Step 3. If the direct source fully answers the query → skip to Step 6: Synthesize. If partially answers → continue to Step 3 with the direct source as baseline.
+**If routable**: Fetch the direct source. Route fetches are executed synchronously before proceeding to Step 3. If the direct source fully answers the query → skip Steps 3–5, go to Step 6: Synthesize (output abbreviated Assess ✓✓✓ for record). If partially answers → continue to Step 3 with the direct source as baseline.
 
 **If not routable**: Continue to Step 3.
 
@@ -110,10 +111,13 @@ Select tool emphasis based on domain classification. This is a **directional gui
 
 | Domain | Primary tool | Secondary tool | Rationale |
 |---|---|---|---|
-| **Technical** (official docs exist) | WebSearch | Exa supplements | WebSearch reaches official docs directly. Exa adds community context |
+| **Technical** (library/framework docs) | WebSearch + Exa | — | Context7 was already called in Step 2.5. If it fully answered → skip to Step 6. If partial: use WebSearch/Exa for remaining gaps. Do not re-call Context7 here. |
+| **Technical** (non-library: infra, OS, etc.) | WebSearch | Exa supplements | WebSearch reaches official docs directly. Exa adds community context |
 | **Empirical** (academic/research) | Exa | WebSearch supplements | Exa HyDE excels at finding papers by meaning. WebSearch for DOI/publisher lookup |
 | **Conceptual** (theory/philosophy) | Balanced | — | Both contribute; balance breadth and depth |
 | **Regulatory** (law/policy/compliance) | WebSearch | Exa supplements | WebSearch for official sources + freshness. Exa for analytical context |
+
+**Context7** is a pre-search step (Source-Type Routing), not a query budget item. If Context7 fully answers the query, no further search budget is consumed.
 
 **Note**: Pre-Research is exempt from this guideline — use whatever tool is fastest for concept understanding.
 
@@ -220,8 +224,9 @@ Query design (Steps 1-3) and search tools are independent. Tool failures do not 
 
 | Purpose | Recommended | Fallback | Reason |
 |---|---|---|---|
+| **Library/framework official docs** | **Context7** (via Step 2.5 Route) | WebSearch | Direct access to indexed official docs; avoids secondary-source bias |
 | Concept/meaning search (hit even without keyword match) | Exa | WebSearch | Semantic search; returns page content inline |
-| Code examples, API usage | Exa (`get_code_context_exa`) | WebSearch | Specialized for GitHub/SO/official docs, returns code |
+| Code examples, API usage | Context7 (via Step 2.5) / Exa (`get_code_context_exa`) | WebSearch | Context7 for official examples; Exa for community examples |
 | Find a specific page/URL | WebSearch | — | Strong at URL/title identification |
 | Broad, comprehensive collection | WebSearch (multiple queries) | — | Returns many sources |
 | Speed-priority / quick check | WebSearch | — | Instant results |
@@ -233,6 +238,36 @@ Query design (Steps 1-3) and search tools are independent. Tool failures do not 
 Claude Code's built-in tool. Keyword-match search.
 
 **Limitation**: Search result citation text is **truncated to 125 characters max**. Judge content by title and snippet only. For details, fetch source articles following the scout:fetch workflow.
+
+### Context7 MCP
+
+Official documentation search for libraries and frameworks. Retrieves current, indexed docs directly — no web search noise.
+
+**Two-step flow** (always in this order):
+1. `resolve-library-id` — Resolve library name to Context7 ID (e.g., `"Next.js"` → `/vercel/next.js`)
+2. `query-docs` — Query documentation with the resolved library ID
+
+**Parameters**:
+- `resolve-library-id`: `libraryName` (official name with proper punctuation) + `query` (specific question — used to rank results by relevance)
+- `query-docs`: `libraryId` (from step 1) + `query` (specific question)
+
+**Strengths**:
+- Direct access to official, up-to-date documentation — no secondary-source bias
+- Returns code snippets and structured content
+- No API key required (free, npx-based)
+
+**Limitations**:
+- Only covers indexed libraries/frameworks (not all projects are indexed)
+- Max 3 calls per tool per question (Context7 API constraint). Typical flow: resolve(1) + query(1) = 2 calls total
+- Not suitable for non-library technical topics (infrastructure, OS, networking)
+
+**Fallback conditions** (any triggers fallback to WebSearch):
+- Context7 MCP not connected
+- `resolve-library-id` returns no results or only ambiguous matches
+- `query-docs` returns insufficient content (low snippet count or irrelevant results)
+- Context7 times out
+
+**Usage in scout**: Context7 is used in Source-Type Routing (Step 2.5), not as a main search query. It does not consume search budget.
 
 ### Exa MCP
 
@@ -276,7 +311,8 @@ Classify the query's domain to guide tool selection and search strategy.
 
 | Domain | Characteristics | Primary source types | Tool emphasis |
 |---|---|---|---|
-| **Technical** | Official docs exist, version-dependent, API/spec queries | Official docs, GitHub repos, release notes, changelogs, CVE/NVD | WebSearch-primary |
+| **Technical** (library/framework) | Library/framework with indexed docs, API/config queries | Official docs via Context7, GitHub repos | Context7 (Step 2.5) → WebSearch + Exa (Step 3b if needed) |
+| **Technical** (non-library) | Infra, OS, networking, version-dependent specs | Official docs, release notes, changelogs, CVE/NVD | WebSearch-primary |
 | **Empirical** | Academic research, statistical data, effect sizes, experimental results | Peer-reviewed papers, systematic reviews, meta-analyses | Exa-primary |
 | **Conceptual** | Theoretical frameworks, philosophical debates, design patterns | Foundational texts, survey papers, expert analyses | Balanced |
 | **Regulatory** | Laws, regulations, compliance, policy, government actions | Official gazettes, regulatory bodies, legislative text | WebSearch-leaning |
@@ -323,6 +359,10 @@ Output the following format before executing queries:
 --- Phase A: Pre-Research ---
 0. Pre-Research: [lang] [query] → [tool]
 
+--- Route (if applicable) ---
+R. Source-Type Routing: [source] → [result: full / partial / miss]
+   (If full → skip to Phase C. If partial/miss → continue to Phase B)
+
 --- Phase B: Analysis & Plan ---
 0a. Abstraction: [one-sentence essence]
 0b. Keywords: [query vocabulary derived from abstraction]
@@ -365,38 +405,64 @@ If Pre-Research results change the initial intent/domain classification or query
 - Never send confidential URLs to `crawling_exa` — use scout:fetch for URL content retrieval instead
 - If all available tools fail during both Execute and Re-search, report the failure to the user with the specific errors encountered. Do not fabricate results from prior knowledge
 - **Primary sources are the goal, not the starting point**: Do not force primary-source-only collection in Pre-Research. Allow concept understanding from any source type, then use refined queries to reach primary sources in Main Search and Re-search
+- **Context7 two-step flow is mandatory**: Always call `resolve-library-id` before `query-docs`. Never guess or hardcode library IDs. If resolve returns no results or low-quality matches, fall back to WebSearch — do not force Context7. If `query-docs` returns results but does not address the specific version or feature queried, supplement with WebSearch — do not rely solely on Context7 output. After a partial Context7 resolution, do not re-call Context7 in Step 3 — use WebSearch/Exa for the remaining gaps
 
 ## Examples
 
-### Example 1: Technical Domain — WebSearch-Primary + Source-Type Routing
+### Example 1: Technical Domain — Context7 Routing (Full Resolution)
 
-**Input**: "What's the latest version of lodash and its bundle size?"
+**Input**: "How do I set up middleware in Next.js App Router?"
 
 ```
---- Phase A ---
-0. Pre-Research: (skipped — Source-Type Routing applies)
+--- Route (if applicable) ---
+R. Source-Type Routing: Context7 → resolve-library-id("Next.js") → /vercel/next.js
+   Context7 → query-docs(/vercel/next.js, "middleware setup App Router")
+   Result: full — official code examples and configuration returned
 
---- Route ---
-Route: npm registry → fetch `npm view lodash version` directly
-Result: Partial answer (version found, bundle size not in registry)
+--- Phase A: Pre-Research ---
+0. Pre-Research: (not needed — Route fully answered)
 
---- Phase B ---
-0a. Abstraction: Popular JS utility library. Version from npm, bundle size from bundlephobia or official docs
-0b. Keywords: lodash, bundle size, minified, gzipped
-1. Intent: target
-2. Domain: technical
-3. Budget: Tier S (1 query, routing answered half)
-4. Tool emphasis: WebSearch-primary (technical domain)
-5. Primary language: en
-6. Query 1: en lodash bundle size minified gzipped 2026 → WebSearch [primary-source: Y]
+--- Phase B: Analysis & Plan ---
+(skipped — Route fully answered, skip to Phase C)
 
 --- Phase C ---
 11. Assess: [Sufficiency ✓] [Reliability ✓] [Specificity ✓]
-12. Primary sources: 2/2 (npm registry + bundlephobia)
+12. Primary sources: 1/1 (Next.js official docs via Context7)
 13. Novelty estimate: n/a
 ```
 
-**Key point**: Source-Type Routing answered part of the query directly. Only 1 search query needed for the remainder.
+**Key point**: Context7 resolved the library and returned official docs directly. Zero search budget consumed.
+
+### Example 1b: Technical Domain — Context7 Miss + WebSearch Fallback
+
+**Input**: "How to configure HAProxy health checks for a Kubernetes backend?"
+
+```
+--- Route (if applicable) ---
+R. Source-Type Routing: Context7 → resolve-library-id("HAProxy") → no indexed library found → miss
+
+--- Phase A: Pre-Research (after Route miss) ---
+0. Pre-Research: en HAProxy health check Kubernetes → WebSearch
+
+--- Phase B ---
+0a. Abstraction: HAProxy reverse proxy with active/passive health checking against K8s service endpoints
+0b. Keywords: HAProxy, health check, Kubernetes, backend, httpchk, option httpchk, server-template
+1. Intent: practice
+2. Domain: technical (non-library — infrastructure tool)
+3. Budget: Tier M (3 queries)
+4. Tool emphasis: WebSearch-primary
+5. Primary language: en
+6. Query 1: en HAProxy health check configuration Kubernetes backend 2026 → WebSearch [primary-source: Y]
+7. Query 2: en HAProxy httpchk server-template dynamic DNS → WebSearch
+8. Query 3: en HAProxy Kubernetes ingress health check best practices → Exa
+
+--- Phase C ---
+11. Assess: [Sufficiency ✓] [Reliability ✓] [Specificity ✓]
+12. Primary sources: 2/5 (HAProxy official docs, Kubernetes docs)
+13. Novelty estimate: n/a
+```
+
+**Key point**: Context7 didn't have HAProxy indexed (infrastructure tool, not a library). Fell back to WebSearch as primary for non-library technical domain.
 
 ### Example 2: Empirical Domain — Exa-Primary + Re-search with Novelty Check
 
@@ -462,6 +528,7 @@ Result: Partial answer (version found, bundle size not in registry)
 
 ## Changelog
 
+- **v2.1** (2026-04-08): Context7 MCP integration for Technical domain. Addresses Round 2 ROI -9 on library/framework docs. Changes: Context7 added to Source-Type Routing (Step 2.5), Domain-Aware Tool Selection split Technical into library vs non-library, Context7 tool documentation added, Example 1 updated with Context7 routing flow
 - **v2.0** (2026-04-06): Major redesign based on 3-model cross-model discussion (3 rounds) + effectiveness evaluation data (4-domain cross-validation). Key changes:
   - Added Step 0.5 Clarify (conditional clarification for ambiguous queries)
   - Added Step 2.5 Route (Source-Type Routing for direct lookup)
