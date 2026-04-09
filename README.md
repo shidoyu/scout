@@ -38,7 +38,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-`scout:setup` walks you through configuring [Jina Reader](https://jina.ai) (web page fetching), [Exa](https://exa.ai) (semantic search), and [Playwright](https://playwright.dev) (JavaScript-rendered pages) interactively. Every step is optional and skippable.
+`scout:setup` walks you through configuring [Context7](https://github.com/upstash/context7) (library docs), [Jina Reader](https://jina.ai) (web page fetching), [Exa](https://exa.ai) (semantic search), and [Playwright](https://playwright.dev) (JavaScript-rendered pages) interactively. Every step is optional and skippable.
 
 > **Note:** If you skip this step, scout will prompt you on the next session start. Basic search works immediately without setup.
 
@@ -65,7 +65,7 @@ After installing, ask Claude (no setup required — basic search works immediate
 Intelligent web search with:
 - Pre-research for query refinement
 - Multi-language query design
-- Multiple search engines (WebSearch, [Exa](https://exa.ai) semantic search)
+- Multiple search engines (WebSearch, [Context7](https://github.com/upstash/context7) official docs, [Exa](https://exa.ai) semantic search)
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) for conceptual queries via Exa
 - Quality assessment with automatic re-search loop
 
@@ -83,6 +83,7 @@ Usage: `/scout:fetch URL`
 ### scout:setup
 
 Interactive guided setup for search engines and fetching tools:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — High-quality web page fetching as Markdown ([free API key](https://jina.ai/?newKey))
 - **Exa** — Advanced AI-native semantic search ([API key](https://exa.ai))
 - **Playwright** — Browser-based fetching for JavaScript-rendered and confidential pages (~200MB download)

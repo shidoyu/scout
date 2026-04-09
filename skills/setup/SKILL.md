@@ -1,6 +1,6 @@
 ---
 name: setup
-description: "Guided interactive setup for scout's search engines and fetching tools. Covers Jina Reader, Exa, and Playwright. Triggers when setting up scout, configuring API keys, adding search engines, troubleshooting fetch failures, or improving search quality."
+description: "Guided interactive setup for scout's search engines and fetching tools. Covers Context7, Jina Reader, Exa, and Playwright. Triggers when setting up scout, configuring API keys, adding search engines, troubleshooting fetch failures, or improving search quality."
 ---
 
 # scout:setup — Guided Configuration
@@ -13,7 +13,7 @@ Walk the user through configuring scout's optional search and fetching tools via
 
 **"scout already works. These options make it stronger. The user chooses."**
 
-- **Respond in the user's language** — detect from conversation context or system locale. All dialogue, explanations, and confirmations must be in the user's language. Only URLs and CLI commands stay in English.
+- **Respond in the user's language** — check the `locale:` line from the pre-check output (e.g. `ja_JP` → Japanese, `es_ES` → Spanish, `en_US` → English). ALL dialogue, explanations, step titles, and option descriptions MUST be in that language. The English templates below are for content guidance only — NEVER output them as-is. Only URLs and CLI commands stay in English.
 - Frame each tool as an upgrade, not a missing piece
 - Every step is skippable — do not ask why if the user declines
 - State facts about what each tool adds, not what's lost without it
@@ -30,6 +30,18 @@ MCP_JSON="$PLUGIN_ROOT/.mcp.json"
 VENV_DIR="$PLUGIN_ROOT/tools/.venv"
 
 echo "=== scout setup status ==="
+
+# System locale for language detection
+echo "locale: $(defaults read -g AppleLocale 2>/dev/null || echo "${LANG:-en_US}")"
+
+# Context7 (user-scoped MCP — check via claude CLI or config file)
+if command -v claude >/dev/null 2>&1 && claude mcp list 2>/dev/null | grep -q context7; then
+  echo "context7: configured"
+elif [ -f "$HOME/.claude.json" ] && jq -e '.mcpServers.context7' "$HOME/.claude.json" > /dev/null 2>&1; then
+  echo "context7: configured"
+else
+  echo "context7: not configured"
+fi
 
 # Jina Reader
 if [ -f "$MCP_JSON" ] && jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1; then
@@ -63,16 +75,102 @@ The flow is:
 
 1. Run pre-check
 2. Present the FIRST unconfigured item (see step details below). Then STOP.
-3. User responds (provides key, says "skip", asks a question, etc.)
-4. Handle the response (configure or skip). Then present the NEXT unconfigured item. Then STOP.
+3. User responds (provides key, says "skip", "private", asks a question, etc.)
+4. Handle the response (configure, skip, or show manual instructions). Then present the NEXT unconfigured item. Then STOP.
 5. Repeat until all items are addressed.
 6. Run "After Setup" once.
 
+### "private" response handling
+
+If the user says "private" for any API key step (Jina or Exa), show them the file path and the JSON to add, so they can edit it themselves without the key passing through the conversation:
+
+```
+File: ${CLAUDE_PLUGIN_ROOT}/.mcp.json
+
+# For Jina Reader, add this to mcpServers:
+"jina-reader": {
+  "type": "http",
+  "url": "https://mcp.jina.ai/v1",
+  "headers": { "Authorization": "Bearer YOUR_KEY_HERE" }
+}
+
+# For Exa, add this to mcpServers:
+"exa": {
+  "type": "http",
+  "url": "https://mcp.exa.ai/mcp?exaApiKey=YOUR_KEY_HERE&tools=web_search_advanced_exa,crawling_exa,company_research_exa,people_search_exa,deep_researcher_start,deep_researcher_check"
+}
+```
+
+Tell the user to edit the file, then say "done" when finished. Confirm by re-running the pre-check for that item.
+
+### Tone guidance
+
+Write as if you're a colleague helping someone set up their tools — casual, brief, no marketing speak. Do NOT translate English templates literally. Adapt naturally to the user's language and culture. Always output the numbered options as a numbered list — do NOT merge them into a paragraph.
+
+### Framing rules
+
+- **Always use gain framing** — state what the user GETS, not what they AVOID. "key stays in your environment" is correct; "key won't appear in the conversation" is loss-avoidance framing and MUST NOT be used.
+- **No unverifiable claims** — "more accurate" or "better results" without a concrete mechanism is overclaiming. Instead, describe what changes observably: "returns just the content as clean text."
+- **"Already works" must come first** — every step must open by stating what scout already does. The tool strengthens this.
+- **Honest delta — describe mechanism, not outcome** — state what the tool concretely adds ("searches by meaning, not just keywords") instead of evaluating the result ("better search"). Additive language ("adds", "extends") is fine. Banned: "unlocks", "lets you...", "〜できるようになります", "〜に対応しています" — these imply current capabilities are locked.
+- **Skip option must be procedural, not evaluative** — state what happens ("scout uses its built-in search"), not how good it is ("works fine without it"). The latter triggers the "protesting too much" effect. Add reversibility: "you can add this later."
+
+### Japanese translation pitfalls (check your output against these)
+
+| NG pattern | Why | OK alternative |
+|---|---|---|
+| 「ただし」「しかし」+ negative | Loss framing via adversative conjunction | Omit conjunction, state fact directly |
+| 「そのままだと〜されます」 | Implies current state is a problem | 「scoutがページを取得するとき、広告も含まれます」(neutral fact) |
+| 「〜を追加すると〜できる」 | Capability-gating (banned) | 「Exa は意味ベースで検索します」(describe what it IS) |
+| 「十分に〜できます」 | Condescending evaluation ("adequate") | 「scoutは Web を検索します」(plain fact) |
+| 「なくても問題ありません」 | Overprotesting triggers doubt | 「あとで追加できます」(reversibility) |
+
+### Product name introduction rule
+
+When mentioning a product/service name for the FIRST time, anchor the name to a known category. The order differs by language:
+- **Japanese/Korean/Chinese**: category BEFORE the name — e.g. "ページ読み取りサービスの Jina Reader", "セマンティック検索サービスの Exa"
+- **English/European**: name first, then context — e.g. "Jina Reader, a page-reading service", "Exa, a semantic search service"
+
+On subsequent mentions, use the name alone.
+
 ### What to say for each item
 
-**Jina Reader** (present first if unconfigured):
+**Step 1 — Context7** (present first if unconfigured):
 
-Say: Jina Reader fetches web pages as clean Markdown instead of raw HTML. Improves every URL fetch. A free API key is available at https://jina.ai/?newKey — paste it here, or say "skip".
+Convey this (adapt to user's language, do NOT copy verbatim):
+
+> **Step 1/4 — Library & framework docs**
+> scout searches the web for technical questions. Context7, a documentation index, adds a direct path to official library and framework docs (React, Prisma, Next.js, etc.) — the indexed content matches the latest published version. No API key needed.
+>
+> 1. Install — one command, done in seconds
+> 2. Skip — you can add this later
+
+If user consents, run:
+
+```bash
+claude mcp add -s user context7 -- npx -y @upstash/context7-mcp
+```
+
+If the command fails (e.g. `claude` not in PATH), show the manual alternative:
+```
+Run this in your terminal:
+claude mcp add -s user context7 -- npx -y @upstash/context7-mcp
+```
+
+Confirm briefly, then move to next item.
+
+---
+
+**Step 2 — Jina Reader** (present if unconfigured):
+
+Convey this (adapt to user's language, do NOT copy verbatim):
+
+> **Step 2/4 — Cleaner web page reading**
+> scout fetches web pages as-is, including ads and navigation. Jina Reader, a page-reading service, strips those out and returns just the content as clean text. Free key here: https://jina.ai/?newKey
+>
+> 1. Paste a key — I'll handle the rest
+> 2. Set it up myself — I'll show you the file to edit (key stays in your environment only)
+> 3. Skip — you can add this later
 
 If user provides a key, configure it:
 
@@ -98,9 +196,24 @@ Confirm briefly, then move to next item.
 
 ---
 
-**Exa** (present second if unconfigured):
+**Step 3 — Exa** (present if unconfigured):
 
-Say: Exa adds meaning-based search — it finds pages by concept, not just keywords. The free exa-free tools are already included; this adds advanced features (company research, deep research). Get an API key at https://exa.ai — paste it here, or say "skip".
+Convey this (adapt to user's language, do NOT copy verbatim):
+
+> **Step 3/4 — Meaning-based web search**
+> scout searches the web without any extra keys. Exa, a semantic search service, searches by meaning, not just keywords — useful when you're not sure of the exact terms. Key here: https://exa.ai
+>
+> 1. Paste a key — I'll handle the rest
+> 2. Set it up myself — I'll show you the file to edit (key stays in your environment only)
+> 3. Skip — you can add this later
+
+Japanese example (use as reference, adapt naturally):
+> ステップ 3/4 — 意味ベースのウェブ検索
+> scout はキーなしでもウェブ検索できます。セマンティック検索サービスの Exa は、キーワードではなく意味で検索します。正確な言葉が分からないときに有効です。キーはこちら: https://exa.ai
+>
+> 1. キーを貼り付ける — あとはこちらで設定します
+> 2. 自分で設定する — 編集先のファイルを案内します（キーは手元の環境にのみ保存されます）
+> 3. スキップ — あとで追加できます
 
 If user provides a key, configure it:
 
@@ -125,9 +238,15 @@ Confirm briefly, then move to next item.
 
 ---
 
-**Playwright** (present last if not installed):
+**Step 4 — Playwright** (present last if not installed):
 
-Say: Playwright lets scout read JavaScript-rendered pages (SPAs, dashboards) locally. Also handles confidential URLs without sending them to external APIs. Downloads Chromium (~200MB). Install it? Or say "skip".
+Convey this (adapt to user's language, do NOT copy verbatim):
+
+> **Step 4/4 — Handling interactive pages**
+> scout fetches pages via API. Playwright runs a real browser locally — it handles JavaScript-rendered content (SPAs, dashboards) and keeps confidential URLs on your machine. Needs ~200MB for Chromium.
+>
+> 1. Install
+> 2. Skip
 
 If user consents:
 
@@ -148,7 +267,7 @@ If the install fails, show the manual commands and move on. Do not retry.
 2. Write the setup status flag:
 
 ```bash
-STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/scout"
+STATE_DIR="${CLAUDE_PLUGIN_DATA:-${XDG_STATE_HOME:-$HOME/.local/state}/scout}"
 mkdir -p "$STATE_DIR"
 cat > "$STATE_DIR/setup-status.json" << 'STATUSEOF'
 {"complete": true}

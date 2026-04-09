@@ -1,8 +1,9 @@
 #!/bin/bash
-# scout SessionStart hook — setup guidance and welcome
-# Checks setup state and injects appropriate context for Claude
+# scout hook — setup guidance and welcome
+# Fires on SessionStart (context injection) and UserPromptSubmit (reinforcement)
+# SessionStart injects context; LLM uses it when user sends first message
 
-STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/scout"
+STATE_DIR="${CLAUDE_PLUGIN_DATA:-${XDG_STATE_HOME:-$HOME/.local/state}/scout}"
 SETUP_STATUS="$STATE_DIR/setup-status.json"
 DEMO_DONE="$STATE_DIR/demo-done"
 SETUP_OFFERED="$STATE_DIR/setup-offered"
@@ -41,10 +42,10 @@ fi
 mkdir -p "$STATE_DIR" && touch "$SETUP_OFFERED" || { echo "scout: cannot write state" >&2; exit 0; }
 
 cat <<'EOF'
-scout plugin is installed and basic search works now.
+scout plugin is installed and ready to use.
 
-Tell the user scout is ready. Mention that connecting additional search sources expands coverage and improves fetch quality — and offer to walk them through it. It takes a few minutes and every step is optional.
+Briefly tell the user scout is ready, then ask if they'd like to connect a couple of optional search tools — it takes a few minutes and every step is skippable. Keep it to one short sentence; do not list the tools or describe their benefits yet.
 
-If the user agrees, follow the scout:setup skill workflow.
-If the user declines, do not bring it up again this session. Proceed with their request.
+If the user agrees, run /scout:setup.
+If the user declines, proceed with their request. Do not mention setup again this session.
 EOF
