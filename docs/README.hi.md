@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-scout:setup आपको Jina Reader (वेब पेज फ़ेचिंग), Exa (सिमैंटिक सर्च), और Playwright (JavaScript-रेंडर्ड पेज) को इंटरैक्टिव तरीक़े से कॉन्फ़िगर करने में मदद करता है। हर स्टेप वैकल्पिक है और स्किप किया जा सकता है।
+scout:setup आपको Context7 (library docs), Jina Reader (वेब पेज फ़ेचिंग), Exa (सिमैंटिक सर्च), और Playwright (JavaScript-रेंडर्ड पेज) को इंटरैक्टिव तरीक़े से कॉन्फ़िगर करने में मदद करता है। हर स्टेप वैकल्पिक है और स्किप किया जा सकता है।
 
 > **नोट:** अगर आप यह स्टेप स्किप करते हैं, तो scout अगले सेशन शुरू होने पर आपसे पूछेगा। बेसिक सर्च बिना सेटअप के तुरंत काम करता है।
 
@@ -65,7 +65,7 @@ scout:setup आपको Jina Reader (वेब पेज फ़ेचिंग)
 Intelligent web search जिसमें शामिल हैं:
 - Query refinement के लिए pre-research
 - Multi-language query design
-- Multiple search engines (WebSearch, [Exa](https://exa.ai) semantic search)
+- Multiple search engines (WebSearch, [Context7](https://github.com/upstash/context7) official docs, [Exa](https://exa.ai) semantic search)
 - Conceptual queries के लिए Exa के via HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496))
 - Automatic re-search loop के साथ quality assessment
 
@@ -83,6 +83,7 @@ Usage: `/scout:fetch URL`
 ### scout:setup
 
 सर्च इंजन और फ़ेचिंग टूल के लिए इंटरैक्टिव गाइडेड सेटअप:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — वेब पेज को Markdown के रूप में उच्च गुणवत्ता में फ़ेच करें (मुफ़्त API key)
 - **Exa** — एडवांस्ड AI-नेटिव सिमैंटिक सर्च (API key)
 - **Playwright** — JavaScript-रेंडर्ड और गोपनीय पेजों के लिए ब्राउज़र-आधारित फ़ेचिंग (~200MB डाउनलोड)

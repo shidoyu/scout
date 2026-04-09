@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-scout:setup 會以互動方式引導你設定 Jina Reader（網頁擷取）、Exa（語意搜尋）和 Playwright（JavaScript 渲染頁面）。所有步驟皆為選擇性，可隨時跳過。
+scout:setup 會以互動方式引導你設定 Context7（函式庫文件搜尋）、Jina Reader（網頁擷取）、Exa（語意搜尋）和 Playwright（JavaScript 渲染頁面）。所有步驟皆為選擇性，可隨時跳過。
 
 > **注意：** 若跳過此步驟，scout 將在下次工作階段開始時提示你。基本搜尋功能無需設定即可立即使用。
 
@@ -65,7 +65,7 @@ scout:setup 會以互動方式引導你設定 Jina Reader（網頁擷取）、Ex
 智慧型網路搜尋，具備以下能力：
 - 預搜尋以精鍊查詢
 - 多語言查詢設計
-- 多種搜尋引擎（WebSearch、[Exa](https://exa.ai) 語意搜尋）
+- 多種搜尋引擎（WebSearch、[Context7](https://github.com/upstash/context7) 官方文件、[Exa](https://exa.ai) 語意搜尋）
 - HyDE（[假設文件嵌入](https://arxiv.org/abs/2212.10496)）透過 Exa 處理概念性查詢
 - 品質評估與自動重新搜尋循環
 
@@ -83,6 +83,7 @@ scout:setup 會以互動方式引導你設定 Jina Reader（網頁擷取）、Ex
 ### scout:setup
 
 搜尋引擎與擷取工具的互動式設定導覽：
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — 高品質網頁擷取為 Markdown 格式（免費 API 金鑰）
 - **Exa** — 進階 AI 原生語意搜尋（API 金鑰）
 - **Playwright** — 以瀏覽器為基礎的擷取工具，適用於 JavaScript 渲染及機密頁面（下載約 200MB）

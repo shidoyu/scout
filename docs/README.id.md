@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-`scout:setup` memandu Anda secara interaktif untuk mengonfigurasi [Jina Reader](https://jina.ai) (pengambilan halaman web), [Exa](https://exa.ai) (pencarian semantik), dan [Playwright](https://playwright.dev) (halaman yang dirender JavaScript). Setiap langkah bersifat opsional dan dapat dilewati.
+`scout:setup` memandu Anda secara interaktif untuk mengonfigurasi [[Context7](https://github.com/upstash/context7) (dokumentasi pustaka), Jina Reader](https://jina.ai) (pengambilan halaman web), [Exa](https://exa.ai) (pencarian semantik), dan [Playwright](https://playwright.dev) (halaman yang dirender JavaScript). Setiap langkah bersifat opsional dan dapat dilewati.
 
 > **Catatan:** Jika Anda melewati langkah ini, scout akan meminta pengaturan pada awal sesi berikutnya. Pencarian dasar langsung berfungsi tanpa pengaturan.
 
@@ -61,7 +61,7 @@ Setelah menginstal, tanya Claude (tidak perlu pengaturan — pencarian dasar lan
 Pencarian web cerdas dengan:
 - Pra-riset untuk penyempurnaan kueri
 - Desain kueri multi-bahasa
-- Berbagai mesin pencari (WebSearch, pencarian semantik [Exa](https://exa.ai))
+- Berbagai mesin pencari (WebSearch, [Context7](https://github.com/upstash/context7) dokumentasi resmi, pencarian semantik [Exa](https://exa.ai))
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) untuk kueri konseptual melalui Exa
 - Penilaian kualitas dengan loop pencarian ulang otomatis
 
@@ -79,6 +79,7 @@ Penggunaan: `/scout:fetch URL`
 ### scout:setup
 
 Pengaturan interaktif terpandu untuk mesin pencari dan alat pengambilan:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Pengambilan halaman web berkualitas tinggi dalam format Markdown ([kunci API gratis](https://jina.ai/?newKey))
 - **Exa** — Pencarian semantik AI-native canggih ([kunci API](https://exa.ai))
 - **Playwright** — Pengambilan berbasis browser untuk halaman yang dirender JavaScript dan halaman rahasia (unduhan ~200MB)

@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-scout:setup te guía interactivamente para configurar Jina Reader (obtención de páginas web), Exa (búsqueda semántica) y Playwright (páginas renderizadas con JavaScript). Cada paso es opcional y se puede omitir.
+scout:setup te guía interactivamente para configurar Context7 (documentación de bibliotecas), Jina Reader (obtención de páginas web), Exa (búsqueda semántica) y Playwright (páginas renderizadas con JavaScript). Cada paso es opcional y se puede omitir.
 
 > **Nota:** Si omites este paso, scout te lo pedirá al inicio de la próxima sesión. La búsqueda básica funciona de inmediato sin configuración.
 
@@ -63,7 +63,7 @@ Después de instalar, pregúntale a Claude (no se requiere configuración — la
 Búsqueda web inteligente con:
 - Pre-investigación para refinamiento de consultas
 - Diseño de consultas en múltiples idiomas
-- Múltiples motores de búsqueda (WebSearch, búsqueda semántica de [Exa](https://exa.ai))
+- Múltiples motores de búsqueda (WebSearch, [Context7](https://github.com/upstash/context7) documentación oficial, búsqueda semántica de [Exa](https://exa.ai))
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) para consultas conceptuales mediante Exa
 - Evaluación de calidad con bucle automático de nueva búsqueda
 
@@ -81,6 +81,7 @@ Uso: `/scout:fetch URL`
 ### scout:setup
 
 Configuración interactiva guiada para motores de búsqueda y herramientas de obtención:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Obtención de páginas web de alta calidad en Markdown (clave de API gratuita)
 - **Exa** — Búsqueda semántica avanzada nativa de IA (clave de API)
 - **Playwright** — Obtención basada en navegador para páginas renderizadas con JavaScript y páginas confidenciales (~200 MB de descarga)

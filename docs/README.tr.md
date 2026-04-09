@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-`scout:setup`, [Jina Reader](https://jina.ai) (web sayfası getirme), [Exa](https://exa.ai) (semantik arama) ve [Playwright](https://playwright.dev) (JavaScript ile render edilen sayfalar) yapılandırmasında sizi interaktif olarak yönlendirir. Her adım isteğe bağlıdır ve atlanabilir.
+`scout:setup`, [[Context7](https://github.com/upstash/context7) (kütüphane dokümantasyonu), Jina Reader](https://jina.ai) (web sayfası getirme), [Exa](https://exa.ai) (semantik arama) ve [Playwright](https://playwright.dev) (JavaScript ile render edilen sayfalar) yapılandırmasında sizi interaktif olarak yönlendirir. Her adım isteğe bağlıdır ve atlanabilir.
 
 > **Not:** Bu adımı atlarsanız, scout bir sonraki oturum başlangıcında sizden ayarlama yapmanızı isteyecektir. Temel arama, kurulum gerekmeden hemen çalışır.
 
@@ -61,7 +61,7 @@ Kurulumdan sonra Claude'a sorun (kurulum gerekmez — temel arama hemen çalış
 Şunları içeren akıllı web araması:
 - Sorgu iyileştirme için ön araştırma
 - Çok dilli sorgu tasarımı
-- Çoklu arama motorları (WebSearch, [Exa](https://exa.ai) anlamsal arama)
+- Çoklu arama motorları (WebSearch, [Context7](https://github.com/upstash/context7) resmi dokümantasyon, [Exa](https://exa.ai) anlamsal arama)
 - Exa aracılığıyla kavramsal sorgular için HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496))
 - Otomatik yeniden arama döngüsü ile kalite değerlendirmesi
 
@@ -79,6 +79,7 @@ Kullanım: `/scout:fetch URL`
 ### scout:setup
 
 Arama motorları ve getirme araçları için interaktif rehberli kurulum:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Markdown olarak yüksek kaliteli web sayfası getirme ([ücretsiz API anahtarı](https://jina.ai/?newKey))
 - **Exa** — Gelişmiş AI-native semantik arama ([API anahtarı](https://exa.ai))
 - **Playwright** — JavaScript ile render edilmiş ve gizli sayfalar için tarayıcı tabanlı getirme (~200MB indirme)

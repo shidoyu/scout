@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-`scout:setup` guider dig interaktivt igennem konfiguration af [Jina Reader](https://jina.ai) (hentning af websider), [Exa](https://exa.ai) (semantisk søgning) og [Playwright](https://playwright.dev) (JavaScript-renderede sider). Alle trin er valgfrie og kan springes over.
+`scout:setup` guider dig interaktivt igennem konfiguration af [[Context7](https://github.com/upstash/context7) (biblioteksdokumentation), Jina Reader](https://jina.ai) (hentning af websider), [Exa](https://exa.ai) (semantisk søgning) og [Playwright](https://playwright.dev) (JavaScript-renderede sider). Alle trin er valgfrie og kan springes over.
 
 > **Bemærk:** Hvis du springer dette trin over, vil scout bede dig om opsætning ved næste sessionsstart. Grundlæggende søgning fungerer straks uden opsætning.
 
@@ -61,7 +61,7 @@ Efter installationen, spørg Claude (ingen opsætning nødvendig — grundlægge
 Intelligent websøgning med:
 - Forsøgning til raffinering af forespørgsler
 - Forespørgselsdesign på flere sprog
-- Flere søgemaskiner (WebSearch, [Exa](https://exa.ai) semantisk søgning)
+- Flere søgemaskiner (WebSearch, [Context7](https://github.com/upstash/context7) officiel dokumentation, [Exa](https://exa.ai) semantisk søgning)
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) til konceptuelle forespørgsler via Exa
 - Kvalitetsvurdering med automatisk loop til ny søgning
 
@@ -79,6 +79,7 @@ Brug: `/scout:fetch URL`
 ### scout:setup
 
 Interaktiv guidet opsætning af søgemaskiner og hentningsværktøjer:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Høj kvalitet websideindhentning som Markdown ([gratis API-nøgle](https://jina.ai/?newKey))
 - **Exa** — Avanceret AI-native semantisk søgning ([API-nøgle](https://exa.ai))
 - **Playwright** — Browserbaseret indhentning til JavaScript-renderede og fortrolige sider (~200 MB download)

@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-`scout:setup` hướng dẫn bạn cấu hình [Jina Reader](https://jina.ai) (tải nội dung trang web), [Exa](https://exa.ai) (tìm kiếm ngữ nghĩa) và [Playwright](https://playwright.dev) (trang render bằng JavaScript) theo hình thức tương tác. Mọi bước đều là tùy chọn và có thể bỏ qua.
+`scout:setup` hướng dẫn bạn cấu hình [[Context7](https://github.com/upstash/context7) (tài liệu thư viện), Jina Reader](https://jina.ai) (tải nội dung trang web), [Exa](https://exa.ai) (tìm kiếm ngữ nghĩa) và [Playwright](https://playwright.dev) (trang render bằng JavaScript) theo hình thức tương tác. Mọi bước đều là tùy chọn và có thể bỏ qua.
 
 > **Lưu ý:** Nếu bạn bỏ qua bước này, scout sẽ nhắc bạn thiết lập khi bắt đầu phiên tiếp theo. Tìm kiếm cơ bản hoạt động ngay mà không cần thiết lập.
 
@@ -61,7 +61,7 @@ Sau khi cài đặt, hãy hỏi Claude (không cần thiết lập — tìm ki�
 Tìm kiếm web thông minh với:
 - Nghiên cứu trước để tinh chỉnh truy vấn
 - Thiết kế truy vấn đa ngôn ngữ
-- Nhiều công cụ tìm kiếm (WebSearch, tìm kiếm ngữ nghĩa [Exa](https://exa.ai))
+- Nhiều công cụ tìm kiếm (WebSearch, [Context7](https://github.com/upstash/context7) tài liệu chính thức, tìm kiếm ngữ nghĩa [Exa](https://exa.ai))
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) cho truy vấn khái niệm qua Exa
 - Đánh giá chất lượng với vòng lặp tìm kiếm lại tự động
 
@@ -79,6 +79,7 @@ Cách dùng: `/scout:fetch URL`
 ### scout:setup
 
 Thiết lập tương tác có hướng dẫn cho công cụ tìm kiếm và công cụ tải nội dung:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Lấy nội dung trang web chất lượng cao dưới dạng Markdown ([API key miễn phí](https://jina.ai/?newKey))
 - **Exa** — Tìm kiếm ngữ nghĩa AI-native nâng cao ([API key](https://exa.ai))
 - **Playwright** — Lấy nội dung qua trình duyệt cho trang render bằng JavaScript và trang bảo mật (~200MB tải về)

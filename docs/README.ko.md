@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-scout:setup은 Jina Reader(웹 페이지 가져오기), Exa(시맨틱 검색), Playwright(JavaScript 렌더링 페이지)를 대화형으로 설정할 수 있도록 안내합니다. 모든 단계는 선택 사항이며 건너뛸 수 있습니다.
+scout:setup은 Context7(라이브러리 문서 검색), Jina Reader(웹 페이지 가져오기), Exa(시맨틱 검색), Playwright(JavaScript 렌더링 페이지)를 대화형으로 설정할 수 있도록 안내합니다. 모든 단계는 선택 사항이며 건너뛸 수 있습니다.
 
 > **참고:** 이 단계를 건너뛰면 다음 세션 시작 시 안내가 표시됩니다. 기본 검색 기능은 설정 없이 바로 사용할 수 있습니다.
 
@@ -65,7 +65,7 @@ scout:setup은 Jina Reader(웹 페이지 가져오기), Exa(시맨틱 검색), P
 지능형 웹 검색 기능:
 - 쿼리 개선을 위한 사전 조사
 - 다국어 쿼리 설계
-- 복수의 검색 엔진 사용 (WebSearch, [Exa](https://exa.ai) 시맨틱 검색)
+- 복수의 검색 엔진 사용 (WebSearch, [Context7](https://github.com/upstash/context7) 공식 문서, [Exa](https://exa.ai) 시맨틱 검색)
 - Exa를 통한 개념적 쿼리에 HyDE([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) 적용
 - 자동 재검색 루프를 포함한 품질 평가
 
@@ -83,6 +83,7 @@ scout:setup은 Jina Reader(웹 페이지 가져오기), Exa(시맨틱 검색), P
 ### scout:setup
 
 검색 엔진 및 페칭 도구를 위한 대화형 설정 가이드:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — 웹 페이지를 Markdown으로 고품질 가져오기 (무료 API 키)
 - **Exa** — 고급 AI 네이티브 시맨틱 검색 (API 키)
 - **Playwright** — JavaScript 렌더링 및 기밀 페이지를 위한 브라우저 기반 가져오기 (~200MB 다운로드)

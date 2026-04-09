@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-`scout:setup` מנחה אותך באופן אינטראקטיבי דרך הגדרת [Jina Reader](https://jina.ai) (אחזור דפי אינטרנט), [Exa](https://exa.ai) (חיפוש סמנטי) ו-[Playwright](https://playwright.dev) (דפים עם JavaScript). כל שלב הוא אופציונלי וניתן לדילוג.
+`scout:setup` מנחה אותך באופן אינטראקטיבי דרך הגדרת [ו-[Context7](https://github.com/upstash/context7) (תיעוד ספריות) Jina Reader](https://jina.ai) (אחזור דפי אינטרנט), [Exa](https://exa.ai) (חיפוש סמנטי) ו-[Playwright](https://playwright.dev) (דפים עם JavaScript). כל שלב הוא אופציונלי וניתן לדילוג.
 
 > **הערה:** אם תדלגו על שלב זה, scout יבקש מכם להגדיר בתחילת הסשן הבא. חיפוש בסיסי עובד מיד ללא הגדרה.
 
@@ -61,7 +61,7 @@ claude plugin install scout@shidoyu-scout
 חיפוש ברשת אינטליגנטי הכולל:
 - מחקר מקדים לשיפור השאילתות
 - עיצוב שאילתות בריבוי שפות
-- מספר מנועי חיפוש (WebSearch, חיפוש סמנטי של [Exa](https://exa.ai))
+- מספר מנועי חיפוש (WebSearch, [Context7](https://github.com/upstash/context7) תיעוד רשמי, חיפוש סמנטי של [Exa](https://exa.ai))
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) לשאילתות מושגיות דרך Exa
 - הערכת איכות עם לולאת חיפוש חוזר אוטומטית
 
@@ -79,6 +79,7 @@ claude plugin install scout@shidoyu-scout
 ### scout:setup
 
 הגדרה מודרכת אינטראקטיבית למנועי חיפוש וכלי אחזור:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — אחזור דפי אינטרנט באיכות גבוהה כ-Markdown ([מפתח API חינמי](https://jina.ai/?newKey))
 - **Exa** — חיפוש סמנטי מתקדם מבוסס AI ([מפתח API](https://exa.ai))
 - **Playwright** — אחזור מבוסס דפדפן לדפים עם JavaScript ודפים חסויים (הורדה של ~200MB)

@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-`scout:setup` จะแนะนำคุณผ่านการตั้งค่า [Jina Reader](https://jina.ai) (ดึงข้อมูลหน้าเว็บ), [Exa](https://exa.ai) (ค้นหาเชิงความหมาย) และ [Playwright](https://playwright.dev) (หน้าที่ render ด้วย JavaScript) แบบโต้ตอบ ทุกขั้นตอนเป็นทางเลือกและสามารถข้ามได้
+`scout:setup` จะแนะนำคุณผ่านการตั้งค่า [[Context7](https://github.com/upstash/context7) (เอกสารไลบรารี), Jina Reader](https://jina.ai) (ดึงข้อมูลหน้าเว็บ), [Exa](https://exa.ai) (ค้นหาเชิงความหมาย) และ [Playwright](https://playwright.dev) (หน้าที่ render ด้วย JavaScript) แบบโต้ตอบ ทุกขั้นตอนเป็นทางเลือกและสามารถข้ามได้
 
 > **หมายเหตุ:** หากคุณข้ามขั้นตอนนี้ scout จะแจ้งให้คุณตั้งค่าเมื่อเริ่มเซสชันถัดไป การค้นหาพื้นฐานใช้งานได้ทันทีโดยไม่ต้องตั้งค่า
 
@@ -61,7 +61,7 @@ claude plugin install scout@shidoyu-scout
 การค้นหาเว็บอัจฉริยะที่มี:
 - การค้นคว้าเบื้องต้นเพื่อปรับแต่ง query
 - การออกแบบ query หลายภาษา
-- เครื่องมือค้นหาหลายตัว (WebSearch, [Exa](https://exa.ai) semantic search)
+- เครื่องมือค้นหาหลายตัว (WebSearch, [Context7](https://github.com/upstash/context7) เอกสารทางการ, [Exa](https://exa.ai) semantic search)
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) สำหรับ query เชิงแนวคิดผ่าน Exa
 - การประเมินคุณภาพพร้อม auto re-search loop
 
@@ -79,6 +79,7 @@ claude plugin install scout@shidoyu-scout
 ### scout:setup
 
 การตั้งค่าแบบโต้ตอบพร้อมคำแนะนำสำหรับเครื่องมือค้นหาและเครื่องมือดึงข้อมูล:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — การดึงหน้าเว็บคุณภาพสูงเป็น Markdown ([API key ฟรี](https://jina.ai/?newKey))
 - **Exa** — การค้นหาเชิงความหมายแบบ AI-native ขั้นสูง ([API key](https://exa.ai))
 - **Playwright** — การดึงข้อมูลผ่านเบราว์เซอร์สำหรับหน้าที่แสดงผลด้วย JavaScript และหน้าที่เป็นความลับ (ดาวน์โหลดประมาณ ~200MB)

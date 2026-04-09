@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-scout:setup ti guida interattivamente nella configurazione di Jina Reader (recupero di pagine web), Exa (ricerca semantica) e Playwright (pagine renderizzate con JavaScript). Tutti i passaggi sono opzionali e possono essere saltati.
+scout:setup ti guida interattivamente nella configurazione di Context7 (documentazione librerie), Jina Reader (recupero di pagine web), Exa (ricerca semantica) e Playwright (pagine renderizzate con JavaScript). Tutti i passaggi sono opzionali e possono essere saltati.
 
 > **Nota:** Se salti questo passaggio, scout ti chiederà la configurazione al prossimo avvio di sessione. La ricerca di base funziona immediatamente senza configurazione.
 
@@ -63,7 +63,7 @@ Dopo l'installazione, chiedi a Claude (nessuna configurazione necessaria — la 
 Ricerca web intelligente con:
 - Pre-ricerca per il raffinamento delle query
 - Design di query multilingua
-- Più motori di ricerca (WebSearch, ricerca semantica [Exa](https://exa.ai))
+- Più motori di ricerca (WebSearch, [Context7](https://github.com/upstash/context7) documentazione ufficiale, ricerca semantica [Exa](https://exa.ai))
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) per query concettuali tramite Exa
 - Valutazione della qualità con loop di ri-ricerca automatico
 
@@ -81,6 +81,7 @@ Utilizzo: `/scout:fetch URL`
 ### scout:setup
 
 Configurazione interattiva guidata per motori di ricerca e strumenti di recupero:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Recupero di alta qualità di pagine web in Markdown (API key gratuita)
 - **Exa** — Ricerca semantica avanzata AI-native (API key)
 - **Playwright** — Recupero basato su browser per pagine con JavaScript e pagine riservate (~200MB di download)

@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-scout:setup prowadzi Cię interaktywnie przez konfigurację Jina Reader (pobieranie stron internetowych), Exa (wyszukiwanie semantyczne) i Playwright (strony renderowane przez JavaScript). Wszystkie kroki są opcjonalne i można je pominąć.
+scout:setup prowadzi Cię interaktywnie przez konfigurację Context7 (dokumentacja bibliotek), Jina Reader (pobieranie stron internetowych), Exa (wyszukiwanie semantyczne) i Playwright (strony renderowane przez JavaScript). Wszystkie kroki są opcjonalne i można je pominąć.
 
 > **Uwaga:** Jeśli pominiesz ten krok, scout zapyta o konfigurację przy następnym uruchomieniu sesji. Podstawowe wyszukiwanie działa od razu bez konfiguracji.
 
@@ -63,7 +63,7 @@ Po zainstalowaniu zapytaj Claude (konfiguracja nie jest wymagana — podstawowe 
 Inteligentne wyszukiwanie w sieci z funkcjami:
 - Wstępne badanie tematu w celu doprecyzowania zapytań
 - Projektowanie zapytań w wielu językach
-- Wiele wyszukiwarek (WebSearch, semantyczne wyszukiwanie [Exa](https://exa.ai))
+- Wiele wyszukiwarek (WebSearch, [Context7](https://github.com/upstash/context7) oficjalna dokumentacja, semantyczne wyszukiwanie [Exa](https://exa.ai))
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) dla zapytań koncepcyjnych poprzez Exa
 - Ocena jakości z automatyczną pętlą ponownego wyszukiwania
 
@@ -81,6 +81,7 @@ Użycie: `/scout:fetch URL`
 ### scout:setup
 
 Interaktywna konfiguracja wyszukiwarek i narzędzi do pobierania:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Wysokiej jakości pobieranie stron internetowych w formacie Markdown (bezpłatny klucz API)
 - **Exa** — Zaawansowane wyszukiwanie semantyczne natywne dla AI (klucz API)
 - **Playwright** — Pobieranie oparte na przeglądarce dla stron renderowanych przez JavaScript i stron poufnych (~200MB pobierania)

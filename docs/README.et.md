@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-`scout:setup` juhendab sind interaktiivselt [Jina Reader](https://jina.ai) (veebilehtede toomine), [Exa](https://exa.ai) (semantiline otsing) ja [Playwright](https://playwright.dev) (JavaScriptiga renderdatud lehed) seadistamisel. Kõik sammud on valikulised ja vahelejätavad.
+`scout:setup` juhendab sind interaktiivselt [[Context7](https://github.com/upstash/context7) (teekide dokumentatsioon), Jina Reader](https://jina.ai) (veebilehtede toomine), [Exa](https://exa.ai) (semantiline otsing) ja [Playwright](https://playwright.dev) (JavaScriptiga renderdatud lehed) seadistamisel. Kõik sammud on valikulised ja vahelejätavad.
 
 > **Märkus:** Kui jätad selle sammu vahele, palub scout seadistust järgmisel seansi alguses. Põhiotsing töötab kohe ilma seadistuseta.
 
@@ -61,7 +61,7 @@ Pärast paigaldamist küsi Claude'ilt (seadistus pole vajalik — põhiotsing t�
 Intelligentne veebiotsing, mis sisaldab:
 - Eeluuringut päringu täpsustamiseks
 - Mitmekeelset päringu kujundust
-- Mitut otsimootorit (WebSearch, [Exa](https://exa.ai) semantiline otsing)
+- Mitut otsimootorit (WebSearch, [Context7](https://github.com/upstash/context7) ametlik dokumentatsioon, [Exa](https://exa.ai) semantiline otsing)
 - HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) kontseptuaalsete päringute jaoks Exa kaudu
 - Kvaliteedihindamist automaatse uuesti otsimise tsükliga
 
@@ -79,6 +79,7 @@ Kasutus: `/scout:fetch URL`
 ### scout:setup
 
 Interaktiivne juhendatud seadistus otsingumootorite ja toomistööriistade jaoks:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Kvaliteetne veebilehtede toomine Markdownina ([tasuta API-võti](https://jina.ai/?newKey))
 - **Exa** — Täiustatud AI-põhine semantiline otsing ([API-võti](https://exa.ai))
 - **Playwright** — Brauseripõhine toomine JavaScriptiga renderdatud ja konfidentsiaalsete lehtede jaoks (~200 MB allalaadimine)

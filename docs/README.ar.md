@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-يرشدك `scout:setup` تفاعليًا لإعداد [Jina Reader](https://jina.ai) (جلب صفحات الويب) و[Exa](https://exa.ai) (البحث الدلالي) و[Playwright](https://playwright.dev) (الصفحات المعتمدة على JavaScript). كل خطوة اختيارية ويمكن تخطيها.
+يرشدك `scout:setup` تفاعليًا لإعداد [و[Context7](https://github.com/upstash/context7) (مستندات المكتبات) Jina Reader](https://jina.ai) (جلب صفحات الويب) و[Exa](https://exa.ai) (البحث الدلالي) و[Playwright](https://playwright.dev) (الصفحات المعتمدة على JavaScript). كل خطوة اختيارية ويمكن تخطيها.
 
 > **ملاحظة:** إذا تخطيت هذه الخطوة، سيطلب منك scout الإعداد عند بداية الجلسة التالية. البحث الأساسي يعمل فورًا بدون إعداد.
 
@@ -61,7 +61,7 @@ claude plugin install scout@shidoyu-scout
 بحث ويب ذكي يتضمن:
 - بحثًا أوليًا لتحسين الاستعلامات
 - تصميم استعلامات متعددة اللغات
-- محركات بحث متعددة (WebSearch، البحث الدلالي عبر [Exa](https://exa.ai))
+- محركات بحث متعددة (WebSearch، [Context7](https://github.com/upstash/context7) مستندات رسمية، البحث الدلالي عبر [Exa](https://exa.ai))
 - HyDE ([تضمينات المستندات الافتراضية](https://arxiv.org/abs/2212.10496)) للاستعلامات المفاهيمية عبر Exa
 - تقييم الجودة مع حلقة إعادة بحث تلقائية
 
@@ -79,6 +79,7 @@ claude plugin install scout@shidoyu-scout
 ### scout:setup
 
 إعداد تفاعلي موجّه لمحركات البحث وأدوات الجلب:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — جلب صفحات ويب عالي الجودة بصيغة Markdown ([مفتاح API مجاني](https://jina.ai/?newKey))
 - **Exa** — بحث دلالي متقدم مدعوم بالذكاء الاصطناعي ([مفتاح API](https://exa.ai))
 - **Playwright** — جلب قائم على المتصفح للصفحات المعتمدة على JavaScript والصفحات السرية (تنزيل بحجم ~200MB)

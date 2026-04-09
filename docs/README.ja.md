@@ -34,7 +34,7 @@ claude plugin install scout@shidoyu-scout
 /scout:setup
 ```
 
-scout:setup では、Jina Reader（Web ページ取得）、Exa（セマンティック検索）、Playwright（JavaScript レンダリングページ）を対話的に設定できます。すべてのステップは任意でスキップ可能です。
+scout:setup では、Context7（ライブラリドキュメント検索）、Jina Reader（Web ページ取得）、Exa（セマンティック検索）、Playwright（JavaScript レンダリングページ）を対話的に設定できます。すべてのステップは任意でスキップ可能です。
 
 > **注:** このステップをスキップしても、次回のセッション開始時に案内が表示されます。基本的な検索機能はセットアップなしですぐに使えます。
 
@@ -65,7 +65,7 @@ scout:setup では、Jina Reader（Web ページ取得）、Exa（セマンテ�
 インテリジェントな Web 検索機能:
 - クエリ改善のための事前調査
 - 多言語クエリ設計
-- 複数の検索エンジン（WebSearch、[Exa](https://exa.ai) セマンティック検索）
+- 複数の検索エンジン（WebSearch、[Context7](https://github.com/upstash/context7) 公式ドキュメント、[Exa](https://exa.ai) セマンティック検索）
 - Exa 経由の概念的クエリ向け HyDE（[Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)）
 - 自動再検索ループによる品質評価
 
@@ -83,6 +83,7 @@ scout:setup では、Jina Reader（Web ページ取得）、Exa（セマンテ�
 ### scout:setup
 
 検索エンジンとフェッチツールの対話型セットアップガイド:
+- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
 - **Jina Reader** — Web ページを Markdown として高品質に取得（無料 API キー）
 - **Exa** — 高度な AI ネイティブセマンティック検索（API キー）
 - **Playwright** — JavaScript で描画されるページや機密ページのブラウザ取得（約 200MB のダウンロード）
