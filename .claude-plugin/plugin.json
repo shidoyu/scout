@@ -1,7 +1,7 @@
 {
   "name": "scout",
   "description": "Web research plugin that thinks before it searches. Query design, multi-engine search, privacy-aware fetching.",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "author": {
     "name": "shidoyu",
     "url": "https://github.com/shidoyu"
