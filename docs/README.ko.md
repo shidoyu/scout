@@ -93,7 +93,7 @@ scout:setup은 Context7(라이브러리 문서 검색), Jina Reader(웹 페이�
 
 검색 엔진 및 페칭 도구를 위한 대화형 설정 가이드:
 - **Context7** — 최신 공식 라이브러리·프레임워크 문서로 바로 이어져 기술 질문이 원문 문서에 더 빨리 닿습니다 ([Context7 MCP](https://github.com/upstash/context7), API 키 불필요)
-- **Jina Reader** — 탐색 메뉴와 반복되는 보일러플레이트를 제거한 더 깔끔한 Markdown으로 웹 페이지를 가져오며, 모델에 전달되는 텍스트가 줄어 토큰을 아낄 때가 많습니다 ([무료 API 키](https://jina.ai/?newKey))
+- **Jina Reader** — 탐색 메뉴와 반복되는 보일러플레이트를 제거한 더 깔끔한 Markdown으로 웹 페이지를 가져오며, 모델에 전달되는 텍스트가 줄어 토큰을 아낄 때가 많습니다 ([API 키](https://jina.ai/?newKey))
 - **Exa** — 정확한 용어가 떠오르지 않을 때 모호하고 개념적이거나 니치한 질문을 의미 기준으로 찾는 검색입니다 ([API 키](https://exa.ai))
 - **Playwright** — 내 기기에만 남겨야 하는 JavaScript 렌더링 페이지나 기밀 페이지를 로컬 브라우저로 가져옵니다 (~200MB 다운로드)
 
@@ -192,4 +192,3 @@ scout는 URL을 민감도에 따라 분류하고 기밀 URL을 로컬 전용 도
 ## 라이선스
 
 [MIT License](../LICENSE) — 자유롭게 사용, 수정, 배포할 수 있습니다. Copyright (c) 2026 shidoyu.
-

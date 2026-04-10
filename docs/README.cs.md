@@ -91,7 +91,7 @@ Použití: `/scout:fetch URL`
 
 Interaktivní průvodce nastavením vyhledávačů a nástrojů pro načítání:
 - **Context7** — Přímá cesta k aktuálním oficiálním dokumentacím knihoven a frameworků, takže se k primárním docs dostanete rychleji přes [Context7 MCP](https://github.com/upstash/context7) (není potřeba API klíč)
-- **Jina Reader** — Čistší načítání webových stránek jako Markdown, které odstraňuje navigaci a opakující se šablonový obsah, takže se do modelu často posílá méně textu a šetří se tokeny ([API klíč zdarma](https://jina.ai/?newKey))
+- **Jina Reader** — Čistší načítání webových stránek jako Markdown, které odstraňuje navigaci a opakující se šablonový obsah, takže se do modelu často posílá méně textu a šetří se tokeny ([API klíč](https://jina.ai/?newKey))
 - **Exa** — Vyhledávání podle významu pro vágní, konceptuální a niche dotazy, když neznáte přesné termíny ([API klíč](https://exa.ai))
 - **Playwright** — Lokální prohlížečové načítání pro stránky renderované JavaScriptem nebo důvěrné stránky, které mají zůstat na vašem zařízení (~200MB download)
 
@@ -190,4 +190,3 @@ Všechny názvy produktů, loga a ochranné známky jsou majetkem příslušnýc
 ## Licence
 
 [MIT License](../LICENSE) — volné použití, úpravy a distribuce. Copyright (c) 2026 shidoyu.
-

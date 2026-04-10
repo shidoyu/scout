@@ -10,7 +10,7 @@ Query design, multi-engine search, privacy-aware fetching.
 
 ---
 
-Claude Code's built-in WebSearch returns 125-character snippets and relies on keyword matching alone. scout turns a vague question into optimized multi-engine queries, evaluates result quality, and re-searches when needed — reaching primary sources faster and more reliably.
+Claude Code's built-in WebSearch returns 125-character snippets and relies on keyword matching alone. scout turns a vague question into optimized multi-engine queries, evaluates result quality, and re-searches when needed — often helping you reach primary sources faster.
 
 ## Features
 
@@ -45,11 +45,26 @@ Run these one at a time in Claude Code:
 
 `scout:setup` walks you through configuring [Context7](https://github.com/upstash/context7) (library docs), [Jina Reader](https://jina.ai) (web page fetching), [Exa](https://exa.ai) (semantic search), and [Playwright](https://playwright.dev) (JavaScript-rendered pages) interactively. Every step is optional and skippable.
 
-> **Note:** If you skip this step, scout will prompt you on the next session start. Basic search works immediately without setup.
+> **Note:** If you skip this step, scout will prompt you on the next session start. You can add any of these tools later.
 
 ## Quick Start
 
-After installing, ask Claude (no setup required — basic search works immediately):
+After setup, try one of these prompts:
+
+### What to expect
+
+Ask Claude:
+
+```text
+Use scout to find the official React docs for useEffect and summarize when cleanup runs.
+```
+
+What scout will do:
+- Check whether a direct docs lookup can answer the question first
+- Use broader web search only if direct docs are unavailable or incomplete
+- Return a concise summary with links you can verify
+
+This example is intentionally written around behavior scout is designed to follow, not a hard-coded output.
 
 **Find concepts you can't name yet:**
 > "I want something like Git blame but for design decisions — I know the concept exists but not what it's called"
@@ -89,7 +104,7 @@ Usage: `/scout:fetch URL`
 
 Interactive guided setup for search engines and fetching tools:
 - **Context7** — Direct path to current official library and framework docs, so technical questions reach source docs faster ([Context7 MCP](https://github.com/upstash/context7), no API key needed)
-- **Jina Reader** — Cleaner web page fetching as Markdown that strips navigation and boilerplate, often reducing the text sent to the model and saving tokens ([free API key](https://jina.ai/?newKey))
+- **Jina Reader** — Cleaner web page fetching as Markdown that strips navigation and boilerplate, often reducing the text sent to the model and saving tokens. Works without a key; add a key if you need higher rate limits ([API key](https://jina.ai/?newKey))
 - **Exa** — Meaning-based search for vague, conceptual, and niche queries where exact terms are unclear ([API key](https://exa.ai))
 - **Playwright** — Local browser fetching for JavaScript-rendered or confidential pages that should stay on your machine (~200MB download)
 
@@ -104,16 +119,25 @@ scout classifies URLs into three levels before fetching:
 - **Confidential** → Local Playwright only (intended routing: confidential URLs are not sent to external APIs)
 - **Authenticated** → Chrome DevTools (uses your browser session)
 
-This classification is automatic but based on LLM judgment, not system enforcement. See [Privacy Disclaimer](#privacy-disclaimer) for details.
+This classification is automatic but based on LLM judgment, not system enforcement.
+Treat it as best-effort routing, not a system-enforced guarantee. See [Privacy Disclaimer](#privacy-disclaimer) for details.
 
 ## Requirements
 
+### Required
+
 - Claude Code
 - `jq` (for setup only)
+
+### Required only if you want local browser access for authenticated pages
+
 - `npm`/`npx` (for [MCP](https://modelcontextprotocol.io/) server: chrome-devtools)
-- Python 3.10+ (optional, for Playwright local fetching)
-- `uvx` or `uv` (optional, for MCP server: markitdown — HTML→Markdown conversion)
-- Chrome (optional, for authenticated page fetching via DevTools)
+- Chrome
+
+### Required only for optional setup helpers
+
+- Python 3.10+ (for Playwright local fetching)
+- `uvx` or `uv` (for MCP server: markitdown — HTML→Markdown conversion)
 
 ### Chrome DevTools Setup (for authenticated pages)
 

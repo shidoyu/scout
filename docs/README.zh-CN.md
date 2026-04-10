@@ -93,7 +93,7 @@ scout:setup 将以交互方式引导你配置 Context7（库文档搜索）、Ji
 
 搜索引擎和抓取工具的交互式设置向导：
 - **Context7** — 直达最新官方库与框架文档，让技术问题更快落到一手文档上（[Context7 MCP](https://github.com/upstash/context7)，无需 API 密钥）
-- **Jina Reader** — 以更干净的 Markdown 抓取网页，去掉导航和重复模板内容，通常会减少发送给模型的文本量并节省 token（[免费 API 密钥](https://jina.ai/?newKey)）
+- **Jina Reader** — 以更干净的 Markdown 抓取网页，去掉导航和重复模板内容，通常会减少发送给模型的文本量并节省 token（[API 密钥](https://jina.ai/?newKey)）
 - **Exa** — 面向模糊、概念性和小众问题的语义搜索，适合你还不清楚准确术语的时候（[API 密钥](https://exa.ai)）
 - **Playwright** — 通过本地浏览器抓取 JavaScript 渲染页面或应留在你机器上的机密页面（下载约 200MB）
 
@@ -192,4 +192,3 @@ scout 根据敏感程度对 URL 进行分类，并将机密 URL 路由至仅限�
 ## 许可证
 
 [MIT License](../LICENSE) — 可自由使用、修改和分发。Copyright (c) 2026 shidoyu.
-

@@ -80,7 +80,7 @@ echo ""
 echo "[2/3] Jina Reader — Web page structured fetching"
 echo "  Strips navigation and boilerplate, then returns cleaner Markdown text."
 echo "  That often means less text reaches the model, which can save tokens."
-echo "  Get a free API key (no sign-up required): https://jina.ai/?newKey"
+echo "  Works without a key for lighter usage. Add a key if you want higher rate limits: https://jina.ai/?newKey"
 
 # Detect existing API key on re-run
 if jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1; then

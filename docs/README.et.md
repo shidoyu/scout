@@ -89,7 +89,7 @@ Kasutus: `/scout:fetch URL`
 
 Interaktiivne juhendatud seadistus otsingumootorite ja toomistööriistade jaoks:
 - **Context7** — Otsene tee teekide ja raamistikude värske ametliku dokumentatsioonini, et tehnilised küsimused jõuaksid kiiremini algallika docsideni läbi [Context7 MCP](https://github.com/upstash/context7) (API-võtit pole vaja)
-- **Jina Reader** — Puhtam veebilehtede toomine Markdownina, mis eemaldab navigeerimise ja korduva boilerplate-sisu, nii et mudelile saadetakse sageli vähem teksti ja säästetakse tokeneid ([tasuta API-võti](https://jina.ai/?newKey))
+- **Jina Reader** — Puhtam veebilehtede toomine Markdownina, mis eemaldab navigeerimise ja korduva boilerplate-sisu, nii et mudelile saadetakse sageli vähem teksti ja säästetakse tokeneid ([API-võti](https://jina.ai/?newKey))
 - **Exa** — Tähenduspõhine otsing ebamääraste, kontseptuaalsete ja nišipäringute jaoks, kui täpsed terminid pole selged ([API-võti](https://exa.ai))
 - **Playwright** — Kohalik brauseripõhine toomine JavaScriptiga renderdatud või konfidentsiaalsete lehtede jaoks, mis peaksid jääma sinu masinasse (~200MB allalaadimist)
 
@@ -188,4 +188,3 @@ Kõik tootenimed, logod ja kaubamärgid kuuluvad nende vastavatele omanikele. Se
 ## Litsents
 
 [MIT License](../LICENSE) — vaba kasutada, muuta ja levitada. Copyright (c) 2026 shidoyu.
-

@@ -89,7 +89,7 @@ Kullanım: `/scout:fetch URL`
 
 Arama motorları ve getirme araçları için interaktif rehberli kurulum:
 - **Context7** — Güncel resmi kütüphane ve framework dokümanlarına doğrudan yol açar; böylece teknik sorular kaynak dokümanlara daha hızlı ulaşır ([Context7 MCP](https://github.com/upstash/context7), API anahtarı gerekmez)
-- **Jina Reader** — Gezinme öğelerini ve tekrar eden boilerplate içeriğini kaldırarak web sayfalarını daha temiz Markdown olarak getirir; böylece modele giden metin çoğu zaman azalır ve token tasarrufu sağlanır ([ücretsiz API anahtarı](https://jina.ai/?newKey))
+- **Jina Reader** — Gezinme öğelerini ve tekrar eden boilerplate içeriğini kaldırarak web sayfalarını daha temiz Markdown olarak getirir; böylece modele giden metin çoğu zaman azalır ve token tasarrufu sağlanır ([API anahtarı](https://jina.ai/?newKey))
 - **Exa** — Tam terimler net değilken belirsiz, kavramsal ve niş sorgular için anlam temelli arama sunar ([API anahtarı](https://exa.ai))
 - **Playwright** — Makinenizde kalması gereken JavaScript ile render edilen veya gizli sayfalar için yerel tarayıcı tabanlı getirme sunar (~200MB indirme)
 
@@ -188,4 +188,3 @@ Tüm ürün adları, logolar ve ticari markalar ilgili sahiplerine aittir. Bu ek
 ## Lisans
 
 [MIT License](../LICENSE) — ücretsiz kullanım, değiştirme ve dağıtım. Copyright (c) 2026 shidoyu.
-

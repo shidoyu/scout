@@ -89,7 +89,7 @@ Cách dùng: `/scout:fetch URL`
 
 Thiết lập tương tác có hướng dẫn cho công cụ tìm kiếm và công cụ tải nội dung:
 - **Context7** — Đường đi trực tiếp tới tài liệu chính thức mới nhất của thư viện và framework, giúp câu hỏi kỹ thuật chạm vào docs nguồn nhanh hơn qua [Context7 MCP](https://github.com/upstash/context7) (không cần API key)
-- **Jina Reader** — Lấy trang web thành Markdown gọn hơn bằng cách bỏ điều hướng và phần nội dung lặp lại, nên thường gửi ít văn bản hơn vào mô hình và tiết kiệm token ([API key miễn phí](https://jina.ai/?newKey))
+- **Jina Reader** — Lấy trang web thành Markdown gọn hơn bằng cách bỏ điều hướng và phần nội dung lặp lại, nên thường gửi ít văn bản hơn vào mô hình và tiết kiệm token ([API key](https://jina.ai/?newKey))
 - **Exa** — Tìm kiếm theo ngữ nghĩa cho các câu hỏi mơ hồ, mang tính khái niệm hoặc ngách khi chưa rõ đúng thuật ngữ ([API key](https://exa.ai))
 - **Playwright** — Lấy cục bộ bằng trình duyệt cho các trang render bằng JavaScript hoặc trang nhạy cảm cần ở lại trên máy của bạn (~200MB tải xuống)
 
@@ -188,4 +188,3 @@ Tất cả tên sản phẩm, logo và nhãn hiệu đều là tài sản của 
 ## Giấy phép
 
 [MIT License](../LICENSE) — tự do sử dụng, chỉnh sửa và phân phối. Copyright (c) 2026 shidoyu.
-

@@ -93,7 +93,7 @@ scout:setup 會以互動方式引導你設定 Context7（函式庫文件搜尋�
 
 搜尋引擎與擷取工具的互動式設定導覽：
 - **Context7** — 直達最新官方函式庫與框架文件，讓技術問題更快落到第一手文件上（[Context7 MCP](https://github.com/upstash/context7)，不需要 API 金鑰）
-- **Jina Reader** — 以更乾淨的 Markdown 擷取網頁，移除導覽與重複樣板內容，通常會減少送進模型的文字量並節省 token（[免費 API 金鑰](https://jina.ai/?newKey)）
+- **Jina Reader** — 以更乾淨的 Markdown 擷取網頁，移除導覽與重複樣板內容，通常會減少送進模型的文字量並節省 token（[API 金鑰](https://jina.ai/?newKey)）
 - **Exa** — 針對模糊、概念性與利基問題的語意搜尋，適合你還不確定精準術語的時候（[API 金鑰](https://exa.ai)）
 - **Playwright** — 透過本地瀏覽器擷取 JavaScript 渲染頁面或應留在你機器上的機密頁面（下載約 200MB）
 
@@ -192,4 +192,3 @@ scout 依敏感度分類 URL，並將機密 URL 路由至僅限本地的工具�
 ## 授權條款
 
 [MIT License](../LICENSE) — 可自由使用、修改及散佈。Copyright (c) 2026 shidoyu.
-

@@ -91,7 +91,7 @@ Verwendung: `/scout:fetch URL`
 
 Interaktive Einrichtung von Suchmaschinen und Abruf-Tools:
 - **Context7** — Direkter Weg zu aktuellen offiziellen Bibliotheks- und Framework-Dokumentationen, damit technische Fragen schneller in den Quelldocs landen ([Context7 MCP](https://github.com/upstash/context7), kein API-Schlüssel nötig)
-- **Jina Reader** — Saubereres Abrufen von Webseiten als Markdown, das Navigation und Boilerplate entfernt, wodurch oft weniger Text an das Modell gesendet wird und Tokens gespart werden ([kostenloser API-Schlüssel](https://jina.ai/?newKey))
+- **Jina Reader** — Saubereres Abrufen von Webseiten als Markdown, das Navigation und Boilerplate entfernt, wodurch oft weniger Text an das Modell gesendet wird und Tokens gespart werden ([API-Schlüssel](https://jina.ai/?newKey))
 - **Exa** — Bedeutungsbasierte Suche für vage, konzeptionelle und Nischenanfragen, wenn die genauen Begriffe unklar sind ([API-Schlüssel](https://exa.ai))
 - **Playwright** — Lokaler Browser-Abruf für JavaScript-gerenderte oder vertrauliche Seiten, die auf Ihrem Rechner bleiben sollen (~200 MB Download)
 
@@ -190,4 +190,3 @@ Alle Produktnamen, Logos und Markenzeichen sind Eigentum ihrer jeweiligen Inhabe
 ## Lizenz
 
 [MIT License](../LICENSE) — kostenlos nutzbar, veränderbar und weitergabe. Copyright (c) 2026 shidoyu.
-

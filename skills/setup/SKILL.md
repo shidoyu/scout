@@ -166,7 +166,7 @@ Confirm briefly, then move to next item.
 Convey this (adapt to user's language, do NOT copy verbatim):
 
 > **Step 2/4 — Cleaner web page reading**
-> scout fetches web pages as-is, including ads and navigation. Jina Reader, a page-reading service, strips those out and returns just the content as clean text, which often means less text reaches the model and fewer tokens are used. Free key here: https://jina.ai/?newKey
+> scout fetches web pages as-is, including ads and navigation. Jina Reader, a page-reading service, strips those out and returns just the content as clean text, which often means less text reaches the model and fewer tokens are used. It works without a key for lighter usage. Add a key if you want higher rate limits: https://jina.ai/?newKey
 >
 > 1. Paste a key — I'll handle the rest
 > 2. Set it up myself — I'll show you the file to edit (key stays in your environment only)

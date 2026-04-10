@@ -91,7 +91,7 @@ Användning: `/scout:fetch URL`
 
 Interaktiv guidad konfiguration för sökmotorer och hämtningsverktyg:
 - **Context7** — Direkt väg till aktuell officiell biblioteks- och ramverksdokumentation, så tekniska frågor snabbare når källdokumentationen via [Context7 MCP](https://github.com/upstash/context7) (ingen API-nyckel behövs)
-- **Jina Reader** — Renare hämtning av webbsidor som Markdown som tar bort navigation och boilerplate, vilket ofta minskar mängden text som skickas till modellen och sparar tokens ([gratis API-nyckel](https://jina.ai/?newKey))
+- **Jina Reader** — Renare hämtning av webbsidor som Markdown som tar bort navigation och boilerplate, vilket ofta minskar mängden text som skickas till modellen och sparar tokens ([API-nyckel](https://jina.ai/?newKey))
 - **Exa** — Betydelsebaserad sökning för vaga, konceptuella och nischade frågor när exakta termer är oklara ([API-nyckel](https://exa.ai))
 - **Playwright** — Lokal webbläsarhämtning för JavaScript-renderade eller konfidentiella sidor som ska stanna på din maskin (~200MB nedladdning)
 
@@ -190,4 +190,3 @@ Alla produktnamn, logotyper och varumärken tillhör respektive ägare. Detta pl
 ## Licens
 
 [MIT License](../LICENSE) — fri att använda, modifiera och distribuera. Copyright (c) 2026 shidoyu.
-

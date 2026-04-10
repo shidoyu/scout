@@ -92,7 +92,7 @@ Utilizzo: `/scout:fetch URL`
 
 Configurazione interattiva guidata per motori di ricerca e strumenti di recupero:
 - **Context7** — Percorso diretto alla documentazione ufficiale aggiornata di librerie e framework, così le domande tecniche arrivano prima alle fonti tramite [Context7 MCP](https://github.com/upstash/context7) (nessuna API key necessaria)
-- **Jina Reader** — Recupero più pulito delle pagine web in Markdown, che rimuove navigazione e contenuto ripetitivo, così spesso arriva meno testo al modello e si risparmiano token ([API key gratuita](https://jina.ai/?newKey))
+- **Jina Reader** — Recupero più pulito delle pagine web in Markdown, che rimuove navigazione e contenuto ripetitivo, così spesso arriva meno testo al modello e si risparmiano token ([API key](https://jina.ai/?newKey))
 - **Exa** — Ricerca basata sul significato per query vaghe, concettuali e di nicchia quando i termini esatti non sono chiari ([API key](https://exa.ai))
 - **Playwright** — Recupero locale via browser per pagine renderizzate in JavaScript o pagine riservate che devono restare sulla tua macchina (~200MB di download)
 
@@ -191,4 +191,3 @@ Tutti i nomi di prodotti, loghi e marchi registrati sono di proprietà dei rispe
 ## Licenza
 
 [MIT License](../LICENSE) — libero di usare, modificare e distribuire. Copyright (c) 2026 shidoyu.
-

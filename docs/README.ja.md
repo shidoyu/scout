@@ -93,7 +93,7 @@ scout:setup では、Context7（ライブラリドキュメント検索）、Jin
 
 検索エンジンとフェッチツールの対話型セットアップガイド:
 - **Context7** — 最新の公式ライブラリ・フレームワーク文書へ直接たどり着けるため、技術質問で一次ドキュメントに早く届きます（[Context7 MCP](https://github.com/upstash/context7)、API キー不要）
-- **Jina Reader** — ナビゲーションや定型要素を除いた、よりクリーンな Markdown で Web ページを取得し、モデルに渡るテキスト量が減ってトークン節約につながることがあります（[無料 API キー](https://jina.ai/?newKey)）
+- **Jina Reader** — ナビゲーションや定型要素を除いた、よりクリーンな Markdown で Web ページを取得し、モデルに渡るテキスト量が減ってトークン節約につながることがあります（[APIキー](https://jina.ai/?newKey)）
 - **Exa** — 正確な用語が分からない曖昧・概念的・ニッチな質問に強い、意味ベースの検索です（[API キー](https://exa.ai)）
 - **Playwright** — 手元マシンに残したい JavaScript 描画ページや機密ページを、ローカルブラウザで取得します（約 200MB のダウンロード）
 
@@ -192,4 +192,3 @@ scout は URL を機密度に応じて分類し、機密 URL をローカル専�
 ## ライセンス
 
 [MIT License](LICENSE) — 自由に使用・改変・配布可能。Copyright (c) 2026 shidoyu.
-

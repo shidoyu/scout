@@ -89,7 +89,7 @@ Penggunaan: `/scout:fetch URL`
 
 Pengaturan interaktif terpandu untuk mesin pencari dan alat pengambilan:
 - **Context7** — Jalur langsung ke dokumentasi resmi terkini untuk library dan framework, sehingga pertanyaan teknis lebih cepat sampai ke docs sumber lewat [Context7 MCP](https://github.com/upstash/context7) (tanpa API key)
-- **Jina Reader** — Pengambilan halaman web yang lebih bersih sebagai Markdown dengan menghapus navigasi dan boilerplate, sehingga teks yang dikirim ke model sering kali lebih sedikit dan token lebih hemat ([API key gratis](https://jina.ai/?newKey))
+- **Jina Reader** — Pengambilan halaman web yang lebih bersih sebagai Markdown dengan menghapus navigasi dan boilerplate, sehingga teks yang dikirim ke model sering kali lebih sedikit dan token lebih hemat ([API key](https://jina.ai/?newKey))
 - **Exa** — Pencarian berbasis makna untuk kueri yang samar, konseptual, atau niche saat istilah yang tepat belum jelas ([API key](https://exa.ai))
 - **Playwright** — Pengambilan berbasis browser lokal untuk halaman JavaScript-rendered atau halaman rahasia yang harus tetap di mesin Anda (~200MB unduhan)
 
@@ -188,4 +188,3 @@ Semua nama produk, logo, dan merek dagang adalah milik pemiliknya masing-masing.
 ## Lisensi
 
 [MIT License](../LICENSE) — bebas digunakan, dimodifikasi, dan didistribusikan. Copyright (c) 2026 shidoyu.
-

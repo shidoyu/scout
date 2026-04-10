@@ -91,7 +91,7 @@ Gebruik: `/scout:fetch URL`
 
 Interactieve begeleide instelling voor zoekmachines en ophaaltools:
 - **Context7** — Directe route naar actuele officiële library- en frameworkdocs, zodat technische vragen sneller bij de brondocumentatie uitkomen via [Context7 MCP](https://github.com/upstash/context7) (geen API-sleutel nodig)
-- **Jina Reader** — Schonere webpagina-ophaling als Markdown die navigatie en boilerplate verwijdert, waardoor er vaak minder tekst naar het model gaat en tokens worden bespaard ([gratis API-sleutel](https://jina.ai/?newKey))
+- **Jina Reader** — Schonere webpagina-ophaling als Markdown die navigatie en boilerplate verwijdert, waardoor er vaak minder tekst naar het model gaat en tokens worden bespaard ([API-sleutel](https://jina.ai/?newKey))
 - **Exa** — Betekenisgestuurde zoekfunctie voor vage, conceptuele en nichevragen wanneer exacte termen ontbreken ([API-sleutel](https://exa.ai))
 - **Playwright** — Lokale browserophaling voor JavaScript-gerenderde of vertrouwelijke pagina's die op je machine moeten blijven (~200MB download)
 
@@ -190,4 +190,3 @@ Alle productnamen, logo's en handelsmerken zijn eigendom van hun respectieve eig
 ## Licentie
 
 [MIT-licentie](../LICENSE) — vrij te gebruiken, aan te passen en te distribueren. Copyright (c) 2026 shidoyu.
-

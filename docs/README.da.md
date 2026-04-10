@@ -89,7 +89,7 @@ Brug: `/scout:fetch URL`
 
 Interaktiv guidet opsætning af søgemaskiner og hentningsværktøjer:
 - **Context7** — Direkte vej til aktuelle officielle biblioteks- og frameworkdocs, så tekniske spørgsmål hurtigere lander i kildedokumentationen via [Context7 MCP](https://github.com/upstash/context7) (ingen API-nøgle nødvendig)
-- **Jina Reader** — Renere websidehentning som Markdown, der fjerner navigation og standardblokke, så der ofte sendes mindre tekst til modellen og spares tokens ([gratis API-nøgle](https://jina.ai/?newKey))
+- **Jina Reader** — Renere websidehentning som Markdown, der fjerner navigation og standardblokke, så der ofte sendes mindre tekst til modellen og spares tokens ([API-nøgle](https://jina.ai/?newKey))
 - **Exa** — Betydningsbaseret søgning til vage, konceptuelle og nicheprægede forespørgsler, når de præcise termer er uklare ([API-nøgle](https://exa.ai))
 - **Playwright** — Lokal browserhentning til JavaScript-renderede eller fortrolige sider, som skal blive på din maskine (~200MB download)
 
@@ -188,4 +188,3 @@ Alle produktnavne, logoer og varemærker tilhører de respektive ejere. Dette pl
 ## Licens
 
 [MIT License](../LICENSE) — fri til at bruge, ændre og distribuere. Copyright (c) 2026 shidoyu.
-
