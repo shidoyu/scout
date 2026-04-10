@@ -45,6 +45,13 @@ VENV_DIR="$PLUGIN_ROOT/tools/.venv"
 
 echo "=== scout setup status ==="
 
+# jq check (required for configuration)
+if ! command -v jq >/dev/null 2>&1; then
+  echo "jq: NOT FOUND"
+else
+  echo "jq: ok"
+fi
+
 # System locale for language detection
 echo "locale: $(defaults read -g AppleLocale 2>/dev/null || echo "${LANG:-en_US}")"
 
@@ -57,8 +64,8 @@ else
   echo "context7: not configured"
 fi
 
-# Jina Reader
-if [ -f "$MCP_JSON" ] && jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1; then
+# Jina Reader (configured = entry exists, with or without key)
+if [ -f "$MCP_JSON" ] && jq -e '.mcpServers["jina-reader"]' "$MCP_JSON" > /dev/null 2>&1; then
   echo "jina: configured"
 else
   echo "jina: not configured"
@@ -79,7 +86,7 @@ else
 fi
 ```
 
-Run this check first. Present ALL four steps in order. For already-configured items, show them as a one-line confirmation (e.g. "Step 1/4 — Library & framework docs ✓ configured") and immediately move to the next step. Do not ask the user to act on configured items. If everything is already configured, tell the user and end setup.
+Run this check first. **If `jq: NOT FOUND`**, stop immediately and tell the user to install jq (`brew install jq` on macOS, `apt install jq` on Linux) before continuing — without jq, key configuration will fail silently. Present ALL four steps in order. For already-configured items, show them as a one-line confirmation (e.g. "Step 1/4 — Library & framework docs ✓ configured") and immediately move to the next step. Do not ask the user to act on configured items. If everything is already configured, tell the user and end setup.
 
 ## Interaction Flow
 
@@ -96,7 +103,14 @@ The flow is:
 
 ### "private" response handling
 
-If the user says "private" for any API key step (Jina or Exa), show them the file path and the JSON to add, so they can edit it themselves without the key passing through the conversation:
+If the user says "private" for any API key step (Jina or Exa), show them the file path and the JSON to add, so they can edit it themselves without the key passing through the conversation.
+
+**If `.mcp.json` does not exist yet**, tell the user to create it first:
+```
+cp ${CLAUDE_PLUGIN_ROOT}/.mcp.json.dist ${CLAUDE_PLUGIN_ROOT}/.mcp.json
+```
+
+Then show what to add:
 
 ```
 File: ${CLAUDE_PLUGIN_ROOT}/.mcp.json
@@ -157,7 +171,7 @@ Convey this (adapt to user's language, do NOT copy verbatim):
 > scout searches the web for technical questions. Context7, a documentation index, adds a direct path to official library and framework docs (React, Prisma, Next.js, etc.) — less time digging through SEO pages, more time on the actual API docs. The indexed content matches the latest published version. No API key needed.
 >
 > 1. Install — one command, done in seconds
-> 2. Skip — you can add this later
+> 2. Skip — scout uses web search for docs. You can add this later
 
 If user consents, run:
 
@@ -184,7 +198,7 @@ Convey this (adapt to user's language, do NOT copy verbatim):
 >
 > 1. Paste a key — I'll handle the rest
 > 2. Set it up myself — I'll show you the file to edit (key stays in your environment only)
-> 3. Skip — you can add this later
+> 3. Skip — scout fetches pages as raw HTML. You can add this later
 
 If user provides a key, configure it:
 
@@ -219,7 +233,7 @@ Convey this (adapt to user's language, do NOT copy verbatim):
 >
 > 1. Paste a key — I'll handle the rest
 > 2. Set it up myself — I'll show you the file to edit (key stays in your environment only)
-> 3. Skip — you can add this later
+> 3. Skip — scout uses keyword search. You can add this later
 
 Japanese example (use as reference, adapt naturally):
 > ステップ 3/4 — 意味ベースのウェブ検索
@@ -227,7 +241,7 @@ Japanese example (use as reference, adapt naturally):
 >
 > 1. キーを貼り付ける — あとはこちらで設定します
 > 2. 自分で設定する — 編集先のファイルを案内します（キーは手元の環境にのみ保存されます）
-> 3. スキップ — あとで追加できます
+> 3. スキップ — scout はキーワード検索を使います。あとで追加できます
 
 If user provides a key, configure it:
 
@@ -260,7 +274,7 @@ Convey this (adapt to user's language, do NOT copy verbatim):
 > scout fetches pages via API. Playwright runs a real browser locally — it handles JavaScript-rendered content (SPAs, dashboards) and keeps confidential URLs on your machine, so private pages stay local. Needs ~200MB for Chromium.
 >
 > 1. Install
-> 2. Skip
+> 2. Skip — scout fetches via API (no JS rendering). You can add this later
 
 If user consents:
 
