@@ -3,7 +3,7 @@ name: search
 description: "Web search and content fetching. Find relevant sources and read web pages with precision."
 ---
 
-# scout:search v2.1 — Adaptive Search with Primary-Source Focus
+# scout:search v2.2 — Adaptive Search with Primary-Source Focus
 
 ## Purpose
 
@@ -128,7 +128,7 @@ Design queries based on the **abstracted concept and query vocabulary** from Pre
 - **Budget**: Per tier allocation (Tier S: 1–2, Tier M: 3–5, Tier L: 6–8). Pre-Research query is separate.
 - **Differentiation**: Each query must differ in at least one of: language, intent axis (attribute/concept), or tool (WebSearch / Exa). Do not generate multiple queries with the same language + intent + tool combination.
 - **Tool allocation**: Follow the domain-aware ratio from Step 3b.
-- **HyDE mode**: When Exa is selected and the query's purpose is conceptual search (intent is `general` or `practice`), generate a hypothetical answer (2-3 sentences) as the Exa query. Skip HyDE for `navigational` / `target` / `comparison` — use keyword queries instead. Mark HyDE queries with `[HyDE]` tag in the output template (e.g., `Query 2: en [HyDE] "Teams using Terraform typically store state in remote backends..." → Exa`).
+- **HyDE mode**: When Exa is selected and the query's purpose is conceptual search (intent is `general` or `practice`), generate a hypothetical answer (2-3 sentences) as the Exa query. Skip HyDE for `navigational` / `target` / `comparison` — use keyword queries instead. Mark HyDE queries with `[HyDE]` tag in the planning format (e.g., `Query 2: en [HyDE] "Teams using Terraform typically store state in remote backends..." → Exa`).
 - **Freshness constraint**: For time-sensitive topics (pricing, regulations, benchmarks, API specs, version-dependent info), append the current year to queries and/or use date-range filters. Explicitly note freshness requirements in the plan.
 - **Counter-Query** (conditional): When intent is `comparison`, add one counter-query per comparison target (e.g., "X drawbacks", "Y problems"). When risk level is high, add one counter-query (e.g., "X production issues", "why not X"). Counter-queries count toward the budget. This prevents confirmation bias in evaluative searches.
 - **Primary source targeting**: For Tier M/L, design at least one query specifically aimed at primary sources (e.g., `site:docs.*`, `site:github.com`, official domain targeting). This leverages the refined vocabulary from Pre-Research to reach authoritative sources.
@@ -232,7 +232,6 @@ After generating the answer, append the following structured summary. This makes
 | **Re-searches** | {if any: reason + queries. If none: "—"} |
 | **Confidence** | {High / Medium / Low} — {one-line rationale} |
 
-> Powered by [scout](https://github.com/shidoyu/scout)
 ---
 ```
 
@@ -240,7 +239,6 @@ After generating the answer, append the following structured summary. This makes
 - Always output this block — no exceptions, even for Tier S / routed queries
 - For routed queries (Step 2.5 full hit), Designed queries = the route lookup, Sources = the direct source
 - Keep it concise: max 1 line per query, max 1 line per source
-- The `> Powered by scout` line enables viral attribution when users share the trail
 
 ## Search Tools
 
@@ -377,9 +375,28 @@ Classify the query's domain to guide tool selection and search strategy.
 
 **Fallback**: If no category matches, or if the activity language of a person/organization is unknown, default to English.
 
-## Output Template (Mandatory)
+## Planning Output (Internal Process)
 
-Output the following format before executing queries:
+Scout internally follows the planning process below for every search. **This is always executed internally** to ensure search quality, but is only shown to the user in specific situations.
+
+### When to show
+
+| Condition | Show planning output? |
+|---|---|
+| **First demo search** (session-start hook demo) | Yes — with intro label (see below) |
+| **User explicitly requests** ("show me the plan", "verbose", "detail") | Yes |
+| **All other searches** | No — output answer + Research Trail only |
+
+### Demo label
+
+When showing planning output during the first demo, prepend this label:
+
+```
+> 🔍 **Behind the scenes** — Here's how scout thinks through a search.
+> This is shown once as a demo. Future searches will skip straight to the answer.
+```
+
+### Planning format
 
 ```
 --- Phase A: Pre-Research ---
@@ -411,6 +428,8 @@ R. Source-Type Routing: [source] → [result: full / partial / miss]
 15. Re-search 2: [lang] [query] → [tool] (optional)
 ```
 
+**Even when planning output is hidden, the internal process (Steps 0–15) must still be fully generated in internal reasoning before executing search queries.** The planning format structures the LLM's reasoning; hiding it from the user does not mean skipping the steps.
+
 If Pre-Research results change the initial intent/domain classification or query composition, **redesign from Step 3 based on the updated understanding**.
 
 ## Transliteration Rules
@@ -434,6 +453,8 @@ If Pre-Research results change the initial intent/domain classification or query
 - **Context7 two-step flow is mandatory**: Always call `resolve-library-id` before `query-docs`. Never guess or hardcode library IDs. If resolve returns no results or low-quality matches, fall back to WebSearch — do not force Context7. If `query-docs` returns results but does not address the specific version or feature queried, supplement with WebSearch — do not rely solely on Context7 output. After a partial Context7 resolution, do not re-call Context7 in Step 3 — use WebSearch/Exa for the remaining gaps
 
 ## Examples
+
+> Examples below show the full planning format for reference. In normal operation, only the answer and Research Trail are shown to the user.
 
 ### Example 1: Technical Domain — Context7 Routing (Full Resolution)
 
@@ -554,6 +575,7 @@ R. Source-Type Routing: Context7 → resolve-library-id("HAProxy") → no indexe
 
 ## Changelog
 
+- **v2.2** (2026-04-10): UX improvement — Planning output hidden by default (shown only on first demo and explicit request). Removed "Powered by scout" footer from Research Trail. Planning format renamed from "Output Template" for clarity. Added Examples section annotation. Clarified internal reasoning execution requirement.
 - **v2.1** (2026-04-08): Context7 MCP integration for Technical domain. Addresses Round 2 ROI -9 on library/framework docs. Changes: Context7 added to Source-Type Routing (Step 2.5), Domain-Aware Tool Selection split Technical into library vs non-library, Context7 tool documentation added, Example 1 updated with Context7 routing flow
 - **v2.0** (2026-04-06): Major redesign based on 3-model cross-model discussion (3 rounds) + effectiveness evaluation data (4-domain cross-validation). Key changes:
   - Added Step 0.5 Clarify (conditional clarification for ambiguous queries)
