@@ -13,6 +13,20 @@ Walk the user through configuring scout's optional search and fetching tools via
 
 **"scout already works. These options make it stronger. The user chooses."**
 
+## Transparency Protocol
+
+Every configuration change must be visible before it happens. This builds trust and lets the user understand what scout is doing to their environment.
+
+1. **Show the diff before writing** — Before editing `.mcp.json` or any config file, display the exact JSON block that will be added. Format: "Adding this to `[file path]`:" → fenced JSON block → then write. No extra confirmation needed — the step-level consent ("Install") already covers it.
+
+2. **Echo commands before running** — Before executing shell commands (e.g., `npx playwright install chromium`, `claude mcp add ...`, `pip install ...`), display the command first. Format: "Running:" → fenced command block → then execute. Do NOT ask for separate confirmation here — the step-level consent already covers it.
+
+3. **State the footprint** — For installs that add significant disk usage (e.g., Playwright ~200MB), state the approximate size before the user consents.
+
+These rules apply to every step below. They do not add extra confirmation prompts — they make the existing prompts more informative.
+
+## Interaction Rules
+
 - **Respond in the user's language** — check the `locale:` line from the pre-check output (e.g. `ja_JP` → Japanese, `es_ES` → Spanish, `en_US` → English). ALL dialogue, explanations, step titles, and option descriptions MUST be in that language. The English templates below are for content guidance only — NEVER output them as-is. Only URLs and CLI commands stay in English.
 - Frame each tool as an upgrade, not a missing piece
 - Every step is skippable — do not ask why if the user declines

@@ -216,6 +216,32 @@ Generate the answer based on collected sources.
 - "This is based on [source type] — official documentation should be consulted for authoritative confirmation"
 - "Sources disagree on [point] — [Source A] states X while [Source B] states Y"
 
+### Research Trail (Mandatory — append after every synthesis)
+
+After generating the answer, append the following structured summary. This makes the search process transparent and shareable.
+
+```markdown
+---
+### 🔍 Research Trail
+
+| | |
+|---|---|
+| **Query** | {user's original question} |
+| **Designed queries** | {list of queries actually executed, with tool and language} |
+| **Sources** | {URLs/sources consulted, with tier: 🟢 primary / 🟡 secondary / ⚪ tertiary} |
+| **Re-searches** | {if any: reason + queries. If none: "—"} |
+| **Confidence** | {High / Medium / Low} — {one-line rationale} |
+
+> Powered by [scout](https://github.com/shidoyu/scout)
+---
+```
+
+**Rules**:
+- Always output this block — no exceptions, even for Tier S / routed queries
+- For routed queries (Step 2.5 full hit), Designed queries = the route lookup, Sources = the direct source
+- Keep it concise: max 1 line per query, max 1 line per source
+- The `> Powered by scout` line enables viral attribution when users share the trail
+
 ## Search Tools
 
 Query design (Steps 1-3) and search tools are independent. Tool failures do not change query design. If a tool is unavailable, fall back to another.
