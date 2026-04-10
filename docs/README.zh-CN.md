@@ -1,4 +1,4 @@
-🇯🇵 [日本語](docs/README.ja.md) · 🇰🇷 [한국어](docs/README.ko.md) · 🇨🇳 **简体中文** · 🇹🇼 [繁體中文](docs/README.zh-TW.md) · 🇧🇷 [Português](docs/README.pt-BR.md) · 🇩🇪 [Deutsch](docs/README.de.md) · 🇪🇸 [Español](docs/README.es.md) · 🇫🇷 [Français](docs/README.fr.md) · 🇮🇱 [עברית](docs/README.he.md) · 🇪🇪 [Eesti](docs/README.et.md) · 🇸🇪 [Svenska](docs/README.sv.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 **简体中文** · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md)
 
 > **注意：** 本翻译仅供参考。[英文原版](../README.md)为正式版本。
 
@@ -9,6 +9,8 @@
 > 先思考，再搜索。 — Claude Code 网页研究插件。
 
 查询设计、多引擎搜索、隐私感知抓取。
+
+Claude Code 内置的 WebSearch 只返回 125 个字符的片段，并且仅依赖关键词匹配。scout 会把模糊的问题改写成优化过的多引擎查询，评估结果质量，并在需要时重新搜索，从而更快、更可靠地抵达一手来源。
 
 ## 功能
 
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **第 3 步** — 设置搜索引擎和抓取工具
 
-```
+请在 Claude Code 中按顺序逐条运行以下命令：
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -83,10 +90,10 @@ scout:setup 将以交互方式引导你配置 Context7（库文档搜索）、Ji
 ### scout:setup
 
 搜索引擎和抓取工具的交互式设置向导：
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — 将网页高质量转换为 Markdown（免费 API 密钥）
-- **Exa** — 先进的 AI 原生语义搜索（API 密钥）
-- **Playwright** — 基于浏览器的抓取，适用于 JavaScript 渲染页面及机密页面（下载约 200MB）
+- **Context7** — 直达最新官方库与框架文档，让技术问题更快落到一手文档上（[Context7 MCP](https://github.com/upstash/context7)，无需 API 密钥）
+- **Jina Reader** — 以更干净的 Markdown 抓取网页，去掉导航和重复模板内容，通常会减少发送给模型的文本量并节省 token（[免费 API 密钥](https://jina.ai/?newKey)）
+- **Exa** — 面向模糊、概念性和小众问题的语义搜索，适合你还不清楚准确术语的时候（[API 密钥](https://exa.ai)）
+- **Playwright** — 通过本地浏览器抓取 JavaScript 渲染页面或应留在你机器上的机密页面（下载约 200MB）
 
 所有步骤均为可选。随时重新运行以更新设置。
 
@@ -114,11 +121,15 @@ scout 在获取内容前会将 URL 分为三个级别：
 
 若要获取需要登录的页面（OAuth、SaaS 控制台等），Chrome 必须以调试模式启动：
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS：
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linux：
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

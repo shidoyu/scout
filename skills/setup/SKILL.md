@@ -110,7 +110,7 @@ Write as if you're a colleague helping someone set up their tools — casual, br
 ### Framing rules
 
 - **Always use gain framing** — state what the user GETS, not what they AVOID. "key stays in your environment" is correct; "key won't appear in the conversation" is loss-avoidance framing and MUST NOT be used.
-- **No unverifiable claims** — "more accurate" or "better results" without a concrete mechanism is overclaiming. Instead, describe what changes observably: "returns just the content as clean text."
+- **No unverifiable claims** — "more accurate" or "better results" without a concrete mechanism is overclaiming. Instead, describe what changes observably: "returns just the content as clean text, so the model often has fewer tokens to process."
 - **"Already works" must come first** — every step must open by stating what scout already does. The tool strengthens this.
 - **Honest delta — describe mechanism, not outcome** — state what the tool concretely adds ("searches by meaning, not just keywords") instead of evaluating the result ("better search"). Additive language ("adds", "extends") is fine. Banned: "unlocks", "lets you...", "〜できるようになります", "〜に対応しています" — these imply current capabilities are locked.
 - **Skip option must be procedural, not evaluative** — state what happens ("scout uses its built-in search"), not how good it is ("works fine without it"). The latter triggers the "protesting too much" effect. Add reversibility: "you can add this later."
@@ -140,7 +140,7 @@ On subsequent mentions, use the name alone.
 Convey this (adapt to user's language, do NOT copy verbatim):
 
 > **Step 1/4 — Library & framework docs**
-> scout searches the web for technical questions. Context7, a documentation index, adds a direct path to official library and framework docs (React, Prisma, Next.js, etc.) — the indexed content matches the latest published version. No API key needed.
+> scout searches the web for technical questions. Context7, a documentation index, adds a direct path to official library and framework docs (React, Prisma, Next.js, etc.) — less time digging through SEO pages, more time on the actual API docs. The indexed content matches the latest published version. No API key needed.
 >
 > 1. Install — one command, done in seconds
 > 2. Skip — you can add this later
@@ -166,7 +166,7 @@ Confirm briefly, then move to next item.
 Convey this (adapt to user's language, do NOT copy verbatim):
 
 > **Step 2/4 — Cleaner web page reading**
-> scout fetches web pages as-is, including ads and navigation. Jina Reader, a page-reading service, strips those out and returns just the content as clean text. Free key here: https://jina.ai/?newKey
+> scout fetches web pages as-is, including ads and navigation. Jina Reader, a page-reading service, strips those out and returns just the content as clean text, which often means less text reaches the model and fewer tokens are used. Free key here: https://jina.ai/?newKey
 >
 > 1. Paste a key — I'll handle the rest
 > 2. Set it up myself — I'll show you the file to edit (key stays in your environment only)
@@ -201,7 +201,7 @@ Confirm briefly, then move to next item.
 Convey this (adapt to user's language, do NOT copy verbatim):
 
 > **Step 3/4 — Meaning-based web search**
-> scout searches the web without any extra keys. Exa, a semantic search service, searches by meaning, not just keywords — useful when you're not sure of the exact terms. Key here: https://exa.ai
+> scout searches the web without any extra keys. Exa, a semantic search service, searches by meaning, not just keywords — useful when you're not sure of the exact terms and want relevant niche sources sooner. Key here: https://exa.ai
 >
 > 1. Paste a key — I'll handle the rest
 > 2. Set it up myself — I'll show you the file to edit (key stays in your environment only)
@@ -243,7 +243,7 @@ Confirm briefly, then move to next item.
 Convey this (adapt to user's language, do NOT copy verbatim):
 
 > **Step 4/4 — Handling interactive pages**
-> scout fetches pages via API. Playwright runs a real browser locally — it handles JavaScript-rendered content (SPAs, dashboards) and keeps confidential URLs on your machine. Needs ~200MB for Chromium.
+> scout fetches pages via API. Playwright runs a real browser locally — it handles JavaScript-rendered content (SPAs, dashboards) and keeps confidential URLs on your machine, so private pages stay local. Needs ~200MB for Chromium.
 >
 > 1. Install
 > 2. Skip

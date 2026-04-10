@@ -10,6 +10,8 @@
 
 クエリ設計、マルチエンジン検索、プライバシー配慮のフェッチ。
 
+Claude Code 内蔵の WebSearch は 125 文字のスニペットしか返さず、キーワード一致に頼っています。scout は曖昧な質問を最適化されたマルチエンジンクエリに変換し、結果の質を評価し、必要に応じて再検索することで、一次情報により速く、より確実にたどり着きます。
+
 ## 機能
 
 - **scout:search** — クエリ設計最適化によるマルチエンジン Web 検索
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **ステップ 3** — 検索エンジンとフェッチツールのセットアップ
 
-```
+Claude Code 上で次の 2 つを 1 つずつ実行します:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -83,10 +90,10 @@ scout:setup では、Context7（ライブラリドキュメント検索）、Jin
 ### scout:setup
 
 検索エンジンとフェッチツールの対話型セットアップガイド:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Web ページを Markdown として高品質に取得（無料 API キー）
-- **Exa** — 高度な AI ネイティブセマンティック検索（API キー）
-- **Playwright** — JavaScript で描画されるページや機密ページのブラウザ取得（約 200MB のダウンロード）
+- **Context7** — 最新の公式ライブラリ・フレームワーク文書へ直接たどり着けるため、技術質問で一次ドキュメントに早く届きます（[Context7 MCP](https://github.com/upstash/context7)、API キー不要）
+- **Jina Reader** — ナビゲーションや定型要素を除いた、よりクリーンな Markdown で Web ページを取得し、モデルに渡るテキスト量が減ってトークン節約につながることがあります（[無料 API キー](https://jina.ai/?newKey)）
+- **Exa** — 正確な用語が分からない曖昧・概念的・ニッチな質問に強い、意味ベースの検索です（[API キー](https://exa.ai)）
+- **Playwright** — 手元マシンに残したい JavaScript 描画ページや機密ページを、ローカルブラウザで取得します（約 200MB のダウンロード）
 
 すべてのステップは任意です。設定を更新する際はいつでも再実行できます。
 
@@ -114,11 +121,15 @@ scout は取得前に URL を 3 つのレベルに分類します:
 
 ログインが必要なページ（OAuth、SaaS ダッシュボードなど）を取得するには、Chrome をデバッグモードで起動する必要があります:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

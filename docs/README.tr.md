@@ -10,6 +10,8 @@
 
 Sorgu tasarımı, çok motorlu arama, gizlilik odaklı getirme.
 
+Claude Code'un yerleşik WebSearch özelliği yalnızca 125 karakterlik parçalar döndürür ve sadece anahtar kelime eşleşmesine dayanır. scout belirsiz bir soruyu optimize edilmiş çoklu arama motoru sorgularına dönüştürür, sonuç kalitesini değerlendirir ve gerektiğinde yeniden arama yaparak birincil kaynaklara daha hızlı ve daha güvenilir biçimde ulaşır.
+
 ## Özellikler
 
 - **scout:search** — Sorgu tasarımı optimizasyonu ile çok motorlu web araması
@@ -29,12 +31,17 @@ claude plugin install scout@shidoyu-scout
 
 **Adım 3** — Arama motorlarını ve getirme araçlarını ayarlayın
 
-```
+Bu komutları Claude Code içinde teker teker çalıştırın:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
-`scout:setup`, [[Context7](https://github.com/upstash/context7) (kütüphane dokümantasyonu), Jina Reader](https://jina.ai) (web sayfası getirme), [Exa](https://exa.ai) (semantik arama) ve [Playwright](https://playwright.dev) (JavaScript ile render edilen sayfalar) yapılandırmasında sizi interaktif olarak yönlendirir. Her adım isteğe bağlıdır ve atlanabilir.
+`scout:setup`, [Context7](https://github.com/upstash/context7) (kütüphane dokümantasyonu), [Jina Reader](https://jina.ai) (web sayfası getirme), [Exa](https://exa.ai) (semantik arama) ve [Playwright](https://playwright.dev) (JavaScript ile render edilen sayfalar) yapılandırmasında sizi interaktif olarak yönlendirir. Her adım isteğe bağlıdır ve atlanabilir.
 
 > **Not:** Bu adımı atlarsanız, scout bir sonraki oturum başlangıcında sizden ayarlama yapmanızı isteyecektir. Temel arama, kurulum gerekmeden hemen çalışır.
 
@@ -79,10 +86,10 @@ Kullanım: `/scout:fetch URL`
 ### scout:setup
 
 Arama motorları ve getirme araçları için interaktif rehberli kurulum:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Markdown olarak yüksek kaliteli web sayfası getirme ([ücretsiz API anahtarı](https://jina.ai/?newKey))
-- **Exa** — Gelişmiş AI-native semantik arama ([API anahtarı](https://exa.ai))
-- **Playwright** — JavaScript ile render edilmiş ve gizli sayfalar için tarayıcı tabanlı getirme (~200MB indirme)
+- **Context7** — Güncel resmi kütüphane ve framework dokümanlarına doğrudan yol açar; böylece teknik sorular kaynak dokümanlara daha hızlı ulaşır ([Context7 MCP](https://github.com/upstash/context7), API anahtarı gerekmez)
+- **Jina Reader** — Gezinme öğelerini ve tekrar eden boilerplate içeriğini kaldırarak web sayfalarını daha temiz Markdown olarak getirir; böylece modele giden metin çoğu zaman azalır ve token tasarrufu sağlanır ([ücretsiz API anahtarı](https://jina.ai/?newKey))
+- **Exa** — Tam terimler net değilken belirsiz, kavramsal ve niş sorgular için anlam temelli arama sunar ([API anahtarı](https://exa.ai))
+- **Playwright** — Makinenizde kalması gereken JavaScript ile render edilen veya gizli sayfalar için yerel tarayıcı tabanlı getirme sunar (~200MB indirme)
 
 Tüm adımlar isteğe bağlıdır. Ayarları güncellemek için istediğiniz zaman yeniden çalıştırın.
 
@@ -110,11 +117,15 @@ Bu sınıflandırma otomatiktir ancak sistem zorlaması değil, LLM değerlendir
 
 Giriş gerektiren sayfaları (OAuth, SaaS panelleri) getirmek için Chrome'un hata ayıklama modunda çalışıyor olması gerekir:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS için:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linux için:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

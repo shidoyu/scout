@@ -10,6 +10,8 @@
 
 עיצוב שאילתות, חיפוש רב-מנועי, אחזור מודע לפרטיות.
 
+ה-WebSearch המובנה של Claude Code מחזיר קטעים באורך 125 תווים בלבד ומסתמך רק על התאמת מילות מפתח. scout הופך שאלה מעורפלת לשאילתות ממוטבות למספר מנועי חיפוש, מעריך את איכות התוצאות ומחפש שוב כשצריך, כדי להגיע למקורות ראשוניים מהר יותר ובאמינות גבוהה יותר.
+
 ## תכונות
 
 - **scout:search** — חיפוש ברשת עם מספר מנועים ואופטימיזציה של עיצוב שאילתות
@@ -29,12 +31,17 @@ claude plugin install scout@shidoyu-scout
 
 **שלב 3** — הגדרת מנועי חיפוש וכלי אחזור
 
-```
+הפעילו את הפקודות האלה אחת אחת בתוך Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
-`scout:setup` מנחה אותך באופן אינטראקטיבי דרך הגדרת [ו-[Context7](https://github.com/upstash/context7) (תיעוד ספריות) Jina Reader](https://jina.ai) (אחזור דפי אינטרנט), [Exa](https://exa.ai) (חיפוש סמנטי) ו-[Playwright](https://playwright.dev) (דפים עם JavaScript). כל שלב הוא אופציונלי וניתן לדילוג.
+`scout:setup` מנחה אותך באופן אינטראקטיבי דרך הגדרת [Context7](https://github.com/upstash/context7) (תיעוד ספריות), [Jina Reader](https://jina.ai) (אחזור דפי אינטרנט), [Exa](https://exa.ai) (חיפוש סמנטי) ו-[Playwright](https://playwright.dev) (דפים עם JavaScript). כל שלב הוא אופציונלי וניתן לדילוג.
 
 > **הערה:** אם תדלגו על שלב זה, scout יבקש מכם להגדיר בתחילת הסשן הבא. חיפוש בסיסי עובד מיד ללא הגדרה.
 
@@ -79,10 +86,10 @@ claude plugin install scout@shidoyu-scout
 ### scout:setup
 
 הגדרה מודרכת אינטראקטיבית למנועי חיפוש וכלי אחזור:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — אחזור דפי אינטרנט באיכות גבוהה כ-Markdown ([מפתח API חינמי](https://jina.ai/?newKey))
-- **Exa** — חיפוש סמנטי מתקדם מבוסס AI ([מפתח API](https://exa.ai))
-- **Playwright** — אחזור מבוסס דפדפן לדפים עם JavaScript ודפים חסויים (הורדה של ~200MB)
+- **Context7** — נתיב ישיר למסמכים הרשמיים והעדכניים של ספריות ופריימוורקים, כך ששאלות טכניות מגיעות מהר יותר לתיעוד המקור דרך [Context7 MCP](https://github.com/upstash/context7) (ללא מפתח API)
+- **Jina Reader** — קריאה נקייה יותר של דפי אינטרנט כ-Markdown, שמסירה ניווט וטקסט חוזר, כך שלעתים קרובות נשלח פחות טקסט למודל ונחסכים טוקנים ([מפתח API חינמי](https://jina.ai/?newKey))
+- **Exa** — חיפוש לפי משמעות עבור שאילתות מעורפלות, מושגיות ונישתיות כשהמונחים המדויקים לא ברורים ([מפתח API](https://exa.ai))
+- **Playwright** — אחזור מקומי בדפדפן עבור דפים שמרונדרים ב-JavaScript או דפים רגישים שצריכים להישאר על המחשב שלך (~200MB הורדה)
 
 כל השלבים אופציונליים. ניתן להריץ מחדש בכל עת לעדכון הגדרות.
 
@@ -110,11 +117,15 @@ scout מסווג כתובות URL לשלוש רמות לפני האחזור:
 
 לאחזור דפים הדורשים התחברות (OAuth, לוחות מחוונים של SaaS), Chrome חייב לפעול במצב ניפוי שגיאות:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+ב-macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+ב-Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

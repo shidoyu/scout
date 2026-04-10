@@ -10,6 +10,8 @@
 
 쿼리 설계, 멀티엔진 검색, 프라이버시 고려 페칭.
 
+Claude Code에 내장된 WebSearch는 125자 스니펫만 반환하고 키워드 일치에만 의존합니다. scout는 모호한 질문을 최적화된 멀티 엔진 쿼리로 바꾸고, 결과 품질을 평가하며, 필요하면 다시 검색해 1차 출처에 더 빠르고 안정적으로 도달합니다.
+
 ## 기능
 
 - **scout:search** — 쿼리 설계 최적화를 갖춘 멀티엔진 웹 검색
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **3단계** — 검색 엔진 및 페칭 도구 설정
 
-```
+Claude Code에서 아래 두 명령을 하나씩 실행하세요:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -83,10 +90,10 @@ scout:setup은 Context7(라이브러리 문서 검색), Jina Reader(웹 페이�
 ### scout:setup
 
 검색 엔진 및 페칭 도구를 위한 대화형 설정 가이드:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — 웹 페이지를 Markdown으로 고품질 가져오기 (무료 API 키)
-- **Exa** — 고급 AI 네이티브 시맨틱 검색 (API 키)
-- **Playwright** — JavaScript 렌더링 및 기밀 페이지를 위한 브라우저 기반 가져오기 (~200MB 다운로드)
+- **Context7** — 최신 공식 라이브러리·프레임워크 문서로 바로 이어져 기술 질문이 원문 문서에 더 빨리 닿습니다 ([Context7 MCP](https://github.com/upstash/context7), API 키 불필요)
+- **Jina Reader** — 탐색 메뉴와 반복되는 보일러플레이트를 제거한 더 깔끔한 Markdown으로 웹 페이지를 가져오며, 모델에 전달되는 텍스트가 줄어 토큰을 아낄 때가 많습니다 ([무료 API 키](https://jina.ai/?newKey))
+- **Exa** — 정확한 용어가 떠오르지 않을 때 모호하고 개념적이거나 니치한 질문을 의미 기준으로 찾는 검색입니다 ([API 키](https://exa.ai))
+- **Playwright** — 내 기기에만 남겨야 하는 JavaScript 렌더링 페이지나 기밀 페이지를 로컬 브라우저로 가져옵니다 (~200MB 다운로드)
 
 모든 단계는 선택 사항입니다. 설정을 업데이트하려면 언제든지 다시 실행하세요.
 
@@ -114,11 +121,15 @@ scout는 콘텐츠를 가져오기 전에 URL을 세 가지 수준으로 분류�
 
 로그인이 필요한 페이지(OAuth, SaaS 대시보드 등)를 가져오려면 Chrome을 디버그 모드로 실행해야 합니다:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

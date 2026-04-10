@@ -10,6 +10,8 @@
 
 Query-Design, Multi-Engine-Suche, datenschutzbewusstes Abrufen.
 
+Die integrierte WebSearch von Claude Code liefert nur 125-Zeichen-Snippets und verlässt sich ausschließlich auf Keyword-Matching. scout verwandelt eine vage Frage in optimierte Multi-Engine-Abfragen, bewertet die Qualität der Ergebnisse und sucht bei Bedarf erneut, um Primärquellen schneller und zuverlässiger zu erreichen.
+
 ## Funktionen
 
 - **scout:search** — Multi-Engine-Websuche mit optimiertem Query-Design
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **Schritt 3** — Suchmaschinen und Abruf-Tools einrichten
 
-```
+Führen Sie diese Befehle in Claude Code nacheinander aus:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -81,10 +88,10 @@ Verwendung: `/scout:fetch URL`
 ### scout:setup
 
 Interaktive Einrichtung von Suchmaschinen und Abruf-Tools:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Hochwertiger Webseitenabruf als Markdown (kostenloser API-Schlüssel)
-- **Exa** — Erweiterte KI-native semantische Suche (API-Schlüssel)
-- **Playwright** — Browserbasierter Abruf für JavaScript-gerenderte und vertrauliche Seiten (~200 MB Download)
+- **Context7** — Direkter Weg zu aktuellen offiziellen Bibliotheks- und Framework-Dokumentationen, damit technische Fragen schneller in den Quelldocs landen ([Context7 MCP](https://github.com/upstash/context7), kein API-Schlüssel nötig)
+- **Jina Reader** — Saubereres Abrufen von Webseiten als Markdown, das Navigation und Boilerplate entfernt, wodurch oft weniger Text an das Modell gesendet wird und Tokens gespart werden ([kostenloser API-Schlüssel](https://jina.ai/?newKey))
+- **Exa** — Bedeutungsbasierte Suche für vage, konzeptionelle und Nischenanfragen, wenn die genauen Begriffe unklar sind ([API-Schlüssel](https://exa.ai))
+- **Playwright** — Lokaler Browser-Abruf für JavaScript-gerenderte oder vertrauliche Seiten, die auf Ihrem Rechner bleiben sollen (~200 MB Download)
 
 Alle Schritte sind optional. Kann jederzeit erneut ausgeführt werden, um Einstellungen zu aktualisieren.
 
@@ -112,11 +119,15 @@ Diese Klassifizierung erfolgt automatisch, basiert jedoch auf der Einschätzung 
 
 Um Seiten abzurufen, die eine Anmeldung erfordern (OAuth, SaaS-Dashboards), muss Chrome im Debug-Modus gestartet sein:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

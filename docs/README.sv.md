@@ -10,6 +10,8 @@
 
 Frågedesign, flermotor-sökning, integritetsmedveten hämtning.
 
+Claude Codes inbyggda WebSearch returnerar bara utdrag på 125 tecken och förlitar sig enbart på nyckelordsmatchning. scout omvandlar en vag fråga till optimerade frågor för flera sökmotorer, bedömer resultatens kvalitet och söker igen vid behov, så att primärkällor nås snabbare och mer tillförlitligt.
+
 ## Funktioner
 
 - **scout:search** — Flermotor-webbsökning med optimerad frågedesign
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **Steg 3** — Konfigurera sökmotorer och hämtningsverktyg
 
-```
+Kör dessa en i taget i Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -81,10 +88,10 @@ Användning: `/scout:fetch URL`
 ### scout:setup
 
 Interaktiv guidad konfiguration för sökmotorer och hämtningsverktyg:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Högkvalitativ hämtning av webbsidor som Markdown (gratis API-nyckel)
-- **Exa** — Avancerad AI-native semantisk sökning (API-nyckel)
-- **Playwright** — Webbläsarbaserad hämtning för JavaScript-renderade och konfidentiella sidor (~200 MB nedladdning)
+- **Context7** — Direkt väg till aktuell officiell biblioteks- och ramverksdokumentation, så tekniska frågor snabbare når källdokumentationen via [Context7 MCP](https://github.com/upstash/context7) (ingen API-nyckel behövs)
+- **Jina Reader** — Renare hämtning av webbsidor som Markdown som tar bort navigation och boilerplate, vilket ofta minskar mängden text som skickas till modellen och sparar tokens ([gratis API-nyckel](https://jina.ai/?newKey))
+- **Exa** — Betydelsebaserad sökning för vaga, konceptuella och nischade frågor när exakta termer är oklara ([API-nyckel](https://exa.ai))
+- **Playwright** — Lokal webbläsarhämtning för JavaScript-renderade eller konfidentiella sidor som ska stanna på din maskin (~200MB nedladdning)
 
 Alla steg är valfria. Kör om när som helst för att uppdatera inställningar.
 
@@ -112,11 +119,15 @@ Denna klassificering är automatisk men baserad på LLM-bedömning, inte systemm
 
 För att hämta sidor som kräver inloggning (OAuth, SaaS-instrumentpaneler) måste Chrome köras i felsökningsläge:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+På macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+På Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

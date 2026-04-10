@@ -10,6 +10,8 @@
 
 Desain kueri, pencarian multi-mesin, pengambilan konten yang menjaga privasi.
 
+WebSearch bawaan Claude Code hanya mengembalikan cuplikan 125 karakter dan hanya mengandalkan pencocokan kata kunci. scout mengubah pertanyaan yang samar menjadi kueri multi-mesin yang dioptimalkan, menilai kualitas hasil, lalu mencari ulang bila perlu, sehingga sumber primer bisa dicapai lebih cepat dan lebih andal.
+
 ## Fitur
 
 - **scout:search** — Pencarian web multi-mesin dengan optimasi desain kueri
@@ -29,12 +31,17 @@ claude plugin install scout@shidoyu-scout
 
 **Langkah 3** — Siapkan mesin pencari dan alat pengambilan
 
-```
+Jalankan ini satu per satu di Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
-`scout:setup` memandu Anda secara interaktif untuk mengonfigurasi [[Context7](https://github.com/upstash/context7) (dokumentasi pustaka), Jina Reader](https://jina.ai) (pengambilan halaman web), [Exa](https://exa.ai) (pencarian semantik), dan [Playwright](https://playwright.dev) (halaman yang dirender JavaScript). Setiap langkah bersifat opsional dan dapat dilewati.
+`scout:setup` memandu Anda secara interaktif untuk mengonfigurasi [Context7](https://github.com/upstash/context7) (dokumentasi pustaka), [Jina Reader](https://jina.ai) (pengambilan halaman web), [Exa](https://exa.ai) (pencarian semantik), dan [Playwright](https://playwright.dev) (halaman yang dirender JavaScript). Setiap langkah bersifat opsional dan dapat dilewati.
 
 > **Catatan:** Jika Anda melewati langkah ini, scout akan meminta pengaturan pada awal sesi berikutnya. Pencarian dasar langsung berfungsi tanpa pengaturan.
 
@@ -79,10 +86,10 @@ Penggunaan: `/scout:fetch URL`
 ### scout:setup
 
 Pengaturan interaktif terpandu untuk mesin pencari dan alat pengambilan:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Pengambilan halaman web berkualitas tinggi dalam format Markdown ([kunci API gratis](https://jina.ai/?newKey))
-- **Exa** — Pencarian semantik AI-native canggih ([kunci API](https://exa.ai))
-- **Playwright** — Pengambilan berbasis browser untuk halaman yang dirender JavaScript dan halaman rahasia (unduhan ~200MB)
+- **Context7** — Jalur langsung ke dokumentasi resmi terkini untuk library dan framework, sehingga pertanyaan teknis lebih cepat sampai ke docs sumber lewat [Context7 MCP](https://github.com/upstash/context7) (tanpa API key)
+- **Jina Reader** — Pengambilan halaman web yang lebih bersih sebagai Markdown dengan menghapus navigasi dan boilerplate, sehingga teks yang dikirim ke model sering kali lebih sedikit dan token lebih hemat ([API key gratis](https://jina.ai/?newKey))
+- **Exa** — Pencarian berbasis makna untuk kueri yang samar, konseptual, atau niche saat istilah yang tepat belum jelas ([API key](https://exa.ai))
+- **Playwright** — Pengambilan berbasis browser lokal untuk halaman JavaScript-rendered atau halaman rahasia yang harus tetap di mesin Anda (~200MB unduhan)
 
 Semua langkah bersifat opsional. Jalankan ulang kapan saja untuk memperbarui pengaturan.
 
@@ -110,11 +117,15 @@ Klasifikasi ini bersifat otomatis tetapi didasarkan pada penilaian LLM, bukan pe
 
 Untuk mengambil halaman yang memerlukan login (OAuth, dasbor SaaS), Chrome harus berjalan dalam mode debug:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+Di macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Di Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

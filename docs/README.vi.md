@@ -10,6 +10,8 @@
 
 Thiết kế truy vấn, tìm kiếm đa công cụ, tải nội dung bảo vệ quyền riêng tư.
 
+WebSearch tích hợp sẵn của Claude Code chỉ trả về các đoạn trích 125 ký tự và chỉ dựa vào việc khớp từ khóa. scout biến một câu hỏi mơ hồ thành các truy vấn đa công cụ tìm kiếm đã được tối ưu, đánh giá chất lượng kết quả và tìm lại khi cần, để tiếp cận nguồn gốc nhanh hơn và đáng tin cậy hơn.
+
 ## Tính năng
 
 - **scout:search** — Tìm kiếm web đa công cụ với tối ưu hóa thiết kế truy vấn
@@ -29,12 +31,17 @@ claude plugin install scout@shidoyu-scout
 
 **Bước 3** — Thiết lập công cụ tìm kiếm và công cụ tải nội dung
 
-```
+Chạy từng lệnh này lần lượt trong Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
-`scout:setup` hướng dẫn bạn cấu hình [[Context7](https://github.com/upstash/context7) (tài liệu thư viện), Jina Reader](https://jina.ai) (tải nội dung trang web), [Exa](https://exa.ai) (tìm kiếm ngữ nghĩa) và [Playwright](https://playwright.dev) (trang render bằng JavaScript) theo hình thức tương tác. Mọi bước đều là tùy chọn và có thể bỏ qua.
+`scout:setup` hướng dẫn bạn cấu hình [Context7](https://github.com/upstash/context7) (tài liệu thư viện), [Jina Reader](https://jina.ai) (tải nội dung trang web), [Exa](https://exa.ai) (tìm kiếm ngữ nghĩa) và [Playwright](https://playwright.dev) (trang render bằng JavaScript) theo hình thức tương tác. Mọi bước đều là tùy chọn và có thể bỏ qua.
 
 > **Lưu ý:** Nếu bạn bỏ qua bước này, scout sẽ nhắc bạn thiết lập khi bắt đầu phiên tiếp theo. Tìm kiếm cơ bản hoạt động ngay mà không cần thiết lập.
 
@@ -79,10 +86,10 @@ Cách dùng: `/scout:fetch URL`
 ### scout:setup
 
 Thiết lập tương tác có hướng dẫn cho công cụ tìm kiếm và công cụ tải nội dung:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Lấy nội dung trang web chất lượng cao dưới dạng Markdown ([API key miễn phí](https://jina.ai/?newKey))
-- **Exa** — Tìm kiếm ngữ nghĩa AI-native nâng cao ([API key](https://exa.ai))
-- **Playwright** — Lấy nội dung qua trình duyệt cho trang render bằng JavaScript và trang bảo mật (~200MB tải về)
+- **Context7** — Đường đi trực tiếp tới tài liệu chính thức mới nhất của thư viện và framework, giúp câu hỏi kỹ thuật chạm vào docs nguồn nhanh hơn qua [Context7 MCP](https://github.com/upstash/context7) (không cần API key)
+- **Jina Reader** — Lấy trang web thành Markdown gọn hơn bằng cách bỏ điều hướng và phần nội dung lặp lại, nên thường gửi ít văn bản hơn vào mô hình và tiết kiệm token ([API key miễn phí](https://jina.ai/?newKey))
+- **Exa** — Tìm kiếm theo ngữ nghĩa cho các câu hỏi mơ hồ, mang tính khái niệm hoặc ngách khi chưa rõ đúng thuật ngữ ([API key](https://exa.ai))
+- **Playwright** — Lấy cục bộ bằng trình duyệt cho các trang render bằng JavaScript hoặc trang nhạy cảm cần ở lại trên máy của bạn (~200MB tải xuống)
 
 Tất cả các bước đều là tùy chọn. Chạy lại bất cứ lúc nào để cập nhật cài đặt.
 
@@ -110,11 +117,15 @@ Phân loại này là tự động nhưng dựa trên phán đoán của LLM, kh
 
 Để lấy nội dung các trang yêu cầu đăng nhập (OAuth, bảng điều khiển SaaS), Chrome phải chạy ở chế độ debug:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+Trên macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Trên Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

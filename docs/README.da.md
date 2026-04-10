@@ -10,6 +10,8 @@
 
 Forespørgselsdesign, flermotorsøgning, privatlivsbeskyttende indhentning.
 
+Claude Codes indbyggede WebSearch returnerer kun uddrag på 125 tegn og bygger alene på søgeordsmatch. scout omsætter et vagt spørgsmål til optimerede forespørgsler på tværs af flere søgemaskiner, vurderer kvaliteten af resultaterne og søger igen ved behov, så primære kilder nås hurtigere og mere pålideligt.
+
 ## Funktioner
 
 - **scout:search** — Websøgning på tværs af flere søgemaskiner med optimering af forespørgselsdesign
@@ -29,12 +31,17 @@ claude plugin install scout@shidoyu-scout
 
 **Trin 3** — Opsæt søgemaskiner og hentningsværktøjer
 
-```
+Kør disse én ad gangen i Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
-`scout:setup` guider dig interaktivt igennem konfiguration af [[Context7](https://github.com/upstash/context7) (biblioteksdokumentation), Jina Reader](https://jina.ai) (hentning af websider), [Exa](https://exa.ai) (semantisk søgning) og [Playwright](https://playwright.dev) (JavaScript-renderede sider). Alle trin er valgfrie og kan springes over.
+`scout:setup` guider dig interaktivt igennem konfiguration af [Context7](https://github.com/upstash/context7) (biblioteksdokumentation), [Jina Reader](https://jina.ai) (hentning af websider), [Exa](https://exa.ai) (semantisk søgning) og [Playwright](https://playwright.dev) (JavaScript-renderede sider). Alle trin er valgfrie og kan springes over.
 
 > **Bemærk:** Hvis du springer dette trin over, vil scout bede dig om opsætning ved næste sessionsstart. Grundlæggende søgning fungerer straks uden opsætning.
 
@@ -79,10 +86,10 @@ Brug: `/scout:fetch URL`
 ### scout:setup
 
 Interaktiv guidet opsætning af søgemaskiner og hentningsværktøjer:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Høj kvalitet websideindhentning som Markdown ([gratis API-nøgle](https://jina.ai/?newKey))
-- **Exa** — Avanceret AI-native semantisk søgning ([API-nøgle](https://exa.ai))
-- **Playwright** — Browserbaseret indhentning til JavaScript-renderede og fortrolige sider (~200 MB download)
+- **Context7** — Direkte vej til aktuelle officielle biblioteks- og frameworkdocs, så tekniske spørgsmål hurtigere lander i kildedokumentationen via [Context7 MCP](https://github.com/upstash/context7) (ingen API-nøgle nødvendig)
+- **Jina Reader** — Renere websidehentning som Markdown, der fjerner navigation og standardblokke, så der ofte sendes mindre tekst til modellen og spares tokens ([gratis API-nøgle](https://jina.ai/?newKey))
+- **Exa** — Betydningsbaseret søgning til vage, konceptuelle og nicheprægede forespørgsler, når de præcise termer er uklare ([API-nøgle](https://exa.ai))
+- **Playwright** — Lokal browserhentning til JavaScript-renderede eller fortrolige sider, som skal blive på din maskine (~200MB download)
 
 Alle trin er valgfrie. Kør igen når som helst for at opdatere indstillinger.
 
@@ -110,11 +117,15 @@ Denne klassificering sker automatisk, men er baseret på LLM-vurdering, ikke sys
 
 For at hente sider, der kræver login (OAuth, SaaS-dashboards), skal Chrome køre i fejlsøgningstilstand:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+På macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+På Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

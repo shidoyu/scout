@@ -10,6 +10,8 @@
 
 Päringuteostus, mitmemootorine otsing, privaatsust arvestav toomine.
 
+Claude Code'i sisseehitatud WebSearch tagastab ainult 125 märgi pikkuseid katkendeid ja tugineb üksnes märksõnade sobitamisele. scout muudab ebamäärase küsimuse optimeeritud mitme otsingumootori päringuteks, hindab tulemuste kvaliteeti ja otsib vajadusel uuesti, et jõuda esmaste allikateni kiiremini ja usaldusväärsemalt.
+
 ## Funktsioonid
 
 - **scout:search** — Mitmemootoriline veebiotsing päringu optimeerimisega
@@ -29,12 +31,17 @@ claude plugin install scout@shidoyu-scout
 
 **3. samm** — Seadista otsingumootorid ja toomistööriistad
 
-```
+Käivita need Claude Code’is ükshaaval:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
-`scout:setup` juhendab sind interaktiivselt [[Context7](https://github.com/upstash/context7) (teekide dokumentatsioon), Jina Reader](https://jina.ai) (veebilehtede toomine), [Exa](https://exa.ai) (semantiline otsing) ja [Playwright](https://playwright.dev) (JavaScriptiga renderdatud lehed) seadistamisel. Kõik sammud on valikulised ja vahelejätavad.
+`scout:setup` juhendab sind interaktiivselt [Context7](https://github.com/upstash/context7) (teekide dokumentatsioon), [Jina Reader](https://jina.ai) (veebilehtede toomine), [Exa](https://exa.ai) (semantiline otsing) ja [Playwright](https://playwright.dev) (JavaScriptiga renderdatud lehed) seadistamisel. Kõik sammud on valikulised ja vahelejätavad.
 
 > **Märkus:** Kui jätad selle sammu vahele, palub scout seadistust järgmisel seansi alguses. Põhiotsing töötab kohe ilma seadistuseta.
 
@@ -79,10 +86,10 @@ Kasutus: `/scout:fetch URL`
 ### scout:setup
 
 Interaktiivne juhendatud seadistus otsingumootorite ja toomistööriistade jaoks:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Kvaliteetne veebilehtede toomine Markdownina ([tasuta API-võti](https://jina.ai/?newKey))
-- **Exa** — Täiustatud AI-põhine semantiline otsing ([API-võti](https://exa.ai))
-- **Playwright** — Brauseripõhine toomine JavaScriptiga renderdatud ja konfidentsiaalsete lehtede jaoks (~200 MB allalaadimine)
+- **Context7** — Otsene tee teekide ja raamistikude värske ametliku dokumentatsioonini, et tehnilised küsimused jõuaksid kiiremini algallika docsideni läbi [Context7 MCP](https://github.com/upstash/context7) (API-võtit pole vaja)
+- **Jina Reader** — Puhtam veebilehtede toomine Markdownina, mis eemaldab navigeerimise ja korduva boilerplate-sisu, nii et mudelile saadetakse sageli vähem teksti ja säästetakse tokeneid ([tasuta API-võti](https://jina.ai/?newKey))
+- **Exa** — Tähenduspõhine otsing ebamääraste, kontseptuaalsete ja nišipäringute jaoks, kui täpsed terminid pole selged ([API-võti](https://exa.ai))
+- **Playwright** — Kohalik brauseripõhine toomine JavaScriptiga renderdatud või konfidentsiaalsete lehtede jaoks, mis peaksid jääma sinu masinasse (~200MB allalaadimist)
 
 Kõik sammud on valikulised. Käivita uuesti igal ajal seadete uuendamiseks.
 
@@ -110,11 +117,15 @@ See klassifikatsioon on automaatne, kuid põhineb LLM-i otsusel, mitte süsteemi
 
 Sisselogimist nõudvate lehtede toomiseks (OAuth, SaaS-töölauad) peab Chrome töötama silumisrežiimis:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS-is:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linuxis:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

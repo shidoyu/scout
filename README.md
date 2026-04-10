@@ -33,8 +33,13 @@ claude plugin install scout@shidoyu-scout
 
 **Step 3** — Set up search engines and fetching tools
 
-```
+Run these one at a time in Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -83,10 +88,10 @@ Usage: `/scout:fetch URL`
 ### scout:setup
 
 Interactive guided setup for search engines and fetching tools:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — High-quality web page fetching as Markdown ([free API key](https://jina.ai/?newKey))
-- **Exa** — Advanced AI-native semantic search ([API key](https://exa.ai))
-- **Playwright** — Browser-based fetching for JavaScript-rendered and confidential pages (~200MB download)
+- **Context7** — Direct path to current official library and framework docs, so technical questions reach source docs faster ([Context7 MCP](https://github.com/upstash/context7), no API key needed)
+- **Jina Reader** — Cleaner web page fetching as Markdown that strips navigation and boilerplate, often reducing the text sent to the model and saving tokens ([free API key](https://jina.ai/?newKey))
+- **Exa** — Meaning-based search for vague, conceptual, and niche queries where exact terms are unclear ([API key](https://exa.ai))
+- **Playwright** — Local browser fetching for JavaScript-rendered or confidential pages that should stay on your machine (~200MB download)
 
 All steps are optional. Re-run anytime to update settings.
 
@@ -114,11 +119,15 @@ This classification is automatic but based on LLM judgment, not system enforceme
 
 To fetch pages that require login (OAuth, SaaS dashboards), Chrome must be running in debug mode:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

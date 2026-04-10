@@ -10,6 +10,8 @@
 
 Conception de requêtes, recherche multi-moteurs, récupération respectueuse de la vie privée.
 
+La WebSearch intégrée de Claude Code renvoie seulement des extraits de 125 caractères et repose uniquement sur la correspondance de mots-clés. scout transforme une question vague en requêtes optimisées multi-moteurs, évalue la qualité des résultats et relance la recherche si nécessaire pour atteindre les sources primaires plus vite et plus sûrement.
+
 ## Fonctionnalités
 
 - **scout:search** — Recherche web multi-moteurs avec optimisation de la conception des requêtes
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **Étape 3** — Configurer les moteurs de recherche et les outils de récupération
 
-```
+Exécutez ces commandes une par une dans Claude Code :
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -81,10 +88,10 @@ Utilisation : `/scout:fetch URL`
 ### scout:setup
 
 Configuration interactive guidée des moteurs de recherche et outils de récupération :
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Récupération de pages web de haute qualité en Markdown (clé API gratuite)
-- **Exa** — Recherche sémantique avancée native IA (clé API)
-- **Playwright** — Récupération basée sur le navigateur pour les pages rendues par JavaScript et les pages confidentielles (~200 Mo à télécharger)
+- **Context7** — Accès direct à la documentation officielle et à jour des bibliothèques et frameworks, pour atteindre plus vite les docs sources via [Context7 MCP](https://github.com/upstash/context7) (pas de clé API requise)
+- **Jina Reader** — Lecture plus propre des pages web en Markdown, qui retire la navigation et le contenu répétitif, ce qui réduit souvent le texte envoyé au modèle et économise des tokens ([clé API gratuite](https://jina.ai/?newKey))
+- **Exa** — Recherche par le sens pour les requêtes vagues, conceptuelles ou de niche quand les termes exacts ne sont pas clairs ([clé API](https://exa.ai))
+- **Playwright** — Récupération locale via navigateur pour les pages rendues en JavaScript ou les pages confidentielles qui doivent rester sur votre machine (~200MB de téléchargement)
 
 Toutes les étapes sont optionnelles. Relancez à tout moment pour mettre à jour les paramètres.
 
@@ -112,11 +119,15 @@ Ce classement est automatique mais basé sur le jugement du LLM, et non sur une 
 
 Pour récupérer des pages nécessitant une connexion (OAuth, tableaux de bord SaaS), Chrome doit être lancé en mode débogage :
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+Sur macOS :
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Sur Linux :
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

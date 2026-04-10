@@ -10,6 +10,8 @@
 
 查詢設計、多引擎搜尋、隱私感知擷取。
 
+Claude Code 內建的 WebSearch 只會回傳 125 個字元的片段，且僅依賴關鍵字比對。scout 會把模糊的問題轉成最佳化的多引擎查詢、評估結果品質，並在需要時重新搜尋，讓你更快、更可靠地找到第一手來源。
+
 ## 功能特色
 
 - **scout:search** — 多引擎網路搜尋，內建查詢設計最佳化
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **第 3 步** — 設定搜尋引擎與擷取工具
 
-```
+請在 Claude Code 中依序逐條執行以下命令：
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -83,10 +90,10 @@ scout:setup 會以互動方式引導你設定 Context7（函式庫文件搜尋�
 ### scout:setup
 
 搜尋引擎與擷取工具的互動式設定導覽：
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — 高品質網頁擷取為 Markdown 格式（免費 API 金鑰）
-- **Exa** — 進階 AI 原生語意搜尋（API 金鑰）
-- **Playwright** — 以瀏覽器為基礎的擷取工具，適用於 JavaScript 渲染及機密頁面（下載約 200MB）
+- **Context7** — 直達最新官方函式庫與框架文件，讓技術問題更快落到第一手文件上（[Context7 MCP](https://github.com/upstash/context7)，不需要 API 金鑰）
+- **Jina Reader** — 以更乾淨的 Markdown 擷取網頁，移除導覽與重複樣板內容，通常會減少送進模型的文字量並節省 token（[免費 API 金鑰](https://jina.ai/?newKey)）
+- **Exa** — 針對模糊、概念性與利基問題的語意搜尋，適合你還不確定精準術語的時候（[API 金鑰](https://exa.ai)）
+- **Playwright** — 透過本地瀏覽器擷取 JavaScript 渲染頁面或應留在你機器上的機密頁面（下載約 200MB）
 
 所有步驟皆為選擇性。可隨時重新執行以更新設定。
 
@@ -114,11 +121,15 @@ scout 在擷取前會將 URL 分為三個等級：
 
 若要擷取需要登入的頁面（OAuth、SaaS 儀表板），Chrome 必須以偵錯模式執行：
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS：
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linux：
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

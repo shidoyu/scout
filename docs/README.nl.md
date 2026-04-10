@@ -10,6 +10,8 @@
 
 Query-ontwerp, multi-engine zoeken, privacybewust ophalen.
 
+De ingebouwde WebSearch van Claude Code geeft slechts snippets van 125 tekens terug en vertrouwt alleen op keyword matching. scout zet een vage vraag om in geoptimaliseerde zoekopdrachten voor meerdere engines, beoordeelt de kwaliteit van de resultaten en zoekt opnieuw wanneer nodig, zodat primaire bronnen sneller en betrouwbaarder worden bereikt.
+
 ## Functies
 
 - **scout:search** — Webzoeken met meerdere zoekmachines en geoptimaliseerd zoekontwerp
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **Stap 3** — Zoekmachines en ophaaltools instellen
 
-```
+Voer deze opdrachten één voor één uit in Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -81,10 +88,10 @@ Gebruik: `/scout:fetch URL`
 ### scout:setup
 
 Interactieve begeleide instelling voor zoekmachines en ophaaltools:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Webpagina's van hoge kwaliteit ophalen als Markdown (gratis API-sleutel)
-- **Exa** — Geavanceerd AI-native semantisch zoeken (API-sleutel)
-- **Playwright** — Op browser gebaseerd ophalen voor door JavaScript gerenderde en vertrouwelijke pagina's (~200 MB download)
+- **Context7** — Directe route naar actuele officiële library- en frameworkdocs, zodat technische vragen sneller bij de brondocumentatie uitkomen via [Context7 MCP](https://github.com/upstash/context7) (geen API-sleutel nodig)
+- **Jina Reader** — Schonere webpagina-ophaling als Markdown die navigatie en boilerplate verwijdert, waardoor er vaak minder tekst naar het model gaat en tokens worden bespaard ([gratis API-sleutel](https://jina.ai/?newKey))
+- **Exa** — Betekenisgestuurde zoekfunctie voor vage, conceptuele en nichevragen wanneer exacte termen ontbreken ([API-sleutel](https://exa.ai))
+- **Playwright** — Lokale browserophaling voor JavaScript-gerenderde of vertrouwelijke pagina's die op je machine moeten blijven (~200MB download)
 
 Alle stappen zijn optioneel. Voer opnieuw uit om instellingen bij te werken.
 
@@ -112,11 +119,15 @@ Deze classificatie is automatisch maar gebaseerd op LLM-oordeel, niet op systeem
 
 Om pagina's op te halen waarvoor inloggen vereist is (OAuth, SaaS-dashboards), moet Chrome worden uitgevoerd in foutopsporingsmodus:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+Op macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Op Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

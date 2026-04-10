@@ -50,6 +50,7 @@ echo ""
 
 # --- [1/3] Exa ---
 echo "[1/3] Exa — AI-native search engine"
+echo "  Searches by meaning, which helps when exact terms are unclear."
 echo "  Strong for academic papers and niche technical articles."
 echo "  Create account & get API key: https://exa.ai"
 
@@ -77,8 +78,8 @@ echo ""
 
 # --- [2/3] Jina Reader ---
 echo "[2/3] Jina Reader — Web page structured fetching"
-echo "  Fetches web pages as high-quality Markdown text."
-echo "  An API key is required for the MCP server to work."
+echo "  Strips navigation and boilerplate, then returns cleaner Markdown text."
+echo "  That often means less text reaches the model, which can save tokens."
 echo "  Get a free API key (no sign-up required): https://jina.ai/?newKey"
 
 # Detect existing API key on re-run
@@ -106,7 +107,7 @@ echo ""
 
 # --- [3/3] Playwright ---
 echo "[3/3] Playwright — Browser-based page fetching"
-echo "  Enables fetching content from JavaScript-rendered SPA sites."
+echo "  Handles JavaScript-rendered pages and keeps confidential URLs on your machine."
 echo "  Downloads Chromium browser (~200MB, may take a few minutes)."
 echo "  Note: May fail on corporate networks or behind proxies."
 
@@ -176,7 +177,7 @@ jina_active=""
 if [ -n "$jina_active" ]; then
   echo "  - URL content fetching (Jina Reader + WebFetch)"
 else
-  echo "  - URL content fetching (WebFetch only — add Jina Reader API key for better quality)"
+  echo "  - URL content fetching (WebFetch only — add Jina Reader API key for cleaner output and potential token savings)"
 fi
 [ "$pw_installed" = true ] && echo "  - SPA/dynamic page fetching (Playwright)"
 echo ""
@@ -184,4 +185,3 @@ echo "  Note: Restart Claude Code (or run /mcp) for new MCP servers to take effe
 echo ""
 echo "  To reconfigure later:"
 echo "    Tell Claude Code: \"set up scout\" or run: bash $PLUGIN_ROOT/tools/setup.sh"
-

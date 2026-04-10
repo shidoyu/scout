@@ -10,6 +10,8 @@
 
 क्वेरी डिज़ाइन, मल्टी-इंजन सर्च, प्राइवेसी-अवेयर फ़ेचिंग।
 
+Claude Code का बिल्ट-इन WebSearch सिर्फ 125-अक्षरों के स्निपेट लौटाता है और केवल कीवर्ड मैचिंग पर निर्भर रहता है। scout एक अस्पष्ट सवाल को कई सर्च इंजनों के लिए ऑप्टिमाइज़्ड क्वेरी में बदलता है, परिणामों की गुणवत्ता का मूल्यांकन करता है, और ज़रूरत पड़ने पर दोबारा खोजता है, ताकि प्राथमिक स्रोतों तक तेज़ी और ज़्यादा भरोसे के साथ पहुँचा जा सके।
+
 ## विशेषताएँ
 
 - **scout:search** — Query design optimization के साथ multi-engine web search
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **चरण 3** — सर्च इंजन और फ़ेचिंग टूल सेट करें
 
-```
+इन्हें Claude Code में एक-एक करके चलाएँ:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -83,10 +90,10 @@ Usage: `/scout:fetch URL`
 ### scout:setup
 
 सर्च इंजन और फ़ेचिंग टूल के लिए इंटरैक्टिव गाइडेड सेटअप:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — वेब पेज को Markdown के रूप में उच्च गुणवत्ता में फ़ेच करें (मुफ़्त API key)
-- **Exa** — एडवांस्ड AI-नेटिव सिमैंटिक सर्च (API key)
-- **Playwright** — JavaScript-रेंडर्ड और गोपनीय पेजों के लिए ब्राउज़र-आधारित फ़ेचिंग (~200MB डाउनलोड)
+- **Context7** — लाइब्रेरी और फ्रेमवर्क की मौजूदा आधिकारिक docs तक सीधा रास्ता, ताकि तकनीकी सवाल जल्दी source docs तक पहुँचें ([Context7 MCP](https://github.com/upstash/context7), API key नहीं चाहिए)
+- **Jina Reader** — वेब पेज को ज़्यादा साफ़ Markdown में लाता है, नेविगेशन और दोहराए जाने वाले हिस्से हटाता है, जिससे अक्सर मॉडल तक कम टेक्स्ट जाता है और टोकन बचते हैं ([मुफ़्त API key](https://jina.ai/?newKey))
+- **Exa** — अर्थ-आधारित खोज, जब सवाल अस्पष्ट, वैचारिक या niche हो और सही terms साफ़ न हों ([API key](https://exa.ai))
+- **Playwright** — JavaScript-rendered या गोपनीय पेजों के लिए लोकल ब्राउज़र फ़ेचिंग, जो आपकी मशीन पर ही रहनी चाहिए (~200MB डाउनलोड)
 
 सभी स्टेप वैकल्पिक हैं। सेटिंग्स अपडेट करने के लिए कभी भी दोबारा चलाएँ।
 
@@ -114,11 +121,15 @@ scout fetch करने से पहले URLs को तीन levels मे
 
 ऐसे pages fetch करने के लिए जिनमें login चाहिए (OAuth, SaaS dashboards), Chrome को debug mode में run करना होगा:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+macOS पर:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Linux पर:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

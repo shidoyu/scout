@@ -10,6 +10,8 @@
 
 การออกแบบคิวรี, การค้นหาหลายเครื่องมือ, การดึงข้อมูลที่คำนึงถึงความเป็นส่วนตัว
 
+WebSearch ที่มีมาในตัวของ Claude Code ส่งกลับได้เพียง snippet ยาว 125 ตัวอักษรและอาศัยการจับคู่คีย์เวิร์ดเท่านั้น scout เปลี่ยนคำถามที่ยังคลุมเครือให้เป็นคำค้นแบบหลายเอนจินที่ปรับให้เหมาะสม ประเมินคุณภาพของผลลัพธ์ และค้นซ้ำเมื่อจำเป็น เพื่อเข้าถึงแหล่งข้อมูลปฐมภูมิได้เร็วขึ้นและเชื่อถือได้มากขึ้น
+
 ## ฟีเจอร์
 
 - **scout:search** — การค้นหาเว็บแบบหลายเครื่องมือพร้อมการออกแบบ query ที่ปรับแต่งอย่างชาญฉลาด
@@ -29,12 +31,17 @@ claude plugin install scout@shidoyu-scout
 
 **ขั้นตอนที่ 3** — ตั้งค่าเครื่องมือค้นหาและเครื่องมือดึงข้อมูล
 
-```
+ให้รันสองคำสั่งนี้ใน Claude Code ทีละคำสั่ง:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
-`scout:setup` จะแนะนำคุณผ่านการตั้งค่า [[Context7](https://github.com/upstash/context7) (เอกสารไลบรารี), Jina Reader](https://jina.ai) (ดึงข้อมูลหน้าเว็บ), [Exa](https://exa.ai) (ค้นหาเชิงความหมาย) และ [Playwright](https://playwright.dev) (หน้าที่ render ด้วย JavaScript) แบบโต้ตอบ ทุกขั้นตอนเป็นทางเลือกและสามารถข้ามได้
+`scout:setup` จะแนะนำคุณผ่านการตั้งค่า [Context7](https://github.com/upstash/context7) (เอกสารไลบรารี), [Jina Reader](https://jina.ai) (ดึงข้อมูลหน้าเว็บ), [Exa](https://exa.ai) (ค้นหาเชิงความหมาย) และ [Playwright](https://playwright.dev) (หน้าที่ render ด้วย JavaScript) แบบโต้ตอบ ทุกขั้นตอนเป็นทางเลือกและสามารถข้ามได้
 
 > **หมายเหตุ:** หากคุณข้ามขั้นตอนนี้ scout จะแจ้งให้คุณตั้งค่าเมื่อเริ่มเซสชันถัดไป การค้นหาพื้นฐานใช้งานได้ทันทีโดยไม่ต้องตั้งค่า
 
@@ -79,10 +86,10 @@ claude plugin install scout@shidoyu-scout
 ### scout:setup
 
 การตั้งค่าแบบโต้ตอบพร้อมคำแนะนำสำหรับเครื่องมือค้นหาและเครื่องมือดึงข้อมูล:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — การดึงหน้าเว็บคุณภาพสูงเป็น Markdown ([API key ฟรี](https://jina.ai/?newKey))
-- **Exa** — การค้นหาเชิงความหมายแบบ AI-native ขั้นสูง ([API key](https://exa.ai))
-- **Playwright** — การดึงข้อมูลผ่านเบราว์เซอร์สำหรับหน้าที่แสดงผลด้วย JavaScript และหน้าที่เป็นความลับ (ดาวน์โหลดประมาณ ~200MB)
+- **Context7** — ทางลัดไปยังเอกสารทางการล่าสุดของไลบรารีและเฟรมเวิร์ก ทำให้คำถามเชิงเทคนิคไปถึง source docs ได้เร็วขึ้นผ่าน [Context7 MCP](https://github.com/upstash/context7) (ไม่ต้องใช้ API key)
+- **Jina Reader** — ดึงหน้าเว็บเป็น Markdown ที่สะอาดขึ้น โดยตัดเมนูนำทางและส่วนข้อความซ้ำ ๆ ออก ทำให้มักส่งข้อความเข้าโมเดลน้อยลงและประหยัดโทเคน ([API key ฟรี](https://jina.ai/?newKey))
+- **Exa** — การค้นหาแบบอิงความหมายสำหรับคำถามที่ยังคลุมเครือ เป็นเชิงแนวคิด หรือเฉพาะทาง เมื่อยังไม่รู้คำที่ตรงเป๊ะ ([API key](https://exa.ai))
+- **Playwright** — ดึงหน้าที่เรนเดอร์ด้วย JavaScript หรือหน้าความลับผ่านเบราว์เซอร์บนเครื่องของคุณเอง สำหรับกรณีที่ข้อมูลควรอยู่ในเครื่องเท่านั้น (~200MB ดาวน์โหลด)
 
 ทุกขั้นตอนเป็นทางเลือก รันซ้ำได้ทุกเมื่อเพื่ออัปเดตการตั้งค่า
 
@@ -110,11 +117,15 @@ scout จำแนก URL เป็นสามระดับก่อนดึ
 
 เพื่อดึงหน้าที่ต้องการเข้าสู่ระบบ (OAuth, SaaS dashboards) Chrome จะต้องรันในโหมด debug:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+สำหรับ macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+สำหรับ Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

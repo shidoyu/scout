@@ -10,6 +10,8 @@
 
 Návrh dotazů, vícemotorové vyhledávání, načítání s ohledem na soukromí.
 
+Vestavěný WebSearch v Claude Code vrací jen 125znakové úryvky a spoléhá pouze na shodu klíčových slov. scout převádí vágní otázku na optimalizované dotazy pro více vyhledávačů, vyhodnocuje kvalitu výsledků a podle potřeby hledá znovu, takže se k primárním zdrojům dostane rychleji a spolehlivěji.
+
 ## Funkce
 
 - **scout:search** — Webové vyhledávání s více vyhledávači a optimalizací návrhu dotazů
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **Krok 3** — Nastavte vyhledávače a nástroje pro načítání
 
-```
+Tyto příkazy spusťte v Claude Code po jednom:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -81,10 +88,10 @@ Použití: `/scout:fetch URL`
 ### scout:setup
 
 Interaktivní průvodce nastavením vyhledávačů a nástrojů pro načítání:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Vysoce kvalitní načítání webových stránek jako Markdown (bezplatný API klíč)
-- **Exa** — Pokročilé sémantické vyhledávání s podporou AI (API klíč)
-- **Playwright** — Načítání prostřednictvím prohlížeče pro stránky vykreslované JavaScriptem a důvěrné stránky (~200 MB stažení)
+- **Context7** — Přímá cesta k aktuálním oficiálním dokumentacím knihoven a frameworků, takže se k primárním docs dostanete rychleji přes [Context7 MCP](https://github.com/upstash/context7) (není potřeba API klíč)
+- **Jina Reader** — Čistší načítání webových stránek jako Markdown, které odstraňuje navigaci a opakující se šablonový obsah, takže se do modelu často posílá méně textu a šetří se tokeny ([API klíč zdarma](https://jina.ai/?newKey))
+- **Exa** — Vyhledávání podle významu pro vágní, konceptuální a niche dotazy, když neznáte přesné termíny ([API klíč](https://exa.ai))
+- **Playwright** — Lokální prohlížečové načítání pro stránky renderované JavaScriptem nebo důvěrné stránky, které mají zůstat na vašem zařízení (~200MB download)
 
 Všechny kroky jsou volitelné. Spusťte znovu kdykoliv pro aktualizaci nastavení.
 
@@ -112,11 +119,15 @@ Tato klasifikace je automatická, ale vychází z úsudku LLM, nikoli ze systém
 
 Pro načítání stránek vyžadujících přihlášení (OAuth, SaaS dashboardy) musí Chrome běžet v režimu ladění:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+Na macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Na Linuxu:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

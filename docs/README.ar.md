@@ -10,6 +10,8 @@
 
 تصميم الاستعلامات، بحث متعدد المحركات، جلب محتوى مراعٍ للخصوصية.
 
+يعرض WebSearch المدمج في Claude Code مقتطفات بطول 125 حرفًا فقط ويعتمد على مطابقة الكلمات المفتاحية وحدها. يحوّل scout السؤال الغامض إلى استعلامات محسّنة عبر عدة محركات، ويقيّم جودة النتائج، ويعيد البحث عند الحاجة، ليصل إلى المصادر الأولية بسرعة أكبر وموثوقية أعلى.
+
 ## المميزات
 
 - **scout:search** — بحث ويب متعدد المحركات مع تحسين تصميم الاستعلامات
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **الخطوة 3** — إعداد محركات البحث وأدوات الجلب
 
-```
+شغّل هذين الأمرين واحدًا تلو الآخر داخل Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -79,10 +86,10 @@ claude plugin install scout@shidoyu-scout
 ### scout:setup
 
 إعداد تفاعلي موجّه لمحركات البحث وأدوات الجلب:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — جلب صفحات ويب عالي الجودة بصيغة Markdown ([مفتاح API مجاني](https://jina.ai/?newKey))
-- **Exa** — بحث دلالي متقدم مدعوم بالذكاء الاصطناعي ([مفتاح API](https://exa.ai))
-- **Playwright** — جلب قائم على المتصفح للصفحات المعتمدة على JavaScript والصفحات السرية (تنزيل بحجم ~200MB)
+- **Context7** — مسار مباشر إلى الوثائق الرسمية الحالية للمكتبات وأطر العمل، للوصول إلى المصدر أسرع عبر [Context7 MCP](https://github.com/upstash/context7) (لا يحتاج إلى مفتاح API)
+- **Jina Reader** — جلب أنظف لصفحات الويب بصيغة Markdown مع إزالة عناصر التنقل والنصوص المكررة، ما يقلل غالبًا كمية النص المرسلة إلى النموذج ويوفر التوكنات ([مفتاح API مجاني](https://jina.ai/?newKey))
+- **Exa** — بحث قائم على المعنى للاستفسارات الغامضة والمفاهيمية والمتخصصة عندما لا تكون المصطلحات الدقيقة واضحة ([مفتاح API](https://exa.ai))
+- **Playwright** — جلب محلي عبر المتصفح للصفحات المعتمدة على JavaScript أو الصفحات السرية التي ينبغي أن تبقى على جهازك (~200MB تنزيل)
 
 جميع الخطوات اختيارية. يمكن إعادة التشغيل في أي وقت لتحديث الإعدادات.
 
@@ -110,11 +117,15 @@ claude plugin install scout@shidoyu-scout
 
 لجلب الصفحات التي تتطلب تسجيل دخول (OAuth، لوحات تحكم SaaS)، يجب تشغيل Chrome في وضع التصحيح:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+على macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+على Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

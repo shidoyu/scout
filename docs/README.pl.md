@@ -10,6 +10,8 @@
 
 Projektowanie zapytań, wyszukiwanie wielosilnikowe, pobieranie z uwzględnieniem prywatności.
 
+Wbudowane WebSearch w Claude Code zwraca tylko 125-znakowe fragmenty i opiera się wyłącznie na dopasowaniu słów kluczowych. scout zamienia niejasne pytanie w zoptymalizowane zapytania dla wielu wyszukiwarek, ocenia jakość wyników i w razie potrzeby wyszukuje ponownie, dzięki czemu szybciej i pewniej dociera do źródeł pierwotnych.
+
 ## Funkcje
 
 - **scout:search** — Wyszukiwanie w wielu wyszukiarkach z optymalizacją projektowania zapytań
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **Krok 3** — Skonfiguruj wyszukiwarki i narzędzia do pobierania
 
-```
+Uruchom te polecenia w Claude Code po kolei:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -81,10 +88,10 @@ Użycie: `/scout:fetch URL`
 ### scout:setup
 
 Interaktywna konfiguracja wyszukiwarek i narzędzi do pobierania:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Wysokiej jakości pobieranie stron internetowych w formacie Markdown (bezpłatny klucz API)
-- **Exa** — Zaawansowane wyszukiwanie semantyczne natywne dla AI (klucz API)
-- **Playwright** — Pobieranie oparte na przeglądarce dla stron renderowanych przez JavaScript i stron poufnych (~200MB pobierania)
+- **Context7** — Bezpośrednia ścieżka do aktualnej oficjalnej dokumentacji bibliotek i frameworków, dzięki czemu pytania techniczne szybciej trafiają do źródłowych docsów przez [Context7 MCP](https://github.com/upstash/context7) (bez klucza API)
+- **Jina Reader** — Czyściejsze pobieranie stron jako Markdown, usuwające nawigację i powtarzalny boilerplate, dzięki czemu do modelu często trafia mniej tekstu i zużywa się mniej tokenów ([darmowy klucz API](https://jina.ai/?newKey))
+- **Exa** — Wyszukiwanie oparte na znaczeniu dla niejasnych, koncepcyjnych i niszowych pytań, gdy dokładne terminy nie są znane ([klucz API](https://exa.ai))
+- **Playwright** — Lokalne pobieranie w przeglądarce dla stron renderowanych przez JavaScript lub poufnych stron, które powinny pozostać na Twojej maszynie (~200MB pobierania)
 
 Wszystkie kroki są opcjonalne. Uruchamiaj ponownie w dowolnym momencie, aby zaktualizować ustawienia.
 
@@ -112,11 +119,15 @@ Ta klasyfikacja jest automatyczna, ale opiera się na ocenie LLM, a nie na wymus
 
 Aby pobierać strony wymagające logowania (OAuth, panele SaaS), Chrome musi być uruchomiony w trybie debugowania:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+W macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+W Linuksie:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

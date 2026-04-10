@@ -10,6 +10,8 @@
 
 Diseño de consultas, búsqueda multi-motor, obtención con privacidad.
 
+La WebSearch integrada de Claude Code devuelve fragmentos de solo 125 caracteres y se basa únicamente en coincidencias de palabras clave. scout convierte una pregunta vaga en consultas optimizadas para varios motores, evalúa la calidad de los resultados y vuelve a buscar cuando hace falta, para llegar a las fuentes primarias más rápido y con mayor fiabilidad.
+
 ## Funcionalidades
 
 - **scout:search** — Búsqueda web en múltiples motores con optimización del diseño de consultas
@@ -29,8 +31,13 @@ claude plugin install scout@shidoyu-scout
 
 **Paso 3** — Configurar motores de búsqueda y herramientas de obtención
 
-```
+Ejecuta estos comandos de uno en uno dentro de Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -81,10 +88,10 @@ Uso: `/scout:fetch URL`
 ### scout:setup
 
 Configuración interactiva guiada para motores de búsqueda y herramientas de obtención:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Obtención de páginas web de alta calidad en Markdown (clave de API gratuita)
-- **Exa** — Búsqueda semántica avanzada nativa de IA (clave de API)
-- **Playwright** — Obtención basada en navegador para páginas renderizadas con JavaScript y páginas confidenciales (~200 MB de descarga)
+- **Context7** — Acceso directo a la documentación oficial y actual de bibliotecas y frameworks, para llegar antes a la fuente con [Context7 MCP](https://github.com/upstash/context7) (sin API key)
+- **Jina Reader** — Captura más limpia de páginas web como Markdown, eliminando navegación y texto repetitivo, lo que a menudo reduce el texto enviado al modelo y ahorra tokens ([API key gratuita](https://jina.ai/?newKey))
+- **Exa** — Búsqueda por significado para consultas vagas, conceptuales o de nicho cuando no tienes claros los términos exactos ([API key](https://exa.ai))
+- **Playwright** — Obtención local en navegador para páginas renderizadas con JavaScript o páginas confidenciales que deben quedarse en tu equipo (~200MB de descarga)
 
 Todos los pasos son opcionales. Vuelve a ejecutarlo en cualquier momento para actualizar la configuración.
 
@@ -112,11 +119,15 @@ Esta clasificación es automática, pero se basa en el criterio del LLM, no en u
 
 Para obtener páginas que requieren inicio de sesión (OAuth, paneles de SaaS), Chrome debe ejecutarse en modo depuración:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+En macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+En Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 

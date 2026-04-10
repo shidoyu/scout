@@ -1,6 +1,7 @@
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇸🇦 [العربية](README.ar.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇵🇱 [Polski](README.pl.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇺🇦 [Українська](README.uk.md) · 🇹🇭 [ไทย](README.th.md) · 🇷🇺 [Русский](README.ru.md) · 🇮🇹 [**Italiano**](README.it.md)
+
 > **Nota:** Questa traduzione è fornita solo per comodità. L'[originale in inglese](../README.md) è la versione ufficiale.
 
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇸🇦 [العربية](README.ar.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇵🇱 [Polski](README.pl.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇺🇦 [Українська](README.uk.md) · 🇹🇭 [ไทย](README.th.md) · 🇷🇺 [Русский](README.ru.md) · 🇮🇹 [**Italiano**](README.it.md)
 
 # scout
 
@@ -9,6 +10,8 @@
 > Prima pensare, poi cercare. — Plugin di ricerca web per Claude Code.
 
 Progettazione query, ricerca multi-motore, recupero rispettoso della privacy.
+
+La WebSearch integrata di Claude Code restituisce solo snippet di 125 caratteri e si basa esclusivamente sulla corrispondenza di parole chiave. scout trasforma una domanda vaga in query ottimizzate per più motori, valuta la qualità dei risultati e ripete la ricerca quando serve, raggiungendo le fonti primarie più rapidamente e con maggiore affidabilità.
 
 ## Funzionalità
 
@@ -29,8 +32,13 @@ claude plugin install scout@shidoyu-scout
 
 **Passaggio 3** — Configurare i motori di ricerca e gli strumenti di recupero
 
-```
+Esegui questi comandi uno alla volta in Claude Code:
+
+```text
 /reload-plugins
+```
+
+```text
 /scout:setup
 ```
 
@@ -81,10 +89,10 @@ Utilizzo: `/scout:fetch URL`
 ### scout:setup
 
 Configurazione interattiva guidata per motori di ricerca e strumenti di recupero:
-- **Context7** — Library & framework documentation search via [Context7 MCP](https://github.com/upstash/context7) (no API key needed)
-- **Jina Reader** — Recupero di alta qualità di pagine web in Markdown (API key gratuita)
-- **Exa** — Ricerca semantica avanzata AI-native (API key)
-- **Playwright** — Recupero basato su browser per pagine con JavaScript e pagine riservate (~200MB di download)
+- **Context7** — Percorso diretto alla documentazione ufficiale aggiornata di librerie e framework, così le domande tecniche arrivano prima alle fonti tramite [Context7 MCP](https://github.com/upstash/context7) (nessuna API key necessaria)
+- **Jina Reader** — Recupero più pulito delle pagine web in Markdown, che rimuove navigazione e contenuto ripetitivo, così spesso arriva meno testo al modello e si risparmiano token ([API key gratuita](https://jina.ai/?newKey))
+- **Exa** — Ricerca basata sul significato per query vaghe, concettuali e di nicchia quando i termini esatti non sono chiari ([API key](https://exa.ai))
+- **Playwright** — Recupero locale via browser per pagine renderizzate in JavaScript o pagine riservate che devono restare sulla tua macchina (~200MB di download)
 
 Tutti i passaggi sono opzionali. Riesegui in qualsiasi momento per aggiornare le impostazioni.
 
@@ -112,11 +120,15 @@ Questa classificazione è automatica ma basata sul giudizio del LLM, non su mecc
 
 Per recuperare pagine che richiedono il login (OAuth, dashboard SaaS), Chrome deve essere avviato in modalità debug:
 
-```bash
-# macOS
-open -a "Google Chrome" --args --remote-debugging-port=9222
+Su macOS:
 
-# Linux
+```bash
+open -a "Google Chrome" --args --remote-debugging-port=9222
+```
+
+Su Linux:
+
+```bash
 google-chrome --remote-debugging-port=9222
 ```
 
