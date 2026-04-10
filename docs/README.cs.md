@@ -24,7 +24,9 @@ Spusťte v terminálu:
 ```bash
 # Krok 1: Zaregistrujte marketplace
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # Krok 2: Nainstalujte plugin
 claude plugin install scout@shidoyu-scout
 ```

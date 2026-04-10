@@ -24,7 +24,9 @@ Kør i din terminal:
 ```bash
 # Trin 1: Registrer marketplace
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # Trin 2: Installer plugin
 claude plugin install scout@shidoyu-scout
 ```

@@ -24,7 +24,9 @@ Uruchom w terminalu:
 ```bash
 # Krok 1: Zarejestruj marketplace
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # Krok 2: Zainstaluj plugin
 claude plugin install scout@shidoyu-scout
 ```

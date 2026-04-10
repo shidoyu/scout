@@ -24,7 +24,9 @@
 ```bash
 # Шаг 1: Зарегистрируйте маркетплейс
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # Шаг 2: Установите плагин
 claude plugin install scout@shidoyu-scout
 ```

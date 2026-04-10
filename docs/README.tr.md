@@ -24,7 +24,9 @@ Terminalinizde çalıştırın:
 ```bash
 # Adım 1: Marketplace'i kaydedin
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # Adım 2: Eklentiyi kurun
 claude plugin install scout@shidoyu-scout
 ```

@@ -24,7 +24,9 @@ Käivita terminalis:
 ```bash
 # 1. samm: Registreeri marketplace
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # 2. samm: Paigalda plugin
 claude plugin install scout@shidoyu-scout
 ```

@@ -24,7 +24,9 @@ Claude Code에 내장된 WebSearch는 125자 스니펫만 반환하고 키워드
 ```bash
 # 1단계: 마켓플레이스 등록
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # 2단계: 플러그인 설치
 claude plugin install scout@shidoyu-scout
 ```

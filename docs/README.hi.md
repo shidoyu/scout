@@ -24,7 +24,9 @@ Claude Code का बिल्ट-इन WebSearch सिर्फ 125-अक�
 ```bash
 # चरण 1: मार्केटप्लेस रजिस्टर करें
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # चरण 2: प्लगइन इंस्टॉल करें
 claude plugin install scout@shidoyu-scout
 ```

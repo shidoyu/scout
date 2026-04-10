@@ -24,7 +24,9 @@ Chạy trong terminal:
 ```bash
 # Bước 1: Đăng ký marketplace
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # Bước 2: Cài đặt plugin
 claude plugin install scout@shidoyu-scout
 ```

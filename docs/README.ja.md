@@ -24,7 +24,9 @@ Claude Code 内蔵の WebSearch は 125 文字のスニペットしか返さず�
 ```bash
 # ステップ 1: マーケットプレイスを登録
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # ステップ 2: プラグインをインストール
 claude plugin install scout@shidoyu-scout
 ```

@@ -24,7 +24,9 @@ Claude Code 內建的 WebSearch 只會回傳 125 個字元的片段，且僅依�
 ```bash
 # 第 1 步：註冊 marketplace
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # 第 2 步：安裝外掛程式
 claude plugin install scout@shidoyu-scout
 ```

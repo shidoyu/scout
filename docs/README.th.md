@@ -24,7 +24,9 @@ WebSearch ที่มีมาในตัวของ Claude Code ส่งก
 ```bash
 # ขั้นตอนที่ 1: ลงทะเบียน Marketplace
 claude plugin marketplace add shidoyu/scout
+```
 
+```bash
 # ขั้นตอนที่ 2: ติดตั้งปลั๊กอิน
 claude plugin install scout@shidoyu-scout
 ```
