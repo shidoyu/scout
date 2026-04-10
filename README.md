@@ -25,14 +25,21 @@ scout does the thinking before the searching.
 
 No API keys required. No environment changes. Install and try immediately:
 
+**1. Add the marketplace** (one-time):
+
 ```bash
-# 1. Add the marketplace (one-time)
 claude plugin marketplace add shidoyu/scout
+```
 
-# 2. Install
+**2. Install**:
+
+```bash
 claude plugin install scout@shidoyu-scout
+```
 
-# 3. Reload plugins (type this inside Claude Code)
+**3. Reload plugins** (type this inside Claude Code):
+
+```
 /mcp
 ```
 
@@ -134,11 +141,13 @@ This classification is based on LLM judgment, not system enforcement. Treat it a
 To fetch pages that require login (OAuth, SaaS dashboards), launch Chrome in debug mode:
 
 macOS:
+
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
 Linux:
+
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
@@ -154,12 +163,15 @@ The Playwright-based fetcher uses a persistent browser profile (`tools/.chrome-p
 
 Two commands to remove everything. No leftovers.
 
-```bash
-# Remove the plugin (cleans up cache, config, and state data)
-claude plugin uninstall scout@shidoyu-scout
+Remove the plugin (cleans up cache, config, and state data):
 
-# Remove Context7 if you added it via scout:setup
-# Note: Context7 is user-scoped, so this removes it from all projects
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
+
+Remove Context7 if you added it via scout:setup (user-scoped — removes from all projects):
+
+```bash
 claude mcp remove context7
 ```
 

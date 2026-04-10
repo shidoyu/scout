@@ -1,189 +1,232 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 **Svenska**
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 **Svenska** · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
-> **Obs:** Denna översättning tillhandahålls för bekvämlighet. [Det engelska originalet](../README.md) är den officiella versionen.
+> **Observera:** Denna översättning tillhandahålls för bekvämlighets skull. Den officiella versionen är [det engelska originalet](../README.md).
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — Tänk först. Sök sedan." width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> Tänk först, sök sedan. — Webbforskningsplugin för Claude Code.
+<p align="center">
+  Webbforskningsplugin för <a href="https://claude.com/claude-code">Claude Code</a>.<br>
+  Omvandlar vaga frågor till optimerade flermotorsfrågor som når primära källor.
+</p>
 
-Frågedesign, flermotor-sökning, integritetsmedveten hämtning.
+<p align="center">
+  <strong>Tänk först. Sök sedan.</strong>
+</p>
 
-Claude Codes inbyggda WebSearch returnerar bara utdrag på 125 tecken och förlitar sig enbart på nyckelordsmatchning. scout omvandlar en vag fråga till optimerade frågor för flera sökmotorer, bedömer resultatens kvalitet och söker igen vid behov, så att primärkällor nås snabbare och mer tillförlitligt.
+---
 
-## Funktioner
+Claude Codes inbyggda WebSearch returnerar utdrag på 125 tecken och förlitar sig enbart på nyckelordsmatchning. Det räcker för enkla uppslag, men riktig forskning kräver frågedesign, källvärdering och integritetsmedveten routing.
 
-- **scout:search** — Flermotor-webbsökning med optimerad frågedesign
-- **scout:fetch** — Hämtning av URL-innehåll med sekretessmedvetet verktygsval
-
-## Installation
-
-Kör i din terminal:
-
-```bash
-# Steg 1: Registrera marketplace
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# Steg 2: Installera plugin
-claude plugin install scout@shidoyu-scout
-```
-
-**Steg 3** — Konfigurera sökmotorer och hämtningsverktyg
-
-Kör dessa en i taget i Claude Code:
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-scout:setup guidar dig interaktivt genom konfigurationen av [Context7](https://github.com/upstash/context7) (biblioteksdokumentation), Jina Reader (hämtning av webbsidor), Exa (semantisk sökning) och Playwright (JavaScript-renderade sidor). Alla steg är valfria och kan hoppas över.
-
-> **Obs:** Om du hoppar över detta steg kommer scout att fråga dig vid nästa sessionsstart. Grundläggande sökning fungerar direkt utan konfiguration.
+scout tänker före sökningen.
 
 ## Snabbstart
 
-Efter installationen, fråga Claude (ingen konfiguration behövs — grundläggande sökning fungerar direkt):
+Inga API-nycklar behövs. Inga miljöförändringar. Installera och prova direkt:
 
-### Prova nu
+**1. Lägg till marknadsplatsen** (engångsinställning):
 
-**Hitta koncept du inte kan namnge ännu:**
-> "det där mönstret där man skickar tillbaka ett objekt som bygger sig själv steg för steg"
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**Upptäck internationella motsvarigheter till svenska koncept:**
-> "finns det något som personnummer-validering i andra länders API:er?"
+**2. Installera**:
 
-**Få expertkunskap från enkla frågor:**
-> "min Docker-container funkar lokalt men kraschar på servern med 'killed'"
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-**Läs en specifik sida:**
-> "läs https://docs.pydantic.dev/latest/concepts/validators/"
+**3. Ladda om plugins** (skriv detta i Claude Code):
 
-## Skills
+```
+/mcp
+```
 
-### scout:search
+Fråga sedan Claude:
 
-Intelligent webbsökning med:
-- Förundersökning för förfining av sökfrågor
-- Flerspråkig frågedesign
-- Flera sökmotorer (WebSearch, [Context7](https://github.com/upstash/context7) officiell dokumentation, [Exa](https://exa.ai) semantisk sökning)
-- HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) för konceptuella sökfrågor via Exa
-- Kvalitetsbedömning med automatisk omsökningsloop
+```text
+/scout:search Jag söker något som Git blame men för designbeslut
+```
 
-Användning: `/scout:search din fråga här`
+scout omvandlar detta vaga koncept till rätt term (ADR — Architecture Decision Records), söker i flera motorer med förfinade frågor, utvärderar källkvalitet och returnerar ett svar med en Research Trail som visar exakt hur den kom fram till svaret.
 
-### scout:fetch
+## Vad scout gör
 
-Hämta webbsidors innehåll med automatisk sekretessklassificering:
-- **Offentliga sidor** → Jina Reader / WebFetch (inbyggd reservlösning)
-- **Konfidentiella sidor** → Lokal Playwright (inga externa API-anrop)
-- **Autentiserade sidor** → Chrome DevTools (webbläsarsession)
+### Hittar koncept du ännu inte kan namnge
 
-Användning: `/scout:fetch URL`
+> "Jag vet att konceptet finns — något om att spara varför vi fattade varje designbeslut — men jag vet inte vad det heter"
 
-### scout:setup
+scout översätter suddiga idéer till exakt terminologi och når de primära källorna.
 
-Interaktiv guidad konfiguration för sökmotorer och hämtningsverktyg:
-- **Context7** — Direkt väg till aktuell officiell biblioteks- och ramverksdokumentation, så tekniska frågor snabbare når källdokumentationen via [Context7 MCP](https://github.com/upstash/context7) (ingen API-nyckel behövs)
-- **Jina Reader** — Renare hämtning av webbsidor som Markdown som tar bort navigation och boilerplate, vilket ofta minskar mängden text som skickas till modellen och sparar tokens ([API-nyckel](https://jina.ai/?newKey))
-- **Exa** — Betydelsebaserad sökning för vaga, konceptuella och nischade frågor när exakta termer är oklara ([API-nyckel](https://exa.ai))
-- **Playwright** — Lokal webbläsarhämtning för JavaScript-renderade eller konfidentiella sidor som ska stanna på din maskin (~200MB nedladdning)
+### Tar sig genom SEO-bruset
 
-Alla steg är valfria. Kör om när som helst för att uppdatera inställningar.
+> "Vad bör jag egentligen migrera till från Terraform — inte de sponsrade listorna, verkliga migreringshistorier"
 
-Användning: `/scout:setup`
+Förforskning ger rätt vokabulär, sedan kringgår riktade frågor innehållsfarmerna.
 
-## Sekretess
+### Når officiell dokumentation direkt
 
-scout klassificerar URL:er i tre nivåer innan hämtning:
-- **Offentlig** → Moln-API:er (Jina Reader / WebFetch)
-- **Konfidentiell** → Enbart lokal Playwright (avsedd routing: konfidentiella URL:er skickas inte till externa API:er)
-- **Autentiserad** → Chrome DevTools (använder din webbläsarsession)
+> "Hur konfigurerar jag middleware i Next.js App Router?"
 
-Denna klassificering är automatisk men baserad på LLM-bedömning, inte systemmässig tillämpning. Se [Sekretesspåpekande](#sekretesspåpekande) för detaljer.
+scout kontrollerar först [Context7](https://github.com/upstash/context7) för indexerad officiell dokumentation — om svaret finns där behövs ingen webbsökning.
 
-## Krav
+### Läser valfri webbsida
 
-- Claude Code
-- `jq` (enbart för konfiguration)
-- `npm`/`npx` (för [MCP](https://modelcontextprotocol.io/)-server: chrome-devtools)
-- Python 3.10+ (valfritt, för lokal Playwright-hämtning)
-- `uvx` eller `uv` (valfritt, för MCP-server: markitdown — HTML→Markdown-konvertering)
-- Chrome (valfritt, för autentiserad sidhämtning via DevTools)
+> "Hämta och sammanfatta https://docs.anthropic.com/en/docs/claude-code"
 
-### Chrome DevTools-konfiguration (för autentiserade sidor)
+Integritetsmedveten hämtning: offentliga sidor går via moln-API:er, konfidentiella sidor stannar på din maskin.
 
-För att hämta sidor som kräver inloggning (OAuth, SaaS-instrumentpaneler) måste Chrome köras i felsökningsläge:
+## Installationsnivåer
 
-På macOS:
+scout fungerar direkt efter installation. Varje nivå lägger till kapacitet — alla är valfria och reversibla.
+
+### Nivå 1: Inbyggd sökning (standard)
+
+Använder Claude Codes WebSearch. Ingen konfiguration behövs. Detta är vad du får direkt ur lådan.
+
+### Nivå 2: Officiell dokumentation + renare hämtning
+
+Lägg till [Context7](https://github.com/upstash/context7) för direkt åtkomst till biblioteks-/ramverksdokumentation, och [Jina Reader](https://jina.ai) för renare sidläsning. Context7 kräver ingen API-nyckel; valfri nyckel för Jina ökar hastighetsgränserna.
+
+### Nivå 3: Semantisk sökning
+
+Lägg till [Exa](https://exa.ai) för betydelsebaserad sökning — hittar relevanta sidor även när du inte kan de rätta nyckelorden. Grundläggande semantisk sökning fungerar med gratisplanen; API-nyckel låser upp avancerade funktioner.
+
+### Nivå 4: Lokal webbläsare
+
+Lägg till [Playwright](https://playwright.dev) för JavaScript-renderade sidor och konfidentiella URL:er som aldrig bör lämna din maskin. Laddar ner Chromium (~200MB).
+
+**Kör `/scout:setup` för att interaktivt gå igenom varje nivå.** Varje steg visar exakt vad som kommer att läggas till i konfigurationen innan några ändringar görs. Kör när som helst igen för att lägga till eller uppdatera verktyg.
+
+## Färdigheter
+
+| Färdighet | Syfte |
+|---|---|
+| `/scout:search` | Flermotors webbsökning med frågedesign, källvärdering och automatisk omsökning |
+| `/scout:fetch` | URL-innehållshämtning med automatisk integritetsklassificering |
+| `/scout:setup` | Interaktiv guidad installation för sökmotorer och hämtningsverktyg |
+
+### Research Trail
+
+Varje sökning avslutas med en strukturerad redogörelse som visar hur scout nådde sitt svar:
+
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           din ursprungliga fråga
+Designed queries: de optimerade frågorna som scout faktiskt körde
+Sources:         URL:er med pålitlighetsnivå (🟢 primära / 🟡 sekundära / ⚪ tertiära)
+Re-searches:     eventuella ytterligare sökningar och varför
+Confidence:      High / Medium / Low med motivering
+```
+
+## Integritet
+
+scout klassificerar URL:er i tre nivåer före hämtning:
+
+| Klassificering | Routing | Exempel |
+|---|---|---|
+| **Offentlig** | Moln-API:er (Jina Reader / WebFetch) | Bloggar, dokumentation, offentliga GitHub-repon |
+| **Konfidentiell** | Enbart lokal Playwright | localhost, interna wikier, adminpaneler |
+| **Autentiserad** | Chrome DevTools (din webbläsarsession) | Notion, Slack, sidor efter OAuth-inloggning |
+
+Denna klassificering baseras på LLM-bedömning, inte systemtillämpning. Behandla den som routing efter bästa förmåga. För mycket känsliga data, verifiera klassificeringen innan du fortsätter.
+
+**Konfidentiella URL:er skickas aldrig till externa API:er, inte ens vid misslyckande** — systemet faller inte tillbaka på molnverktyg för konfidentiella sidor.
+
+<details>
+<summary>Chrome DevTools-installation (för autentiserade sidor)</summary>
+
+För att hämta sidor som kräver inloggning (OAuth, SaaS-instrumentpaneler), starta Chrome i felsökningsläge:
+
+macOS:
 
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
-På Linux:
+Linux:
 
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Sekretesspåpekande
+<details>
+<summary>Om webbläsarprofilen</summary>
 
-scout klassificerar URL:er efter känslighet och dirigerar konfidentiella URL:er till lokala verktyg.
-Denna klassificering baseras på LLM-bedömning (domänmönster och kontext) och är **inte en systemmässigt tillämpat garanti**.
-För mycket känslig data, verifiera klassificeringen innan du fortsätter.
+Playwright-baserade hämtaren använder en bestående webbläsarprofil (`tools/.chrome-profile/`) där cookies och sessionsdata kan ackumuleras. Denna katalog är exkluderad från Git via `.gitignore` men kan kopieras av säkerhetskopieringsverktyg. Radera den regelbundet om du hämtar konfidentiella sidor.
+</details>
 
-**Webbläsarprofil.** Den Playwright-baserade hämtaren (`fetch-page.py`) använder en beständig webbläsarprofil (`tools/.chrome-profile/`) som kan ackumulera cookies, sessionsdata och webbhistorik. Denna katalog är exkluderad från Git via `.gitignore` men kan kopieras av säkerhetskopieringsverktyg eller molnsynkroniseringstjänster. Radera katalogen regelbundet om du hämtar konfidentiella sidor.
+## Avinstallation
 
-## Språk
+Två kommandon tar bort allt. Inga rester.
 
-Konfigurationsinstruktioner tillhandahålls på ditt språk av AI-assistenten.
-Översatta instruktioner är endast för bekvämlighet — **det engelska originalet är auktoritativt**.
+Ta bort pluginet (rensar cache, konfiguration och tillståndsdata):
 
-## Säkerhetsnotering
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-Efter konfiguration lagras API-nycklar i `.mcp.json`.
-**Commita inte `.mcp.json` till Git.** Använd `.mcp.json.dist` som mall för distribution.
+Ta bort Context7 om du lade till det via scout:setup (användaromfång — tas bort från alla projekt):
+
+```bash
+claude mcp remove context7
+```
+
+## Krav
+
+- **Claude Code** (obligatoriskt)
+- `jq` (enbart för installationsdiagnostik)
+- Python 3.10+ (enbart för lokal hämtning via Playwright)
+- `npm`/`npx` (enbart för Chrome DevTools MCP-server)
+
+## Säkerhet
+
+API-nycklar lagras i `.mcp.json` i pluginkatalogen.
+**Committa inte `.mcp.json` till Git.** Mallen `.mcp.json.dist` är säker att distribuera.
 
 ## Ansvarsfriskrivning
 
-Detta plugin tillhandahålls "i befintligt skick" under MIT-licensen, utan någon form av garanti.
+Detta plugin tillhandahålls "i befintligt skick" under MIT-licensen, utan några garantier.
 
-**Externa API:er.** Detta plugin förlitar sig på tredjeparts-API:er (Exa, Jina AI med flera). Upphovsmannen ger inga garantier om dessa tjänsters tillgänglighet, noggrannhet, prissättning eller kontinuitet och ansvarar inte för kostnader som uppstår vid API-användning.
+**Externa API:er.** Detta plugin förlitar sig på tredjeparts-API:er (Exa, Jina AI med flera). Författaren lämnar inga garantier om tillgänglighet, noggrannhet, prissättning eller kontinuitet för dessa tjänster och är inte ansvarig för kostnader som uppstår genom API-användning.
 
-**API-nyckelhantering.** Du är ensamt ansvarig för att skaffa, säkra och hantera dina egna API-nycklar samt för att följa varje leverantörs användarvillkor.
+**API-nyckelhantering.** Du är ensam ansvarig för att skaffa, säkra och hantera dina egna API-nycklar samt för att följa varje leverantörs användarvillkor.
 
-**Innehållsklassificering.** Vid hämtning av webbinnehåll kan pluginet använda LLM-baserad klassificering för att bedöma sekretesskänslighet och fastställa lämpliga hämtningsmetoder. Sådana klassificeringar är av bästa-ansträngnings-typ och kan innehålla fel. Förlita dig inte på automatisk klassificering som det enda skyddet för känslig eller konfidentiell information.
+**Innehållsklassificering.** URL-integritetsklassificering baseras på LLM-bedömning och kan innehålla fel. Förlita dig inte på den som enda skyddsåtgärd för känslig information.
 
-**Webbhämtning och webbläsarautomatisering.** Detta plugin inkluderar verktyg för headless webbläsarautomatisering via Playwright och Chrome DevTools. Du är ansvarig för att din användning följer målwebbplatsers användarvillkor, robots.txt-policyer och tillämplig lagstiftning. Upphovsmannen ansvarar inte för blockering av webbplats, kontosuspension, IP-begränsningar, oväntad skriptkörning, resursförbrukning eller kompatibilitetsproblem till följd av webbläsarautomatisering.
+**Webbhämtning och webbläsarautomation.** Detta plugin inkluderar verktyg för headless webbläsarautomation via Playwright och Chrome DevTools. Du är ansvarig för att säkerställa att din användning följer målsidornas användarvillkor, robots.txt-policyer och tillämplig lagstiftning.
 
-**MCP-servrar.** Detta plugin ansluter till tredjeparts MCP-servrar (Model Context Protocol). Upphovsmannen kontrollerar, granskar eller garanterar inte dessa servrars beteende eller säkerhet.
+**MCP-servrar.** Detta plugin ansluter till tredjeparts-MCP-servrar. Författaren kontrollerar, granskar eller garanterar inte dessa servrars beteende eller säkerhet.
 
-## Tredjepartsattributioner
+## Tredjepartshänvisningar
 
-Detta plugin integreras med följande externa verktyg och tjänster. Ingen tredjeparts källkod distribueras vidare — integrering sker via MCP-serveranslutningar, körtidspaketinstallation och omslutningsskript skrivna av pluginutvecklaren.
+Ingen tredjepartskällkod omdistribueras — integration sker via MCP-anslutningar, körningspaketinstallation och omslagsskript.
 
 | Verktyg | Leverantör | Licens |
 |---|---|---|
-| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietär (API-villkor) |
+| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-Alla produktnamn, logotyper och varumärken tillhör respektive ägare. Detta plugin är inte anslutet till eller godkänt av någon av de tredjeparts tjänster som anges ovan.
+Alla produktnamn, logotyper och varumärken tillhör sina respektive ägare.
+
+## Språk
+
+Installationsinstruktioner tillhandahålls på ditt språk av AI-assistenten. Översatta README-filer är för bekvämlighets skull — **det engelska originalet är den officiella versionen**.
 
 ## Support
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Felrapporter, funktionsförfrågningar och frågor
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Felrapporter, funktionsförfrågningar och frågor
 
-## Upphovsman
+## Författare
 
 **SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
 

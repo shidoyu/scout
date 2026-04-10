@@ -1,187 +1,230 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇸🇦 [العربية](README.ar.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇵🇱 [Polski](README.pl.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇺🇦 [Українська](README.uk.md) · 🇹🇭 [ไทย](README.th.md) · 🇷🇺 [Русский](README.ru.md) · 🇳🇱 [**Nederlands**](README.nl.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 **Nederlands** · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
-> **Opmerking:** Deze vertaling is uitsluitend bedoeld voor het gemak. Het [Engelse origineel](../README.md) is de officiële versie.
+> **Let op:** Deze vertaling is beschikbaar gesteld voor het gemak. De [originele Engelse versie](../README.md) is de officiële versie.
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — Eerst denken. Dan zoeken." width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> Eerst denken, dan zoeken. — Webonderzoek-plugin voor Claude Code.
+<p align="center">
+  Webonderzoek-plugin voor <a href="https://claude.com/claude-code">Claude Code</a>.<br>
+  Zet vage vragen om in geoptimaliseerde multi-engine zoekopdrachten die primaire bronnen bereiken.
+</p>
 
-Query-ontwerp, multi-engine zoeken, privacybewust ophalen.
+<p align="center">
+  <strong>Eerst denken. Dan zoeken.</strong>
+</p>
 
-De ingebouwde WebSearch van Claude Code geeft slechts snippets van 125 tekens terug en vertrouwt alleen op keyword matching. scout zet een vage vraag om in geoptimaliseerde zoekopdrachten voor meerdere engines, beoordeelt de kwaliteit van de resultaten en zoekt opnieuw wanneer nodig, zodat primaire bronnen sneller en betrouwbaarder worden bereikt.
+---
 
-## Functies
+De ingebouwde WebSearch van Claude Code levert fragmenten van 125 tekens en vertrouwt uitsluitend op trefwoordovereenkomst. Dat volstaat voor eenvoudige opzoekingen — maar voor echt onderzoek heb je queryontwerp, bronevaluatie en privacybewuste routering nodig.
 
-- **scout:search** — Webzoeken met meerdere zoekmachines en geoptimaliseerd zoekontwerp
-- **scout:fetch** — URL-inhoud ophalen met privacybewuste toolselectie
+scout denkt na voordat het zoekt.
 
-## Installatie
+## Snelstart
 
-Voer uit in je terminal:
+Geen API-sleutels nodig. Geen omgevingswijzigingen. Installeer en probeer het direct:
+
+**1. Marketplace toevoegen** (eenmalig):
 
 ```bash
-# Stap 1: Marketplace registreren
 claude plugin marketplace add shidoyu/scout
 ```
 
+**2. Installeren**:
+
 ```bash
-# Stap 2: Plugin installeren
 claude plugin install scout@shidoyu-scout
 ```
 
-**Stap 3** — Zoekmachines en ophaaltools instellen
+**3. Plugins herladen** (typ dit in Claude Code):
 
-Voer deze opdrachten één voor één uit in Claude Code:
-
-```text
-/reload-plugins
+```
+/mcp
 ```
 
+Vraag dan aan Claude:
+
 ```text
-/scout:setup
+/scout:search Ik zoek iets als Git blame maar dan voor ontwerpbeslissingen
 ```
 
-scout:setup begeleidt je interactief bij het configureren van Context7 (bibliotheekdocumentatie), Jina Reader (webpagina's ophalen), Exa (semantisch zoeken) en Playwright (JavaScript-gerenderde pagina's). Alle stappen zijn optioneel en kunnen worden overgeslagen.
+scout zet dit vage concept om in de juiste term (ADR — Architecture Decision Records), doorzoekt meerdere zoekmachines met geoptimaliseerde queries, beoordeelt de bronkwaliteit en levert een antwoord met een Research Trail die precies laat zien hoe het tot het resultaat is gekomen.
 
-> **Opmerking:** Als je deze stap overslaat, vraagt scout je bij de volgende sessiestart om de configuratie. Basiszoeken werkt direct zonder instelling.
+## Wat scout doet
 
-## Snel aan de slag
+### Concepten vinden die je nog niet kunt benoemen
 
-Na installatie, vraag Claude (geen instelling nodig — basiszoeken werkt direct):
+> "Ik weet dat het concept bestaat — iets over bijhouden waarom we elke ontwerpkeuze hebben gemaakt — maar ik ken de naam niet"
 
-### Probeer het nu
+scout vertaalt vage ideeën naar precieze terminologie en bereikt de primaire bronnen.
 
-**Vind concepten die je nog niet kunt benoemen:**
-> "dat patroon waarbij je code uitvoert op het moment dat een object uit scope gaat"
+### Door SEO-ruis heen snijden
 
-**Ontdek internationale equivalenten van Nederlandse concepten:**
-> "hoe werkt iDEAL vergeleken met betaalsystemen in andere landen?"
+> "Waarnaar moet ik echt migreren vanaf Terraform — niet de gesponsorde lijsten, echte migratieverhalen"
 
-**Krijg expertantwoorden van simpele vragen:**
-> "mijn git branch is helemaal in de war na een rebase en ik zie dubbele commits"
+Vooronderzoek verwerft het juiste vocabulaire, waarna gerichte queries de contentfarms omzeilen.
 
-**Lees een specifieke pagina:**
-> "lees https://docs.docker.com/compose/compose-file/"
+### Officiële documentatie direct bereiken
+
+> "Hoe stel ik middleware in bij Next.js App Router?"
+
+scout controleert eerst [Context7](https://github.com/upstash/context7) op geïndexeerde officiële documentatie — als het antwoord daar staat, is geen webzoekopdracht nodig.
+
+### Elke webpagina lezen
+
+> "Haal https://docs.anthropic.com/en/docs/claude-code op en vat het samen"
+
+Privacybewust ophalen: openbare pagina's gaan via cloud-API's, vertrouwelijke pagina's blijven op je machine.
+
+## Configuratieniveaus
+
+scout werkt direct na installatie. Elk niveau voegt mogelijkheden toe — allemaal optioneel, allemaal omkeerbaar.
+
+### Niveau 1: Ingebouwde zoekopdracht (standaard)
+
+Gebruikt de WebSearch van Claude Code. Geen configuratie nodig. Dit is wat je standaard krijgt.
+
+### Niveau 2: Officiële documentatie + schoner ophalen
+
+[Context7](https://github.com/upstash/context7) voor directe toegang tot bibliotheek-/frameworkdocumentatie, en [Jina Reader](https://jina.ai) voor schoner pagina's lezen. Context7 heeft geen API-sleutel nodig; optionele sleutel voor Jina-snelheidslimieten.
+
+### Niveau 3: Semantisch zoeken
+
+[Exa](https://exa.ai) voor betekenisgebaseerd zoeken — vindt relevante pagina's zelfs als je de juiste trefwoorden niet kent. Standaard semantisch zoeken werkt met de gratis laag; een API-sleutel ontgrendelt geavanceerde functies.
+
+### Niveau 4: Lokale browser
+
+[Playwright](https://playwright.dev) voor met JavaScript gerenderde pagina's en vertrouwelijke URL's die je machine nooit mogen verlaten. Vereist het downloaden van Chromium (~200 MB).
+
+**Voer `/scout:setup` uit om elk niveau interactief in te stellen.** Elke stap toont precies wat er aan je configuratie wordt toegevoegd voordat er wijzigingen worden aangebracht. Voer het op elk moment opnieuw uit om tools toe te voegen of bij te werken.
 
 ## Skills
 
-### scout:search
+| Skill | Doel |
+|---|---|
+| `/scout:search` | Multi-engine webzoekopdracht met queryontwerp, bronevaluatie en automatisch opnieuw zoeken |
+| `/scout:fetch` | URL-inhoud ophalen met automatische privacyclassificatie |
+| `/scout:setup` | Interactieve begeleide configuratie voor zoekmachines en ophaaltools |
 
-Intelligente webzoekopdracht met:
-- Vooronderzoek voor het verfijnen van zoekopdrachten
-- Meertalig zoekontwerp
-- Meerdere zoekmachines (WebSearch, [Context7](https://github.com/upstash/context7) officiële documentatie, [Exa](https://exa.ai) semantisch zoeken)
-- HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) voor conceptuele zoekopdrachten via Exa
-- Kwaliteitsbeoordeling met automatische herzoeklus
+### Research Trail
 
-Gebruik: `/scout:search jouw vraag hier`
+Elke zoekopdracht eindigt met een gestructureerd verslag dat laat zien hoe scout tot zijn antwoord is gekomen:
 
-### scout:fetch
-
-Webpagina-inhoud ophalen met automatische privacyclassificatie:
-- **Openbare pagina's** → Jina Reader / WebFetch (ingebouwde fallback)
-- **Vertrouwelijke pagina's** → Lokale Playwright (geen externe API-aanroepen)
-- **Geverifieerde pagina's** → Chrome DevTools (browsersessie)
-
-Gebruik: `/scout:fetch URL`
-
-### scout:setup
-
-Interactieve begeleide instelling voor zoekmachines en ophaaltools:
-- **Context7** — Directe route naar actuele officiële library- en frameworkdocs, zodat technische vragen sneller bij de brondocumentatie uitkomen via [Context7 MCP](https://github.com/upstash/context7) (geen API-sleutel nodig)
-- **Jina Reader** — Schonere webpagina-ophaling als Markdown die navigatie en boilerplate verwijdert, waardoor er vaak minder tekst naar het model gaat en tokens worden bespaard ([API-sleutel](https://jina.ai/?newKey))
-- **Exa** — Betekenisgestuurde zoekfunctie voor vage, conceptuele en nichevragen wanneer exacte termen ontbreken ([API-sleutel](https://exa.ai))
-- **Playwright** — Lokale browserophaling voor JavaScript-gerenderde of vertrouwelijke pagina's die op je machine moeten blijven (~200MB download)
-
-Alle stappen zijn optioneel. Voer opnieuw uit om instellingen bij te werken.
-
-Gebruik: `/scout:setup`
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           je oorspronkelijke vraag
+Designed queries: de geoptimaliseerde queries die scout daadwerkelijk heeft uitgevoerd
+Sources:         URL's met betrouwbaarheidsniveau (🟢 primair / 🟡 secundair / ⚪ tertiair)
+Re-searches:     eventuele aanvullende zoekopdrachten en hun redenen
+Confidence:      High / Medium / Low met onderbouwing
+```
 
 ## Privacy
 
-scout classificeert URL's in drie niveaus voordat inhoud wordt opgehaald:
-- **Openbaar** → Cloud-API's (Jina Reader / WebFetch)
-- **Vertrouwelijk** → Alleen lokale Playwright (bedoelde routering: vertrouwelijke URL's worden niet naar externe API's verzonden)
-- **Geverifieerd** → Chrome DevTools (maakt gebruik van uw browsersessie)
+scout classificeert URL's in drie niveaus voordat ze worden opgehaald:
 
-Deze classificatie is automatisch maar gebaseerd op LLM-oordeel, niet op systeemhandhaving. Zie [Privacyvoorbehoud](#privacyvoorbehoud) voor details.
+| Classificatie | Routering | Voorbeelden |
+|---|---|---|
+| **Openbaar** | Cloud-API's (Jina Reader / WebFetch) | Blogs, documentatie, openbare GitHub-repo's |
+| **Vertrouwelijk** | Alleen lokale Playwright | localhost, interne wiki's, beheerpanelen |
+| **Geauthenticeerd** | Chrome DevTools (je browsersessie) | Notion, Slack, post-OAuth-pagina's |
 
-## Vereisten
+Deze classificatie is gebaseerd op het oordeel van het LLM, niet op technische handhaving. Beschouw het als best-effort routering. Controleer bij zeer gevoelige gegevens de classificatie voordat je verdergaat.
 
-- Claude Code
-- `jq` (alleen voor instelling)
-- `npm`/`npx` (voor [MCP](https://modelcontextprotocol.io/) server: chrome-devtools)
-- Python 3.10+ (optioneel, voor lokaal ophalen via Playwright)
-- `uvx` of `uv` (optioneel, voor MCP-server: markitdown — HTML→Markdown-conversie)
-- Chrome (optioneel, voor het ophalen van geverifieerde pagina's via DevTools)
+**Vertrouwelijke URL's worden nooit naar externe API's gestuurd, zelfs niet bij falen** — het systeem valt niet terug op cloudtools voor vertrouwelijke pagina's.
 
-### Chrome DevTools-instelling (voor geverifieerde pagina's)
+<details>
+<summary>Chrome DevTools instellen (voor geauthenticeerde pagina's)</summary>
 
-Om pagina's op te halen waarvoor inloggen vereist is (OAuth, SaaS-dashboards), moet Chrome worden uitgevoerd in foutopsporingsmodus:
+Om pagina's op te halen die inloggen vereisen (OAuth, SaaS-dashboards), start Chrome in debugmodus:
 
-Op macOS:
+macOS:
 
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
-Op Linux:
+Linux:
 
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Privacyvoorbehoud
+<details>
+<summary>Opmerking over het browserprofiel</summary>
 
-scout classificeert URL's op gevoeligheid en routeert vertrouwelijke URL's naar uitsluitend lokale tools.
-Deze classificatie is gebaseerd op LLM-oordeel (domeinpatronen en context) en is **geen door het systeem gehandhaafde garantie**.
-Verifieer de classificatie voor zeer gevoelige gegevens voordat u verdergaat.
+De op Playwright gebaseerde fetcher gebruikt een persistent browserprofiel (`tools/.chrome-profile/`) waar cookies en sessiegegevens zich kunnen ophopen. Deze map is uitgesloten van Git via `.gitignore`, maar kan door back-uptools worden gekopieerd. Verwijder deze periodiek als je vertrouwelijke pagina's ophaalt.
+</details>
 
-**Browserprofiel.** De op Playwright gebaseerde ophaalmodule (`fetch-page.py`) maakt gebruik van een persistent browserprofiel (`tools/.chrome-profile/`) dat cookies, sessiegegevens en browsegeschiedenis kan accumuleren. Deze map is uitgesloten van Git via `.gitignore`, maar kan worden gekopieerd door back-uptools of cloudopslagdiensten. Verwijder de map regelmatig als u vertrouwelijke pagina's ophaalt.
+## Verwijderen
 
-## Taal
+Twee commando's om alles te verwijderen. Geen restanten.
 
-Installatie-instructies worden in uw taal verstrekt door de AI-assistent.
-Vertaalde instructies zijn uitsluitend bedoeld voor het gemak — **het Engelse origineel is gezaghebbend**.
+Plugin verwijderen (ruimt cache, configuratie en statusgegevens op):
 
-## Beveiligingsopmerking
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-Na de instelling worden API-sleutels opgeslagen in `.mcp.json`.
-**Commit `.mcp.json` niet naar Git.** Gebruik `.mcp.json.dist` als sjabloon voor distributie.
+Context7 verwijderen als het via scout:setup is toegevoegd (gebruikersbereik — verwijderd uit alle projecten):
+
+```bash
+claude mcp remove context7
+```
+
+## Vereisten
+
+- **Claude Code** (vereist)
+- `jq` (alleen voor configuratiediagnostiek)
+- Python 3.10+ (alleen voor lokaal ophalen met Playwright)
+- `npm`/`npx` (alleen voor de Chrome DevTools MCP-server)
+
+## Beveiliging
+
+API-sleutels worden opgeslagen in `.mcp.json` in de pluginmap.
+**Commit `.mcp.json` niet naar Git.** Het sjabloon `.mcp.json.dist` is veilig om te distribueren.
 
 ## Disclaimer
 
-Deze plugin wordt geleverd "zoals hij is" onder de MIT-licentie, zonder enige garantie.
+Deze plugin wordt "zoals hij is" aangeboden onder de MIT-licentie, zonder enige garantie.
 
-**Externe API's.** Deze plugin is afhankelijk van API's van derden (Exa, Jina AI en anderen). De auteur geeft geen garanties over de beschikbaarheid, nauwkeurigheid, prijsstelling of continuïteit van deze diensten en is niet verantwoordelijk voor kosten die voortvloeien uit API-gebruik.
+**Externe API's.** Deze plugin maakt gebruik van API's van derden (Exa, Jina AI en anderen). De auteur geeft geen garanties over de beschikbaarheid, nauwkeurigheid, prijsstelling of continuïteit van deze diensten en is niet verantwoordelijk voor kosten die voortvloeien uit API-gebruik.
 
-**API-sleutelbeheer.** U bent als enige verantwoordelijk voor het verkrijgen, beveiligen en beheren van uw eigen API-sleutels en voor de naleving van de servicevoorwaarden van elke aanbieder.
+**Beheer van API-sleutels.** Je bent als enige verantwoordelijk voor het verkrijgen, beveiligen en beheren van je eigen API-sleutels, en voor het naleven van de servicevoorwaarden van elke provider.
 
-**Inhoudsclassificatie.** Bij het ophalen van webinhoud kan de plugin LLM-gebaseerde classificatie gebruiken om de privacygevoeligheid te beoordelen en geschikte ophaalmethoden te bepalen. Dergelijke classificaties zijn gebaseerd op beste inspanning en kunnen fouten bevatten. Vertrouw niet uitsluitend op automatische classificatie als bescherming voor gevoelige of vertrouwelijke informatie.
+**Inhoudsclassificatie.** De privacyclassificatie van URL's is gebaseerd op het oordeel van het LLM en kan fouten bevatten. Vertrouw er niet op als enige beveiliging voor gevoelige informatie.
 
-**Webophalen & browserautomatisering.** Deze plugin bevat tools voor headless browserautomatisering via Playwright en Chrome DevTools. U bent verantwoordelijk voor het waarborgen dat uw gebruik voldoet aan de servicevoorwaarden, robots.txt-beleid en toepasselijke wetgeving van doelwebsites. De auteur is niet aansprakelijk voor siteblokkering, accountopschorting, IP-beperkingen, onverwachte scriptuitvoering, resourceverbruik of compatibiliteitsproblemen als gevolg van browserautomatisering.
+**Web ophalen & browserautomatisering.** Deze plugin bevat tools voor headless browserautomatisering via Playwright en Chrome DevTools. Je bent verantwoordelijk om ervoor te zorgen dat je gebruik voldoet aan de servicevoorwaarden van de doelwebsites, hun robots.txt-beleid en de toepasselijke wetgeving.
 
-**MCP-servers.** Deze plugin maakt verbinding met MCP (Model Context Protocol)-servers van derden. De auteur heeft geen controle over, auditeert niet en garandeert niet het gedrag of de beveiliging van deze servers.
+**MCP-servers.** Deze plugin maakt verbinding met MCP-servers van derden. De auteur controleert, auditeert of garandeert het gedrag of de beveiliging van deze servers niet.
 
-## Attributies van derden
+## Toeschrijvingen van derden
 
-Deze plugin integreert met de volgende externe tools en diensten. Er wordt geen broncode van derden gedistribueerd — integratie verloopt via MCP-serververbindingen, runtime-pakketinstallatie en wrappersscripts van de pluginontwikkelaar.
+Er wordt geen broncode van derden herverspreid — integratie vindt plaats via MCP-verbindingen, runtime-pakketinstallaties en wrapper-scripts.
 
 | Tool | Aanbieder | Licentie |
 |---|---|---|
-| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API-voorwaarden) |
+| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-Alle productnamen, logo's en handelsmerken zijn eigendom van hun respectieve eigenaren. Deze plugin is niet gelieerd aan of goedgekeurd door een van de bovengenoemde diensten van derden.
+Alle productnamen, logo's en handelsmerken zijn eigendom van hun respectieve houders.
+
+## Taal
+
+Configuratie-instructies worden door de AI-assistent in je taal aangeboden. Vertaalde README's zijn voor het gemak — **de originele Engelse versie is de officiële versie**.
 
 ## Ondersteuning
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Bugrapporten, functieverzoeken en vragen
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Bugrapporten, functieverzoeken en vragen
 
 ## Auteur
 
@@ -189,4 +232,4 @@ Alle productnamen, logo's en handelsmerken zijn eigendom van hun respectieve eig
 
 ## Licentie
 
-[MIT-licentie](../LICENSE) — vrij te gebruiken, aan te passen en te distribueren. Copyright (c) 2026 shidoyu.
+[MIT License](../LICENSE) — vrij te gebruiken, aan te passen en te verspreiden. Copyright (c) 2026 shidoyu.

@@ -1,189 +1,230 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇸🇦 [العربية](README.ar.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇵🇱 [Polski](README.pl.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇺🇦 [Українська](README.uk.md) · 🇹🇭 [ไทย](README.th.md) · 🇷🇺 [Русский](README.ru.md) · 🇮🇳 [**हिन्दी**](README.hi.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 **हिन्दी** · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
-> **नोट:** यह अनुवाद केवल सुविधा के लिए है। [अंग्रेज़ी मूल](../README.md) आधिकारिक संस्करण है।
+> **नोट:** यह अनुवाद केवल सुविधा के लिए उपलब्ध कराया गया है। [अंग्रेज़ी मूल](../README.md) आधिकारिक संस्करण है।
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — पहले सोचो। फिर खोजो।" width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> पहले सोचो, फिर खोजो। — Claude Code के लिए वेब रिसर्च प्लगइन।
+<p align="center">
+  <a href="https://claude.com/claude-code">Claude Code</a> के लिए वेब रिसर्च प्लगइन।<br>
+  अस्पष्ट सवालों को ऑप्टिमाइज़ की गई मल्टी-इंजन क्वेरीज़ में बदलता है जो प्राथमिक स्रोतों तक पहुँचती हैं।
+</p>
 
-क्वेरी डिज़ाइन, मल्टी-इंजन सर्च, प्राइवेसी-अवेयर फ़ेचिंग।
+<p align="center">
+  <strong>पहले सोचो। फिर खोजो।</strong>
+</p>
 
-Claude Code का बिल्ट-इन WebSearch सिर्फ 125-अक्षरों के स्निपेट लौटाता है और केवल कीवर्ड मैचिंग पर निर्भर रहता है। scout एक अस्पष्ट सवाल को कई सर्च इंजनों के लिए ऑप्टिमाइज़्ड क्वेरी में बदलता है, परिणामों की गुणवत्ता का मूल्यांकन करता है, और ज़रूरत पड़ने पर दोबारा खोजता है, ताकि प्राथमिक स्रोतों तक तेज़ी और ज़्यादा भरोसे के साथ पहुँचा जा सके।
+---
 
-## विशेषताएँ
+Claude Code की बिल्ट-इन WebSearch 125 कैरेक्टर के स्निपेट लौटाती है और केवल कीवर्ड मैचिंग पर निर्भर करती है। सामान्य खोज के लिए यह पर्याप्त है — लेकिन असली रिसर्च के लिए क्वेरी डिज़ाइन, सोर्स मूल्यांकन और प्राइवेसी-अवेयर रूटिंग ज़रूरी है।
 
-- **scout:search** — Query design optimization के साथ multi-engine web search
-- **scout:fetch** — Privacy-aware tool selection के साथ URL content fetching
+scout खोजने से पहले सोचता है।
 
-## इंस्टॉलेशन
+## त्वरित शुरुआत
 
-अपने टर्मिनल में चलाएँ:
+API कुंजी की ज़रूरत नहीं। वातावरण में बदलाव की ज़रूरत नहीं। इंस्टॉल करें और तुरंत आज़माएँ:
+
+**1. मार्केटप्लेस जोड़ें** (एक बार):
 
 ```bash
-# चरण 1: मार्केटप्लेस रजिस्टर करें
 claude plugin marketplace add shidoyu/scout
 ```
 
+**2. इंस्टॉल करें**:
+
 ```bash
-# चरण 2: प्लगइन इंस्टॉल करें
 claude plugin install scout@shidoyu-scout
 ```
 
-**चरण 3** — सर्च इंजन और फ़ेचिंग टूल सेट करें
+**3. प्लगइन रीलोड करें** (Claude Code के अंदर टाइप करें):
 
-इन्हें Claude Code में एक-एक करके चलाएँ:
-
-```text
-/reload-plugins
+```
+/mcp
 ```
 
+फिर Claude से पूछें:
+
 ```text
-/scout:setup
+/scout:search मुझे Git blame जैसा कुछ चाहिए लेकिन डिज़ाइन निर्णयों के लिए
 ```
 
-scout:setup आपको Context7 (library docs), Jina Reader (वेब पेज फ़ेचिंग), Exa (सिमैंटिक सर्च), और Playwright (JavaScript-रेंडर्ड पेज) को इंटरैक्टिव तरीक़े से कॉन्फ़िगर करने में मदद करता है। हर स्टेप वैकल्पिक है और स्किप किया जा सकता है।
+scout इस अस्पष्ट अवधारणा को सही शब्दावली (ADR — Architecture Decision Records) में बदलेगा, कई इंजनों पर ऑप्टिमाइज़ की गई क्वेरीज़ चलाएगा, सोर्स की गुणवत्ता का मूल्यांकन करेगा, और एक Research Trail के साथ जवाब देगा जो दिखाता है कि वह वहाँ कैसे पहुँचा।
 
-> **नोट:** अगर आप यह स्टेप स्किप करते हैं, तो scout अगले सेशन शुरू होने पर आपसे पूछेगा। बेसिक सर्च बिना सेटअप के तुरंत काम करता है।
+## scout क्या करता है
 
-## Quick Start
+### ऐसी अवधारणाएँ खोजें जिनका नाम आप अभी तक नहीं जानते
 
-इंस्टॉल करने के बाद तुरंत उपयोग करें (सेटअप ज़रूरी नहीं — बेसिक सर्च तुरंत काम करता है):
+> "मुझे पता है कि यह अवधारणा मौजूद है — हर डिज़ाइन निर्णय के पीछे का कारण दर्ज करने जैसा कुछ — लेकिन नाम नहीं पता"
 
-### अभी आज़माएं
+scout अस्पष्ट विचारों को सटीक शब्दावली में बदलता है और प्राथमिक स्रोतों तक पहुँचता है।
 
-इंस्टॉल करने के बाद, Claude से पूछें:
+### SEO शोर को पार करें
 
-**उन concepts को खोजें जिनका नाम आप अभी तक नहीं जानते:**
-> "वो technique जिसमें database अपने आप बार-बार पूछे जाने वाले queries का result याद रख लेता है"
+> "Terraform से वास्तव में किसमें माइग्रेट करना चाहिए — प्रायोजित सूचियाँ नहीं, असली माइग्रेशन अनुभव"
 
-**भारतीय concepts के international equivalents खोजें:**
-> "UPI payment integration के लिए कौन सा API best है? Razorpay vs Paytm vs PhonePe difference क्या है?"
+पूर्व-रिसर्च सही शब्दावली हासिल करता है, फिर लक्षित क्वेरीज़ कंटेंट फ़ार्म को बायपास करती हैं।
 
-**सरल सवालों से expert जवाब पाएं:**
-> "Hindi text का font browser में सही दिख रहा है लेकिन PDF generate करने पर टूट जाता है"
+### सीधे आधिकारिक डॉक्स तक पहुँचें
 
-**कोई specific page पढ़ें:**
-> "ये page पढ़ो https://docs.github.com/en/actions/quickstart"
+> "Next.js App Router में middleware कैसे सेट अप करें?"
 
-## Skills
+scout पहले [Context7](https://github.com/upstash/context7) पर इंडेक्स किए गए आधिकारिक डॉक्स की जाँच करता है — अगर जवाब वहाँ है तो वेब सर्च की ज़रूरत ही नहीं।
 
-### scout:search
+### कोई भी वेब पेज पढ़ें
 
-Intelligent web search जिसमें शामिल हैं:
-- Query refinement के लिए pre-research
-- Multi-language query design
-- Multiple search engines (WebSearch, [Context7](https://github.com/upstash/context7) official docs, [Exa](https://exa.ai) semantic search)
-- Conceptual queries के लिए Exa के via HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496))
-- Automatic re-search loop के साथ quality assessment
+> "https://docs.anthropic.com/en/docs/claude-code फ़ेच करो और सारांश दो"
 
-Usage: `/scout:search your question here`
+प्राइवेसी-अवेयर फ़ेचिंग: सार्वजनिक पेज क्लाउड API से जाते हैं, गोपनीय पेज आपकी मशीन पर रहते हैं।
 
-### scout:fetch
+## सेटअप स्तर
 
-Automatic privacy classification के साथ web page content fetch करें:
-- **Public pages** → Jina Reader / WebFetch (built-in fallback)
-- **Confidential pages** → Local Playwright (no external API calls)
-- **Authenticated pages** → Chrome DevTools (browser session)
+scout इंस्टॉल के तुरंत बाद काम करता है। हर स्तर क्षमता जोड़ता है — सभी वैकल्पिक, सभी वापस किए जा सकते हैं।
 
-Usage: `/scout:fetch URL`
+### स्तर 1: बिल्ट-इन सर्च (डिफ़ॉल्ट)
 
-### scout:setup
+Claude Code की WebSearch का उपयोग करता है। कोई कॉन्फ़िगरेशन नहीं चाहिए। यह वही है जो आपको बॉक्स से बाहर मिलता है।
 
-सर्च इंजन और फ़ेचिंग टूल के लिए इंटरैक्टिव गाइडेड सेटअप:
-- **Context7** — लाइब्रेरी और फ्रेमवर्क की मौजूदा आधिकारिक docs तक सीधा रास्ता, ताकि तकनीकी सवाल जल्दी source docs तक पहुँचें ([Context7 MCP](https://github.com/upstash/context7), API key नहीं चाहिए)
-- **Jina Reader** — वेब पेज को ज़्यादा साफ़ Markdown में लाता है, नेविगेशन और दोहराए जाने वाले हिस्से हटाता है, जिससे अक्सर मॉडल तक कम टेक्स्ट जाता है और टोकन बचते हैं ([API key](https://jina.ai/?newKey))
-- **Exa** — अर्थ-आधारित खोज, जब सवाल अस्पष्ट, वैचारिक या niche हो और सही terms साफ़ न हों ([API key](https://exa.ai))
-- **Playwright** — JavaScript-rendered या गोपनीय पेजों के लिए लोकल ब्राउज़र फ़ेचिंग, जो आपकी मशीन पर ही रहनी चाहिए (~200MB डाउनलोड)
+### स्तर 2: आधिकारिक डॉक्स + क्लीनर फ़ेचिंग
 
-सभी स्टेप वैकल्पिक हैं। सेटिंग्स अपडेट करने के लिए कभी भी दोबारा चलाएँ।
+लाइब्रेरी/फ़्रेमवर्क डॉक्स तक सीधी पहुँच के लिए [Context7](https://github.com/upstash/context7), और क्लीनर पेज रीडिंग के लिए [Jina Reader](https://jina.ai)। Context7 के लिए API कुंजी नहीं चाहिए; Jina रेट लिमिट के लिए वैकल्पिक कुंजी।
 
-उपयोग: `/scout:setup`
+### स्तर 3: सेमांटिक सर्च
 
-## Privacy
+अर्थ-आधारित खोज के लिए [Exa](https://exa.ai) — सही कीवर्ड न जानने पर भी प्रासंगिक पेज ढूँढता है। मुफ़्त टियर में बुनियादी सेमांटिक सर्च काम करता है; API कुंजी उन्नत सुविधाएँ अनलॉक करती है।
 
-scout fetch करने से पहले URLs को तीन levels में classify करता है:
-- **Public** → Cloud APIs (Jina Reader / WebFetch)
-- **Confidential** → Local Playwright only (intended routing: confidential URLs को external APIs पर नहीं भेजा जाता)
-- **Authenticated** → Chrome DevTools (आपका browser session use होता है)
+### स्तर 4: लोकल ब्राउज़र
 
-यह classification automatic है लेकिन LLM judgment पर based है, system enforcement पर नहीं। Details के लिए [Privacy Disclaimer](#privacy-disclaimer) देखें।
+JavaScript-रेंडर्ड पेज और गोपनीय URL जो आपकी मशीन से कभी बाहर नहीं जाने चाहिए, के लिए [Playwright](https://playwright.dev)। Chromium डाउनलोड (~200MB) की ज़रूरत है।
 
-## ज़रूरतें
+**हर स्तर को इंटरैक्टिव रूप से सेट अप करने के लिए `/scout:setup` चलाएँ।** हर कदम बताता है कि कोई भी बदलाव करने से पहले आपके कॉन्फ़िगरेशन में क्या जोड़ा जाएगा। टूल जोड़ने या अपडेट करने के लिए कभी भी फिर से चलाएँ।
 
-- Claude Code
-- `jq` (सिर्फ setup के लिए)
-- `npm`/`npx` ([MCP](https://modelcontextprotocol.io/) server के लिए: chrome-devtools)
-- Python 3.10+ (optional, Playwright local fetching के लिए)
-- `uvx` या `uv` (optional, MCP server के लिए: markitdown — HTML→Markdown conversion)
-- Chrome (optional, DevTools के via authenticated page fetching के लिए)
+## कौशल
 
-### Chrome DevTools Setup (authenticated pages के लिए)
+| कौशल | उद्देश्य |
+|---|---|
+| `/scout:search` | क्वेरी डिज़ाइन, सोर्स मूल्यांकन और ऑटोमैटिक री-सर्च के साथ मल्टी-इंजन वेब सर्च |
+| `/scout:fetch` | ऑटोमैटिक प्राइवेसी वर्गीकरण के साथ URL कंटेंट फ़ेचिंग |
+| `/scout:setup` | सर्च इंजन और फ़ेचिंग टूल के लिए इंटरैक्टिव गाइडेड सेटअप |
 
-ऐसे pages fetch करने के लिए जिनमें login चाहिए (OAuth, SaaS dashboards), Chrome को debug mode में run करना होगा:
+### Research Trail
 
-macOS पर:
+हर सर्च के अंत में एक संरचित ट्रेल दिखाई देता है जो बताता है कि scout अपने जवाब तक कैसे पहुँचा:
+
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           आपका मूल सवाल
+Designed queries: scout ने वास्तव में जो ऑप्टिमाइज़ क्वेरीज़ चलाईं
+Sources:         विश्वसनीयता स्तर के साथ URL (🟢 प्राथमिक / 🟡 द्वितीयक / ⚪ तृतीयक)
+Re-searches:     कोई अतिरिक्त खोज और क्यों
+Confidence:      High / Medium / Low तर्क सहित
+```
+
+## प्राइवेसी
+
+scout फ़ेच करने से पहले URL को तीन स्तरों में वर्गीकृत करता है:
+
+| वर्गीकरण | रूटिंग | उदाहरण |
+|---|---|---|
+| **सार्वजनिक** | क्लाउड API (Jina Reader / WebFetch) | ब्लॉग, डॉक्स, GitHub सार्वजनिक रिपो |
+| **गोपनीय** | केवल लोकल Playwright | localhost, इंटरनल विकी, एडमिन पैनल |
+| **प्रमाणित** | Chrome DevTools (आपका ब्राउज़र सेशन) | Notion, Slack, OAuth के बाद के पेज |
+
+यह वर्गीकरण LLM के निर्णय पर आधारित है, सिस्टम द्वारा लागू नहीं किया जाता। इसे बेस्ट-एफ़र्ट रूटिंग के रूप में मानें। अत्यधिक संवेदनशील डेटा के लिए, आगे बढ़ने से पहले वर्गीकरण की पुष्टि करें।
+
+**गोपनीय URL कभी भी बाहरी API को नहीं भेजे जाते, विफलता की स्थिति में भी नहीं** — सिस्टम गोपनीय पेजों के लिए क्लाउड टूल पर फ़ॉलबैक नहीं करता।
+
+<details>
+<summary>Chrome DevTools सेटअप (प्रमाणित पेजों के लिए)</summary>
+
+लॉगिन की आवश्यकता वाले पेज (OAuth, SaaS डैशबोर्ड) फ़ेच करने के लिए, Chrome को डीबग मोड में लॉन्च करें:
+
+macOS:
 
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
-Linux पर:
+Linux:
 
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Privacy Disclaimer
+<details>
+<summary>ब्राउज़र प्रोफ़ाइल नोट</summary>
 
-scout URLs को sensitivity के हिसाब से classify करता है और confidential URLs को local-only tools पर route करता है।
-यह classification LLM judgment (domain patterns और context) पर based है और **system-enforced guarantee नहीं है**।
-अत्यधिक sensitive data के लिए, proceed करने से पहले classification verify करें।
+Playwright-आधारित फ़ेचर एक स्थायी ब्राउज़र प्रोफ़ाइल (`tools/.chrome-profile/`) का उपयोग करता है जिसमें कुकीज़ और सेशन डेटा जमा हो सकता है। यह डायरेक्टरी `.gitignore` के ज़रिए Git से बाहर रखी गई है लेकिन बैकअप टूल द्वारा कॉपी हो सकती है। अगर आप गोपनीय पेज फ़ेच करते हैं तो इसे समय-समय पर हटाएँ।
+</details>
 
-**Browser Profile.** Playwright-based fetcher (`fetch-page.py`) एक persistent browser profile (`tools/.chrome-profile/`) use करता है जिसमें cookies, session data, और browsing history accumulate हो सकती है। यह directory `.gitignore` के via Git से exclude है लेकिन backup tools या cloud sync services द्वारा copy हो सकती है। Confidential pages fetch करते हैं तो directory को periodically delete करें।
+## अनइंस्टॉल
 
-## भाषा
+सब कुछ हटाने के लिए दो कमांड। कोई अवशेष नहीं।
 
-Setup instructions AI assistant द्वारा आपकी भाषा में दिए जाते हैं।
-अनुवादित instructions केवल सुविधा के लिए हैं — **अंग्रेज़ी original authoritative है**।
+प्लगइन हटाएँ (कैश, कॉन्फ़िगरेशन और स्टेट डेटा साफ़ करता है):
 
-## Security Note
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-सेटअप के बाद, API keys `.mcp.json` में store होती हैं।
-**`.mcp.json` को Git पर commit न करें।** Distribution के लिए template के रूप में `.mcp.json.dist` use करें।
+अगर आपने scout:setup से Context7 जोड़ा था तो उसे हटाएँ (यूज़र-स्कोप — सभी प्रोजेक्ट से हटता है):
 
-## Disclaimer
+```bash
+claude mcp remove context7
+```
 
-यह plugin MIT License के अंतर्गत "as is" provide किया जाता है, बिना किसी warranty के।
+## आवश्यकताएँ
 
-**External APIs.** यह plugin third-party APIs (Exa, Jina AI, और अन्य) पर rely करता है। Author इन services की availability, accuracy, pricing, या continuity के बारे में कोई guarantee नहीं देता और API usage के through होने वाले costs के लिए responsible नहीं है।
+- **Claude Code** (आवश्यक)
+- `jq` (केवल सेटअप डायग्नोस्टिक्स के लिए)
+- Python 3.10+ (केवल Playwright लोकल फ़ेचिंग के लिए)
+- `npm`/`npx` (केवल Chrome DevTools MCP सर्वर के लिए)
 
-**API Key Management.** अपनी API keys प्राप्त करना, secure करना, और manage करना पूरी तरह आपकी ज़िम्मेदारी है, साथ ही प्रत्येक provider की terms of service का पालन करना भी।
+## सुरक्षा
 
-**Content Classification.** Web content fetch करते समय, plugin privacy sensitivity assess करने और appropriate retrieval methods determine करने के लिए LLM-based classification use कर सकता है। ऐसी classifications best-effort हैं और इनमें errors हो सकती हैं। Sensitive या confidential information के लिए automated classification को sole safeguard के रूप में न लें।
+API कुंजियाँ प्लगइन डायरेक्टरी के अंदर `.mcp.json` में संग्रहीत होती हैं।
+**`.mcp.json` को Git में कमिट न करें।** वितरण के लिए `.mcp.json.dist` टेम्पलेट का उपयोग करें।
 
-**Web Fetching & Browser Automation.** इस plugin में Playwright और Chrome DevTools के via headless browser automation के tools शामिल हैं। यह सुनिश्चित करना आपकी ज़िम्मेदारी है कि आपका use target websites की terms of service, robots.txt policies, और applicable laws का पालन करता है। Browser automation से होने वाले site blocking, account suspension, IP restrictions, unexpected script execution, resource consumption, या compatibility issues के लिए author liable नहीं है।
+## अस्वीकरण
 
-**MCP Servers.** यह plugin third-party MCP (Model Context Protocol) servers से connect होता है। Author इन servers के behavior या security को control, audit, या guarantee नहीं करता।
+यह प्लगइन MIT लाइसेंस के तहत "जैसा है" प्रदान किया गया है, बिना किसी प्रकार की वारंटी के।
 
-## Third-Party Attributions
+**बाहरी API।** यह प्लगइन तृतीय-पक्ष API (Exa, Jina AI और अन्य) पर निर्भर करता है। लेखक इन सेवाओं की उपलब्धता, सटीकता, मूल्य निर्धारण या निरंतरता के बारे में कोई गारंटी नहीं देता और API उपयोग से होने वाली लागत के लिए ज़िम्मेदार नहीं है।
 
-यह plugin निम्नलिखित external tools और services के साथ integrate होता है। कोई भी third-party source code redistribute नहीं किया जाता — integration MCP server connections, runtime package installation, और plugin developer द्वारा authored wrapper scripts के via होती है।
+**API कुंजी प्रबंधन।** अपनी API कुंजियों को प्राप्त करना, सुरक्षित रखना और प्रबंधित करना, तथा प्रत्येक प्रदाता की सेवा शर्तों का पालन करना पूरी तरह आपकी ज़िम्मेदारी है।
 
-| Tool | Provider | License |
+**कंटेंट वर्गीकरण।** URL प्राइवेसी वर्गीकरण LLM के निर्णय पर आधारित है और इसमें त्रुटियाँ हो सकती हैं। संवेदनशील जानकारी के लिए इसे एकमात्र सुरक्षा उपाय के रूप में न मानें।
+
+**वेब फ़ेचिंग और ब्राउज़र ऑटोमेशन।** इस प्लगइन में Playwright और Chrome DevTools के ज़रिए हेडलेस ब्राउज़र ऑटोमेशन टूल शामिल हैं। लक्ष्य वेबसाइटों की सेवा शर्तों, robots.txt नीतियों और लागू कानूनों का अनुपालन सुनिश्चित करना आपकी ज़िम्मेदारी है।
+
+**MCP सर्वर।** यह प्लगइन तृतीय-पक्ष MCP सर्वर से कनेक्ट होता है। लेखक इन सर्वरों के व्यवहार या सुरक्षा को नियंत्रित, ऑडिट या गारंटी नहीं करता।
+
+## तृतीय-पक्ष एट्रिब्यूशन
+
+कोई तृतीय-पक्ष सोर्स कोड पुनर्वितरित नहीं किया गया है — इंटीग्रेशन MCP कनेक्शन, रनटाइम पैकेज इंस्टॉलेशन और रैपर स्क्रिप्ट के माध्यम से है।
+
+| टूल | प्रदाता | लाइसेंस |
 |---|---|---|
 | [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-सभी product names, logos, और trademarks उनके respective owners की property हैं। यह plugin ऊपर listed किसी भी third-party service से affiliated या endorsed नहीं है।
+सभी उत्पाद नाम, लोगो और ट्रेडमार्क उनके संबंधित स्वामियों की संपत्ति हैं।
+
+## भाषा
+
+सेटअप निर्देश AI सहायक द्वारा आपकी भाषा में प्रदान किए जाते हैं। अनुवाद सुविधा के लिए हैं — **अंग्रेज़ी मूल आधिकारिक है**।
 
 ## सहायता
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Bug reports, feature requests, और प्रश्न
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — बग रिपोर्ट, फ़ीचर रिक्वेस्ट और सवाल
 
 ## लेखक
 
@@ -191,4 +232,4 @@ Setup instructions AI assistant द्वारा आपकी भाषा म
 
 ## लाइसेंस
 
-[MIT License](../LICENSE) — उपयोग, संशोधन, और वितरण के लिए स्वतंत्र। Copyright (c) 2026 shidoyu.
+[MIT License](../LICENSE) — स्वतंत्र रूप से उपयोग, संशोधन और वितरण की अनुमति। Copyright (c) 2026 shidoyu.

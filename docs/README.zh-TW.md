@@ -1,127 +1,146 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 **繁體中文** · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 **繁體中文** · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
-> **注意：** 此翻譯僅供參考。[英文原版](../README.md)為正式版本。
+> **注意：** 本翻譯僅供參考。[英文原文](../README.md)為正式版本。
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — 先思考，再搜尋。" width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> 先思考，再搜尋。 — Claude Code 網頁研究外掛。
+<p align="center">
+  <a href="https://claude.com/claude-code">Claude Code</a> 的 Web 研究外掛。<br>
+  將模糊的問題轉化為能抵達一手來源的最佳化多引擎查詢。
+</p>
 
-查詢設計、多引擎搜尋、隱私感知擷取。
+<p align="center">
+  <strong>先思考，再搜尋。</strong>
+</p>
 
-Claude Code 內建的 WebSearch 只會回傳 125 個字元的片段，且僅依賴關鍵字比對。scout 會把模糊的問題轉成最佳化的多引擎查詢、評估結果品質，並在需要時重新搜尋，讓你更快、更可靠地找到第一手來源。
+---
 
-## 功能特色
+Claude Code 內建的 WebSearch 僅回傳 125 個字元的摘要，且只依賴關鍵字比對。這對簡單的查詢已經足夠，但真正的研究需要查詢設計、來源評估，以及注重隱私的路由。
 
-- **scout:search** — 多引擎網路搜尋，內建查詢設計最佳化
-- **scout:fetch** — URL 內容擷取，具備隱私感知的工具選擇機制
-
-## 安裝
-
-在終端機中執行:
-
-```bash
-# 第 1 步：註冊 marketplace
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# 第 2 步：安裝外掛程式
-claude plugin install scout@shidoyu-scout
-```
-
-**第 3 步** — 設定搜尋引擎與擷取工具
-
-請在 Claude Code 中依序逐條執行以下命令：
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-scout:setup 會以互動方式引導你設定 Context7（函式庫文件搜尋）、Jina Reader（網頁擷取）、Exa（語意搜尋）和 Playwright（JavaScript 渲染頁面）。所有步驟皆為選擇性，可隨時跳過。
-
-> **注意：** 若跳過此步驟，scout 將在下次工作階段開始時提示你。基本搜尋功能無需設定即可立即使用。
+scout 在搜尋之前先進行思考。
 
 ## 快速開始
 
-安裝後即可使用（無需設定 — 基本搜尋功能立即可用）：
+無需 API 金鑰。無需更改環境。安裝後即可立即使用。
 
-### 立即體驗
+**1. 新增市集**（僅需一次）：
 
-安裝後，向 Claude 提問：
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**發現你還無法命名的概念：**
-> 「API 回傳太快前端來不及處理 要怎麼控制速度」
+**2. 安裝**：
 
-**發現台灣概念的國際對應：**
-> 「台灣的電子發票系統在其他國家有類似的東西嗎」
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-**用白話獲取專業知識：**
-> 「Mac 上開發的 Node.js 專案部署到 Linux 後 require 找不到模組 但路徑明明一樣」
+**3. 重新載入外掛**（在 Claude Code 內輸入）：
 
-**閱讀指定頁面：**
-> 「https://react.dev/reference/react/useState 幫我讀這個頁面」
+```
+/mcp
+```
 
-## Skills
+直接向 Claude 提問：
 
-### scout:search
+```text
+/scout:search 有沒有類似 Git blame 但用來追蹤設計決策的工具？
+```
 
-智慧型網路搜尋，具備以下能力：
-- 預搜尋以精鍊查詢
-- 多語言查詢設計
-- 多種搜尋引擎（WebSearch、[Context7](https://github.com/upstash/context7) 官方文件、[Exa](https://exa.ai) 語意搜尋）
-- HyDE（[假設文件嵌入](https://arxiv.org/abs/2212.10496)）透過 Exa 處理概念性查詢
-- 品質評估與自動重新搜尋循環
+scout 會將這個模糊的概念轉化為正確的術語（ADR — Architecture Decision Records），在多個引擎上執行最佳化查詢，評估來源品質，並附帶 Research Trail（展示如何得出答案的紀錄）回傳結果。
 
-使用方式：`/scout:search 你的問題`
+## scout 能做什麼
 
-### scout:fetch
+### 找到你還說不出名字的概念
 
-擷取網頁內容，並自動進行隱私等級分類：
-- **公開頁面** → Jina Reader / WebFetch（內建備援）
-- **機密頁面** → 本地 Playwright（不呼叫外部 API）
-- **需驗證的頁面** → Chrome DevTools（使用瀏覽器工作階段）
+> 「我知道有這種概念 — 記錄每次設計決策背後原因的方法 — 但我不知道它叫什麼」
 
-使用方式：`/scout:fetch URL`
+scout 將模糊的想法轉化為精確的術語，並抵達一手來源。
 
-### scout:setup
+### 突破 SEO 雜訊
 
-搜尋引擎與擷取工具的互動式設定導覽：
-- **Context7** — 直達最新官方函式庫與框架文件，讓技術問題更快落到第一手文件上（[Context7 MCP](https://github.com/upstash/context7)，不需要 API 金鑰）
-- **Jina Reader** — 以更乾淨的 Markdown 擷取網頁，移除導覽與重複樣板內容，通常會減少送進模型的文字量並節省 token（[API 金鑰](https://jina.ai/?newKey)）
-- **Exa** — 針對模糊、概念性與利基問題的語意搜尋，適合你還不確定精準術語的時候（[API 金鑰](https://exa.ai)）
-- **Playwright** — 透過本地瀏覽器擷取 JavaScript 渲染頁面或應留在你機器上的機密頁面（下載約 200MB）
+> 「從 Terraform 到底應該遷移到哪裡 — 不要贊助文章，我要真實的遷移案例」
 
-所有步驟皆為選擇性。可隨時重新執行以更新設定。
+透過預研取得正確的詞彙，再用針對性的查詢繞過內容農場。
 
-使用方式：`/scout:setup`
+### 直達官方文件
+
+> 「如何在 Next.js App Router 中設定 middleware？」
+
+scout 會先在 [Context7](https://github.com/upstash/context7) 中查詢已索引的官方文件。如果答案已經在那裡，就無需進行 Web 搜尋。
+
+### 讀取任意網頁
+
+> 「擷取並摘要 https://docs.anthropic.com/en/docs/claude-code」
+
+注重隱私的擷取：公開頁面透過雲端 API 處理，機密頁面在本機處理。
+
+## 設定層級
+
+scout 安裝後即可使用。每個層級增加功能 — 全部可選，全部可復原。
+
+### 層級 1：內建搜尋（預設）
+
+使用 Claude Code 的 WebSearch。無需設定。開箱即用的狀態。
+
+### 層級 2：官方文件 + 更乾淨的擷取
+
+新增 [Context7](https://github.com/upstash/context7) 直接存取程式庫/框架的官方文件，新增 [Jina Reader](https://jina.ai) 取得更乾淨的頁面讀取。Context7 無需 API 金鑰；Jina 提供選用金鑰以放寬速率限制。
+
+### 層級 3：語意搜尋
+
+新增 [Exa](https://exa.ai) 進行基於語意的搜尋 — 即使不知道正確的關鍵字也能找到相關頁面。免費方案即可使用基本語意搜尋；API 金鑰解鎖進階功能。
+
+### 層級 4：本機瀏覽器
+
+新增 [Playwright](https://playwright.dev) 處理 JavaScript 算繪頁面和不應傳送到外部的機密 URL。需要下載 Chromium（約 200MB）。
+
+**執行 `/scout:setup` 可互動式地逐步設定。** 在進行任何變更之前，會精確顯示將要新增到設定中的內容。隨時可以重新執行以新增或更新工具。
+
+## 技能
+
+| 技能 | 用途 |
+|---|---|
+| `/scout:search` | 具備查詢設計、來源評估和自動重新搜尋的多引擎 Web 搜尋 |
+| `/scout:fetch` | 基於隱私自動分類的 URL 內容擷取 |
+| `/scout:setup` | 搜尋引擎和擷取工具的互動式設定精靈 |
+
+### Research Trail
+
+每次搜尋結束時都會顯示一筆結構化紀錄，展示 scout 如何得出答案：
+
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           你的原始問題
+Designed queries: scout 實際執行的最佳化查詢
+Sources:         附可靠性等級的 URL（🟢 一手來源 / 🟡 二手來源 / ⚪ 三手來源）
+Re-searches:     額外搜尋及其原因
+Confidence:      High / Medium / Low（附理由）
+```
 
 ## 隱私
 
-scout 在擷取前會將 URL 分為三個等級：
-- **公開** → 雲端 API（Jina Reader / WebFetch）
-- **機密** → 僅使用本地 Playwright（預定路由：機密 URL 不會傳送至外部 API）
-- **需驗證** → Chrome DevTools（使用您的瀏覽器工作階段）
+scout 在擷取前將 URL 分為三個等級：
 
-此分類為自動進行，但基於 LLM 判斷，非系統強制保證。詳情請參閱[隱私免責聲明](#隱私免責聲明)。
+| 分類 | 路由 | 範例 |
+|---|---|---|
+| **公開** | 雲端 API（Jina Reader / WebFetch） | 部落格、文件、GitHub 公開儲存庫 |
+| **機密** | 僅限本機 Playwright | localhost、內部 Wiki、管理面板 |
+| **需認證** | Chrome DevTools（使用瀏覽器工作階段） | Notion、Slack、OAuth 認證後的頁面 |
 
-## 系統需求
+此分類基於 LLM 的判斷，而非系統強制執行。請將其視為盡力而為的路由。對於高度敏感的資料，請在處理前驗證分類結果。
 
-- Claude Code
-- `jq`（僅設定時需要）
-- `npm`/`npx`（用於 [MCP](https://modelcontextprotocol.io/) 伺服器：chrome-devtools）
-- Python 3.10+（選擇性，用於 Playwright 本地擷取）
-- `uvx` 或 `uv`（選擇性，用於 MCP 伺服器：markitdown — HTML→Markdown 轉換）
-- Chrome（選擇性，用於透過 DevTools 擷取需驗證的頁面）
+**機密 URL 即使擷取失敗也不會傳送到外部 API** — 系統不會對機密頁面回退到雲端工具。
 
-### Chrome DevTools 設定（用於需驗證的頁面）
+<details>
+<summary>Chrome DevTools 設定（用於需認證的頁面）</summary>
 
-若要擷取需要登入的頁面（OAuth、SaaS 儀表板），Chrome 必須以偵錯模式執行：
+要擷取需要登入的頁面（OAuth、SaaS 儀表板等），請以偵錯模式啟動 Chrome：
 
 macOS：
 
@@ -134,61 +153,83 @@ Linux：
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## 隱私免責聲明
+<details>
+<summary>瀏覽器設定檔說明</summary>
 
-scout 依敏感度分類 URL，並將機密 URL 路由至僅限本地的工具。
-此分類基於 LLM 判斷（網域模式與上下文），**並非系統強制的保證**。
-對於高度敏感的資料，請在處理前自行確認分類結果。
+基於 Playwright 的擷取工具使用持久化的瀏覽器設定檔（`tools/.chrome-profile/`），可能會累積 Cookie 和工作階段資料。該目錄已透過 `.gitignore` 排除在 Git 追蹤之外，但可能會被備份工具複製。如果你擷取過機密頁面，請定期刪除該目錄。
+</details>
 
-**瀏覽器設定檔。** 基於 Playwright 的擷取工具（`fetch-page.py`）使用持久性瀏覽器設定檔（`tools/.chrome-profile/`），可能會累積 cookie、工作階段資料及瀏覽紀錄。此目錄已透過 `.gitignore` 排除在 Git 之外，但可能被備份工具或雲端同步服務複製。若您擷取機密頁面，請定期刪除此目錄。
+## 解除安裝
 
-## 語言
+兩條指令即可完全移除。不留任何殘留。
 
-設定說明由 AI 助理以您的語言提供。
-翻譯版說明僅供參考——**英文原版為正式版本**。
+移除外掛（清理快取、設定和狀態資料）：
 
-## 安全性注意事項
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-設定後，API 金鑰將儲存於 `.mcp.json`。
-**請勿將 `.mcp.json` 提交至 Git。** 請使用 `.mcp.json.dist` 作為發佈用範本。
+移除透過 scout:setup 新增的 Context7（使用者層級，會從所有專案中移除）：
+
+```bash
+claude mcp remove context7
+```
+
+## 環境需求
+
+- **Claude Code**（必要）
+- `jq`（僅用於設定診斷）
+- Python 3.10+（僅用於 Playwright 本機擷取）
+- `npm`/`npx`（僅用於 Chrome DevTools MCP 伺服器）
+
+## 安全性
+
+API 金鑰儲存在外掛目錄內的 `.mcp.json` 中。
+**請勿將 `.mcp.json` 提交到 Git。** 散佈用範本為 `.mcp.json.dist`。
 
 ## 免責聲明
 
-本外掛程式依 MIT 授權條款「按現狀」提供，不附任何形式的保證。
+本外掛依據 MIT 授權條款「按原樣」提供，不作任何保證。
 
-**外部 API。** 本外掛程式依賴第三方 API（Exa、Jina AI 及其他服務）。作者對這些服務的可用性、準確性、定價或持續性不作任何保證，亦不對因 API 使用而產生的費用負責。
+**外部 API。** 本外掛依賴第三方 API（Exa、Jina AI 等）。作者不對這些服務的可用性、準確性、定價或持續性作任何保證，也不對 API 使用產生的費用承擔責任。
 
-**API 金鑰管理。** 您須自行負責取得、保管及管理您的 API 金鑰，並遵守各服務提供商的服務條款。
+**API 金鑰管理。** API 金鑰的取得、保管、管理以及遵守各提供者的服務條款，均由使用者自行負責。
 
-**內容分類。** 在擷取網頁內容時，本外掛程式可能使用基於 LLM 的分類來評估隱私敏感度並決定適當的擷取方式。此類分類為盡力而為，可能存在錯誤。請勿將自動分類作為敏感或機密資訊的唯一保護措施。
+**內容分類。** URL 隱私分類基於 LLM 判斷，可能存在誤差。請勿將其作為保護敏感資訊的唯一手段。
 
-**網頁擷取與瀏覽器自動化。** 本外掛程式包含透過 Playwright 和 Chrome DevTools 進行無頭瀏覽器自動化的工具。您須確保您的使用符合目標網站的服務條款、robots.txt 規範及適用法律。作者對因瀏覽器自動化而導致的網站封鎖、帳號停權、IP 限制、意外腳本執行、資源消耗或相容性問題概不負責。
+**Web 擷取與瀏覽器自動化。** 本外掛包含透過 Playwright 和 Chrome DevTools 進行的無頭瀏覽器自動化工具。確保使用行為符合目標網站的服務條款、robots.txt 政策及適用法律，由使用者自行負責。
 
-**MCP 伺服器。** 本外掛程式連接第三方 MCP（Model Context Protocol）伺服器。作者不控制、審核或保證這些伺服器的行為或安全性。
+**MCP 伺服器。** 本外掛連接到第三方 MCP 伺服器。作者不控制、稽核或保證這些伺服器的行為或安全性。
 
-## 第三方聲明
+## 第三方歸屬
 
-本外掛程式整合以下外部工具與服務。不重新發佈任何第三方原始碼——整合方式為 MCP 伺服器連線、執行時期套件安裝，以及由外掛程式開發者撰寫的包裝腳本。
+不重新散佈第三方原始碼。整合透過 MCP 連線、執行時期套件安裝和包裝腳本實現。
 
-| 工具 | 提供商 | 授權條款 |
+| 工具 | 提供者 | 授權條款 |
 |---|---|---|
-| [Exa API](https://exa.ai) | Exa Labs, Inc. | 專有（API 條款） |
+| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-所有產品名稱、標誌及商標均為其各自所有人的財產。本外掛程式與上述任何第三方服務均無關聯，亦未獲得其背書。
+所有產品名稱、標誌和商標均為其各自擁有者的財產。
+
+## 語言
+
+設定說明由 AI 助手以您的語言提供。翻譯僅供參考 — **英文原文為正式版本**。
 
 ## 支援
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — 錯誤回報、功能請求與問題諮詢
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Bug 回報、功能請求和問題諮詢
 
 ## 作者
 
-**SHIDO, Yuichiro**（[@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)）— AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
 
 ## 授權條款
 
-[MIT License](../LICENSE) — 可自由使用、修改及散佈。Copyright (c) 2026 shidoyu.
+[MIT License](../LICENSE) — 可自由使用、修改和散佈。Copyright (c) 2026 shidoyu.

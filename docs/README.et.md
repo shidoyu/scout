@@ -1,185 +1,230 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 **Eesti** · 🇸🇪 [Svenska](README.sv.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 **Eesti** · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
-> **Märkus:** See tõlge on esitatud mugavuse huvides. [Ingliskeelne originaal](../README.md) on ametlik versioon.
+> **Märkus:** See tõlge on esitatud üksnes mugavuse huvides. Ametlik versioon on [ingliskeelne originaal](../README.md).
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — Kõigepealt mõtle. Siis otsi." width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> Kõigepealt mõtle, siis otsi. — Veebiuuringu plugin Claude Code jaoks.
+<p align="center">
+  Veebiuuringute pistikprogramm <a href="https://claude.com/claude-code">Claude Code</a>'ile.<br>
+  Muudab ebamäärased küsimused optimeeritud mitme otsingumootori päringuteks, mis jõuavad esmaste allikateni.
+</p>
 
-Päringuteostus, mitmemootorine otsing, privaatsust arvestav toomine.
+<p align="center">
+  <strong>Kõigepealt mõtle. Siis otsi.</strong>
+</p>
 
-Claude Code'i sisseehitatud WebSearch tagastab ainult 125 märgi pikkuseid katkendeid ja tugineb üksnes märksõnade sobitamisele. scout muudab ebamäärase küsimuse optimeeritud mitme otsingumootori päringuteks, hindab tulemuste kvaliteeti ja otsib vajadusel uuesti, et jõuda esmaste allikateni kiiremini ja usaldusväärsemalt.
+---
 
-## Funktsioonid
+Claude Code'i sisseehitatud WebSearch tagastab 125 tähemärgi pikkuseid katkendeid ja tugineb ainult märksõnade vastavusele. Lihtsate otsingute jaoks piisab sellest, kuid tõelised uuringud nõuavad päringute kujundamist, allikate hindamist ja privaatsust arvestavat marsruutimist.
 
-- **scout:search** — Mitmemootoriline veebiotsing päringu optimeerimisega
-- **scout:fetch** — URL-i sisu toomine privaatsusest lähtuva tööriistavalikuga
-
-## Paigaldamine
-
-Käivita terminalis:
-
-```bash
-# 1. samm: Registreeri marketplace
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# 2. samm: Paigalda plugin
-claude plugin install scout@shidoyu-scout
-```
-
-**3. samm** — Seadista otsingumootorid ja toomistööriistad
-
-Käivita need Claude Code’is ükshaaval:
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-`scout:setup` juhendab sind interaktiivselt [Context7](https://github.com/upstash/context7) (teekide dokumentatsioon), [Jina Reader](https://jina.ai) (veebilehtede toomine), [Exa](https://exa.ai) (semantiline otsing) ja [Playwright](https://playwright.dev) (JavaScriptiga renderdatud lehed) seadistamisel. Kõik sammud on valikulised ja vahelejätavad.
-
-> **Märkus:** Kui jätad selle sammu vahele, palub scout seadistust järgmisel seansi alguses. Põhiotsing töötab kohe ilma seadistuseta.
+scout mõtleb enne otsimist.
 
 ## Kiirstart
 
-Pärast paigaldamist küsi Claude'ilt (seadistus pole vajalik — põhiotsing töötab kohe):
+API-võtmeid pole vaja. Keskkonna muudatusi pole vaja. Paigalda ja proovi kohe:
 
-**Leia kontseptsioonid, mida sa veel nimetada ei oska:**
-> "see programmeerimisvõte kus funktsioon jätab enda meelde eelmised tulemused et mitte uuesti arvutada"
+**1. Lisa turukoht** (ühekordne):
 
-**Avasta Eesti kontseptsioonide rahvusvahelised vasted:**
-> "kas mujal maailmas on midagi sarnast e-residentsuse API-ga?"
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**Saa ekspertvastuseid lihtsatest küsimustest:**
-> "minu Python skript töötab terminalis aga cron job ei leia mooduleid — ModuleNotFoundError"
+**2. Paigalda**:
 
-**Loe konkreetset lehte:**
-> "loe https://nextjs.org/docs/app/building-your-application/routing"
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-## Skills
+**3. Laadi pistikprogrammid uuesti** (sisesta see Claude Code'is):
 
-### scout:search
+```
+/mcp
+```
 
-Intelligentne veebiotsing, mis sisaldab:
-- Eeluuringut päringu täpsustamiseks
-- Mitmekeelset päringu kujundust
-- Mitut otsimootorit (WebSearch, [Context7](https://github.com/upstash/context7) ametlik dokumentatsioon, [Exa](https://exa.ai) semantiline otsing)
-- HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) kontseptuaalsete päringute jaoks Exa kaudu
-- Kvaliteedihindamist automaatse uuesti otsimise tsükliga
+Seejärel küsi Claude'ilt:
 
-Kasutus: `/scout:search sinu küsimus siia`
+```text
+/scout:search Otsin midagi Git blame'i sarnast, aga disainiotsuste jälgimiseks
+```
 
-### scout:fetch
+scout muudab selle ebamäärase mõiste õigeks terminiks (ADR — Architecture Decision Records), otsib mitmes mootoris täiustatud päringutega, hindab allikate kvaliteeti ja tagastab vastuse koos Research Trail'iga, mis näitab täpselt, kuidas ta vastuseni jõudis.
 
-Veebilehe sisu toomine automaatse privaatsusklassifikatsiooniga:
-- **Avalikud lehed** → Jina Reader / WebFetch (sisseehitatud varuvõimalus)
-- **Konfidentsiaalsed lehed** → Kohalik Playwright (väliseid API-kõnesid ei tehta)
-- **Autentimist nõudvad lehed** → Chrome DevTools (brauseri seanss)
+## Mida scout teeb
 
-Kasutus: `/scout:fetch URL`
+### Leiab mõisted, mida sa veel nimetada ei oska
 
-### scout:setup
+> "Ma tean, et selline mõiste on olemas — midagi selle kohta, kuidas jälgida, miks me iga disainiotsuse tegime — aga ma ei tea, kuidas seda nimetatakse"
 
-Interaktiivne juhendatud seadistus otsingumootorite ja toomistööriistade jaoks:
-- **Context7** — Otsene tee teekide ja raamistikude värske ametliku dokumentatsioonini, et tehnilised küsimused jõuaksid kiiremini algallika docsideni läbi [Context7 MCP](https://github.com/upstash/context7) (API-võtit pole vaja)
-- **Jina Reader** — Puhtam veebilehtede toomine Markdownina, mis eemaldab navigeerimise ja korduva boilerplate-sisu, nii et mudelile saadetakse sageli vähem teksti ja säästetakse tokeneid ([API-võti](https://jina.ai/?newKey))
-- **Exa** — Tähenduspõhine otsing ebamääraste, kontseptuaalsete ja nišipäringute jaoks, kui täpsed terminid pole selged ([API-võti](https://exa.ai))
-- **Playwright** — Kohalik brauseripõhine toomine JavaScriptiga renderdatud või konfidentsiaalsete lehtede jaoks, mis peaksid jääma sinu masinasse (~200MB allalaadimist)
+scout tõlgib udused ideed täpseks terminoloogiaks ja jõuab esmaste allikateni.
 
-Kõik sammud on valikulised. Käivita uuesti igal ajal seadete uuendamiseks.
+### Murrab läbi SEO-müra
 
-Kasutus: `/scout:setup`
+> "Millele peaksin tegelikult Terraformilt üle minema — mitte sponsoreeritud nimekirjad, vaid reaalsed üleminekukogemused"
+
+Eeluurimine annab õige sõnavara, seejärel mööduvad sihitud päringud sisufarmidest.
+
+### Jõuab otse ametliku dokumentatsioonini
+
+> "Kuidas seadistada middleware'i Next.js App Router'is?"
+
+scout kontrollib esmalt [Context7](https://github.com/upstash/context7) indekseeritud ametliku dokumentatsiooni olemasolu — kui vastus on seal, pole veebiotsingut vaja.
+
+### Loeb mis tahes veebilehte
+
+> "Too ja tee kokkuvõte https://docs.anthropic.com/en/docs/claude-code"
+
+Privaatsust arvestav toomine: avalikud lehed lähevad pilve-API-de kaudu, konfidentsiaalsed lehed jäävad sinu masinasse.
+
+## Seadistustasemed
+
+scout töötab kohe pärast paigaldamist. Iga tase lisab võimalusi — kõik on valikulised ja tagasipööratavad.
+
+### Tase 1: Sisseehitatud otsing (vaikimisi)
+
+Kasutab Claude Code'i WebSearch'i. Seadistamist pole vaja. See on see, mida sa saad kohe karbist välja.
+
+### Tase 2: Ametlik dokumentatsioon + puhtam toomine
+
+Lisa [Context7](https://github.com/upstash/context7) teekide/raamistike dokumentatsioonile otse ligipääsuks ja [Jina Reader](https://jina.ai) puhtamaks lehtede lugemiseks. Context7 ei nõua API-võtit; valikuline võti Jinale tõstab limiite.
+
+### Tase 3: Semantiline otsing
+
+Lisa [Exa](https://exa.ai) tähenduspõhiseks otsinguks — leiab asjakohased lehed isegi siis, kui sa ei tea õigeid märksõnu. Põhiline semantiline otsing töötab tasuta plaaniga; API-võti avab täiustatud funktsioone.
+
+### Tase 4: Kohalik brauser
+
+Lisa [Playwright](https://playwright.dev) JavaScriptiga renderdatud lehtede ja konfidentsiaalsete URL-ide jaoks, mis ei tohiks kunagi sinu masinast lahkuda. Laadib alla Chromiumi (~200MB).
+
+**Käivita `/scout:setup`, et interaktiivselt läbida iga tase.** Iga samm näitab täpselt, mis konfiguratsioonile lisatakse, enne kui muudatusi tehakse. Käivita uuesti igal ajal, et lisada või värskendada tööriistu.
+
+## Oskused
+
+| Oskus | Otstarve |
+|---|---|
+| `/scout:search` | Mitme otsingumootori veebiotsing päringu kujundamise, allikate hindamise ja automaatse kordusotsinguga |
+| `/scout:fetch` | URL-sisu toomine automaatse privaatsusklassifikatsiooniga |
+| `/scout:setup` | Interaktiivne juhendatud seadistus otsingumootorite ja toomistööriistade jaoks |
+
+### Research Trail
+
+Iga otsing lõpeb struktureeritud ülevaatega, mis näitab, kuidas scout vastuseni jõudis:
+
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           sinu algne küsimus
+Designed queries: optimeeritud päringud, mida scout tegelikult käivitas
+Sources:         URL-id usaldusväärsuse tasemega (🟢 esmased / 🟡 teisesed / ⚪ kolmandased)
+Re-searches:     lisaotsingud ja nende põhjused
+Confidence:      High / Medium / Low põhjendusega
+```
 
 ## Privaatsus
 
-scout liigitab URL-id kolme tasemesse enne toomist:
-- **Avalik** → Pilveteenuse API-d (Jina Reader / WebFetch)
-- **Konfidentsiaalne** → Ainult kohalik Playwright (kavandatud marsruutimine: konfidentsiaalseid URL-e ei saadeta välistele API-dele)
-- **Autentimist nõudev** → Chrome DevTools (kasutab sinu brauseri seanssi)
+scout klassifitseerib URL-id kolme tasemesse enne toomist:
 
-See klassifikatsioon on automaatne, kuid põhineb LLM-i otsusel, mitte süsteemi poolt jõustatud. Vaata üksikasju jaotisest [Privaatsusest loobumine](#privaatsusest-loobumine).
+| Klassifikatsioon | Marsruutimine | Näited |
+|---|---|---|
+| **Avalik** | Pilve-API-d (Jina Reader / WebFetch) | Blogid, dokumentatsioon, avalikud GitHub'i repod |
+| **Konfidentsiaalne** | Ainult kohalik Playwright | localhost, sisemised vikid, haldusvaated |
+| **Autenditud** | Chrome DevTools (sinu brauseri sessioon) | Notion, Slack, OAuth-järgsed lehed |
 
-## Nõuded
+See klassifikatsioon põhineb LLM-i hinnangul, mitte süsteemsel jõustamisel. Käsitle seda parima võimaliku marsruutimisena. Väga tundlike andmete puhul kontrolli klassifikatsiooni enne jätkamist.
 
-- Claude Code
-- `jq` (ainult seadistuse jaoks)
-- `npm`/`npx` ([MCP](https://modelcontextprotocol.io/) serveri jaoks: chrome-devtools)
-- Python 3.10+ (valikuline, Playwright'i kohaliku toomise jaoks)
-- `uvx` või `uv` (valikuline, MCP serveri jaoks: markitdown — HTML→Markdown teisendus)
-- Chrome (valikuline, autentimist nõudvate lehtede toomiseks DevTools'i kaudu)
+**Konfidentsiaalseid URL-e ei saadeta kunagi välistele API-dele, isegi ebaõnnestumise korral** — süsteem ei kasuta konfidentsiaalsete lehtede jaoks pilvetööriistu varuvalikuna.
 
-### Chrome DevTools'i seadistamine (autentimist nõudvate lehtede jaoks)
+<details>
+<summary>Chrome DevTools'i seadistamine (autenditud lehtede jaoks)</summary>
 
-Sisselogimist nõudvate lehtede toomiseks (OAuth, SaaS-töölauad) peab Chrome töötama silumisrežiimis:
+Sisselogimist nõudvate lehtede toomiseks (OAuth, SaaS-paneelid) käivita Chrome silumisrežiimis:
 
-macOS-is:
+macOS:
 
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
-Linuxis:
+Linux:
 
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Privaatsusest loobumine
+<details>
+<summary>Märkus brauseri profiili kohta</summary>
 
-scout liigitab URL-id tundlikkuse järgi ja suunab konfidentsiaalsed URL-id ainult kohalikele tööriistadele.
-See klassifikatsioon põhineb LLM-i otsusel (domeenimustrid ja kontekst) ning **ei ole süsteemi poolt jõustatud garantii**.
-Eriti tundlike andmete puhul kontrolli klassifikatsioon enne jätkamist üle.
+Playwrightil põhinev toomismoodul kasutab püsivat brauseriprofiili (`tools/.chrome-profile/`), kuhu võivad koguneda küpsised ja sessiooniandmed. See kataloog on Gitist välja jäetud `.gitignore` kaudu, kuid varundamisvahendid võivad seda kopeerida. Kui tood konfidentsiaalseid lehti, kustuta see regulaarselt.
+</details>
 
-**Brauseriprofiil.** Playwright'il põhinev toomisprogramm (`fetch-page.py`) kasutab püsivat brauseriprofiili (`tools/.chrome-profile/`), millesse võivad koguneda küpsised, seansiandmed ja sirvimisajalugu. See kataloog on Gitis `.gitignore` kaudu välistatud, kuid varukoopiatööriistad või pilvesünkroonimisteenus võivad selle kopeerida. Kustuta kataloog perioodiliselt, kui tood konfidentsiaalseid lehti.
+## Desinstallimine
 
-## Keel
+Kaks käsku eemaldavad kõik. Jääke ei jää.
 
-Seadistamisjuhised esitatakse sinu keeles AI-assistendi poolt.
-Tõlgitud juhised on ainult mugavuse huvides — **ingliskeelne originaal on autoriteetne**.
+Eemalda pistikprogramm (puhastab vahemälu, konfiguratsiooni ja olekuandmed):
 
-## Turvamarginaal
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-Pärast seadistamist salvestatakse API-võtmed `.mcp.json`-faili.
-**Ära tee `.mcp.json` kohta Giti commit'i.** Kasuta jaotuseks malli `.mcp.json.dist`.
+Eemalda Context7, kui lisasid selle scout:setup kaudu (kasutajaulatus — eemaldatakse kõigist projektidest):
 
-## Lahtiütlemine
+```bash
+claude mcp remove context7
+```
 
-See plugin esitatakse "nii nagu on" MIT-litsentsi alusel, ilma igasuguse garantiita.
+## Nõuded
 
-**Välised API-d.** See plugin tugineb kolmandate osapoolte API-dele (Exa, Jina AI ja teised). Autor ei anna mingeid garantiisid nende teenuste kättesaadavuse, täpsuse, hinnakujunduse või järjepidevuse kohta ega vastuta API kasutamisest tulenevate kulude eest.
+- **Claude Code** (kohustuslik)
+- `jq` (ainult seadistuse diagnostika jaoks)
+- Python 3.10+ (ainult kohalikuks toomiseks Playwrighti kaudu)
+- `npm`/`npx` (ainult Chrome DevTools MCP-serveri jaoks)
 
-**API-võtmete haldamine.** Oled ainuisikuliselt vastutav oma API-võtmete hankimise, turvamise ja haldamise ning iga teenusepakkuja kasutustingimustele vastamise eest.
+## Turvalisus
 
-**Sisu klassifikatsioon.** Veebisisu toomisel võib plugin kasutada LLM-põhist klassifikatsiooni privaatsustundlikkuse hindamiseks ja sobivate toomismeetodite määramiseks. Sellised klassifikatsioonid on parima pingutuse tulemus ja võivad sisaldada vigu. Ära loedu ainult automatiseeritud klassifikatsioonile tundliku või konfidentsiaalse teabe kaitsmisel.
+API-võtmed salvestatakse pistikprogrammi kataloogi `.mcp.json` faili.
+**Ära komiti `.mcp.json` faili Giti.** Mall `.mcp.json.dist` on turvaline levitamiseks.
 
-**Veebisisu toomine ja brauseri automatiseerimine.** See plugin sisaldab tööriistu brauseri automaatseks käsitsemiseks Playwright'i ja Chrome DevTools'i kaudu. Oled vastutav selle eest, et sinu kasutus vastab sihtsaitide kasutustingimustele, robots.txt-poliitikatele ja kehtivatele seadustele. Autor ei vastuta saitide blokeerimise, konto peatamise, IP-piirangute, ootamatu skripti käivitamise, ressursikasutuse ega brauseri automatiseerimisest tulenevate ühilduvusprobleemide eest.
+## Vastutuse välistamine
 
-**MCP-serverid.** See plugin ühendub kolmandate osapoolte MCP (Model Context Protocol) serveritega. Autor ei kontrolli, auditeeri ega garanteeri nende serverite käitumist ega turvalisust.
+See pistikprogramm on esitatud "nagu on" MIT-litsentsi alusel, ilma igasuguse garantiita.
 
-## Kolmandate osapoolte omistamine
+**Välised API-d.** See pistikprogramm tugineb kolmandate osapoolte API-dele (Exa, Jina AI jt). Autor ei anna garantiisid nende teenuste kättesaadavuse, täpsuse, hinnakujunduse ega järjepidevuse kohta ega vastuta API kasutamisega kaasnevate kulude eest.
 
-See plugin integreerub järgmiste väliste tööriistade ja teenustega. Kolmandate osapoolte lähtekoodi ei levitata ümber — integratsioon toimub MCP-serveri ühenduste, käitusaegse pakettide paigaldamise ja pistikprogrammi arendaja kirjutatud ümbrikskriptide kaudu.
+**API-võtmete haldamine.** Enda API-võtmete hankimine, turvamine ja haldamine ning iga teenusepakkuja kasutustingimuste järgimine on ainuüksi sinu vastutus.
+
+**Sisu klassifitseerimine.** URL-ide privaatsusklassifikatsioon põhineb LLM-i hinnangul ja võib sisaldada vigu. Ära tugine sellele kui ainsale kaitsemeetmele tundliku teabe puhul.
+
+**Veebilehtede toomine ja brauseri automatiseerimine.** See pistikprogramm sisaldab tööriistu peata brauseri automatiseerimiseks Playwrighti ja Chrome DevTools'i kaudu. Sina vastutad selle eest, et sinu kasutus vastab sihtveebilehtede kasutustingimustele, robots.txt poliitikatele ja kehtivatele seadustele.
+
+**MCP-serverid.** See pistikprogramm ühendub kolmandate osapoolte MCP-serveritega. Autor ei kontrolli, auditeeri ega garanteeri nende serverite käitumist ega turvalisust.
+
+## Kolmandate osapoolte viited
+
+Kolmandate osapoolte lähtekoodi ei levitata edasi — integratsioon toimub MCP-ühenduste, käitusaegsete pakettide paigaldamise ja ümbrisskriptide kaudu.
 
 | Tööriist | Pakkuja | Litsents |
 |---|---|---|
-| [Exa API](https://exa.ai) | Exa Labs, Inc. | Omandiõiguslik (API tingimused) |
+| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-Kõik tootenimed, logod ja kaubamärgid kuuluvad nende vastavatele omanikele. See plugin ei ole seotud ega heaks kiidetud ühegi eespool loetletud kolmanda osapoole teenuse poolt.
+Kõik tootenimed, logod ja kaubamärgid kuuluvad nende vastavatele omanikele.
+
+## Keel
+
+Seadistusjuhised esitatakse sinu keeles AI-assistendi poolt. Tõlgitud README-failid on mugavuse huvides — **ingliskeelne originaal on ametlik versioon**.
 
 ## Tugi
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Veateated, funktsionaalsuse soovid ja küsimused
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Veateated, funktsioonisoovid ja küsimused
 
 ## Autor
 

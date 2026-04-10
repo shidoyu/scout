@@ -1,185 +1,230 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md) · 🇹🇷 [**Türkçe**](README.tr.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 **Türkçe** · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
-> **Not:** Bu çeviri yalnızca kolaylık sağlamak amacıyla sunulmuştur. [İngilizce orijinal](../README.md) resmi sürümdür.
+> **Not:** Bu çeviri yalnızca kolaylık amacıyla sunulmuştur. [İngilizce orijinal](../README.md) resmi sürümdür.
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — Önce düşün. Sonra ara." width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> Önce düşün, sonra ara. — Claude Code için web araştırma eklentisi.
+<p align="center">
+  <a href="https://claude.com/claude-code">Claude Code</a> için web araştırma eklentisi.<br>
+  Belirsiz soruları, birincil kaynaklara ulaşan optimize edilmiş çoklu motor sorgularına dönüştürür.
+</p>
 
-Sorgu tasarımı, çok motorlu arama, gizlilik odaklı getirme.
+<p align="center">
+  <strong>Önce düşün. Sonra ara.</strong>
+</p>
 
-Claude Code'un yerleşik WebSearch özelliği yalnızca 125 karakterlik parçalar döndürür ve sadece anahtar kelime eşleşmesine dayanır. scout belirsiz bir soruyu optimize edilmiş çoklu arama motoru sorgularına dönüştürür, sonuç kalitesini değerlendirir ve gerektiğinde yeniden arama yaparak birincil kaynaklara daha hızlı ve daha güvenilir biçimde ulaşır.
+---
 
-## Özellikler
+Claude Code'un yerleşik WebSearch özelliği 125 karakterlik kısa alıntılar döndürür ve yalnızca anahtar kelime eşleştirmesine dayanır. Basit aramalar için yeterlidir — ancak gerçek bir araştırma için sorgu tasarımı, kaynak değerlendirmesi ve gizlilik odaklı yönlendirme gerekir.
 
-- **scout:search** — Sorgu tasarımı optimizasyonu ile çok motorlu web araması
-- **scout:fetch** — Gizlilik farkındalıklı araç seçimi ile URL içeriği getirme
-
-## Kurulum
-
-Terminalinizde çalıştırın:
-
-```bash
-# Adım 1: Marketplace'i kaydedin
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# Adım 2: Eklentiyi kurun
-claude plugin install scout@shidoyu-scout
-```
-
-**Adım 3** — Arama motorlarını ve getirme araçlarını ayarlayın
-
-Bu komutları Claude Code içinde teker teker çalıştırın:
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-`scout:setup`, [Context7](https://github.com/upstash/context7) (kütüphane dokümantasyonu), [Jina Reader](https://jina.ai) (web sayfası getirme), [Exa](https://exa.ai) (semantik arama) ve [Playwright](https://playwright.dev) (JavaScript ile render edilen sayfalar) yapılandırmasında sizi interaktif olarak yönlendirir. Her adım isteğe bağlıdır ve atlanabilir.
-
-> **Not:** Bu adımı atlarsanız, scout bir sonraki oturum başlangıcında sizden ayarlama yapmanızı isteyecektir. Temel arama, kurulum gerekmeden hemen çalışır.
+scout aramadan önce düşünür.
 
 ## Hızlı Başlangıç
 
-Kurulumdan sonra Claude'a sorun (kurulum gerekmez — temel arama hemen çalışır):
+API anahtarı gerekmez. Ortam değişikliği gerekmez. Kurun ve hemen deneyin:
 
-**Henüz adını koyamadığınız kavramları bulun:**
-> "bir fonksiyonun çalışma sırasında kendini farklı bir versiyonuyla değiştirdiği teknik"
+**1. Mağazayı ekleyin** (tek seferlik):
 
-**Türk kavramlarının uluslararası karşılıklarını keşfedin:**
-> "Türkiye'deki e-fatura ve e-arşiv fatura sistemi diğer ülkelerde nasıl çalışıyor?"
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**Basit sorulardan uzman yanıtları alın:**
-> "SSL sertifikası yeniledim ama site hâlâ güvensiz diyor"
+**2. Kurulum**:
 
-**Belirli bir sayfayı okuyun:**
-> "oku https://kubernetes.io/docs/concepts/workloads/pods/"
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-## Skills
+**3. Eklentileri yeniden yükleyin** (Claude Code içinde yazın):
 
-### scout:search
+```
+/mcp
+```
 
-Şunları içeren akıllı web araması:
-- Sorgu iyileştirme için ön araştırma
-- Çok dilli sorgu tasarımı
-- Çoklu arama motorları (WebSearch, [Context7](https://github.com/upstash/context7) resmi dokümantasyon, [Exa](https://exa.ai) anlamsal arama)
-- Exa aracılığıyla kavramsal sorgular için HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496))
-- Otomatik yeniden arama döngüsü ile kalite değerlendirmesi
+Ardından Claude'a sorun:
 
-Kullanım: `/scout:search sorunuzu buraya yazın`
+```text
+/scout:search Git blame gibi ama tasarım kararları için bir şey istiyorum
+```
 
-### scout:fetch
+scout bu belirsiz kavramı doğru terime (ADR — Architecture Decision Records) dönüştürecek, birden fazla motorda iyileştirilmiş sorgular çalıştıracak, kaynak kalitesini değerlendirecek ve sonuca nasıl ulaştığını gösteren bir Research Trail ile yanıt verecektir.
 
-Otomatik gizlilik sınıflandırması ile web sayfası içeriği getirme:
-- **Genel sayfalar** → Jina Reader / WebFetch (yerleşik yedek)
-- **Gizli sayfalar** → Yerel Playwright (harici API çağrısı yok)
-- **Kimlik doğrulamalı sayfalar** → Chrome DevTools (tarayıcı oturumu)
+## scout ne yapar
 
-Kullanım: `/scout:fetch URL`
+### Henüz adını bilmediğiniz kavramları bulun
 
-### scout:setup
+> "Böyle bir kavram olduğunu biliyorum — her tasarım kararının nedenini kaydetmekle ilgili bir şey — ama adını bilmiyorum"
 
-Arama motorları ve getirme araçları için interaktif rehberli kurulum:
-- **Context7** — Güncel resmi kütüphane ve framework dokümanlarına doğrudan yol açar; böylece teknik sorular kaynak dokümanlara daha hızlı ulaşır ([Context7 MCP](https://github.com/upstash/context7), API anahtarı gerekmez)
-- **Jina Reader** — Gezinme öğelerini ve tekrar eden boilerplate içeriğini kaldırarak web sayfalarını daha temiz Markdown olarak getirir; böylece modele giden metin çoğu zaman azalır ve token tasarrufu sağlanır ([API anahtarı](https://jina.ai/?newKey))
-- **Exa** — Tam terimler net değilken belirsiz, kavramsal ve niş sorgular için anlam temelli arama sunar ([API anahtarı](https://exa.ai))
-- **Playwright** — Makinenizde kalması gereken JavaScript ile render edilen veya gizli sayfalar için yerel tarayıcı tabanlı getirme sunar (~200MB indirme)
+scout belirsiz fikirleri kesin terminolojiye çevirir ve birincil kaynaklara ulaşır.
 
-Tüm adımlar isteğe bağlıdır. Ayarları güncellemek için istediğiniz zaman yeniden çalıştırın.
+### SEO gürültüsünü aşın
 
-Kullanım: `/scout:setup`
+> "Terraform'dan gerçekten neye geçmeliyim — sponsorlu listeler değil, gerçek göç hikayeleri"
+
+Ön araştırma doğru kelime dağarcığını edinir, ardından hedefli sorgular içerik çiftliklerini atlar.
+
+### Resmi belgelere doğrudan ulaşın
+
+> "Next.js App Router'da middleware nasıl kurulur?"
+
+scout önce [Context7](https://github.com/upstash/context7) üzerinden indekslenmiş resmi belgeleri kontrol eder — cevap oradaysa web aramasına gerek kalmaz.
+
+### Herhangi bir web sayfasını okuyun
+
+> "https://docs.anthropic.com/en/docs/claude-code adresini getir ve özetle"
+
+Gizlilik odaklı getirme: genel sayfalar bulut API'leri üzerinden, gizli sayfalar yerel makinenizde işlenir.
+
+## Kurulum Seviyeleri
+
+scout kurulumdan hemen sonra çalışır. Her seviye yetenek ekler — hepsi isteğe bağlı, hepsi geri alınabilir.
+
+### Seviye 1: Yerleşik Arama (varsayılan)
+
+Claude Code'un WebSearch'ünü kullanır. Yapılandırma gerekmez. Kutudan çıktığı haliyle budur.
+
+### Seviye 2: Resmi Belgeler + Daha Temiz Getirme
+
+Kütüphane/framework belgelerine doğrudan erişim için [Context7](https://github.com/upstash/context7), daha temiz sayfa okuma için [Jina Reader](https://jina.ai). Context7 için API anahtarı gerekmez; Jina hız sınırları için isteğe bağlı anahtar.
+
+### Seviye 3: Anlamsal Arama
+
+Anlam tabanlı arama için [Exa](https://exa.ai) — doğru anahtar kelimeleri bilmeseniz bile ilgili sayfaları bulur. Ücretsiz katmanda temel anlamsal arama çalışır; API anahtarı gelişmiş özellikleri açar.
+
+### Seviye 4: Yerel Tarayıcı
+
+JavaScript ile oluşturulan sayfalar ve makinenizden asla çıkmaması gereken gizli URL'ler için [Playwright](https://playwright.dev). Chromium indirmesi gerektirir (~200MB).
+
+**Her seviyeyi etkileşimli olarak ayarlamak için `/scout:setup` komutunu çalıştırın.** Her adım, değişiklik yapılmadan önce yapılandırmanıza nelerin ekleneceğini gösterir. Araç eklemek veya güncellemek için istediğiniz zaman yeniden çalıştırın.
+
+## Yetenekler
+
+| Yetenek | Amaç |
+|---|---|
+| `/scout:search` | Sorgu tasarımı, kaynak değerlendirmesi ve otomatik yeniden arama ile çoklu motor web araması |
+| `/scout:fetch` | Otomatik gizlilik sınıflandırması ile URL içerik getirme |
+| `/scout:setup` | Arama motorları ve getirme araçları için etkileşimli rehberli kurulum |
+
+### Research Trail
+
+Her aramanın sonunda, scout'un yanıta nasıl ulaştığını gösteren yapılandırılmış bir iz görüntülenir:
+
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           orijinal sorunuz
+Designed queries: scout'un gerçekte çalıştırdığı optimize sorgular
+Sources:         güvenilirlik seviyeli URL'ler (🟢 birincil / 🟡 ikincil / ⚪ üçüncül)
+Re-searches:     ek aramalar ve nedenleri
+Confidence:      High / Medium / Low gerekçesiyle
+```
 
 ## Gizlilik
 
-scout, getirmeden önce URL'leri üç seviyeye göre sınıflandırır:
-- **Genel** → Bulut API'leri (Jina Reader / WebFetch)
-- **Gizli** → Yalnızca yerel Playwright (amaçlanan yönlendirme: gizli URL'ler harici API'lere gönderilmez)
-- **Kimlik doğrulamalı** → Chrome DevTools (tarayıcı oturumunuzu kullanır)
+scout, getirmeden önce URL'leri üç seviyede sınıflandırır:
 
-Bu sınıflandırma otomatiktir ancak sistem zorlaması değil, LLM değerlendirmesine dayanır. Ayrıntılar için [Gizlilik Feragatnamesi](#gizlilik-feragatnamesi) bölümüne bakın.
+| Sınıflandırma | Yönlendirme | Örnekler |
+|---|---|---|
+| **Genel** | Bulut API'leri (Jina Reader / WebFetch) | Bloglar, belgeler, GitHub genel depoları |
+| **Gizli** | Yalnızca yerel Playwright | localhost, dahili wikiler, yönetim panelleri |
+| **Kimlik doğrulamalı** | Chrome DevTools (tarayıcı oturumunuz) | Notion, Slack, OAuth sonrası sayfalar |
 
-## Gereksinimler
+Bu sınıflandırma LLM yargısına dayanır, sistem tarafından zorunlu kılınmaz. En iyi çaba yönlendirmesi olarak değerlendirin. Yüksek hassasiyetli veriler için işlem öncesi sınıflandırmayı doğrulayın.
 
-- Claude Code
-- `jq` (yalnızca kurulum için)
-- `npm`/`npx` ([MCP](https://modelcontextprotocol.io/) sunucusu için: chrome-devtools)
-- Python 3.10+ (isteğe bağlı, Playwright yerel getirme için)
-- `uvx` veya `uv` (isteğe bağlı, MCP sunucusu için: markitdown — HTML→Markdown dönüşümü)
-- Chrome (isteğe bağlı, DevTools aracılığıyla kimlik doğrulamalı sayfa getirme için)
+**Gizli URL'ler, başarısızlık durumunda bile asla harici API'lere gönderilmez** — sistem gizli sayfalar için bulut araçlarına geri dönmez.
 
-### Chrome DevTools Kurulumu (kimlik doğrulamalı sayfalar için)
+<details>
+<summary>Chrome DevTools kurulumu (kimlik doğrulamalı sayfalar için)</summary>
 
-Giriş gerektiren sayfaları (OAuth, SaaS panelleri) getirmek için Chrome'un hata ayıklama modunda çalışıyor olması gerekir:
+Giriş gerektiren sayfaları (OAuth, SaaS panelleri) getirmek için Chrome'u hata ayıklama modunda başlatın:
 
-macOS için:
+macOS:
 
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
-Linux için:
+Linux:
 
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Gizlilik Feragatnamesi
+<details>
+<summary>Tarayıcı profili notu</summary>
 
-scout, URL'leri hassasiyetlerine göre sınıflandırır ve gizli URL'leri yalnızca yerel araçlara yönlendirir.
-Bu sınıflandırma, LLM değerlendirmesine (alan adı kalıpları ve bağlam) dayanır ve **sistem tarafından zorunlu kılınan bir güvence değildir**.
-Son derece hassas veriler için, devam etmeden önce sınıflandırmayı doğrulayın.
+Playwright tabanlı getirici, çerez ve oturum verisi birikebilen kalıcı bir tarayıcı profili (`tools/.chrome-profile/`) kullanır. Bu dizin `.gitignore` ile Git'ten hariç tutulmuştur ancak yedekleme araçları tarafından kopyalanabilir. Gizli sayfalar getirdiyseniz düzenli olarak silin.
+</details>
 
-**Tarayıcı Profili.** Playwright tabanlı getirici (`fetch-page.py`), çerezler, oturum verileri ve tarama geçmişi biriktirebilecek kalıcı bir tarayıcı profili (`tools/.chrome-profile/`) kullanır. Bu dizin `.gitignore` aracılığıyla Git'ten hariç tutulmuştur, ancak yedekleme araçları veya bulut senkronizasyon hizmetleri tarafından kopyalanabilir. Gizli sayfalar getiriyorsanız dizini periyodik olarak silin.
+## Kaldırma
 
-## Dil
+Her şeyi kaldırmak için iki komut. Artık kalıntı yok.
 
-Kurulum talimatları, AI asistanı tarafından kendi dilinizde sağlanır.
-Çevrilmiş talimatlar yalnızca kolaylık amaçlıdır — **İngilizce orijinal yetkilidir**.
+Eklentiyi kaldırın (önbellek, yapılandırma ve durum verilerini temizler):
 
-## Güvenlik Notu
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-Kurulumdan sonra API anahtarları `.mcp.json` içinde saklanır.
-**`.mcp.json` dosyasını Git'e commit etmeyin.** Dağıtım için şablon olarak `.mcp.json.dist` kullanın.
+scout:setup ile eklediyseniz Context7'yi kaldırın (kullanıcı kapsamlı — tüm projelerden kaldırır):
+
+```bash
+claude mcp remove context7
+```
+
+## Gereksinimler
+
+- **Claude Code** (gerekli)
+- `jq` (yalnızca kurulum teşhisi için)
+- Python 3.10+ (yalnızca Playwright yerel getirme için)
+- `npm`/`npx` (yalnızca Chrome DevTools MCP sunucusu için)
+
+## Güvenlik
+
+API anahtarları eklenti dizinindeki `.mcp.json` dosyasında saklanır.
+**`.mcp.json` dosyasını Git'e eklemeyin.** Dağıtım için `.mcp.json.dist` şablonunu kullanın.
 
 ## Sorumluluk Reddi
 
-Bu eklenti, herhangi bir garanti olmaksızın MIT Lisansı kapsamında "olduğu gibi" sağlanmaktadır.
+Bu eklenti MIT Lisansı kapsamında "olduğu gibi" sağlanmakta olup hiçbir garanti verilmemektedir.
 
-**Harici API'ler.** Bu eklenti üçüncü taraf API'lere (Exa, Jina AI ve diğerleri) dayanmaktadır. Yazar, bu hizmetlerin kullanılabilirliği, doğruluğu, fiyatlandırması veya sürekliliği konusunda herhangi bir garanti vermez ve API kullanımından kaynaklanan maliyetlerden sorumlu değildir.
+**Harici API'ler.** Bu eklenti üçüncü taraf API'lerine (Exa, Jina AI ve diğerleri) bağımlıdır. Yazar, bu hizmetlerin kullanılabilirliği, doğruluğu, fiyatlandırması veya sürekliliği hakkında hiçbir garanti vermez ve API kullanımından kaynaklanan maliyetlerden sorumlu değildir.
 
-**API Anahtarı Yönetimi.** Kendi API anahtarlarınızı edinmekten, güvence altına almaktan ve yönetmekten, ayrıca her sağlayıcının hizmet koşullarına uymaktan yalnızca siz sorumlusunuzdur.
+**API Anahtarı Yönetimi.** API anahtarlarınızın edinilmesi, güvenliğinin sağlanması ve yönetilmesi ile her sağlayıcının hizmet şartlarına uyum tamamen sizin sorumluluğunuzdadır.
 
-**İçerik Sınıflandırması.** Web içeriği getirilirken, eklenti gizlilik hassasiyetini değerlendirmek ve uygun alma yöntemlerini belirlemek için LLM tabanlı sınıflandırma kullanabilir. Bu tür sınıflandırmalar en iyi çaba sonucudur ve hatalar içerebilir. Hassas veya gizli bilgiler için otomatik sınıflandırmayı tek koruma olarak kullanmayın.
+**İçerik Sınıflandırması.** URL gizlilik sınıflandırması LLM yargısına dayanır ve hatalar içerebilir. Hassas bilgiler için tek güvence olarak buna güvenmeyin.
 
-**Web Getirme ve Tarayıcı Otomasyonu.** Bu eklenti, Playwright ve Chrome DevTools aracılığıyla başsız tarayıcı otomasyonu için araçlar içermektedir. Kullanımınızın hedef web sitelerinin hizmet koşullarına, robots.txt politikalarına ve geçerli yasalara uygun olmasını sağlamaktan siz sorumlusunuzdur. Yazar, tarayıcı otomasyonundan kaynaklanan site engelleme, hesap askıya alma, IP kısıtlamaları, beklenmedik komut dosyası yürütme, kaynak tüketimi veya uyumluluk sorunlarından sorumlu değildir.
+**Web Getirme ve Tarayıcı Otomasyonu.** Bu eklenti, Playwright ve Chrome DevTools aracılığıyla başsız tarayıcı otomasyon araçları içerir. Hedef web sitelerinin hizmet şartlarına, robots.txt politikalarına ve yürürlükteki yasalara uygunluğun sağlanması sizin sorumluluğunuzdadır.
 
-**MCP Sunucuları.** Bu eklenti üçüncü taraf MCP (Model Context Protocol) sunucularına bağlanır. Yazar, bu sunucuların davranışını veya güvenliğini kontrol etmez, denetlemez veya garanti vermez.
+**MCP Sunucuları.** Bu eklenti üçüncü taraf MCP sunucularına bağlanır. Yazar, bu sunucuların davranışını veya güvenliğini kontrol etmez, denetlemez veya garanti etmez.
 
-## Üçüncü Taraf Atıflar
+## Üçüncü Taraf Atıfları
 
-Bu eklenti aşağıdaki harici araç ve hizmetlerle entegre olur. Hiçbir üçüncü taraf kaynak kodu yeniden dağıtılmaz — entegrasyon MCP sunucu bağlantıları, çalışma zamanı paket kurulumu ve eklenti geliştiricisi tarafından yazılmış sarmalayıcı betikler aracılığıyla gerçekleştirilir.
+Üçüncü taraf kaynak kodu yeniden dağıtılmamaktadır — entegrasyon MCP bağlantıları, çalışma zamanı paket kurulumu ve sarmalayıcı betikler aracılığıyla sağlanır.
 
 | Araç | Sağlayıcı | Lisans |
 |---|---|---|
 | [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-Tüm ürün adları, logolar ve ticari markalar ilgili sahiplerine aittir. Bu eklenti, yukarıda listelenen üçüncü taraf hizmetlerden herhangi biriyle bağlantılı değildir veya bunlar tarafından onaylanmamıştır.
+Tüm ürün adları, logolar ve ticari markalar ilgili sahiplerinin mülkiyetindedir.
+
+## Dil
+
+Kurulum talimatları AI asistanı tarafından kendi dilinizde sunulur. Çeviriler kolaylık amaçlıdır — **İngilizce orijinal yetkili sürümdür**.
 
 ## Destek
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Hata raporları, özellik istekleri ve sorular
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Hata raporları, özellik istekleri ve sorular
 
 ## Yazar
 
@@ -187,4 +232,4 @@ Tüm ürün adları, logolar ve ticari markalar ilgili sahiplerine aittir. Bu ek
 
 ## Lisans
 
-[MIT License](../LICENSE) — ücretsiz kullanım, değiştirme ve dağıtım. Copyright (c) 2026 shidoyu.
+[MIT License](../LICENSE) — özgürce kullanılabilir, değiştirilebilir ve dağıtılabilir. Copyright (c) 2026 shidoyu.

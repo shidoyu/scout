@@ -1,187 +1,230 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 **Français** · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 **Français** · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
 > **Note :** Cette traduction est fournie à titre indicatif. La [version originale en anglais](../README.md) fait foi.
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — Réfléchir d'abord. Chercher ensuite." width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> Réfléchir d'abord, chercher ensuite. — Plugin de recherche web pour Claude Code.
+<p align="center">
+  Plugin de recherche web pour <a href="https://claude.com/claude-code">Claude Code</a>.<br>
+  Transforme des questions vagues en requêtes multi-moteurs optimisées qui atteignent les sources primaires.
+</p>
 
-Conception de requêtes, recherche multi-moteurs, récupération respectueuse de la vie privée.
+<p align="center">
+  <strong>Réfléchir d'abord. Chercher ensuite.</strong>
+</p>
 
-La WebSearch intégrée de Claude Code renvoie seulement des extraits de 125 caractères et repose uniquement sur la correspondance de mots-clés. scout transforme une question vague en requêtes optimisées multi-moteurs, évalue la qualité des résultats et relance la recherche si nécessaire pour atteindre les sources primaires plus vite et plus sûrement.
+---
 
-## Fonctionnalités
+La WebSearch intégrée de Claude Code renvoie des extraits de 125 caractères et repose uniquement sur la correspondance de mots-clés. C'est suffisant pour des recherches simples — mais pour une vraie recherche, il faut de la conception de requêtes, de l'évaluation des sources et un routage respectueux de la vie privée.
 
-- **scout:search** — Recherche web multi-moteurs avec optimisation de la conception des requêtes
-- **scout:fetch** — Récupération de contenu d'URL avec sélection d'outil respectueuse de la vie privée
-
-## Installation
-
-Exécutez dans votre terminal :
-
-```bash
-# Étape 1 : Enregistrer le marketplace
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# Étape 2 : Installer le plugin
-claude plugin install scout@shidoyu-scout
-```
-
-**Étape 3** — Configurer les moteurs de recherche et les outils de récupération
-
-Exécutez ces commandes une par une dans Claude Code :
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-scout:setup vous guide de manière interactive dans la configuration de Context7 (documentation de bibliothèques), Jina Reader (récupération de pages web), Exa (recherche sémantique) et Playwright (pages rendues par JavaScript). Chaque étape est optionnelle et peut être ignorée.
-
-> **Note :** Si vous ignorez cette étape, scout vous le proposera au prochain démarrage de session. La recherche de base fonctionne immédiatement sans configuration.
+scout réfléchit avant de chercher.
 
 ## Démarrage rapide
 
-Après l'installation, demandez à Claude (aucune configuration requise — la recherche de base fonctionne immédiatement) :
+Aucune clé API requise. Aucune modification d'environnement. Installez et essayez immédiatement :
 
-### Essayez maintenant
+**1. Ajouter le marketplace** (une seule fois) :
 
-**Trouver des concepts que vous ne savez pas encore nommer :**
-> « Le mécanisme qui permet à une fonction de se souvenir des variables de son contexte de création, même après que ce contexte a disparu »
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**Découvrir les équivalents internationaux de concepts français :**
-> « Le 'droit à la déconnexion' existe en France pour les salariés — y a-t-il des équivalents techniques ou légaux dans d'autres pays pour les équipes de dev ? »
+**2. Installer** :
 
-**Obtenir des réponses d'expert à partir de questions simples :**
-> « Mon script Python marche dans le terminal mais plante quand je le lance avec cron — 'ModuleNotFoundError' alors que le module est bien installé »
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-**Lire une page spécifique :**
-> « Lis https://docs.python.org/fr/3/library/venv.html et explique comment activer un environnement virtuel »
+**3. Recharger les plugins** (tapez ceci dans Claude Code) :
+
+```
+/mcp
+```
+
+Puis demandez à Claude :
+
+```text
+/scout:search Je cherche quelque chose comme Git blame mais pour les décisions de conception
+```
+
+scout transformera ce concept vague en terme exact (ADR — Architecture Decision Records), lancera des requêtes optimisées sur plusieurs moteurs, évaluera la qualité des sources et renverra une réponse avec un Research Trail montrant exactement comment il y est parvenu.
+
+## Ce que fait scout
+
+### Trouver des concepts qu'on ne sait pas encore nommer
+
+> « Je sais que le concept existe — quelque chose pour tracer pourquoi on a fait chaque choix de conception — mais je ne connais pas le nom »
+
+scout traduit les idées floues en terminologie précise et atteint les sources primaires.
+
+### Percer le bruit du SEO
+
+> « Vers quoi devrais-je vraiment migrer depuis Terraform — pas les listes sponsorisées, de vrais retours de migration »
+
+La pré-recherche acquiert le vocabulaire adéquat, puis des requêtes ciblées contournent les fermes de contenu.
+
+### Atteindre directement la documentation officielle
+
+> « Comment configurer le middleware dans Next.js App Router ? »
+
+scout vérifie d'abord [Context7](https://github.com/upstash/context7) pour la documentation officielle indexée — aucune recherche web nécessaire si la réponse s'y trouve.
+
+### Lire n'importe quelle page web
+
+> « Récupère et résume https://docs.anthropic.com/en/docs/claude-code »
+
+Récupération respectueuse de la vie privée : les pages publiques passent par les API cloud, les pages confidentielles restent sur votre machine.
+
+## Niveaux de configuration
+
+scout fonctionne immédiatement après l'installation. Chaque niveau ajoute des capacités — tous optionnels, tous réversibles.
+
+### Niveau 1 : Recherche intégrée (par défaut)
+
+Utilise la WebSearch de Claude Code. Aucune configuration nécessaire. C'est ce que vous obtenez directement.
+
+### Niveau 2 : Documentation officielle + récupération améliorée
+
+[Context7](https://github.com/upstash/context7) pour un accès direct à la documentation des bibliothèques/frameworks, et [Jina Reader](https://jina.ai) pour une lecture de pages plus propre. Pas de clé API nécessaire pour Context7 ; clé optionnelle pour les limites de débit de Jina.
+
+### Niveau 3 : Recherche sémantique
+
+[Exa](https://exa.ai) pour une recherche basée sur le sens — trouve des pages pertinentes même quand vous ne connaissez pas les bons mots-clés. La recherche sémantique de base fonctionne avec le niveau gratuit ; une clé API débloque les fonctionnalités avancées.
+
+### Niveau 4 : Navigateur local
+
+[Playwright](https://playwright.dev) pour les pages rendues en JavaScript et les URL confidentielles qui ne doivent jamais quitter votre machine. Nécessite le téléchargement de Chromium (~200 Mo).
+
+**Exécutez `/scout:setup` pour configurer chaque niveau de manière interactive.** Chaque étape montre exactement ce qui sera ajouté à votre configuration avant toute modification. Relancez à tout moment pour ajouter ou mettre à jour des outils.
 
 ## Skills
 
-### scout:search
+| Skill | Fonction |
+|---|---|
+| `/scout:search` | Recherche web multi-moteurs avec conception de requêtes, évaluation des sources et re-recherche automatique |
+| `/scout:fetch` | Récupération de contenu d'URL avec classification automatique de confidentialité |
+| `/scout:setup` | Configuration interactive guidée pour les moteurs de recherche et les outils de récupération |
 
-Recherche web intelligente avec :
-- Pré-recherche pour affiner les requêtes
-- Conception de requêtes multilingues
-- Plusieurs moteurs de recherche (WebSearch, [Context7](https://github.com/upstash/context7) documentation officielle, recherche sémantique [Exa](https://exa.ai))
-- HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) pour les requêtes conceptuelles via Exa
-- Évaluation de la qualité avec boucle de re-recherche automatique
+### Research Trail
 
-Utilisation : `/scout:search votre question ici`
+Chaque recherche se termine par un protocole structuré montrant comment scout est parvenu à sa réponse :
 
-### scout:fetch
-
-Récupération du contenu d'une page web avec classification automatique de la confidentialité :
-- **Pages publiques** → Jina Reader / WebFetch (solution de repli intégrée)
-- **Pages confidentielles** → Playwright local (aucun appel API externe)
-- **Pages authentifiées** → Chrome DevTools (session navigateur)
-
-Utilisation : `/scout:fetch URL`
-
-### scout:setup
-
-Configuration interactive guidée des moteurs de recherche et outils de récupération :
-- **Context7** — Accès direct à la documentation officielle et à jour des bibliothèques et frameworks, pour atteindre plus vite les docs sources via [Context7 MCP](https://github.com/upstash/context7) (pas de clé API requise)
-- **Jina Reader** — Lecture plus propre des pages web en Markdown, qui retire la navigation et le contenu répétitif, ce qui réduit souvent le texte envoyé au modèle et économise des tokens ([clé API](https://jina.ai/?newKey))
-- **Exa** — Recherche par le sens pour les requêtes vagues, conceptuelles ou de niche quand les termes exacts ne sont pas clairs ([clé API](https://exa.ai))
-- **Playwright** — Récupération locale via navigateur pour les pages rendues en JavaScript ou les pages confidentielles qui doivent rester sur votre machine (~200MB de téléchargement)
-
-Toutes les étapes sont optionnelles. Relancez à tout moment pour mettre à jour les paramètres.
-
-Utilisation : `/scout:setup`
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           votre question originale
+Designed queries: les requêtes optimisées que scout a réellement exécutées
+Sources:         URLs avec niveau de fiabilité (🟢 primaire / 🟡 secondaire / ⚪ tertiaire)
+Re-searches:     recherches supplémentaires éventuelles et leurs raisons
+Confidence:      High / Medium / Low avec justification
+```
 
 ## Confidentialité
 
-scout classe les URLs en trois niveaux avant la récupération :
-- **Publique** → APIs cloud (Jina Reader / WebFetch)
-- **Confidentielle** → Playwright local uniquement (routage prévu : les URLs confidentielles ne sont pas envoyées à des APIs externes)
-- **Authentifiée** → Chrome DevTools (utilise votre session navigateur)
+scout classe les URL en trois niveaux avant de les récupérer :
 
-Ce classement est automatique mais basé sur le jugement du LLM, et non sur une application système. Consultez la section [Avertissement sur la confidentialité](#avertissement-sur-la-confidentialité) pour plus de détails.
+| Classification | Routage | Exemples |
+|---|---|---|
+| **Public** | API cloud (Jina Reader / WebFetch) | Blogs, documentation, dépôts GitHub publics |
+| **Confidentiel** | Playwright local uniquement | localhost, wikis internes, panneaux d'administration |
+| **Authentifié** | Chrome DevTools (votre session navigateur) | Notion, Slack, pages post-OAuth |
 
-## Prérequis
+Cette classification repose sur le jugement du LLM, pas sur une application technique. Considérez-la comme un routage au mieux. Pour les données hautement sensibles, vérifiez la classification avant de poursuivre.
 
-- Claude Code
-- `jq` (pour la configuration uniquement)
-- `npm`/`npx` (pour le serveur [MCP](https://modelcontextprotocol.io/) : chrome-devtools)
-- Python 3.10+ (optionnel, pour la récupération locale via Playwright)
-- `uvx` ou `uv` (optionnel, pour le serveur MCP : markitdown — conversion HTML→Markdown)
-- Chrome (optionnel, pour la récupération de pages authentifiées via DevTools)
+**Les URL confidentielles ne sont jamais envoyées aux API externes, même en cas d'échec** — le système ne bascule pas sur les outils cloud pour les pages confidentielles.
 
-### Configuration de Chrome DevTools (pour les pages authentifiées)
+<details>
+<summary>Configuration de Chrome DevTools (pour les pages authentifiées)</summary>
 
-Pour récupérer des pages nécessitant une connexion (OAuth, tableaux de bord SaaS), Chrome doit être lancé en mode débogage :
+Pour récupérer des pages nécessitant une connexion (OAuth, tableaux de bord SaaS), lancez Chrome en mode débogage :
 
-Sur macOS :
+macOS :
 
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
-Sur Linux :
+Linux :
 
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Avertissement sur la confidentialité
+<details>
+<summary>Note sur le profil navigateur</summary>
 
-scout classe les URLs par sensibilité et achemine les URLs confidentielles vers des outils locaux uniquement.
-Ce classement est basé sur le jugement du LLM (patterns de domaine et contexte) et **n'est pas une garantie appliquée par le système**.
-Pour les données hautement sensibles, vérifiez le classement avant de continuer.
+Le fetcher basé sur Playwright utilise un profil navigateur persistant (`tools/.chrome-profile/`) qui peut accumuler des cookies et des données de session. Ce répertoire est exclu de Git via `.gitignore`, mais peut être copié par des outils de sauvegarde. Supprimez-le périodiquement si vous récupérez des pages confidentielles.
+</details>
 
-**Profil de navigateur.** Le programme de récupération basé sur Playwright (`fetch-page.py`) utilise un profil de navigateur persistant (`tools/.chrome-profile/`) qui peut accumuler des cookies, des données de session et un historique de navigation. Ce répertoire est exclu de Git via `.gitignore`, mais peut être copié par des outils de sauvegarde ou des services de synchronisation cloud. Supprimez ce répertoire périodiquement si vous récupérez des pages confidentielles.
+## Désinstallation
 
-## Langue
+Deux commandes pour tout supprimer. Aucun résidu.
 
-Les instructions de configuration sont fournies dans votre langue par l'assistant IA.
-Les instructions traduites sont fournies à titre indicatif uniquement — **la version originale en anglais fait foi**.
+Supprimer le plugin (nettoie le cache, la configuration et les données d'état) :
 
-## Note de sécurité
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-Après la configuration, les clés API sont stockées dans `.mcp.json`.
-**Ne commitez pas `.mcp.json` dans Git.** Utilisez `.mcp.json.dist` comme modèle pour la distribution.
+Supprimer Context7 s'il a été ajouté via scout:setup (portée utilisateur — supprimé de tous les projets) :
 
-## Avertissement général
+```bash
+claude mcp remove context7
+```
 
-Ce plugin est fourni « en l'état » sous la licence MIT, sans garantie d'aucune sorte.
+## Prérequis
 
-**APIs externes.** Ce plugin repose sur des APIs tierces (Exa, Jina AI, et autres). L'auteur ne garantit pas la disponibilité, l'exactitude, la tarification ou la continuité de ces services, et n'est pas responsable des coûts engagés par l'utilisation des APIs.
+- **Claude Code** (requis)
+- `jq` (uniquement pour les diagnostics de configuration)
+- Python 3.10+ (uniquement pour la récupération locale via Playwright)
+- `npm`/`npx` (uniquement pour le serveur MCP Chrome DevTools)
+
+## Sécurité
+
+Les clés API sont stockées dans `.mcp.json` à l'intérieur du répertoire du plugin.
+**Ne committez pas `.mcp.json` dans Git.** Le modèle `.mcp.json.dist` peut être distribué en toute sécurité.
+
+## Avertissement
+
+Ce plugin est fourni « tel quel » sous la licence MIT, sans garantie d'aucune sorte.
+
+**API externes.** Ce plugin s'appuie sur des API tierces (Exa, Jina AI et autres). L'auteur ne garantit ni la disponibilité, ni l'exactitude, ni la tarification, ni la continuité de ces services et n'est pas responsable des coûts engendrés par l'utilisation des API.
 
 **Gestion des clés API.** Vous êtes seul responsable de l'obtention, de la sécurisation et de la gestion de vos propres clés API, ainsi que du respect des conditions d'utilisation de chaque fournisseur.
 
-**Classification du contenu.** Lors de la récupération de contenu web, le plugin peut utiliser une classification basée sur un LLM pour évaluer la sensibilité en matière de confidentialité et déterminer les méthodes de récupération appropriées. De telles classifications sont fournies au mieux et peuvent contenir des erreurs. Ne vous fiez pas uniquement à la classification automatisée comme seule protection pour les informations sensibles ou confidentielles.
+**Classification du contenu.** La classification de confidentialité des URL repose sur le jugement du LLM et peut contenir des erreurs. Ne vous y fiez pas comme seule protection pour les informations sensibles.
 
-**Récupération web et automatisation du navigateur.** Ce plugin inclut des outils pour l'automatisation de navigateur sans interface graphique via Playwright et Chrome DevTools. Vous êtes responsable de vous assurer que votre utilisation est conforme aux conditions d'utilisation des sites web cibles, aux politiques robots.txt et aux lois applicables. L'auteur n'est pas responsable des blocages de sites, des suspensions de comptes, des restrictions d'IP, de l'exécution inattendue de scripts, de la consommation de ressources ou des problèmes de compatibilité résultant de l'automatisation du navigateur.
+**Récupération web & automatisation de navigateur.** Ce plugin inclut des outils d'automatisation de navigateur headless via Playwright et Chrome DevTools. Vous êtes responsable de vous assurer que votre utilisation est conforme aux conditions d'utilisation des sites cibles, à leurs politiques robots.txt et aux lois applicables.
 
-**Serveurs MCP.** Ce plugin se connecte à des serveurs MCP (Model Context Protocol) tiers. L'auteur ne contrôle pas, n'audite pas et ne garantit pas le comportement ou la sécurité de ces serveurs.
+**Serveurs MCP.** Ce plugin se connecte à des serveurs MCP tiers. L'auteur ne contrôle, n'audite ni ne garantit le comportement ou la sécurité de ces serveurs.
 
 ## Attributions tierces
 
-Ce plugin s'intègre avec les outils et services externes suivants. Aucun code source tiers n'est redistribué — l'intégration se fait via des connexions de serveurs MCP, l'installation de packages à l'exécution et des scripts wrapper rédigés par le développeur du plugin.
+Aucun code source tiers n'est redistribué — l'intégration se fait via des connexions MCP, des installations de paquets à l'exécution et des scripts wrapper.
 
 | Outil | Fournisseur | Licence |
 |---|---|---|
-| [Exa API](https://exa.ai) | Exa Labs, Inc. | Propriétaire (conditions d'utilisation de l'API) |
+| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-Tous les noms de produits, logos et marques commerciales sont la propriété de leurs propriétaires respectifs. Ce plugin n'est pas affilié à, ni approuvé par, aucun des services tiers listés ci-dessus.
+Tous les noms de produits, logos et marques sont la propriété de leurs détenteurs respectifs.
 
-## Assistance
+## Langue
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Rapports de bugs, demandes de fonctionnalités et questions
+Les instructions de configuration sont fournies dans votre langue par l'assistant IA. Les README traduits sont fournis à titre indicatif — **la version originale en anglais fait foi**.
+
+## Support
+
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Rapports de bugs, demandes de fonctionnalités et questions
 
 ## Auteur
 

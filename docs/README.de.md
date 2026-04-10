@@ -1,125 +1,146 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 **Deutsch** · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 **Deutsch** · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
-> **Hinweis:** Diese Übersetzung dient nur der Bequemlichkeit. Das [englische Original](../README.md) ist die offizielle Version.
+> **Hinweis:** Diese Übersetzung dient der besseren Zugänglichkeit. Das [englische Original](../README.md) ist die maßgebliche Version.
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — Erst denken. Dann suchen." width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> Erst denken, dann suchen. — Web-Research-Plugin für Claude Code.
+<p align="center">
+  Web-Recherche-Plugin für <a href="https://claude.com/claude-code">Claude Code</a>.<br>
+  Verwandelt vage Fragen in optimierte Multi-Engine-Abfragen, die Primärquellen erreichen.
+</p>
 
-Query-Design, Multi-Engine-Suche, datenschutzbewusstes Abrufen.
+<p align="center">
+  <strong>Erst denken. Dann suchen.</strong>
+</p>
 
-Die integrierte WebSearch von Claude Code liefert nur 125-Zeichen-Snippets und verlässt sich ausschließlich auf Keyword-Matching. scout verwandelt eine vage Frage in optimierte Multi-Engine-Abfragen, bewertet die Qualität der Ergebnisse und sucht bei Bedarf erneut, um Primärquellen schneller und zuverlässiger zu erreichen.
+---
 
-## Funktionen
+Die integrierte WebSearch von Claude Code liefert Snippets mit 125 Zeichen und basiert ausschließlich auf Keyword-Matching. Für einfache Nachschlagearbeiten reicht das — aber für echte Recherche braucht man Abfragedesign, Quellenbewertung und datenschutzbewusstes Routing.
 
-- **scout:search** — Multi-Engine-Websuche mit optimiertem Query-Design
-- **scout:fetch** — URL-Inhaltsabruf mit datenschutzbewusster Tool-Auswahl
-
-## Installation
-
-Im Terminal ausführen:
-
-```bash
-# Schritt 1: Marketplace registrieren
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# Schritt 2: Plugin installieren
-claude plugin install scout@shidoyu-scout
-```
-
-**Schritt 3** — Suchmaschinen und Abruf-Tools einrichten
-
-Führen Sie diese Befehle in Claude Code nacheinander aus:
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-scout:setup führt Sie interaktiv durch die Konfiguration von Context7 (Bibliotheksdokumentation), Jina Reader (Webseitenabruf), Exa (semantische Suche) und Playwright (JavaScript-gerenderte Seiten). Jeder Schritt ist optional und kann übersprungen werden.
-
-> **Hinweis:** Wenn Sie diesen Schritt überspringen, fordert scout Sie beim nächsten Sitzungsstart zur Einrichtung auf. Die einfache Suche funktioniert sofort ohne Setup.
+scout denkt, bevor es sucht.
 
 ## Schnellstart
 
-Nach der Installation, frag Claude (kein Setup erforderlich — die einfache Suche funktioniert sofort):
+Keine API-Schlüssel nötig. Keine Umgebungsänderungen. Installieren und sofort ausprobieren:
 
-### Jetzt ausprobieren
+**1. Marketplace hinzufügen** (einmalig):
 
-**Konzepte finden, die du noch nicht benennen kannst:**
-> „Das Designmuster, bei dem man ein Objekt Schritt für Schritt zusammenbaut, statt alles im Konstruktor zu übergeben"
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**Deutsche Fachbegriffe international einordnen:**
-> „Gibt es in der englischsprachigen Softwareentwicklung ein Äquivalent zum deutschen Konzept 'Fachlichkeit' — also die reine Geschäftslogik ohne Technik?"
+**2. Installieren**:
 
-**Klare Antworten aus vagen Fragen:**
-> „Mein Docker-Container startet, aber die App darin kann sich nicht mit der Datenbank auf dem Host verbinden — 'connection refused' obwohl alles lokal läuft"
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-**Eine bestimmte Seite lesen:**
-> „Lies https://docs.docker.com/compose/networking/ und fasse die wichtigsten Punkte zusammen"
+**3. Plugins neu laden** (in Claude Code eingeben):
+
+```
+/mcp
+```
+
+Dann fragen Sie Claude:
+
+```text
+/scout:search Ich suche etwas wie Git blame, aber für Designentscheidungen
+```
+
+scout wandelt dieses vage Konzept in den richtigen Fachbegriff um (ADR — Architecture Decision Records), durchsucht mehrere Suchmaschinen mit optimierten Abfragen, bewertet die Quellenqualität und liefert eine Antwort mit einem Research Trail, der genau zeigt, wie das Ergebnis zustande kam.
+
+## Was scout leistet
+
+### Konzepte finden, die man noch nicht benennen kann
+
+> „Ich weiß, dass es dieses Konzept gibt — etwas darüber, warum wir jede Designentscheidung getroffen haben — aber ich kenne den Namen nicht"
+
+scout übersetzt unscharfe Ideen in präzise Fachbegriffe und erreicht die Primärquellen.
+
+### SEO-Rauschen durchbrechen
+
+> „Wohin sollte ich wirklich von Terraform migrieren — nicht die gesponserten Listen, sondern echte Migrationsberichte"
+
+Durch Vorrecherche wird das richtige Vokabular ermittelt, dann umgehen gezielte Abfragen die Content-Farmen.
+
+### Offizielle Dokumentation direkt erreichen
+
+> „Wie richte ich Middleware in Next.js App Router ein?"
+
+scout prüft zuerst [Context7](https://github.com/upstash/context7) auf indexierte offizielle Dokumentation — wenn die Antwort dort liegt, ist keine Websuche nötig.
+
+### Beliebige Webseiten lesen
+
+> „Rufe https://docs.anthropic.com/en/docs/claude-code ab und fasse es zusammen"
+
+Datenschutzbewusstes Abrufen: Öffentliche Seiten gehen über Cloud-APIs, vertrauliche Seiten bleiben auf Ihrem Rechner.
+
+## Setup-Stufen
+
+scout funktioniert sofort nach der Installation. Jede Stufe erweitert die Möglichkeiten — alle optional, alle rückgängig machbar.
+
+### Stufe 1: Integrierte Suche (Standard)
+
+Nutzt Claude Codes WebSearch. Keine Konfiguration nötig. Das ist der Ausgangszustand.
+
+### Stufe 2: Offizielle Dokumentation + saubereres Abrufen
+
+[Context7](https://github.com/upstash/context7) für direkten Zugriff auf Bibliotheks-/Framework-Dokumentation und [Jina Reader](https://jina.ai) für saubereres Seitenlesen. Context7 benötigt keinen API-Schlüssel; optionaler Schlüssel für Jina-Ratenlimits.
+
+### Stufe 3: Semantische Suche
+
+[Exa](https://exa.ai) für bedeutungsbasierte Suche — findet relevante Seiten, auch wenn Sie die richtigen Schlüsselwörter nicht kennen. Grundlegende semantische Suche funktioniert mit dem kostenlosen Kontingent; ein API-Schlüssel schaltet erweiterte Funktionen frei.
+
+### Stufe 4: Lokaler Browser
+
+[Playwright](https://playwright.dev) für JavaScript-gerenderte Seiten und vertrauliche URLs, die Ihren Rechner nie verlassen sollten. Erfordert den Download von Chromium (~200 MB).
+
+**Führen Sie `/scout:setup` aus, um jede Stufe interaktiv einzurichten.** Vor jeder Änderung wird genau angezeigt, was zu Ihrer Konfiguration hinzugefügt wird. Jederzeit erneut ausführbar, um Tools hinzuzufügen oder zu aktualisieren.
 
 ## Skills
 
-### scout:search
+| Skill | Zweck |
+|---|---|
+| `/scout:search` | Multi-Engine-Websuche mit Abfragedesign, Quellenbewertung und automatischer Nachsuche |
+| `/scout:fetch` | URL-Inhaltsabruf mit automatischer Datenschutzklassifizierung |
+| `/scout:setup` | Interaktive Einrichtung für Suchmaschinen und Abruf-Tools |
 
-Intelligente Websuche mit:
-- Vorrecherche zur Query-Verfeinerung
-- Mehrsprachigem Query-Design
-- Mehreren Suchmaschinen (WebSearch, [Context7](https://github.com/upstash/context7) offizielle Dokumentation, semantische Suche via [Exa](https://exa.ai))
-- HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) für konzeptuelle Abfragen über Exa
-- Qualitätsbewertung mit automatischer Nachsuch-Schleife
+### Research Trail
 
-Verwendung: `/scout:search Ihre Frage hier`
+Jede Suche endet mit einem strukturierten Protokoll, das zeigt, wie scout zu seiner Antwort gelangt ist:
 
-### scout:fetch
-
-Webseiteninhalt abrufen mit automatischer Datenschutzklassifizierung:
-- **Öffentliche Seiten** → Jina Reader / WebFetch (integrierter Fallback)
-- **Vertrauliche Seiten** → Lokales Playwright (keine externen API-Aufrufe)
-- **Authentifizierte Seiten** → Chrome DevTools (Browser-Sitzung)
-
-Verwendung: `/scout:fetch URL`
-
-### scout:setup
-
-Interaktive Einrichtung von Suchmaschinen und Abruf-Tools:
-- **Context7** — Direkter Weg zu aktuellen offiziellen Bibliotheks- und Framework-Dokumentationen, damit technische Fragen schneller in den Quelldocs landen ([Context7 MCP](https://github.com/upstash/context7), kein API-Schlüssel nötig)
-- **Jina Reader** — Saubereres Abrufen von Webseiten als Markdown, das Navigation und Boilerplate entfernt, wodurch oft weniger Text an das Modell gesendet wird und Tokens gespart werden ([API-Schlüssel](https://jina.ai/?newKey))
-- **Exa** — Bedeutungsbasierte Suche für vage, konzeptionelle und Nischenanfragen, wenn die genauen Begriffe unklar sind ([API-Schlüssel](https://exa.ai))
-- **Playwright** — Lokaler Browser-Abruf für JavaScript-gerenderte oder vertrauliche Seiten, die auf Ihrem Rechner bleiben sollen (~200 MB Download)
-
-Alle Schritte sind optional. Kann jederzeit erneut ausgeführt werden, um Einstellungen zu aktualisieren.
-
-Verwendung: `/scout:setup`
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           Ihre ursprüngliche Frage
+Designed queries: die optimierten Abfragen, die scout tatsächlich ausgeführt hat
+Sources:         URLs mit Zuverlässigkeitsstufe (🟢 Primärquelle / 🟡 Sekundärquelle / ⚪ Tertiärquelle)
+Re-searches:     etwaige Nachsuchen und deren Begründung
+Confidence:      High / Medium / Low mit Begründung
+```
 
 ## Datenschutz
 
 scout klassifiziert URLs vor dem Abruf in drei Stufen:
-- **Öffentlich** → Cloud-APIs (Jina Reader / WebFetch)
-- **Vertraulich** → Ausschließlich lokales Playwright (vertrauliche URLs werden nicht an externe APIs gesendet)
-- **Authentifiziert** → Chrome DevTools (verwendet Ihre Browser-Sitzung)
 
-Diese Klassifizierung erfolgt automatisch, basiert jedoch auf der Einschätzung des LLMs, nicht auf systemseitiger Durchsetzung. Einzelheiten finden Sie im [Datenschutzhinweis](#datenschutzhinweis).
+| Klassifizierung | Routing | Beispiele |
+|---|---|---|
+| **Öffentlich** | Cloud-APIs (Jina Reader / WebFetch) | Blogs, Dokumentation, öffentliche GitHub-Repos |
+| **Vertraulich** | Nur lokaler Playwright | localhost, interne Wikis, Admin-Panels |
+| **Authentifiziert** | Chrome DevTools (Ihre Browser-Sitzung) | Notion, Slack, Post-OAuth-Seiten |
 
-## Voraussetzungen
+Diese Klassifizierung basiert auf der Einschätzung des LLM, nicht auf technischer Durchsetzung. Betrachten Sie es als Best-Effort-Routing. Bei hochsensiblen Daten sollten Sie die Klassifizierung vor der Verarbeitung überprüfen.
 
-- Claude Code
-- `jq` (nur für das Setup)
-- `npm`/`npx` (für den [MCP](https://modelcontextprotocol.io/)-Server: chrome-devtools)
-- Python 3.10+ (optional, für lokalen Playwright-Abruf)
-- `uvx` oder `uv` (optional, für den MCP-Server: markitdown — HTML→Markdown-Konvertierung)
-- Chrome (optional, für den Abruf authentifizierter Seiten via DevTools)
+**Vertrauliche URLs werden niemals an externe APIs gesendet, auch nicht bei Fehlschlägen** — das System greift bei vertraulichen Seiten nicht auf Cloud-Tools zurück.
 
-### Chrome DevTools-Setup (für authentifizierte Seiten)
+<details>
+<summary>Chrome DevTools einrichten (für authentifizierte Seiten)</summary>
 
-Um Seiten abzurufen, die eine Anmeldung erfordern (OAuth, SaaS-Dashboards), muss Chrome im Debug-Modus gestartet sein:
+Um Seiten abzurufen, die eine Anmeldung erfordern (OAuth, SaaS-Dashboards), starten Sie Chrome im Debug-Modus:
 
 macOS:
 
@@ -132,56 +153,78 @@ Linux:
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Datenschutzhinweis
+<details>
+<summary>Hinweis zum Browserprofil</summary>
 
-scout klassifiziert URLs nach ihrer Sensitivität und leitet vertrauliche URLs ausschließlich an lokale Tools weiter.
-Diese Klassifizierung basiert auf der Einschätzung des LLMs (Domain-Muster und Kontext) und ist **keine systemseitig erzwungene Garantie**.
-Bei hochsensiblen Daten sollte die Klassifizierung vor dem Fortfahren überprüft werden.
+Der Playwright-basierte Fetcher verwendet ein persistentes Browserprofil (`tools/.chrome-profile/`), in dem sich Cookies und Sitzungsdaten ansammeln können. Dieses Verzeichnis ist über `.gitignore` von Git ausgeschlossen, kann aber von Backup-Tools kopiert werden. Löschen Sie es regelmäßig, wenn Sie vertrauliche Seiten abrufen.
+</details>
 
-**Browser-Profil.** Der Playwright-basierte Abrufer (`fetch-page.py`) verwendet ein persistentes Browser-Profil (`tools/.chrome-profile/`), in dem sich Cookies, Sitzungsdaten und der Browserverlauf ansammeln können. Dieses Verzeichnis ist über `.gitignore` aus Git ausgeschlossen, kann jedoch von Backup-Tools oder Cloud-Synchronisierungsdiensten kopiert werden. Das Verzeichnis sollte regelmäßig gelöscht werden, wenn vertrauliche Seiten abgerufen werden.
+## Deinstallation
 
-## Sprache
+Zwei Befehle entfernen alles. Keine Rückstände.
 
-Setup-Anweisungen werden vom KI-Assistenten in Ihrer Sprache bereitgestellt.
-Übersetzte Anweisungen dienen nur der Bequemlichkeit — **das englische Original ist maßgebend**.
+Plugin entfernen (bereinigt Cache, Konfiguration und Zustandsdaten):
 
-## Sicherheitshinweis
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-Nach dem Setup werden API-Schlüssel in `.mcp.json` gespeichert.
-**`.mcp.json` nicht in Git committen.** Verwenden Sie `.mcp.json.dist` als Vorlage für die Weitergabe.
+Context7 entfernen, falls über scout:setup hinzugefügt (benutzerbezogen — wird aus allen Projekten entfernt):
+
+```bash
+claude mcp remove context7
+```
+
+## Voraussetzungen
+
+- **Claude Code** (erforderlich)
+- `jq` (nur für Setup-Diagnose)
+- Python 3.10+ (nur für lokales Abrufen mit Playwright)
+- `npm`/`npx` (nur für Chrome DevTools MCP Server)
+
+## Sicherheit
+
+API-Schlüssel werden in `.mcp.json` im Plugin-Verzeichnis gespeichert.
+**Committen Sie `.mcp.json` nicht in Git.** Die Vorlage `.mcp.json.dist` kann sicher verteilt werden.
 
 ## Haftungsausschluss
 
-Dieses Plugin wird „so wie es ist" unter der MIT-Lizenz bereitgestellt, ohne jegliche Gewährleistung.
+Dieses Plugin wird unter der MIT-Lizenz „wie besehen" bereitgestellt, ohne jegliche Gewährleistung.
 
-**Externe APIs.** Dieses Plugin stützt sich auf Drittanbieter-APIs (Exa, Jina AI und andere). Der Autor übernimmt keine Garantie für die Verfügbarkeit, Genauigkeit, Preisgestaltung oder Kontinuität dieser Dienste und haftet nicht für Kosten, die durch die API-Nutzung entstehen.
+**Externe APIs.** Dieses Plugin nutzt APIs von Drittanbietern (Exa, Jina AI und andere). Der Autor übernimmt keine Garantie für die Verfügbarkeit, Genauigkeit, Preisgestaltung oder Kontinuität dieser Dienste und ist nicht verantwortlich für Kosten, die durch die API-Nutzung entstehen.
 
-**API-Schlüssel-Verwaltung.** Sie sind allein verantwortlich für die Beschaffung, Sicherung und Verwaltung Ihrer eigenen API-Schlüssel sowie für die Einhaltung der Nutzungsbedingungen jedes Anbieters.
+**API-Schlüssel-Verwaltung.** Sie sind allein verantwortlich für die Beschaffung, Sicherung und Verwaltung Ihrer eigenen API-Schlüssel sowie für die Einhaltung der Nutzungsbedingungen der jeweiligen Anbieter.
 
-**Inhaltsklassifizierung.** Beim Abruf von Webinhalten kann das Plugin LLM-basierte Klassifizierung einsetzen, um die Datenschutz-Sensitivität zu bewerten und geeignete Abrufmethoden zu bestimmen. Solche Klassifizierungen erfolgen nach bestem Bemühen und können Fehler enthalten. Verlassen Sie sich bei sensiblen oder vertraulichen Informationen nicht allein auf die automatische Klassifizierung.
+**Inhaltsklassifizierung.** Die Datenschutzklassifizierung von URLs basiert auf der Einschätzung des LLM und kann Fehler enthalten. Verlassen Sie sich nicht darauf als einzige Schutzmaßnahme für sensible Informationen.
 
-**Web-Abruf & Browser-Automatisierung.** Dieses Plugin enthält Tools zur kopflosen Browser-Automatisierung via Playwright und Chrome DevTools. Sie sind dafür verantwortlich, dass Ihre Nutzung den Nutzungsbedingungen der Zielwebseiten, den robots.txt-Richtlinien und den geltenden Gesetzen entspricht. Der Autor haftet nicht für Website-Sperrungen, Kontosperrungen, IP-Einschränkungen, unerwartete Skriptausführung, Ressourcenverbrauch oder Kompatibilitätsprobleme, die durch Browser-Automatisierung entstehen.
+**Web-Abruf & Browser-Automatisierung.** Dieses Plugin enthält Tools für die Headless-Browser-Automatisierung über Playwright und Chrome DevTools. Sie sind dafür verantwortlich sicherzustellen, dass Ihre Nutzung den Nutzungsbedingungen der Zielwebsites, deren robots.txt-Richtlinien und geltenden Gesetzen entspricht.
 
-**MCP-Server.** Dieses Plugin stellt Verbindungen zu MCP-Servern (Model Context Protocol) von Drittanbietern her. Der Autor kontrolliert, prüft oder garantiert weder das Verhalten noch die Sicherheit dieser Server.
+**MCP Server.** Dieses Plugin verbindet sich mit MCP-Servern von Drittanbietern. Der Autor kontrolliert, prüft und garantiert weder das Verhalten noch die Sicherheit dieser Server.
 
-## Drittanbieter-Attributionen
+## Zuordnung von Drittanbietern
 
-Dieses Plugin ist mit den folgenden externen Tools und Diensten integriert. Es wird kein Quellcode von Drittanbietern neu verteilt — die Integration erfolgt über MCP-Server-Verbindungen, Laufzeit-Paketinstallation und vom Plugin-Entwickler erstellte Wrapper-Skripte.
+Es wird kein Quellcode von Drittanbietern weiterverteilt — die Integration erfolgt über MCP-Verbindungen, Laufzeit-Paketinstallationen und Wrapper-Skripte.
 
 | Tool | Anbieter | Lizenz |
 |---|---|---|
-| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietär (API-Bedingungen) |
+| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-Alle Produktnamen, Logos und Markenzeichen sind Eigentum ihrer jeweiligen Inhaber. Dieses Plugin ist weder mit einem der oben genannten Drittanbieter-Dienste verbunden noch von diesen unterstützt.
+Alle Produktnamen, Logos und Marken sind Eigentum ihrer jeweiligen Inhaber.
+
+## Sprache
+
+Die Einrichtungsanweisungen werden vom KI-Assistenten in Ihrer Sprache bereitgestellt. Übersetzte READMEs dienen der besseren Zugänglichkeit — **das englische Original ist maßgeblich**.
 
 ## Support
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Fehlermeldungen, Feature-Anfragen und Fragen
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Fehlermeldungen, Funktionswünsche und Fragen
 
 ## Autor
 
@@ -189,4 +232,4 @@ Alle Produktnamen, Logos und Markenzeichen sind Eigentum ihrer jeweiligen Inhabe
 
 ## Lizenz
 
-[MIT License](../LICENSE) — kostenlos nutzbar, veränderbar und weitergabe. Copyright (c) 2026 shidoyu.
+[MIT License](../LICENSE) — frei nutzbar, modifizierbar und verteilbar. Copyright (c) 2026 shidoyu.

@@ -1,185 +1,230 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇻🇳 [**Tiếng Việt**](README.vi.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 **Tiếng Việt** · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
 > **Lưu ý:** Bản dịch này chỉ mang tính chất tham khảo. [Bản gốc tiếng Anh](../README.md) là phiên bản chính thức.
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — Suy nghĩ trước. Tìm kiếm sau." width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> Suy nghĩ trước, tìm kiếm sau. — Plugin nghiên cứu web cho Claude Code.
+<p align="center">
+  Plugin nghiên cứu web cho <a href="https://claude.com/claude-code">Claude Code</a>.<br>
+  Chuyển đổi những câu hỏi mơ hồ thành các truy vấn đa công cụ tối ưu, tiếp cận nguồn thông tin gốc.
+</p>
 
-Thiết kế truy vấn, tìm kiếm đa công cụ, tải nội dung bảo vệ quyền riêng tư.
+<p align="center">
+  <strong>Suy nghĩ trước. Tìm kiếm sau.</strong>
+</p>
 
-WebSearch tích hợp sẵn của Claude Code chỉ trả về các đoạn trích 125 ký tự và chỉ dựa vào việc khớp từ khóa. scout biến một câu hỏi mơ hồ thành các truy vấn đa công cụ tìm kiếm đã được tối ưu, đánh giá chất lượng kết quả và tìm lại khi cần, để tiếp cận nguồn gốc nhanh hơn và đáng tin cậy hơn.
+---
 
-## Tính năng
+WebSearch tích hợp trong Claude Code chỉ trả về đoạn trích 125 ký tự và dựa hoàn toàn vào so khớp từ khóa. Điều này đủ cho các tra cứu đơn giản, nhưng nghiên cứu thực sự cần thiết kế truy vấn, đánh giá nguồn và định tuyến có ý thức bảo mật.
 
-- **scout:search** — Tìm kiếm web đa công cụ với tối ưu hóa thiết kế truy vấn
-- **scout:fetch** — Lấy nội dung URL với lựa chọn công cụ theo mức độ bảo mật
-
-## Cài đặt
-
-Chạy trong terminal:
-
-```bash
-# Bước 1: Đăng ký marketplace
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# Bước 2: Cài đặt plugin
-claude plugin install scout@shidoyu-scout
-```
-
-**Bước 3** — Thiết lập công cụ tìm kiếm và công cụ tải nội dung
-
-Chạy từng lệnh này lần lượt trong Claude Code:
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-`scout:setup` hướng dẫn bạn cấu hình [Context7](https://github.com/upstash/context7) (tài liệu thư viện), [Jina Reader](https://jina.ai) (tải nội dung trang web), [Exa](https://exa.ai) (tìm kiếm ngữ nghĩa) và [Playwright](https://playwright.dev) (trang render bằng JavaScript) theo hình thức tương tác. Mọi bước đều là tùy chọn và có thể bỏ qua.
-
-> **Lưu ý:** Nếu bạn bỏ qua bước này, scout sẽ nhắc bạn thiết lập khi bắt đầu phiên tiếp theo. Tìm kiếm cơ bản hoạt động ngay mà không cần thiết lập.
+scout suy nghĩ trước khi tìm kiếm.
 
 ## Bắt đầu nhanh
 
-Sau khi cài đặt, hãy hỏi Claude (không cần thiết lập — tìm kiếm cơ bản hoạt động ngay):
+Không cần API key. Không cần thay đổi môi trường. Cài đặt xong là dùng được ngay.
 
-**Tìm những khái niệm bạn chưa biết tên:**
-> "thuật toán mà app tự gợi ý sản phẩm dựa trên những gì người dùng khác có sở thích giống mình đã mua"
+**1. Thêm marketplace** (chỉ cần một lần):
 
-**Khám phá tương đương quốc tế của khái niệm Việt Nam:**
-> "Tích hợp cổng thanh toán VNPay và MoMo vào app, cái nào dễ hơn cho developer?"
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**Nhận câu trả lời chuyên gia từ câu hỏi đơn giản:**
-> "Gõ tiếng Việt có dấu trong input field bị mất dấu hoặc hiện ký tự lạ khi submit form"
+**2. Cài đặt**:
 
-**Đọc một trang cụ thể:**
-> "Đọc trang này https://nextjs.org/docs/getting-started/installation"
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-## Skills
+**3. Tải lại plugin** (nhập trong Claude Code):
 
-### scout:search
+```
+/mcp
+```
 
-Tìm kiếm web thông minh với:
-- Nghiên cứu trước để tinh chỉnh truy vấn
-- Thiết kế truy vấn đa ngôn ngữ
-- Nhiều công cụ tìm kiếm (WebSearch, [Context7](https://github.com/upstash/context7) tài liệu chính thức, tìm kiếm ngữ nghĩa [Exa](https://exa.ai))
-- HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) cho truy vấn khái niệm qua Exa
-- Đánh giá chất lượng với vòng lặp tìm kiếm lại tự động
+Sau đó hỏi Claude:
 
-Cách dùng: `/scout:search câu hỏi của bạn ở đây`
+```text
+/scout:search Có công cụ nào giống Git blame nhưng dùng để theo dõi quyết định thiết kế không?
+```
 
-### scout:fetch
+scout sẽ chuyển đổi khái niệm mơ hồ này thành thuật ngữ chính xác (ADR — Architecture Decision Records), thực thi truy vấn tối ưu trên nhiều công cụ tìm kiếm, đánh giá chất lượng nguồn, và trả về kết quả kèm Research Trail (bản ghi cho thấy cách scout đi đến câu trả lời).
 
-Lấy nội dung trang web với phân loại bảo mật tự động:
-- **Trang công khai** → Jina Reader / WebFetch (dự phòng tích hợp sẵn)
-- **Trang bảo mật** → Playwright cục bộ (không gọi API bên ngoài)
-- **Trang yêu cầu xác thực** → Chrome DevTools (phiên trình duyệt)
+## scout có thể làm gì
 
-Cách dùng: `/scout:fetch URL`
+### Tìm khái niệm mà bạn chưa biết tên
 
-### scout:setup
+> "Tôi biết có một khái niệm như vậy — cách ghi lại lý do đằng sau mỗi quyết định thiết kế — nhưng tôi không biết nó gọi là gì"
 
-Thiết lập tương tác có hướng dẫn cho công cụ tìm kiếm và công cụ tải nội dung:
-- **Context7** — Đường đi trực tiếp tới tài liệu chính thức mới nhất của thư viện và framework, giúp câu hỏi kỹ thuật chạm vào docs nguồn nhanh hơn qua [Context7 MCP](https://github.com/upstash/context7) (không cần API key)
-- **Jina Reader** — Lấy trang web thành Markdown gọn hơn bằng cách bỏ điều hướng và phần nội dung lặp lại, nên thường gửi ít văn bản hơn vào mô hình và tiết kiệm token ([API key](https://jina.ai/?newKey))
-- **Exa** — Tìm kiếm theo ngữ nghĩa cho các câu hỏi mơ hồ, mang tính khái niệm hoặc ngách khi chưa rõ đúng thuật ngữ ([API key](https://exa.ai))
-- **Playwright** — Lấy cục bộ bằng trình duyệt cho các trang render bằng JavaScript hoặc trang nhạy cảm cần ở lại trên máy của bạn (~200MB tải xuống)
+scout chuyển đổi ý tưởng mơ hồ thành thuật ngữ chính xác và tiếp cận nguồn thông tin gốc.
 
-Tất cả các bước đều là tùy chọn. Chạy lại bất cứ lúc nào để cập nhật cài đặt.
+### Vượt qua nhiễu SEO
 
-Cách dùng: `/scout:setup`
+> "Thực sự nên chuyển từ Terraform sang đâu — không phải bài viết được tài trợ, mà là câu chuyện di chuyển thực tế"
 
-## Quyền riêng tư
+Nghiên cứu sơ bộ giúp có được vốn từ vựng phù hợp, sau đó các truy vấn nhắm mục tiêu sẽ bỏ qua các trang nội dung kém chất lượng.
 
-scout phân loại URL thành ba cấp độ trước khi lấy nội dung:
-- **Công khai** → API đám mây (Jina Reader / WebFetch)
-- **Bảo mật** → Chỉ Playwright cục bộ (định tuyến có chủ đích: URL bảo mật không được gửi đến API bên ngoài)
-- **Yêu cầu xác thực** → Chrome DevTools (sử dụng phiên trình duyệt của bạn)
+### Truy cập trực tiếp tài liệu chính thức
 
-Phân loại này là tự động nhưng dựa trên phán đoán của LLM, không phải thực thi của hệ thống. Xem [Tuyên bố từ chối trách nhiệm về quyền riêng tư](#tuyên-bố-từ-chối-trách-nhiệm-về-quyền-riêng-tư) để biết chi tiết.
+> "Cách thiết lập middleware trong Next.js App Router?"
 
-## Yêu cầu
+scout kiểm tra [Context7](https://github.com/upstash/context7) để tìm tài liệu chính thức đã được lập chỉ mục trước. Nếu câu trả lời đã có ở đó thì không cần tìm kiếm web.
 
-- Claude Code
-- `jq` (chỉ dùng cho thiết lập)
-- `npm`/`npx` (cho [MCP](https://modelcontextprotocol.io/) server: chrome-devtools)
-- Python 3.10+ (tùy chọn, cho lấy nội dung cục bộ bằng Playwright)
-- `uvx` hoặc `uv` (tùy chọn, cho MCP server: markitdown — chuyển đổi HTML→Markdown)
-- Chrome (tùy chọn, cho lấy nội dung trang xác thực qua DevTools)
+### Đọc bất kỳ trang web nào
 
-### Thiết lập Chrome DevTools (cho trang yêu cầu xác thực)
+> "Lấy và tóm tắt https://docs.anthropic.com/en/docs/claude-code"
 
-Để lấy nội dung các trang yêu cầu đăng nhập (OAuth, bảng điều khiển SaaS), Chrome phải chạy ở chế độ debug:
+Truy xuất có ý thức bảo mật: trang công khai đi qua API đám mây, trang bảo mật xử lý trên máy cục bộ.
 
-Trên macOS:
+## Cấp độ thiết lập
+
+scout hoạt động ngay sau khi cài đặt. Mỗi cấp độ bổ sung thêm khả năng — tất cả đều tùy chọn, tất cả đều có thể hoàn tác.
+
+### Cấp độ 1: Tìm kiếm tích hợp (mặc định)
+
+Sử dụng WebSearch của Claude Code. Không cần cấu hình. Đây là trạng thái sẵn có ngay sau cài đặt.
+
+### Cấp độ 2: Tài liệu chính thức + Truy xuất sạch hơn
+
+Thêm [Context7](https://github.com/upstash/context7) để truy cập trực tiếp tài liệu thư viện/framework, và [Jina Reader](https://jina.ai) để đọc trang sạch hơn. Context7 không cần API key; Jina có key tùy chọn để nới lỏng giới hạn tốc độ.
+
+### Cấp độ 3: Tìm kiếm ngữ nghĩa
+
+Thêm [Exa](https://exa.ai) để tìm kiếm dựa trên ngữ nghĩa — tìm trang liên quan ngay cả khi bạn không biết từ khóa chính xác. Gói miễn phí hỗ trợ tìm kiếm ngữ nghĩa cơ bản; API key mở khóa tính năng nâng cao.
+
+### Cấp độ 4: Trình duyệt cục bộ
+
+Thêm [Playwright](https://playwright.dev) để xử lý trang render bằng JavaScript và các URL bảo mật không nên gửi ra bên ngoài. Cần tải Chromium (khoảng 200MB).
+
+**Chạy `/scout:setup` để thiết lập từng cấp độ theo hướng dẫn tương tác.** Trước khi thực hiện bất kỳ thay đổi nào, hệ thống sẽ hiển thị chính xác những gì sẽ được thêm vào cấu hình. Có thể chạy lại bất cứ lúc nào để thêm hoặc cập nhật công cụ.
+
+## Kỹ năng
+
+| Kỹ năng | Mục đích |
+|---|---|
+| `/scout:search` | Tìm kiếm web đa công cụ với thiết kế truy vấn, đánh giá nguồn và tự động tìm kiếm lại |
+| `/scout:fetch` | Truy xuất nội dung URL với phân loại bảo mật tự động |
+| `/scout:setup` | Hướng dẫn thiết lập tương tác cho công cụ tìm kiếm và truy xuất |
+
+### Research Trail
+
+Mỗi lần tìm kiếm kết thúc bằng một bản ghi có cấu trúc cho thấy cách scout đi đến câu trả lời:
+
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           câu hỏi gốc của bạn
+Designed queries: các truy vấn tối ưu mà scout thực sự đã chạy
+Sources:         URL kèm mức độ tin cậy (🟢 nguồn gốc / 🟡 nguồn thứ cấp / ⚪ nguồn bậc ba)
+Re-searches:     các tìm kiếm bổ sung và lý do
+Confidence:      High / Medium / Low (kèm căn cứ)
+```
+
+## Bảo mật
+
+scout phân loại URL thành ba cấp độ trước khi truy xuất:
+
+| Phân loại | Định tuyến | Ví dụ |
+|---|---|---|
+| **Công khai** | API đám mây (Jina Reader / WebFetch) | Blog, tài liệu, repo GitHub công khai |
+| **Bảo mật** | Chỉ dùng Playwright cục bộ | localhost, wiki nội bộ, trang quản trị |
+| **Cần xác thực** | Chrome DevTools (sử dụng phiên trình duyệt) | Notion, Slack, trang sau xác thực OAuth |
+
+Phân loại này dựa trên phán đoán của LLM, không phải do hệ thống bắt buộc. Hãy coi đây là định tuyến theo nỗ lực tốt nhất. Với dữ liệu có độ nhạy cảm cao, hãy xác minh kết quả phân loại trước khi tiếp tục.
+
+**URL bảo mật không bao giờ được gửi đến API bên ngoài, ngay cả khi truy xuất thất bại** — hệ thống không chuyển sang công cụ đám mây cho các trang bảo mật.
+
+<details>
+<summary>Thiết lập Chrome DevTools (cho trang cần xác thực)</summary>
+
+Để truy xuất các trang yêu cầu đăng nhập (OAuth, bảng điều khiển SaaS), hãy khởi chạy Chrome ở chế độ gỡ lỗi:
+
+macOS:
 
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
-Trên Linux:
+Linux:
 
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Tuyên bố từ chối trách nhiệm về quyền riêng tư
+<details>
+<summary>Lưu ý về hồ sơ trình duyệt</summary>
 
-scout phân loại URL theo mức độ nhạy cảm và định tuyến URL bảo mật đến các công cụ chỉ chạy cục bộ.
-Phân loại này dựa trên phán đoán của LLM (mẫu tên miền và ngữ cảnh) và **không phải là đảm bảo được thực thi bởi hệ thống**.
-Đối với dữ liệu nhạy cảm cao, hãy xác minh phân loại trước khi tiến hành.
+Trình truy xuất dựa trên Playwright sử dụng hồ sơ trình duyệt cố định (`tools/.chrome-profile/`), có thể tích lũy cookie và dữ liệu phiên. Thư mục này đã được loại trừ khỏi Git qua `.gitignore` nhưng có thể bị sao chép bởi các công cụ sao lưu. Nếu bạn đã truy xuất các trang bảo mật, hãy xóa thư mục này định kỳ.
+</details>
 
-**Hồ sơ trình duyệt.** Trình lấy nội dung dựa trên Playwright (`fetch-page.py`) sử dụng hồ sơ trình duyệt liên tục (`tools/.chrome-profile/`) có thể tích lũy cookie, dữ liệu phiên và lịch sử duyệt web. Thư mục này được loại trừ khỏi Git qua `.gitignore` nhưng có thể được sao chép bởi công cụ sao lưu hoặc dịch vụ đồng bộ đám mây. Xóa thư mục định kỳ nếu bạn lấy nội dung trang bảo mật.
+## Gỡ cài đặt
 
-## Ngôn ngữ
+Hai lệnh để xóa sạch mọi thứ. Không để lại gì.
 
-Hướng dẫn thiết lập được cung cấp bằng ngôn ngữ của bạn bởi trợ lý AI.
-Hướng dẫn đã dịch chỉ mang tính tiện lợi — **bản gốc tiếng Anh là phiên bản chính thức**.
+Xóa plugin (dọn dẹp bộ nhớ đệm, cấu hình và dữ liệu trạng thái):
 
-## Lưu ý bảo mật
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-Sau khi thiết lập, các API key được lưu trong `.mcp.json`.
-**Không commit `.mcp.json` lên Git.** Dùng `.mcp.json.dist` làm template phân phối.
+Xóa Context7 nếu bạn đã thêm qua scout:setup (phạm vi người dùng — xóa khỏi tất cả dự án):
 
-## Tuyên bố miễn trừ trách nhiệm
+```bash
+claude mcp remove context7
+```
 
-Plugin này được cung cấp "nguyên trạng" theo MIT License, không có bảo đảm dưới bất kỳ hình thức nào.
+## Yêu cầu
 
-**API bên ngoài.** Plugin này phụ thuộc vào các API của bên thứ ba (Exa, Jina AI và các bên khác). Tác giả không đảm bảo về tính khả dụng, độ chính xác, giá cả hay tính liên tục của các dịch vụ này và không chịu trách nhiệm về chi phí phát sinh từ việc sử dụng API.
+- **Claude Code** (bắt buộc)
+- `jq` (chỉ dùng cho chẩn đoán thiết lập)
+- Python 3.10+ (chỉ dùng cho Playwright truy xuất cục bộ)
+- `npm`/`npx` (chỉ dùng cho Chrome DevTools MCP server)
 
-**Quản lý API Key.** Bạn hoàn toàn chịu trách nhiệm trong việc lấy, bảo mật và quản lý API key của mình, cũng như tuân thủ điều khoản dịch vụ của từng nhà cung cấp.
+## Bảo mật
 
-**Phân loại nội dung.** Khi lấy nội dung web, plugin có thể sử dụng phân loại dựa trên LLM để đánh giá mức độ nhạy cảm về quyền riêng tư và xác định phương thức truy xuất phù hợp. Các phân loại như vậy chỉ là nỗ lực tốt nhất và có thể có sai sót. Không dựa vào phân loại tự động như biện pháp bảo vệ duy nhất cho thông tin nhạy cảm hoặc bảo mật.
+API key được lưu trong `.mcp.json` bên trong thư mục plugin.
+**Không commit `.mcp.json` vào Git.** Mẫu để phân phối là `.mcp.json.dist`.
 
-**Lấy nội dung web & Tự động hóa trình duyệt.** Plugin này bao gồm các công cụ tự động hóa trình duyệt không giao diện qua Playwright và Chrome DevTools. Bạn chịu trách nhiệm đảm bảo việc sử dụng của mình tuân thủ điều khoản dịch vụ của trang web đích, chính sách robots.txt và các luật hiện hành. Tác giả không chịu trách nhiệm về việc bị chặn trang web, đình chỉ tài khoản, hạn chế IP, thực thi script không mong muốn, tiêu thụ tài nguyên hoặc các vấn đề tương thích phát sinh từ tự động hóa trình duyệt.
+## Tuyên bố miễn trừ
 
-**MCP Servers.** Plugin này kết nối với các MCP (Model Context Protocol) server của bên thứ ba. Tác giả không kiểm soát, kiểm tra hay đảm bảo hành vi hoặc bảo mật của các server này.
+Plugin này được cung cấp "nguyên trạng" theo Giấy phép MIT, không có bất kỳ bảo đảm nào.
+
+**API bên ngoài.** Plugin này phụ thuộc vào API của bên thứ ba (Exa, Jina AI và các dịch vụ khác). Tác giả không đảm bảo về tính khả dụng, độ chính xác, giá cả hoặc tính liên tục của các dịch vụ này và không chịu trách nhiệm cho các chi phí phát sinh từ việc sử dụng API.
+
+**Quản lý API key.** Việc lấy, bảo mật, quản lý API key và tuân thủ điều khoản dịch vụ của từng nhà cung cấp hoàn toàn thuộc trách nhiệm của bạn.
+
+**Phân loại nội dung.** Phân loại bảo mật URL dựa trên phán đoán của LLM và có thể có sai sót. Không nên coi đây là biện pháp bảo vệ duy nhất cho thông tin nhạy cảm.
+
+**Truy xuất web & Tự động hóa trình duyệt.** Plugin này bao gồm các công cụ tự động hóa trình duyệt headless qua Playwright và Chrome DevTools. Bạn có trách nhiệm đảm bảo việc sử dụng tuân thủ điều khoản dịch vụ, chính sách robots.txt và luật pháp hiện hành của các trang web mục tiêu.
+
+**MCP server.** Plugin này kết nối đến các MCP server của bên thứ ba. Tác giả không kiểm soát, kiểm toán hoặc đảm bảo hành vi hay tính bảo mật của các server này.
 
 ## Ghi nhận bên thứ ba
 
-Plugin này tích hợp với các công cụ và dịch vụ bên ngoài sau đây. Không có mã nguồn bên thứ ba nào được phân phối lại — tích hợp thông qua kết nối MCP server, cài đặt gói lúc chạy và các wrapper script do nhà phát triển plugin tự viết.
+Không phân phối lại mã nguồn của bên thứ ba. Tích hợp thông qua kết nối MCP, cài đặt gói thời gian chạy và script bọc.
 
 | Công cụ | Nhà cung cấp | Giấy phép |
 |---|---|---|
 | [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-Tất cả tên sản phẩm, logo và nhãn hiệu đều là tài sản của chủ sở hữu tương ứng. Plugin này không có liên kết hay được xác nhận bởi bất kỳ dịch vụ bên thứ ba nào được liệt kê ở trên.
+Tất cả tên sản phẩm, logo và nhãn hiệu là tài sản của chủ sở hữu tương ứng.
+
+## Ngôn ngữ
+
+Hướng dẫn thiết lập được trợ lý AI cung cấp bằng ngôn ngữ của bạn. Các bản dịch chỉ mang tính tham khảo — **bản gốc tiếng Anh là phiên bản chính thức**.
 
 ## Hỗ trợ
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Báo cáo lỗi, yêu cầu tính năng và câu hỏi
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Báo lỗi, yêu cầu tính năng và câu hỏi
 
 ## Tác giả
 
@@ -187,4 +232,4 @@ Tất cả tên sản phẩm, logo và nhãn hiệu đều là tài sản của 
 
 ## Giấy phép
 
-[MIT License](../LICENSE) — tự do sử dụng, chỉnh sửa và phân phối. Copyright (c) 2026 shidoyu.
+[MIT License](../LICENSE) — Tự do sử dụng, chỉnh sửa và phân phối. Copyright (c) 2026 shidoyu.

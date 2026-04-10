@@ -1,187 +1,230 @@
-🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇸🇦 [العربية](README.ar.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇵🇱 [Polski](README.pl.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇺🇦 [Українська](README.uk.md) · 🇹🇭 [ไทย](README.th.md) · 🇷🇺 [Русский](README.ru.md) · 🇨🇿 [**Čeština**](README.cs.md)
+🇯🇵 [日本語](README.ja.md) · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 **Čeština** · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
-> **Poznámka:** Tento překlad je poskytnut pouze pro pohodlí. [Anglický originál](../README.md) je oficiální verze.
+> **Upozornění:** Tento překlad je poskytován pouze pro usnadnění. Oficiální verzí je [anglický originál](../README.md).
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — Nejdřív přemýšlej. Pak hledej." width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> Nejdřív přemýšlej, pak hledej. — Plugin pro webový výzkum pro Claude Code.
+<p align="center">
+  Plugin pro webový výzkum pro <a href="https://claude.com/claude-code">Claude Code</a>.<br>
+  Přemění vágní otázky na optimalizované vícemotorové dotazy, které se dostanou k primárním zdrojům.
+</p>
 
-Návrh dotazů, vícemotorové vyhledávání, načítání s ohledem na soukromí.
+<p align="center">
+  <strong>Nejdřív přemýšlej. Pak hledej.</strong>
+</p>
 
-Vestavěný WebSearch v Claude Code vrací jen 125znakové úryvky a spoléhá pouze na shodu klíčových slov. scout převádí vágní otázku na optimalizované dotazy pro více vyhledávačů, vyhodnocuje kvalitu výsledků a podle potřeby hledá znovu, takže se k primárním zdrojům dostane rychleji a spolehlivěji.
+---
 
-## Funkce
+Vestavěné WebSearch v Claude Code vrací úryvky o délce 125 znaků a spoléhá pouze na shodu klíčových slov. Pro jednoduché vyhledávání to stačí, ale skutečný výzkum vyžaduje návrh dotazů, hodnocení zdrojů a směrování respektující soukromí.
 
-- **scout:search** — Webové vyhledávání s více vyhledávači a optimalizací návrhu dotazů
-- **scout:fetch** — Načítání obsahu URL s výběrem nástrojů ohleduplným k soukromí
-
-## Instalace
-
-Spusťte v terminálu:
-
-```bash
-# Krok 1: Zaregistrujte marketplace
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# Krok 2: Nainstalujte plugin
-claude plugin install scout@shidoyu-scout
-```
-
-**Krok 3** — Nastavte vyhledávače a nástroje pro načítání
-
-Tyto příkazy spusťte v Claude Code po jednom:
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-scout:setup vás interaktivně provede konfigurací Context7 (dokumentace knihoven), Jina Reader (načítání webových stránek), Exa (sémantické vyhledávání) a Playwright (stránky vykreslované JavaScriptem). Všechny kroky jsou volitelné a lze je přeskočit.
-
-> **Poznámka:** Pokud tento krok přeskočíte, scout vás vyzve k nastavení při dalším spuštění relace. Základní vyhledávání funguje okamžitě bez nastavení.
+scout přemýšlí, než začne hledat.
 
 ## Rychlý start
 
-Po instalaci se zeptejte Claude (nastavení není potřeba — základní vyhledávání funguje okamžitě):
+Není potřeba API klíčů. Žádné změny prostředí. Nainstalujte a hned vyzkoušejte:
 
-### Vyzkoušejte hned
+**1. Přidejte marketplace** (jednorázově):
 
-**Najít koncepty, které ještě neumíte pojmenovat:**
-> „návrhový vzor kdy se víc malých objektů tváří jako jeden velký a klient nepozná rozdíl"
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**Objevit mezinárodní ekvivalenty českých konceptů:**
-> „jak vysvětlit zahraničnímu týmu český koncept datových schránek a najít obdobu v jiných zemích"
+**2. Nainstalujte**:
 
-**Získat odborné odpovědi z jednoduchých otázek:**
-> „Git říká že nemůžu pushovat protože remote obsahuje práci kterou nemám lokálně ale já nic neměnil"
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-**Přečíst konkrétní stránku:**
-> „přečti https://docs.python.org/3/library/asyncio-task.html"
+**3. Znovu načtěte pluginy** (zadejte v Claude Code):
 
-## Skills
+```
+/mcp
+```
 
-### scout:search
+Poté se zeptejte Claude:
 
-Inteligentní webové vyhledávání s funkcemi:
-- Předvýzkum pro upřesnění dotazů
-- Návrh dotazů ve více jazycích
-- Více vyhledávačů (WebSearch, [Context7](https://github.com/upstash/context7) oficiální dokumentace, sémantické vyhledávání [Exa](https://exa.ai))
-- HyDE ([Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)) pro konceptuální dotazy přes Exa
-- Hodnocení kvality s automatickou smyčkou opakovaného vyhledávání
+```text
+/scout:search Hledám něco jako Git blame, ale pro sledování návrhových rozhodnutí
+```
 
-Použití: `/scout:search vaše otázka zde`
+scout přemění tento vágní koncept na správný termín (ADR — Architecture Decision Records), prohledá více vyhledávačů optimalizovanými dotazy, vyhodnotí kvalitu zdrojů a vrátí odpověď s Research Trail, který přesně ukazuje, jak k ní dospěl.
 
-### scout:fetch
+## Co scout umí
 
-Načítání obsahu webových stránek s automatickou klasifikací soukromí:
-- **Veřejné stránky** → Jina Reader / WebFetch (vestavěná záloha)
-- **Důvěrné stránky** → Lokální Playwright (bez volání externích API)
-- **Stránky vyžadující přihlášení** → Chrome DevTools (relace prohlížeče)
+### Najde koncepty, které ještě neumíte pojmenovat
 
-Použití: `/scout:fetch URL`
+> „Vím, že takový koncept existuje — něco o zaznamenávání, proč jsme udělali každé návrhové rozhodnutí — ale neznám jeho název"
 
-### scout:setup
+scout převádí mlhavé nápady na přesnou terminologii a dostane se k primárním zdrojům.
 
-Interaktivní průvodce nastavením vyhledávačů a nástrojů pro načítání:
-- **Context7** — Přímá cesta k aktuálním oficiálním dokumentacím knihoven a frameworků, takže se k primárním docs dostanete rychleji přes [Context7 MCP](https://github.com/upstash/context7) (není potřeba API klíč)
-- **Jina Reader** — Čistší načítání webových stránek jako Markdown, které odstraňuje navigaci a opakující se šablonový obsah, takže se do modelu často posílá méně textu a šetří se tokeny ([API klíč](https://jina.ai/?newKey))
-- **Exa** — Vyhledávání podle významu pro vágní, konceptuální a niche dotazy, když neznáte přesné termíny ([API klíč](https://exa.ai))
-- **Playwright** — Lokální prohlížečové načítání pro stránky renderované JavaScriptem nebo důvěrné stránky, které mají zůstat na vašem zařízení (~200MB download)
+### Prorazí šumem SEO
 
-Všechny kroky jsou volitelné. Spusťte znovu kdykoliv pro aktualizaci nastavení.
+> „Na co bych měl skutečně migrovat z Terraform — ne sponzorované seznamy, ale skutečné příběhy o migraci"
 
-Použití: `/scout:setup`
+Předvýzkum získá správnou slovní zásobu a poté cílené dotazy obejdou obsahové farmy.
+
+### Dostane se přímo k oficiální dokumentaci
+
+> „Jak nastavit middleware v Next.js App Router?"
+
+scout nejprve zkontroluje [Context7](https://github.com/upstash/context7), zda tam není indexovaná oficiální dokumentace — pokud je tam odpověď, webové vyhledávání není potřeba.
+
+### Přečte libovolnou webovou stránku
+
+> „Načti a shrň https://docs.anthropic.com/en/docs/claude-code"
+
+Načítání respektující soukromí: veřejné stránky procházejí přes cloudová API, důvěrné stránky zůstávají na vašem počítači.
+
+## Úrovně nastavení
+
+scout funguje ihned po instalaci. Každá úroveň přidává schopnosti — všechny jsou volitelné a vratné.
+
+### Úroveň 1: Vestavěné vyhledávání (výchozí)
+
+Používá WebSearch v Claude Code. Není potřeba konfigurace. To je to, co dostanete hned po instalaci.
+
+### Úroveň 2: Oficiální dokumentace + čistší načítání
+
+Přidejte [Context7](https://github.com/upstash/context7) pro přímý přístup k dokumentaci knihoven/frameworků a [Jina Reader](https://jina.ai) pro čistší čtení stránek. Context7 nevyžaduje API klíč; volitelný klíč pro Jina zvyšuje limity.
+
+### Úroveň 3: Sémantické vyhledávání
+
+Přidejte [Exa](https://exa.ai) pro vyhledávání založené na významu — najde relevantní stránky i tehdy, když neznáte správná klíčová slova. Základní sémantické vyhledávání funguje v bezplatném plánu; API klíč odemkne pokročilé funkce.
+
+### Úroveň 4: Lokální prohlížeč
+
+Přidejte [Playwright](https://playwright.dev) pro stránky renderované JavaScriptem a důvěrné URL adresy, které by nikdy neměly opustit váš počítač. Stáhne Chromium (~200MB).
+
+**Spusťte `/scout:setup` pro interaktivní průchod každou úrovní.** Každý krok přesně ukáže, co bude přidáno do konfigurace, než se provedou jakékoli změny. Můžete spustit kdykoli znovu pro přidání nebo aktualizaci nástrojů.
+
+## Dovednosti
+
+| Dovednost | Účel |
+|---|---|
+| `/scout:search` | Vícemotorové webové vyhledávání s návrhem dotazů, hodnocením zdrojů a automatickým opětovným vyhledáváním |
+| `/scout:fetch` | Načítání obsahu URL s automatickou klasifikací soukromí |
+| `/scout:setup` | Interaktivní průvodce nastavením vyhledávačů a nástrojů pro načítání |
+
+### Research Trail
+
+Každé vyhledávání končí strukturovaným záznamem, který ukazuje, jak scout dospěl k odpovědi:
+
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           vaše původní otázka
+Designed queries: optimalizované dotazy, které scout skutečně spustil
+Sources:         URL s úrovní spolehlivosti (🟢 primární / 🟡 sekundární / ⚪ terciární)
+Re-searches:     dodatečná vyhledávání a jejich důvody
+Confidence:      High / Medium / Low s odůvodněním
+```
 
 ## Soukromí
 
-scout klasifikuje URL adresy do tří úrovní před načítáním:
-- **Veřejné** → Cloudová API (Jina Reader / WebFetch)
-- **Důvěrné** → Pouze lokální Playwright (zamýšlené směrování: důvěrné URL adresy nejsou odesílány externím API)
-- **Vyžadující přihlášení** → Chrome DevTools (využívá relaci vašeho prohlížeče)
+scout klasifikuje URL adresy do tří úrovní před načtením:
 
-Tato klasifikace je automatická, ale vychází z úsudku LLM, nikoli ze systémového vynucení. Podrobnosti viz [Prohlášení o ochraně soukromí](#prohlášení-o-ochraně-soukromí).
+| Klasifikace | Směrování | Příklady |
+|---|---|---|
+| **Veřejné** | Cloudová API (Jina Reader / WebFetch) | Blogy, dokumentace, veřejné repozitáře GitHub |
+| **Důvěrné** | Pouze lokální Playwright | localhost, interní wiki, administrační panely |
+| **S ověřením** | Chrome DevTools (relace prohlížeče) | Notion, Slack, stránky po OAuth ověření |
 
-## Požadavky
+Tato klasifikace je založena na úsudku LLM, nikoli na systémovém vynucení. Považujte ji za směrování na principu nejlepšího úsilí. U vysoce citlivých dat ověřte klasifikaci před pokračováním.
 
-- Claude Code
-- `jq` (pouze pro nastavení)
-- `npm`/`npx` (pro [MCP](https://modelcontextprotocol.io/) server: chrome-devtools)
-- Python 3.10+ (volitelné, pro lokální načítání pomocí Playwright)
-- `uvx` nebo `uv` (volitelné, pro MCP server: markitdown — konverze HTML→Markdown)
-- Chrome (volitelné, pro načítání stránek vyžadujících přihlášení přes DevTools)
+**Důvěrné URL adresy se nikdy neodesílají na externí API, ani v případě selhání** — systém nepřechází na cloudové nástroje pro důvěrné stránky.
 
-### Nastavení Chrome DevTools (pro stránky vyžadující přihlášení)
+<details>
+<summary>Nastavení Chrome DevTools (pro stránky s ověřením)</summary>
 
-Pro načítání stránek vyžadujících přihlášení (OAuth, SaaS dashboardy) musí Chrome běžet v režimu ladění:
+Pro načítání stránek vyžadujících přihlášení (OAuth, SaaS dashboardy) spusťte Chrome v režimu ladění:
 
-Na macOS:
+macOS:
 
 ```bash
 open -a "Google Chrome" --args --remote-debugging-port=9222
 ```
 
-Na Linuxu:
+Linux:
 
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## Prohlášení o ochraně soukromí
+<details>
+<summary>Poznámka k profilu prohlížeče</summary>
 
-scout klasifikuje URL adresy podle citlivosti a směruje důvěrné URL adresy na lokální nástroje.
-Tato klasifikace vychází z úsudku LLM (vzory domén a kontext) a **není systémově vynucenou zárukou**.
-U vysoce citlivých dat před pokračováním ověřte klasifikaci.
+Modul načítání založený na Playwright používá trvalý profil prohlížeče (`tools/.chrome-profile/`), ve kterém se mohou hromadit cookies a data relací. Tento adresář je vyloučen z Gitu přes `.gitignore`, ale může být zkopírován zálohovacími nástroji. Pokud načítáte důvěrné stránky, pravidelně jej mažte.
+</details>
 
-**Profil prohlížeče.** Načítač na bázi Playwright (`fetch-page.py`) používá trvalý profil prohlížeče (`tools/.chrome-profile/`), který může hromadit cookies, data relací a historii prohlížení. Tento adresář je vyloučen z Gitu prostřednictvím `.gitignore`, ale může být zkopírován zálohovacími nástroji nebo službami cloudové synchronizace. Pravidelně adresář mažte, pokud načítáte důvěrné stránky.
+## Odinstalace
 
-## Jazyk
+Dva příkazy odstraní vše. Bez zbytků.
 
-Pokyny k nastavení poskytne asistent AI ve vašem jazyce.
-Přeložené pokyny jsou pouze pro pohodlí — **anglický originál je autoritativní verzí**.
+Odstraňte plugin (vyčistí mezipaměť, konfiguraci a stavová data):
 
-## Bezpečnostní poznámka
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-Po nastavení jsou API klíče uloženy v `.mcp.json`.
-**Necommitujte `.mcp.json` do Gitu.** Jako šablonu pro distribuci používejte `.mcp.json.dist`.
+Odstraňte Context7, pokud jste jej přidali přes scout:setup (rozsah uživatele — odstraní ze všech projektů):
 
-## Právní upozornění
+```bash
+claude mcp remove context7
+```
 
-Tento plugin je poskytován „tak jak je" pod licencí MIT, bez jakékoli záruky.
+## Požadavky
 
-**Externí API.** Tento plugin spoléhá na API třetích stran (Exa, Jina AI a další). Autor neposkytuje žádné záruky ohledně dostupnosti, přesnosti, cen ani kontinuity těchto služeb a nenese odpovědnost za náklady vzniklé používáním API.
+- **Claude Code** (povinné)
+- `jq` (pouze pro diagnostiku nastavení)
+- Python 3.10+ (pouze pro lokální načítání přes Playwright)
+- `npm`/`npx` (pouze pro MCP server Chrome DevTools)
 
-**Správa API klíčů.** Nesete výhradní odpovědnost za získání, zabezpečení a správu vlastních API klíčů a za dodržování podmínek služby každého poskytovatele.
+## Bezpečnost
 
-**Klasifikace obsahu.** Při načítání webového obsahu může plugin používat klasifikaci založenou na LLM k posouzení citlivosti na soukromí a určení vhodných metod načítání. Taková klasifikace je prováděna s maximálním úsilím a může obsahovat chyby. Nespoléhejte se na automatickou klasifikaci jako jediné ochranné opatření pro citlivé nebo důvěrné informace.
+API klíče jsou uloženy v souboru `.mcp.json` v adresáři pluginu.
+**Necommitujte `.mcp.json` do Gitu.** Šablona `.mcp.json.dist` je bezpečná k distribuci.
 
-**Načítání webu a automatizace prohlížeče.** Tento plugin obsahuje nástroje pro automatizaci bezhlavého prohlížeče prostřednictvím Playwright a Chrome DevTools. Nesete odpovědnost za zajištění toho, aby vaše použití bylo v souladu s podmínkami služby cílových webů, zásadami robots.txt a platnými zákony. Autor nenese odpovědnost za blokování stránek, pozastavení účtu, omezení IP, neočekávané spuštění skriptů, spotřebu prostředků nebo problémy s kompatibilitou vyplývající z automatizace prohlížeče.
+## Prohlášení
 
-**MCP servery.** Tento plugin se připojuje k MCP (Model Context Protocol) serverům třetích stran. Autor nekontroluje, neaudituje ani nezaručuje chování ani bezpečnost těchto serverů.
+Tento plugin je poskytován „tak, jak je" pod licencí MIT, bez jakékoli záruky.
 
-## Přiřazení třetích stran
+**Externí API.** Tento plugin využívá API třetích stran (Exa, Jina AI a další). Autor negarantuje dostupnost, přesnost, ceny ani kontinuitu těchto služeb a nenese odpovědnost za náklady vzniklé používáním API.
 
-Tento plugin se integruje s následujícími externími nástroji a službami. Žádný zdrojový kód třetích stran není redistribuován — integrace probíhá prostřednictvím připojení k MCP serverům, instalace balíčků za běhu a obalových skriptů vytvořených vývojářem pluginu.
+**Správa API klíčů.** Získání, zabezpečení a správa vlastních API klíčů a dodržování podmínek služeb jednotlivých poskytovatelů je výhradně vaší odpovědností.
+
+**Klasifikace obsahu.** Klasifikace soukromí URL adres je založena na úsudku LLM a může obsahovat chyby. Nespoléhejte na ni jako na jediné zabezpečení citlivých informací.
+
+**Načítání webu a automatizace prohlížeče.** Tento plugin obsahuje nástroje pro automatizaci bezhlavého prohlížeče pomocí Playwright a Chrome DevTools. Za dodržování podmínek služeb cílových webů, politik robots.txt a platných zákonů odpovídáte vy.
+
+**MCP servery.** Tento plugin se připojuje k MCP serverům třetích stran. Autor nekontroluje, neaudituje ani negarantuje chování a bezpečnost těchto serverů.
+
+## Uvedení třetích stran
+
+Zdrojový kód třetích stran není redistribuován — integrace probíhá přes MCP připojení, instalaci balíčků za běhu a obalovací skripty.
 
 | Nástroj | Poskytovatel | Licence |
 |---|---|---|
-| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietární (podmínky API) |
+| [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-Všechny názvy produktů, loga a ochranné známky jsou majetkem příslušných vlastníků. Tento plugin není přidružen k žádné z výše uvedených služeb třetích stran ani jimi není doporučován.
+Všechny názvy produktů, loga a ochranné známky jsou majetkem příslušných vlastníků.
+
+## Jazyk
+
+Pokyny k nastavení jsou poskytovány ve vašem jazyce prostřednictvím AI asistenta. Přeložené soubory README slouží pro usnadnění — **anglický originál je oficiální verzí**.
 
 ## Podpora
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — Hlášení chyb, požadavky na funkce a dotazy
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — Hlášení chyb, žádosti o funkce a dotazy
 
 ## Autor
 
@@ -189,4 +232,4 @@ Všechny názvy produktů, loga a ochranné známky jsou majetkem příslušnýc
 
 ## Licence
 
-[MIT License](../LICENSE) — volné použití, úpravy a distribuce. Copyright (c) 2026 shidoyu.
+[MIT License](../LICENSE) — volně k použití, úpravě a distribuci. Copyright (c) 2026 shidoyu.

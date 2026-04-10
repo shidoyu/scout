@@ -1,127 +1,146 @@
-🇯🇵 **日本語** · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇩🇪 [Deutsch](README.de.md) · 🇪🇸 [Español](README.es.md) · 🇫🇷 [Français](README.fr.md) · 🇮🇱 [עברית](README.he.md) · 🇪🇪 [Eesti](README.et.md) · 🇸🇪 [Svenska](README.sv.md)
+🇯🇵 **日本語** · 🇰🇷 [한국어](README.ko.md) · 🇨🇳 [简体中文](README.zh-CN.md) · 🇹🇼 [繁體中文](README.zh-TW.md) · 🇮🇳 [हिन्दी](README.hi.md) · 🇩🇪 [Deutsch](README.de.md) · 🇫🇷 [Français](README.fr.md) · 🇪🇸 [Español](README.es.md) · 🇧🇷 [Português](README.pt-BR.md) · 🇮🇹 [Italiano](README.it.md) · 🇳🇱 [Nederlands](README.nl.md) · 🇵🇱 [Polski](README.pl.md) · 🇨🇿 [Čeština](README.cs.md) · 🇺🇦 [Українська](README.uk.md) · 🇷🇺 [Русский](README.ru.md) · 🇸🇪 [Svenska](README.sv.md) · 🇩🇰 [Dansk](README.da.md) · 🇪🇪 [Eesti](README.et.md) · 🇹🇷 [Türkçe](README.tr.md) · 🇸🇦 [العربية](README.ar.md) · 🇮🇱 [עברית](README.he.md) · 🇻🇳 [Tiếng Việt](README.vi.md) · 🇮🇩 [Bahasa Indonesia](README.id.md) · 🇹🇭 [ไทย](README.th.md) · [English](../README.md)
 
 > **注意:** この翻訳は便宜上のものです。[英語の原文](../README.md)が正式版です。
 
-# scout
+<p align="center">
+  <img src="assets/hero.png" alt="scout — 考えてから、検索する。" width="600">
+</p>
 
-**Wrong search, wrong decision.**
+<h1 align="center">scout</h1>
 
-> 考えてから、検索する。 — Claude Code 用 Web リサーチプラグイン。
+<p align="center">
+  <a href="https://claude.com/claude-code">Claude Code</a> 用 Web リサーチプラグイン。<br>
+  曖昧な質問を、一次情報にたどり着く最適なマルチエンジンクエリに変換します。
+</p>
 
-クエリ設計、マルチエンジン検索、プライバシー配慮のフェッチ。
+<p align="center">
+  <strong>考えてから、検索する。</strong>
+</p>
 
-Claude Code 内蔵の WebSearch は 125 文字のスニペットしか返さず、キーワード一致に頼っています。scout は曖昧な質問を最適化されたマルチエンジンクエリに変換し、結果の質を評価し、必要に応じて再検索することで、一次情報により速く、より確実にたどり着きます。
+---
 
-## 機能
+Claude Code 内蔵の WebSearch は 125 文字のスニペットを返すだけで、キーワード一致に頼っています。単純な調べ物には十分ですが、本格的なリサーチにはクエリ設計、ソース評価、プライバシーを考慮したルーティングが必要です。
 
-- **scout:search** — クエリ設計最適化によるマルチエンジン Web 検索
-- **scout:fetch** — プライバシーを考慮したツール選択による URL コンテンツ取得
-
-## インストール
-
-ターミナルで実行:
-
-```bash
-# ステップ 1: マーケットプレイスを登録
-claude plugin marketplace add shidoyu/scout
-```
-
-```bash
-# ステップ 2: プラグインをインストール
-claude plugin install scout@shidoyu-scout
-```
-
-**ステップ 3** — 検索エンジンとフェッチツールのセットアップ
-
-Claude Code 上で次の 2 つを 1 つずつ実行します:
-
-```text
-/reload-plugins
-```
-
-```text
-/scout:setup
-```
-
-scout:setup では、Context7（ライブラリドキュメント検索）、Jina Reader（Web ページ取得）、Exa（セマンティック検索）、Playwright（JavaScript レンダリングページ）を対話的に設定できます。すべてのステップは任意でスキップ可能です。
-
-> **注:** このステップをスキップしても、次回のセッション開始時に案内が表示されます。基本的な検索機能はセットアップなしですぐに使えます。
+scout は検索する前に考えます。
 
 ## クイックスタート
 
-インストール後すぐに使用できます（セットアップ不要 — 基本的な検索はすぐに動作します）:
+API キー不要。環境変更不要。インストールしたらすぐに試せます。
 
-### 今すぐ試す
+**1. マーケットプレイスを登録**（初回のみ）:
 
-インストール後、Claude に聞いてみてください:
+```bash
+claude plugin marketplace add shidoyu/scout
+```
 
-**名前がわからない概念を見つける:**
-> 「Git blame みたいに、なぜこの設計にしたのかを追跡する方法はある？」
+**2. インストール**:
 
-**日本のプラクティスの海外版を発見:**
-> 「KPT ふりかえりに近い英語圏のプラクティスを探して — retrospective 以外のバリエーションも」
+```bash
+claude plugin install scout@shidoyu-scout
+```
 
-**曖昧な質問から専門知識へ:**
-> 「ENOSPC エラーが出るけどディスク容量は余ってる、本当の原因は？」
+**3. プラグインを読み込み**（Claude Code 内で入力）:
 
-**特定のページを読む:**
+```
+/mcp
+```
+
+そのまま Claude に聞いてみてください:
+
+```text
+/scout:search Git blame みたいに設計判断の経緯を追跡する方法はある？
+```
+
+scout はこの曖昧な問いを適切な用語（ADR — Architecture Decision Records）に変換し、複数のエンジンで最適化されたクエリを実行し、ソースの質を評価し、Research Trail（どうやってその答えにたどり着いたかの記録）付きで回答を返します。
+
+## scout にできること
+
+### まだ名前を知らない概念を見つける
+
+> 「こういう概念があるのは知ってる — 設計のたびに"なぜそうしたか"を記録する方法 — でも名前がわからない」
+
+scout は曖昧なアイデアを正確な用語に変換し、一次情報にたどり着きます。
+
+### SEO ノイズを突破する
+
+> 「Terraform から本当に移行すべき先は？ スポンサー記事じゃなくて、実際の移行事例が知りたい」
+
+事前調査で適切な語彙を獲得してから、的を絞ったクエリでコンテンツファームを回避します。
+
+### 公式ドキュメントに直接たどり着く
+
+> 「Next.js App Router でミドルウェアを設定するには？」
+
+scout はまず [Context7](https://github.com/upstash/context7) でインデックス済みの公式ドキュメントを確認します。答えがそこにあれば Web 検索は不要です。
+
+### 任意の Web ページを読む
+
 > 「https://docs.anthropic.com/en/docs/claude-code を取得して要約して」
+
+プライバシーを考慮した取得: 公開ページはクラウド API 経由、機密ページはローカルで処理します。
+
+## セットアップレベル
+
+scout はインストール直後から動作します。各レベルは機能を追加するもので、すべて任意、すべて元に戻せます。
+
+### レベル 1: 内蔵検索（デフォルト）
+
+Claude Code の WebSearch を使用します。設定不要。インストールしたそのままの状態です。
+
+### レベル 2: 公式ドキュメント + よりクリーンな取得
+
+[Context7](https://github.com/upstash/context7) でライブラリ/フレームワークの公式ドキュメントに直接アクセス、[Jina Reader](https://jina.ai) でよりクリーンなページ読み取り。Context7 は API キー不要。Jina はレート制限緩和のためのオプションキーあり。
+
+### レベル 3: セマンティック検索
+
+[Exa](https://exa.ai) で意味ベースの検索。正しいキーワードがわからなくても関連ページを見つけられます。無料枠で基本的なセマンティック検索が可能。API キーで高度な機能を利用できます。
+
+### レベル 4: ローカルブラウザ
+
+[Playwright](https://playwright.dev) で JavaScript レンダリングページと、外部に送信すべきでない機密 URL をローカルで処理。Chromium のダウンロード（約 200MB）が必要です。
+
+**`/scout:setup` で各レベルを対話的に設定できます。** 変更を適用する前に、設定にどのような内容が追加されるかを必ず表示します。いつでも再実行してツールの追加や更新が可能です。
 
 ## スキル
 
-### scout:search
+| スキル | 用途 |
+|---|---|
+| `/scout:search` | クエリ設計、ソース評価、自動再検索を備えたマルチエンジン Web 検索 |
+| `/scout:fetch` | プライバシー自動分類による URL コンテンツ取得 |
+| `/scout:setup` | 検索エンジンとフェッチツールの対話型セットアップガイド |
 
-インテリジェントな Web 検索機能:
-- クエリ改善のための事前調査
-- 多言語クエリ設計
-- 複数の検索エンジン（WebSearch、[Context7](https://github.com/upstash/context7) 公式ドキュメント、[Exa](https://exa.ai) セマンティック検索）
-- Exa 経由の概念的クエリ向け HyDE（[Hypothetical Document Embeddings](https://arxiv.org/abs/2212.10496)）
-- 自動再検索ループによる品質評価
+### Research Trail
 
-使用方法: `/scout:search 調べたいこと`
+すべての検索の最後に、scout がどのように答えにたどり着いたかを示す構造化された記録を表示します:
 
-### scout:fetch
-
-プライバシー自動分類による Web ページコンテンツ取得:
-- **公開ページ** → Jina Reader / WebFetch（組み込みフォールバック）
-- **機密ページ** → ローカル Playwright（外部 API 呼び出しなし）
-- **認証が必要なページ** → Chrome DevTools（ブラウザセッションを使用）
-
-使用方法: `/scout:fetch URL`
-
-### scout:setup
-
-検索エンジンとフェッチツールの対話型セットアップガイド:
-- **Context7** — 最新の公式ライブラリ・フレームワーク文書へ直接たどり着けるため、技術質問で一次ドキュメントに早く届きます（[Context7 MCP](https://github.com/upstash/context7)、API キー不要）
-- **Jina Reader** — ナビゲーションや定型要素を除いた、よりクリーンな Markdown で Web ページを取得し、モデルに渡るテキスト量が減ってトークン節約につながることがあります（[APIキー](https://jina.ai/?newKey)）
-- **Exa** — 正確な用語が分からない曖昧・概念的・ニッチな質問に強い、意味ベースの検索です（[API キー](https://exa.ai)）
-- **Playwright** — 手元マシンに残したい JavaScript 描画ページや機密ページを、ローカルブラウザで取得します（約 200MB のダウンロード）
-
-すべてのステップは任意です。設定を更新する際はいつでも再実行できます。
-
-使用方法: `/scout:setup`
+```
+🔍 Research Trail
+───────────────────────────────
+Query:           あなたの元の質問
+Designed queries: scout が実際に実行した最適化クエリ
+Sources:         信頼性ランク付き URL（🟢 一次情報 / 🟡 二次情報 / ⚪ 三次情報）
+Re-searches:     追加検索とその理由
+Confidence:      High / Medium / Low（根拠付き）
+```
 
 ## プライバシー
 
-scout は取得前に URL を 3 つのレベルに分類します:
-- **公開** → クラウド API（Jina Reader / WebFetch）
-- **機密** → ローカル Playwright のみ（設計上、機密 URL は外部 API に送信されません）
-- **認証済み** → Chrome DevTools（ブラウザセッションを使用）
+scout は取得前に URL を 3 段階に分類します:
 
-この分類は自動で行われますが、システムレベルでの保証ではなく LLM の判断に基づきます。詳細は[プライバシーに関する免責事項](#プライバシーに関する免責事項)をご覧ください。
+| 分類 | ルーティング | 例 |
+|---|---|---|
+| **公開** | クラウド API（Jina Reader / WebFetch） | ブログ、ドキュメント、GitHub 公開リポ |
+| **機密** | ローカル Playwright のみ | localhost、社内 Wiki、管理画面 |
+| **認証済み** | Chrome DevTools（ブラウザセッション使用） | Notion、Slack、OAuth 認証後のページ |
 
-## 動作環境
+この分類は LLM の判断に基づくもので、システムによる強制ではありません。ベストエフォートのルーティングとして扱ってください。機密性の高いデータの場合、処理前に分類結果を確認してください。
 
-- Claude Code
-- `jq`（セットアップ時のみ）
-- `npm`/`npx`（[MCP](https://modelcontextprotocol.io/) サーバー: chrome-devtools 用）
-- Python 3.10 以上（任意。Playwright ローカル取得用）
-- `uvx` または `uv`（任意。MCP サーバー: markitdown — HTML→Markdown 変換用）
-- Chrome（任意。DevTools 経由の認証済みページ取得用）
+**機密 URL は、取得に失敗した場合でも外部 API には送信されません** — 機密ページに対してクラウドツールへのフォールバックは行いません。
 
-### Chrome DevTools のセットアップ（認証済みページ用）
+<details>
+<summary>Chrome DevTools のセットアップ（認証済みページ用）</summary>
 
-ログインが必要なページ（OAuth、SaaS ダッシュボードなど）を取得するには、Chrome をデバッグモードで起動する必要があります:
+ログインが必要なページ（OAuth、SaaS ダッシュボードなど）を取得するには、Chrome をデバッグモードで起動します:
 
 macOS:
 
@@ -134,23 +153,40 @@ Linux:
 ```bash
 google-chrome --remote-debugging-port=9222
 ```
+</details>
 
-## プライバシーに関する免責事項
+<details>
+<summary>ブラウザプロファイルについて</summary>
 
-scout は URL を機密度に応じて分類し、機密 URL をローカル専用ツールにルーティングします。
-この分類は LLM の判断（ドメインパターンとコンテキスト）に基づくものであり、**システムによる保証ではありません**。
-機密性の高いデータを扱う場合は、処理を進める前に分類結果を確認してください。
+Playwright ベースのフェッチャーは永続的なブラウザプロファイル（`tools/.chrome-profile/`）を使用し、Cookie やセッションデータが蓄積されることがあります。このディレクトリは `.gitignore` で Git の追跡対象外ですが、バックアップツールによりコピーされる可能性があります。機密ページを取得した場合は、定期的に削除してください。
+</details>
 
-**ブラウザプロファイル。** Playwright ベースの取得ツール（`fetch-page.py`）は永続的なブラウザプロファイル（`tools/.chrome-profile/`）を使用し、Cookie、セッションデータ、閲覧履歴が蓄積される場合があります。このディレクトリは `.gitignore` によって Git の追跡対象外ですが、バックアップツールやクラウド同期サービスによってコピーされる可能性があります。機密ページを取得した場合は、定期的にこのディレクトリを削除してください。
+## アンインストール
 
-## 言語
+2 つのコマンドですべて削除できます。残留物はありません。
 
-セットアップ手順は AI アシスタントによってお使いの言語で提供されます。
-翻訳は便宜上のものであり、**英語の原文が正式版です**。
+プラグインを削除（キャッシュ、設定、状態データをクリーンアップ）:
 
-## セキュリティに関する注意
+```bash
+claude plugin uninstall scout@shidoyu-scout
+```
 
-セットアップ後、API キーは `.mcp.json` に保存されます。
+scout:setup で追加した Context7 を削除（ユーザースコープのため、すべてのプロジェクトから削除されます）:
+
+```bash
+claude mcp remove context7
+```
+
+## 動作環境
+
+- **Claude Code**（必須）
+- `jq`（セットアップ診断のみ）
+- Python 3.10+（Playwright ローカル取得のみ）
+- `npm`/`npx`（Chrome DevTools MCP サーバーのみ）
+
+## セキュリティ
+
+API キーはプラグインディレクトリ内の `.mcp.json` に保存されます。
 **`.mcp.json` を Git にコミットしないでください。** 配布用テンプレートとして `.mcp.json.dist` を使用してください。
 
 ## 免責事項
@@ -161,29 +197,34 @@ scout は URL を機密度に応じて分類し、機密 URL をローカル専�
 
 **API キーの管理。** API キーの取得・保管・管理、および各プロバイダーの利用規約の遵守はご自身の責任で行ってください。
 
-**コンテンツ分類。** Web コンテンツ取得時、プラグインはプライバシーの機密性を評価して適切な取得方法を決定するために LLM ベースの分類を使用する場合があります。こうした分類はベストエフォートであり、誤りが含まれる可能性があります。機密情報や重要情報の保護をこの自動分類のみに頼ることは避けてください。
+**コンテンツ分類。** URL のプライバシー分類は LLM の判断に基づいており、誤りが含まれる可能性があります。機密情報の唯一の保護手段として依存しないでください。
 
-**Web 取得 & ブラウザ自動化。** このプラグインは Playwright と Chrome DevTools を介したヘッドレスブラウザ自動化ツールを含みます。対象サイトの利用規約、robots.txt ポリシー、適用法令への準拠はご自身の責任で確認してください。著者は、ブラウザ自動化に起因するサイトブロック、アカウント停止、IP 制限、予期しないスクリプト実行、リソース消費、互換性の問題について責任を負いません。
+**Web 取得 & ブラウザ自動化。** このプラグインは Playwright と Chrome DevTools によるヘッドレスブラウザ自動化ツールを含みます。対象サイトの利用規約、robots.txt ポリシー、適用法令への準拠はご自身の責任で確認してください。
 
-**MCP サーバー。** このプラグインはサードパーティの MCP（Model Context Protocol）サーバーに接続します。著者はこれらサーバーの動作やセキュリティを管理・監査・保証するものではありません。
+**MCP サーバー。** このプラグインはサードパーティの MCP サーバーに接続します。著者はこれらサーバーの動作やセキュリティを管理・監査・保証するものではありません。
 
 ## サードパーティへの帰属表示
 
-このプラグインは以下の外部ツール・サービスと連携しています。サードパーティのソースコードは一切再配布しておらず、連携は MCP サーバー接続、ランタイムパッケージインストール、およびプラグイン開発者が作成したラッパースクリプトを通じて行われます。
+サードパーティのソースコードは再配布していません。連携は MCP 接続、ランタイムパッケージインストール、およびラッパースクリプトを通じて行われます。
 
 | ツール | 提供元 | ライセンス |
 |---|---|---|
 | [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp) | Google LLC | Apache License 2.0 |
+| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
-すべての製品名、ロゴ、商標はそれぞれの所有者の財産です。このプラグインは上記サードパーティサービスとは提携関係になく、それらによる推奨を受けているものでもありません。
+すべての製品名、ロゴ、商標はそれぞれの所有者の財産です。
+
+## 言語
+
+セットアップ手順は AI アシスタントによってお使いの言語で提供されます。翻訳は便宜上のものであり、**英語の原文が正式版です**。
 
 ## サポート
 
-- [GitHub Issues](https://github.com/shidoyu/scout/issues) — バグ報告、機能リクエスト、質問
+[GitHub Issues](https://github.com/shidoyu/scout/issues) — バグ報告、機能リクエスト、質問
 
 ## 著者
 
@@ -191,4 +232,4 @@ scout は URL を機密度に応じて分類し、機密 URL をローカル専�
 
 ## ライセンス
 
-[MIT License](LICENSE) — 自由に使用・改変・配布可能。Copyright (c) 2026 shidoyu.
+[MIT License](../LICENSE) — 自由に使用・改変・配布可能。Copyright (c) 2026 shidoyu.
