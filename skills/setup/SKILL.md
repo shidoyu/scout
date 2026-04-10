@@ -79,7 +79,7 @@ else
 fi
 ```
 
-Run this check first. Only present steps for tools that are not yet configured. If everything is already configured, tell the user and skip setup.
+Run this check first. Present ALL four steps in order. For already-configured items, show them as a one-line confirmation (e.g. "Step 1/4 — Library & framework docs ✓ configured") and immediately move to the next step. Do not ask the user to act on configured items. If everything is already configured, tell the user and end setup.
 
 ## Interaction Flow
 
@@ -88,9 +88,9 @@ CRITICAL: This is a multi-turn dialogue. You MUST present only ONE step per resp
 The flow is:
 
 1. Run pre-check
-2. Present the FIRST unconfigured item (see step details below). Then STOP.
+2. Present Step 1 (Context7). If already configured, show "Step 1/4 — ... ✓ configured" as a one-liner, then immediately present Step 2 in the SAME response. If unconfigured, present the full step and STOP.
 3. User responds (provides key, says "skip", "private", asks a question, etc.)
-4. Handle the response (configure, skip, or show manual instructions). Then present the NEXT unconfigured item. Then STOP.
+4. Handle the response (configure, skip, or show manual instructions). Then present the NEXT step — again, if configured show one-liner and continue to the next unconfigured step. Then STOP.
 5. Repeat until all items are addressed.
 6. Run "After Setup" once.
 
