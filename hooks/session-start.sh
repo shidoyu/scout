@@ -4,6 +4,17 @@
 # SessionStart injects context; LLM uses it when user sends first message
 
 STATE_DIR="${CLAUDE_PLUGIN_DATA:-${XDG_STATE_HOME:-$HOME/.local/state}/scout}"
+
+# Migrate state from legacy path (pre-CLAUDE_PLUGIN_DATA)
+LEGACY_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/scout"
+if [ -n "${CLAUDE_PLUGIN_DATA:-}" ] && [ -d "$LEGACY_DIR" ] && [ ! -f "$STATE_DIR/.migrated" ]; then
+  mkdir -p "$STATE_DIR" 2>/dev/null || true
+  for f in setup-status.json demo-done setup-offered; do
+    [ -f "$LEGACY_DIR/$f" ] && [ ! -f "$STATE_DIR/$f" ] && cp "$LEGACY_DIR/$f" "$STATE_DIR/$f" 2>/dev/null || true
+  done
+  touch "$STATE_DIR/.migrated" 2>/dev/null || true
+fi
+
 SETUP_STATUS="$STATE_DIR/setup-status.json"
 DEMO_DONE="$STATE_DIR/demo-done"
 SETUP_OFFERED="$STATE_DIR/setup-offered"

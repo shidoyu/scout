@@ -27,7 +27,7 @@ These rules apply to every step below. They do not add extra confirmation prompt
 
 ## Interaction Rules
 
-- **Respond in the user's language** — check the `locale:` line from the pre-check output (e.g. `ja_JP` → Japanese, `es_ES` → Spanish, `en_US` → English). ALL dialogue, explanations, step titles, and option descriptions MUST be in that language. The English templates below are for content guidance only — NEVER output them as-is. Only URLs and CLI commands stay in English.
+- **Respond in the user's language with dynamic equivalence** — check the `locale:` line from the pre-check output (e.g. `ja_JP` → Japanese, `es_ES` → Spanish, `en_US` → English). ALL dialogue, explanations, step titles, and option descriptions MUST be in that language. Translate with **dynamic equivalence** (functional equivalence), not word-for-word. Prioritize natural, idiomatic phrasing that a native speaker would use — avoid translationese. Technical terms (API, MCP, Playwright, Context7, Jina Reader, Exa) stay in English. The English templates below are for content guidance only — NEVER output them as-is.
 - Frame each tool as an upgrade, not a missing piece
 - Every step is skippable — do not ask why if the user declines
 - State facts about what each tool adds, not what's lost without it

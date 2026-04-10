@@ -205,7 +205,7 @@ Re-search cycles per tier are defined in the Budget Allocation table (Step 3a). 
 
 ### Step 6: Synthesize (Answer Generation)
 
-Generate the answer based on collected sources.
+Generate the answer based on collected sources. **Write the answer in the user's language using dynamic equivalence** — natural, idiomatic phrasing rather than word-for-word translation. Technical terms and proper nouns stay in their original language.
 
 **Source weighting in synthesis**:
 - Primary sources form the backbone of the answer
