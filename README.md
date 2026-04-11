@@ -4,6 +4,10 @@
   <img src="docs/assets/hero.png" alt="scout — Think first. Search second." width="600">
 </p>
 
+<p align="center">
+  <img src="docs/assets/demo.gif" alt="scout demo — Before/After comparison" width="600">
+</p>
+
 <h1 align="center">scout</h1>
 
 <p align="center">
