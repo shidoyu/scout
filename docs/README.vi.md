@@ -3,7 +3,11 @@
 > **Lưu ý:** Bản dịch này chỉ mang tính chất tham khảo. [Bản gốc tiếng Anh](../README.md) là phiên bản chính thức.
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Suy nghĩ trước. Tìm kiếm sau." width="600">
+  <img src="assets/hero.png" alt="scout — Suy nghĩ trước. Tìm kiếm sau." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout phân loại URL thành ba cấp độ trước khi truy xuất:
 |---|---|---|
 | **Công khai** | API đám mây (Jina Reader / WebFetch) | Blog, tài liệu, repo GitHub công khai |
 | **Bảo mật** | Chỉ dùng Playwright cục bộ | localhost, wiki nội bộ, trang quản trị |
-| **Cần xác thực** | Chrome DevTools (sử dụng phiên trình duyệt) | Notion, Slack, trang sau xác thực OAuth |
+| **Cần xác thực** | Playwright CDP | Notion, Slack, trang sau xác thực OAuth |
 
 Phân loại này dựa trên phán đoán của LLM, không phải do hệ thống bắt buộc. Hãy coi đây là định tuyến theo nỗ lực tốt nhất. Với dữ liệu có độ nhạy cảm cao, hãy xác minh kết quả phân loại trước khi tiếp tục.
 
 **URL bảo mật không bao giờ được gửi đến API bên ngoài, ngay cả khi truy xuất thất bại** — hệ thống không chuyển sang công cụ đám mây cho các trang bảo mật.
 
 <details>
-<summary>Thiết lập Chrome DevTools (cho trang cần xác thực)</summary>
+<summary>Thiết lập chế độ gỡ lỗi Chrome (cho trang cần xác thực)</summary>
 
-Để truy xuất các trang yêu cầu đăng nhập (OAuth, bảng điều khiển SaaS), hãy khởi chạy Chrome ở chế độ gỡ lỗi:
+Để truy xuất các trang yêu cầu đăng nhập (OAuth, bảng điều khiển SaaS), hãy khởi chạy Chrome ở chế độ gỡ lỗi. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (bắt buộc)
 - `jq` (chỉ dùng cho chẩn đoán thiết lập)
 - Python 3.10+ (chỉ dùng cho Playwright truy xuất cục bộ)
-- `npm`/`npx` (chỉ dùng cho Chrome DevTools MCP server)
 
 ## Bảo mật
 
@@ -199,7 +206,7 @@ Plugin này được cung cấp "nguyên trạng" theo Giấy phép MIT, không 
 
 **Phân loại nội dung.** Phân loại bảo mật URL dựa trên phán đoán của LLM và có thể có sai sót. Không nên coi đây là biện pháp bảo vệ duy nhất cho thông tin nhạy cảm.
 
-**Truy xuất web & Tự động hóa trình duyệt.** Plugin này bao gồm các công cụ tự động hóa trình duyệt headless qua Playwright và Chrome DevTools. Bạn có trách nhiệm đảm bảo việc sử dụng tuân thủ điều khoản dịch vụ, chính sách robots.txt và luật pháp hiện hành của các trang web mục tiêu.
+**Truy xuất web & Tự động hóa trình duyệt.** Plugin này bao gồm các công cụ tự động hóa trình duyệt headless qua Playwright. Bạn có trách nhiệm đảm bảo việc sử dụng tuân thủ điều khoản dịch vụ, chính sách robots.txt và luật pháp hiện hành của các trang web mục tiêu.
 
 **MCP server.** Plugin này kết nối đến các MCP server của bên thứ ba. Tác giả không kiểm soát, kiểm toán hoặc đảm bảo hành vi hay tính bảo mật của các server này.
 
@@ -213,7 +220,6 @@ Không phân phối lại mã nguồn của bên thứ ba. Tích hợp thông qu
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Tất cả tên sản phẩm, logo và nhãn hiệu là tài sản của chủ sở hữu tương ứng.

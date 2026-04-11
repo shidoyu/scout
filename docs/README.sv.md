@@ -3,7 +3,11 @@
 > **Observera:** Denna översättning tillhandahålls för bekvämlighets skull. Den officiella versionen är [det engelska originalet](../README.md).
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Tänk först. Sök sedan." width="600">
+  <img src="assets/hero.png" alt="scout — Tänk först. Sök sedan." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout klassificerar URL:er i tre nivåer före hämtning:
 |---|---|---|
 | **Offentlig** | Moln-API:er (Jina Reader / WebFetch) | Bloggar, dokumentation, offentliga GitHub-repon |
 | **Konfidentiell** | Enbart lokal Playwright | localhost, interna wikier, adminpaneler |
-| **Autentiserad** | Chrome DevTools (din webbläsarsession) | Notion, Slack, sidor efter OAuth-inloggning |
+| **Autentiserad** | Playwright CDP | Notion, Slack, sidor efter OAuth-inloggning |
 
 Denna klassificering baseras på LLM-bedömning, inte systemtillämpning. Behandla den som routing efter bästa förmåga. För mycket känsliga data, verifiera klassificeringen innan du fortsätter.
 
 **Konfidentiella URL:er skickas aldrig till externa API:er, inte ens vid misslyckande** — systemet faller inte tillbaka på molnverktyg för konfidentiella sidor.
 
 <details>
-<summary>Chrome DevTools-installation (för autentiserade sidor)</summary>
+<summary>Chrome-felsökningsläge (för autentiserade sidor)</summary>
 
-För att hämta sidor som kräver inloggning (OAuth, SaaS-instrumentpaneler), starta Chrome i felsökningsläge:
+För att hämta sidor som kräver inloggning (OAuth, SaaS-instrumentpaneler), starta Chrome i felsökningsläge. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (obligatoriskt)
 - `jq` (enbart för installationsdiagnostik)
 - Python 3.10+ (enbart för lokal hämtning via Playwright)
-- `npm`/`npx` (enbart för Chrome DevTools MCP-server)
 
 ## Säkerhet
 
@@ -199,7 +206,7 @@ Detta plugin tillhandahålls "i befintligt skick" under MIT-licensen, utan någr
 
 **Innehållsklassificering.** URL-integritetsklassificering baseras på LLM-bedömning och kan innehålla fel. Förlita dig inte på den som enda skyddsåtgärd för känslig information.
 
-**Webbhämtning och webbläsarautomation.** Detta plugin inkluderar verktyg för headless webbläsarautomation via Playwright och Chrome DevTools. Du är ansvarig för att säkerställa att din användning följer målsidornas användarvillkor, robots.txt-policyer och tillämplig lagstiftning.
+**Webbhämtning och webbläsarautomation.** Detta plugin inkluderar verktyg för headless webbläsarautomation via Playwright. Du är ansvarig för att säkerställa att din användning följer målsidornas användarvillkor, robots.txt-policyer och tillämplig lagstiftning.
 
 **MCP-servrar.** Detta plugin ansluter till tredjeparts-MCP-servrar. Författaren kontrollerar, granskar eller garanterar inte dessa servrars beteende eller säkerhet.
 
@@ -213,7 +220,6 @@ Ingen tredjepartskällkod omdistribueras — integration sker via MCP-anslutning
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Alla produktnamn, logotyper och varumärken tillhör sina respektive ägare.

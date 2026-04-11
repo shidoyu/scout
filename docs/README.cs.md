@@ -3,7 +3,11 @@
 > **Upozornění:** Tento překlad je poskytován pouze pro usnadnění. Oficiální verzí je [anglický originál](../README.md).
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Nejdřív přemýšlej. Pak hledej." width="600">
+  <img src="assets/hero.png" alt="scout — Nejdřív přemýšlej. Pak hledej." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout klasifikuje URL adresy do tří úrovní před načtením:
 |---|---|---|
 | **Veřejné** | Cloudová API (Jina Reader / WebFetch) | Blogy, dokumentace, veřejné repozitáře GitHub |
 | **Důvěrné** | Pouze lokální Playwright | localhost, interní wiki, administrační panely |
-| **S ověřením** | Chrome DevTools (relace prohlížeče) | Notion, Slack, stránky po OAuth ověření |
+| **S ověřením** | Playwright CDP | Notion, Slack, stránky po OAuth ověření |
 
 Tato klasifikace je založena na úsudku LLM, nikoli na systémovém vynucení. Považujte ji za směrování na principu nejlepšího úsilí. U vysoce citlivých dat ověřte klasifikaci před pokračováním.
 
 **Důvěrné URL adresy se nikdy neodesílají na externí API, ani v případě selhání** — systém nepřechází na cloudové nástroje pro důvěrné stránky.
 
 <details>
-<summary>Nastavení Chrome DevTools (pro stránky s ověřením)</summary>
+<summary>Nastavení režimu ladění Chrome (pro stránky s ověřením)</summary>
 
-Pro načítání stránek vyžadujících přihlášení (OAuth, SaaS dashboardy) spusťte Chrome v režimu ladění:
+Pro načítání stránek vyžadujících přihlášení (OAuth, SaaS dashboardy) spusťte Chrome v režimu ladění. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (povinné)
 - `jq` (pouze pro diagnostiku nastavení)
 - Python 3.10+ (pouze pro lokální načítání přes Playwright)
-- `npm`/`npx` (pouze pro MCP server Chrome DevTools)
 
 ## Bezpečnost
 
@@ -199,7 +206,7 @@ Tento plugin je poskytován „tak, jak je" pod licencí MIT, bez jakékoli zár
 
 **Klasifikace obsahu.** Klasifikace soukromí URL adres je založena na úsudku LLM a může obsahovat chyby. Nespoléhejte na ni jako na jediné zabezpečení citlivých informací.
 
-**Načítání webu a automatizace prohlížeče.** Tento plugin obsahuje nástroje pro automatizaci bezhlavého prohlížeče pomocí Playwright a Chrome DevTools. Za dodržování podmínek služeb cílových webů, politik robots.txt a platných zákonů odpovídáte vy.
+**Načítání webu a automatizace prohlížeče.** Tento plugin obsahuje nástroje pro automatizaci bezhlavého prohlížeče pomocí Playwright. Za dodržování podmínek služeb cílových webů, politik robots.txt a platných zákonů odpovídáte vy.
 
 **MCP servery.** Tento plugin se připojuje k MCP serverům třetích stran. Autor nekontroluje, neaudituje ani negarantuje chování a bezpečnost těchto serverů.
 
@@ -213,7 +220,6 @@ Zdrojový kód třetích stran není redistribuován — integrace probíhá př
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Všechny názvy produktů, loga a ochranné známky jsou majetkem příslušných vlastníků.

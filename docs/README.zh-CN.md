@@ -3,7 +3,11 @@
 > **注意：** 本翻译仅供参考。[英文原文](../README.md)为正式版本。
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — 先思考，再搜索。" width="600">
+  <img src="assets/hero.png" alt="scout — 先思考，再搜索。" width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout 在抓取前将 URL 分为三个等级：
 |---|---|---|
 | **公开** | 云端 API（Jina Reader / WebFetch） | 博客、文档、GitHub 公开仓库 |
 | **机密** | 仅限本地 Playwright | localhost、内部 Wiki、管理面板 |
-| **需认证** | Chrome DevTools（使用浏览器会话） | Notion、Slack、OAuth 认证后的页面 |
+| **需认证** | Playwright CDP | Notion、Slack、OAuth 认证后的页面 |
 
 此分类基于 LLM 的判断，而非系统强制执行。请将其视为尽力而为的路由。对于高度敏感的数据，请在处理前验证分类结果。
 
 **机密 URL 即使抓取失败也不会发送到外部 API** — 系统不会对机密页面回退到云端工具。
 
 <details>
-<summary>Chrome DevTools 设置（用于需认证的页面）</summary>
+<summary>Chrome 调试模式设置（用于需认证的页面）</summary>
 
-要抓取需要登录的页面（OAuth、SaaS 仪表盘等），请以调试模式启动 Chrome：
+要抓取需要登录的页面（OAuth、SaaS 仪表盘等），请以调试模式启动 Chrome： Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS：
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux：
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code**（必需）
 - `jq`（仅用于设置诊断）
 - Python 3.10+（仅用于 Playwright 本地抓取）
-- `npm`/`npx`（仅用于 Chrome DevTools MCP 服务器）
 
 ## 安全
 
@@ -199,7 +206,7 @@ API 密钥存储在插件目录内的 `.mcp.json` 中。
 
 **内容分类。** URL 隐私分类基于 LLM 判断，可能存在误差。请勿将其作为保护敏感信息的唯一手段。
 
-**Web 抓取与浏览器自动化。** 本插件包含通过 Playwright 和 Chrome DevTools 进行的无头浏览器自动化工具。确保使用行为符合目标网站的服务条款、robots.txt 政策及适用法律，由用户自行负责。
+**Web 抓取与浏览器自动化。** 本插件包含通过 Playwright 进行的无头浏览器自动化工具。确保使用行为符合目标网站的服务条款、robots.txt 政策及适用法律，由用户自行负责。
 
 **MCP 服务器。** 本插件连接到第三方 MCP 服务器。作者不控制、审计或保证这些服务器的行为或安全性。
 
@@ -213,7 +220,6 @@ API 密钥存储在插件目录内的 `.mcp.json` 中。
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 所有产品名称、徽标和商标均为其各自所有者的财产。

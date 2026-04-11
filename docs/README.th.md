@@ -3,7 +3,11 @@
 > **หมายเหตุ:** การแปลนี้จัดทำเพื่อความสะดวกเท่านั้น [ต้นฉบับภาษาอังกฤษ](../README.md) เป็นเวอร์ชันทางการ
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — คิดก่อน ค้นหาทีหลัง" width="600">
+  <img src="assets/hero.png" alt="scout — คิดก่อน ค้นหาทีหลัง" width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout จำแนก URL เป็นสามระดับก่อนดึ
 |---|---|---|
 | **สาธารณะ** | API บนคลาวด์ (Jina Reader / WebFetch) | บล็อก เอกสาร repo สาธารณะของ GitHub |
 | **ลับ** | Playwright ในเครื่องเท่านั้น | localhost วิกิภายใน แผงผู้ดูแลระบบ |
-| **ผ่านการยืนยันตัวตน** | Chrome DevTools (เซสชันเบราว์เซอร์ของคุณ) | Notion, Slack หน้าหลัง OAuth |
+| **ผ่านการยืนยันตัวตน** | Playwright CDP | Notion, Slack หน้าหลัง OAuth |
 
 การจำแนกนี้อิงตามการตัดสินใจของ LLM ไม่ใช่การบังคับของระบบ ถือเป็นการกำหนดเส้นทางแบบ best-effort สำหรับข้อมูลที่มีความอ่อนไหวสูง ตรวจสอบการจำแนกก่อนดำเนินการ
 
 **URL ลับจะไม่ถูกส่งไปยัง API ภายนอกเด็ดขาด แม้ในกรณีที่ล้มเหลว** — ระบบจะไม่ย้อนกลับไปใช้เครื่องมือคลาวด์สำหรับหน้าลับ
 
 <details>
-<summary>การตั้งค่า Chrome DevTools (สำหรับหน้าที่ผ่านการยืนยันตัวตน)</summary>
+<summary>การตั้งค่าโหมดดีบัก Chrome (สำหรับหน้าที่ผ่านการยืนยันตัวตน)</summary>
 
-เพื่อดึงหน้าที่ต้องเข้าสู่ระบบ (OAuth, แดชบอร์ด SaaS) ให้เปิด Chrome ในโหมดดีบัก:
+เพื่อดึงหน้าที่ต้องเข้าสู่ระบบ (OAuth, แดชบอร์ด SaaS) ให้เปิด Chrome ในโหมดดีบัก. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (จำเป็น)
 - `jq` (สำหรับการวินิจฉัยการตั้งค่าเท่านั้น)
 - Python 3.10+ (สำหรับการดึงข้อมูลในเครื่องด้วย Playwright เท่านั้น)
-- `npm`/`npx` (สำหรับเซิร์ฟเวอร์ Chrome DevTools MCP เท่านั้น)
 
 ## ความปลอดภัย
 
@@ -199,7 +206,7 @@ API key ถูกเก็บใน `.mcp.json` ภายในไดเรก�
 
 **การจำแนกเนื้อหา** การจำแนกความเป็นส่วนตัวของ URL อิงตามการตัดสินใจของ LLM และอาจมีข้อผิดพลาด อย่าพึ่งพาสิ่งนี้เป็นมาตรการป้องกันเพียงอย่างเดียวสำหรับข้อมูลที่อ่อนไหว
 
-**การดึงเว็บและระบบอัตโนมัติของเบราว์เซอร์** ปลั๊กอินนี้รวมเครื่องมือระบบอัตโนมัติของเบราว์เซอร์แบบ headless ผ่าน Playwright และ Chrome DevTools คุณเป็นผู้รับผิดชอบในการตรวจสอบว่าการใช้งานของคุณเป็นไปตามข้อกำหนดการให้บริการของเว็บไซต์เป้าหมาย นโยบาย robots.txt และกฎหมายที่บังคับใช้
+**การดึงเว็บและระบบอัตโนมัติของเบราว์เซอร์** ปลั๊กอินนี้รวมเครื่องมือระบบอัตโนมัติของเบราว์เซอร์แบบ headless ผ่าน Playwright คุณเป็นผู้รับผิดชอบในการตรวจสอบว่าการใช้งานของคุณเป็นไปตามข้อกำหนดการให้บริการของเว็บไซต์เป้าหมาย นโยบาย robots.txt และกฎหมายที่บังคับใช้
 
 **เซิร์ฟเวอร์ MCP** ปลั๊กอินนี้เชื่อมต่อกับเซิร์ฟเวอร์ MCP ของบุคคลที่สาม ผู้เขียนไม่ได้ควบคุม ตรวจสอบ หรือรับประกันพฤติกรรมหรือความปลอดภัยของเซิร์ฟเวอร์เหล่านี้
 
@@ -213,7 +220,6 @@ API key ถูกเก็บใน `.mcp.json` ภายในไดเรก�
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 ชื่อผลิตภัณฑ์ โลโก้ และเครื่องหมายการค้าทั้งหมดเป็นทรัพย์สินของเจ้าของที่เกี่ยวข้อง

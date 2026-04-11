@@ -3,7 +3,11 @@
 > **Let op:** Deze vertaling is beschikbaar gesteld voor het gemak. De [originele Engelse versie](../README.md) is de officiële versie.
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Eerst denken. Dan zoeken." width="600">
+  <img src="assets/hero.png" alt="scout — Eerst denken. Dan zoeken." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout classificeert URL's in drie niveaus voordat ze worden opgehaald:
 |---|---|---|
 | **Openbaar** | Cloud-API's (Jina Reader / WebFetch) | Blogs, documentatie, openbare GitHub-repo's |
 | **Vertrouwelijk** | Alleen lokale Playwright | localhost, interne wiki's, beheerpanelen |
-| **Geauthenticeerd** | Chrome DevTools (je browsersessie) | Notion, Slack, post-OAuth-pagina's |
+| **Geauthenticeerd** | Playwright CDP | Notion, Slack, post-OAuth-pagina's |
 
 Deze classificatie is gebaseerd op het oordeel van het LLM, niet op technische handhaving. Beschouw het als best-effort routering. Controleer bij zeer gevoelige gegevens de classificatie voordat je verdergaat.
 
 **Vertrouwelijke URL's worden nooit naar externe API's gestuurd, zelfs niet bij falen** — het systeem valt niet terug op cloudtools voor vertrouwelijke pagina's.
 
 <details>
-<summary>Chrome DevTools instellen (voor geauthenticeerde pagina's)</summary>
+<summary>Chrome-debugmodus instellen (voor geauthenticeerde pagina's)</summary>
 
-Om pagina's op te halen die inloggen vereisen (OAuth, SaaS-dashboards), start Chrome in debugmodus:
+Om pagina's op te halen die inloggen vereisen (OAuth, SaaS-dashboards), start Chrome in debugmodus. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (vereist)
 - `jq` (alleen voor configuratiediagnostiek)
 - Python 3.10+ (alleen voor lokaal ophalen met Playwright)
-- `npm`/`npx` (alleen voor de Chrome DevTools MCP-server)
 
 ## Beveiliging
 
@@ -199,7 +206,7 @@ Deze plugin wordt "zoals hij is" aangeboden onder de MIT-licentie, zonder enige 
 
 **Inhoudsclassificatie.** De privacyclassificatie van URL's is gebaseerd op het oordeel van het LLM en kan fouten bevatten. Vertrouw er niet op als enige beveiliging voor gevoelige informatie.
 
-**Web ophalen & browserautomatisering.** Deze plugin bevat tools voor headless browserautomatisering via Playwright en Chrome DevTools. Je bent verantwoordelijk om ervoor te zorgen dat je gebruik voldoet aan de servicevoorwaarden van de doelwebsites, hun robots.txt-beleid en de toepasselijke wetgeving.
+**Web ophalen & browserautomatisering.** Deze plugin bevat tools voor headless browserautomatisering via Playwright. Je bent verantwoordelijk om ervoor te zorgen dat je gebruik voldoet aan de servicevoorwaarden van de doelwebsites, hun robots.txt-beleid en de toepasselijke wetgeving.
 
 **MCP-servers.** Deze plugin maakt verbinding met MCP-servers van derden. De auteur controleert, auditeert of garandeert het gedrag of de beveiliging van deze servers niet.
 
@@ -213,7 +220,6 @@ Er wordt geen broncode van derden herverspreid — integratie vindt plaats via M
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Alle productnamen, logo's en handelsmerken zijn eigendom van hun respectieve houders.

@@ -3,7 +3,11 @@
 > **नोट:** यह अनुवाद केवल सुविधा के लिए उपलब्ध कराया गया है। [अंग्रेज़ी मूल](../README.md) आधिकारिक संस्करण है।
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — पहले सोचो। फिर खोजो।" width="600">
+  <img src="assets/hero.png" alt="scout — पहले सोचो। फिर खोजो।" width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout फ़ेच करने से पहले URL को तीन स्�
 |---|---|---|
 | **सार्वजनिक** | क्लाउड API (Jina Reader / WebFetch) | ब्लॉग, डॉक्स, GitHub सार्वजनिक रिपो |
 | **गोपनीय** | केवल लोकल Playwright | localhost, इंटरनल विकी, एडमिन पैनल |
-| **प्रमाणित** | Chrome DevTools (आपका ब्राउज़र सेशन) | Notion, Slack, OAuth के बाद के पेज |
+| **प्रमाणित** | Playwright CDP | Notion, Slack, OAuth के बाद के पेज |
 
 यह वर्गीकरण LLM के निर्णय पर आधारित है, सिस्टम द्वारा लागू नहीं किया जाता। इसे बेस्ट-एफ़र्ट रूटिंग के रूप में मानें। अत्यधिक संवेदनशील डेटा के लिए, आगे बढ़ने से पहले वर्गीकरण की पुष्टि करें।
 
 **गोपनीय URL कभी भी बाहरी API को नहीं भेजे जाते, विफलता की स्थिति में भी नहीं** — सिस्टम गोपनीय पेजों के लिए क्लाउड टूल पर फ़ॉलबैक नहीं करता।
 
 <details>
-<summary>Chrome DevTools सेटअप (प्रमाणित पेजों के लिए)</summary>
+<summary>Chrome डीबग मोड सेटअप (प्रमाणित पेजों के लिए)</summary>
 
-लॉगिन की आवश्यकता वाले पेज (OAuth, SaaS डैशबोर्ड) फ़ेच करने के लिए, Chrome को डीबग मोड में लॉन्च करें:
+लॉगिन की आवश्यकता वाले पेज (OAuth, SaaS डैशबोर्ड) फ़ेच करने के लिए, Chrome को डीबग मोड में लॉन्च करें. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (आवश्यक)
 - `jq` (केवल सेटअप डायग्नोस्टिक्स के लिए)
 - Python 3.10+ (केवल Playwright लोकल फ़ेचिंग के लिए)
-- `npm`/`npx` (केवल Chrome DevTools MCP सर्वर के लिए)
 
 ## सुरक्षा
 
@@ -199,7 +206,7 @@ API कुंजियाँ प्लगइन डायरेक्टरी �
 
 **कंटेंट वर्गीकरण।** URL प्राइवेसी वर्गीकरण LLM के निर्णय पर आधारित है और इसमें त्रुटियाँ हो सकती हैं। संवेदनशील जानकारी के लिए इसे एकमात्र सुरक्षा उपाय के रूप में न मानें।
 
-**वेब फ़ेचिंग और ब्राउज़र ऑटोमेशन।** इस प्लगइन में Playwright और Chrome DevTools के ज़रिए हेडलेस ब्राउज़र ऑटोमेशन टूल शामिल हैं। लक्ष्य वेबसाइटों की सेवा शर्तों, robots.txt नीतियों और लागू कानूनों का अनुपालन सुनिश्चित करना आपकी ज़िम्मेदारी है।
+**वेब फ़ेचिंग और ब्राउज़र ऑटोमेशन।** इस प्लगइन में Playwright के ज़रिए हेडलेस ब्राउज़र ऑटोमेशन टूल शामिल हैं। लक्ष्य वेबसाइटों की सेवा शर्तों, robots.txt नीतियों और लागू कानूनों का अनुपालन सुनिश्चित करना आपकी ज़िम्मेदारी है।
 
 **MCP सर्वर।** यह प्लगइन तृतीय-पक्ष MCP सर्वर से कनेक्ट होता है। लेखक इन सर्वरों के व्यवहार या सुरक्षा को नियंत्रित, ऑडिट या गारंटी नहीं करता।
 
@@ -213,7 +220,6 @@ API कुंजियाँ प्लगइन डायरेक्टरी �
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 सभी उत्पाद नाम, लोगो और ट्रेडमार्क उनके संबंधित स्वामियों की संपत्ति हैं।

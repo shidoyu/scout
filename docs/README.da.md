@@ -3,7 +3,11 @@
 > **Bemærk:** Denne oversættelse er kun til orientering. Den officielle version er [den engelske original](../README.md).
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Tænk først. Søg bagefter." width="600">
+  <img src="assets/hero.png" alt="scout — Tænk først. Søg bagefter." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout klassificerer URL'er i tre niveauer før hentning:
 |---|---|---|
 | **Offentlig** | Cloud-API'er (Jina Reader / WebFetch) | Blogs, dokumentation, offentlige GitHub-repos |
 | **Fortrolig** | Kun lokal Playwright | localhost, interne wikier, adminpaneler |
-| **Autentificeret** | Chrome DevTools (din browsersession) | Notion, Slack, sider efter OAuth-login |
+| **Autentificeret** | Playwright CDP | Notion, Slack, sider efter OAuth-login |
 
 Denne klassificering er baseret på LLM-vurdering, ikke systemmæssig håndhævelse. Behandl den som best-effort routing. For meget følsomme data, verificér klassificeringen, før du fortsætter.
 
 **Fortrolige URL'er sendes aldrig til eksterne API'er, selv ved fejl** — systemet falder ikke tilbage til cloudværktøjer for fortrolige sider.
 
 <details>
-<summary>Chrome DevTools-opsætning (til autentificerede sider)</summary>
+<summary>Chrome-fejlsøgningstilstand (til autentificerede sider)</summary>
 
-For at hente sider, der kræver login (OAuth, SaaS-dashboards), start Chrome i fejlsøgningstilstand:
+For at hente sider, der kræver login (OAuth, SaaS-dashboards), start Chrome i fejlsøgningstilstand. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (påkrævet)
 - `jq` (kun til opsætningsdiagnostik)
 - Python 3.10+ (kun til lokal hentning via Playwright)
-- `npm`/`npx` (kun til Chrome DevTools MCP-server)
 
 ## Sikkerhed
 
@@ -199,7 +206,7 @@ Dette plugin leveres "som det er" under MIT-licensen, uden nogen form for garant
 
 **Indholdsklassificering.** URL-privatlivsklassificering er baseret på LLM-vurdering og kan indeholde fejl. Stol ikke på den som eneste beskyttelse af følsomme oplysninger.
 
-**Webhentning og browserautomation.** Dette plugin inkluderer værktøjer til headless browserautomation via Playwright og Chrome DevTools. Du er ansvarlig for at sikre, at din brug overholder målwebsidernes servicevilkår, robots.txt-politikker og gældende lovgivning.
+**Webhentning og browserautomation.** Dette plugin inkluderer værktøjer til headless browserautomation via Playwright. Du er ansvarlig for at sikre, at din brug overholder målwebsidernes servicevilkår, robots.txt-politikker og gældende lovgivning.
 
 **MCP-servere.** Dette plugin forbinder til tredjeparts-MCP-servere. Forfatteren kontrollerer, auditerer eller garanterer ikke disse serveres adfærd eller sikkerhed.
 
@@ -213,7 +220,6 @@ Ingen tredjepartskildekode redistribueres — integration sker via MCP-forbindel
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Alle produktnavne, logoer og varemærker tilhører deres respektive ejere.

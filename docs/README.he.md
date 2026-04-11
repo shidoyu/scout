@@ -3,7 +3,11 @@
 > **הערה:** תרגום זה מסופק לנוחות בלבד. [המקור באנגלית](../README.md) הוא הגרסה הרשמית.
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — קודם לחשוב. אחר כך לחפש." width="600">
+  <img src="assets/hero.png" alt="scout — קודם לחשוב. אחר כך לחפש." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout מסווג כתובות URL לשלוש רמות לפני השליפה:
 |---|---|---|
 | **ציבורי** | API-ים בענן (Jina Reader / WebFetch) | בלוגים, תיעוד, מאגרי GitHub ציבוריים |
 | **סודי** | Playwright מקומי בלבד | localhost, ויקי פנימי, פאנלי ניהול |
-| **מאומת** | Chrome DevTools (סשן הדפדפן שלכם) | Notion, Slack, דפים לאחר OAuth |
+| **מאומת** | Playwright CDP | Notion, Slack, דפים לאחר OAuth |
 
 סיווג זה מבוסס על שיקול דעת LLM, לא על אכיפה מערכתית. התייחסו אליו כניתוב best-effort. עבור נתונים רגישים במיוחד, אמתו את הסיווג לפני שתמשיכו.
 
 **כתובות URL סודיות לעולם לא נשלחות ל-API-ים חיצוניים, גם בכישלון** — המערכת לא נופלת חזרה לכלי ענן עבור דפים סודיים.
 
 <details>
-<summary>הגדרת Chrome DevTools (עבור דפים מאומתים)</summary>
+<summary>הגדרת מצב דיבאג של Chrome (עבור דפים מאומתים)</summary>
 
-לשליפת דפים שדורשים התחברות (OAuth, דאשבורדים של SaaS), הפעילו את Chrome במצב דיבאג:
+לשליפת דפים שדורשים התחברות (OAuth, דאשבורדים של SaaS), הפעילו את Chrome במצב דיבאג. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (נדרש)
 - `jq` (לאבחון הגדרות בלבד)
 - Python 3.10+ (רק לשליפה מקומית עם Playwright)
-- `npm`/`npx` (רק לשרת Chrome DevTools MCP)
 
 ## אבטחה
 
@@ -199,7 +206,7 @@ claude mcp remove context7
 
 **סיווג תוכן.** סיווג פרטיות URL מבוסס על שיקול דעת LLM ועשוי לכלול שגיאות. אל תסתמכו עליו כמגן היחיד למידע רגיש.
 
-**שליפת אינטרנט ואוטומציית דפדפן.** תוסף זה כולל כלים לאוטומציית דפדפן headless באמצעות Playwright ו-Chrome DevTools. אתם אחראים לוודא שהשימוש שלכם עומד בתנאי השירות של אתרי היעד, מדיניות robots.txt והחוקים החלים.
+**שליפת אינטרנט ואוטומציית דפדפן.** תוסף זה כולל כלים לאוטומציית דפדפן headless באמצעות Playwright. אתם אחראים לוודא שהשימוש שלכם עומד בתנאי השירות של אתרי היעד, מדיניות robots.txt והחוקים החלים.
 
 **שרתי MCP.** תוסף זה מתחבר לשרתי MCP של צדדים שלישיים. המחבר אינו שולט, מבקר או מבטיח את ההתנהגות או האבטחה של שרתים אלה.
 
@@ -213,7 +220,6 @@ claude mcp remove context7
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 כל שמות המוצרים, הלוגואים והסימנים המסחריים הם רכושם של בעליהם בהתאמה.

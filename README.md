@@ -133,28 +133,32 @@ scout classifies URLs into three tiers before fetching:
 |---|---|---|
 | **Public** | Cloud APIs (Jina Reader / WebFetch) | Blogs, docs, GitHub public repos |
 | **Confidential** | Local Playwright only | localhost, internal wikis, admin panels |
-| **Authenticated** | Chrome DevTools (your browser session) | Notion, Slack, post-OAuth pages |
+| **Authenticated** | Playwright CDP (your browser session) | Notion, Slack, post-OAuth pages |
 
 This classification is based on LLM judgment, not system enforcement. Treat it as best-effort routing. For highly sensitive data, verify the classification before proceeding.
 
 **Confidential URLs are never sent to external APIs, even on failure** — the system does not fall back to cloud tools for confidential pages.
 
 <details>
-<summary>Chrome DevTools setup (for authenticated pages)</summary>
+<summary>Chrome debug mode setup (for authenticated pages)</summary>
 
-To fetch pages that require login (OAuth, SaaS dashboards), launch Chrome in debug mode:
+To fetch pages that require login (OAuth, SaaS dashboards), launch Chrome with remote debugging enabled. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -184,7 +188,6 @@ claude mcp remove context7
 - **Claude Code** (required)
 - `jq` (for setup diagnostics only)
 - Python 3.10+ (only for Playwright local fetching)
-- `npm`/`npx` (only for Chrome DevTools MCP server)
 
 ## Security
 
@@ -201,7 +204,7 @@ This plugin is provided "as is" under the MIT License, without warranty of any k
 
 **Content Classification.** URL privacy classification is based on LLM judgment and may contain errors. Do not rely on it as the sole safeguard for sensitive information.
 
-**Web Fetching & Browser Automation.** This plugin includes tools for headless browser automation via Playwright and Chrome DevTools. You are responsible for ensuring your use complies with target websites' terms of service, robots.txt policies, and applicable laws.
+**Web Fetching & Browser Automation.** This plugin includes tools for browser automation via Playwright. You are responsible for ensuring your use complies with target websites' terms of service, robots.txt policies, and applicable laws.
 
 **MCP Servers.** This plugin connects to third-party MCP servers. The author does not control, audit, or guarantee the behavior or security of these servers.
 
@@ -215,7 +218,6 @@ No third-party source code is redistributed — integration is via MCP connectio
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 All product names, logos, and trademarks are the property of their respective owners.

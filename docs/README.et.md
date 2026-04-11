@@ -3,7 +3,11 @@
 > **Märkus:** See tõlge on esitatud üksnes mugavuse huvides. Ametlik versioon on [ingliskeelne originaal](../README.md).
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Kõigepealt mõtle. Siis otsi." width="600">
+  <img src="assets/hero.png" alt="scout — Kõigepealt mõtle. Siis otsi." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout klassifitseerib URL-id kolme tasemesse enne toomist:
 |---|---|---|
 | **Avalik** | Pilve-API-d (Jina Reader / WebFetch) | Blogid, dokumentatsioon, avalikud GitHub'i repod |
 | **Konfidentsiaalne** | Ainult kohalik Playwright | localhost, sisemised vikid, haldusvaated |
-| **Autenditud** | Chrome DevTools (sinu brauseri sessioon) | Notion, Slack, OAuth-järgsed lehed |
+| **Autenditud** | Playwright CDP | Notion, Slack, OAuth-järgsed lehed |
 
 See klassifikatsioon põhineb LLM-i hinnangul, mitte süsteemsel jõustamisel. Käsitle seda parima võimaliku marsruutimisena. Väga tundlike andmete puhul kontrolli klassifikatsiooni enne jätkamist.
 
 **Konfidentsiaalseid URL-e ei saadeta kunagi välistele API-dele, isegi ebaõnnestumise korral** — süsteem ei kasuta konfidentsiaalsete lehtede jaoks pilvetööriistu varuvalikuna.
 
 <details>
-<summary>Chrome DevTools'i seadistamine (autenditud lehtede jaoks)</summary>
+<summary>Chrome'i silumisrežiimi seadistamine (autenditud lehtede jaoks)</summary>
 
-Sisselogimist nõudvate lehtede toomiseks (OAuth, SaaS-paneelid) käivita Chrome silumisrežiimis:
+Sisselogimist nõudvate lehtede toomiseks (OAuth, SaaS-paneelid) käivita Chrome silumisrežiimis. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (kohustuslik)
 - `jq` (ainult seadistuse diagnostika jaoks)
 - Python 3.10+ (ainult kohalikuks toomiseks Playwrighti kaudu)
-- `npm`/`npx` (ainult Chrome DevTools MCP-serveri jaoks)
 
 ## Turvalisus
 
@@ -199,7 +206,7 @@ See pistikprogramm on esitatud "nagu on" MIT-litsentsi alusel, ilma igasuguse ga
 
 **Sisu klassifitseerimine.** URL-ide privaatsusklassifikatsioon põhineb LLM-i hinnangul ja võib sisaldada vigu. Ära tugine sellele kui ainsale kaitsemeetmele tundliku teabe puhul.
 
-**Veebilehtede toomine ja brauseri automatiseerimine.** See pistikprogramm sisaldab tööriistu peata brauseri automatiseerimiseks Playwrighti ja Chrome DevTools'i kaudu. Sina vastutad selle eest, et sinu kasutus vastab sihtveebilehtede kasutustingimustele, robots.txt poliitikatele ja kehtivatele seadustele.
+**Veebilehtede toomine ja brauseri automatiseerimine.** See pistikprogramm sisaldab tööriistu peata brauseri automatiseerimiseks Playwrighti kaudu. Sina vastutad selle eest, et sinu kasutus vastab sihtveebilehtede kasutustingimustele, robots.txt poliitikatele ja kehtivatele seadustele.
 
 **MCP-serverid.** See pistikprogramm ühendub kolmandate osapoolte MCP-serveritega. Autor ei kontrolli, auditeeri ega garanteeri nende serverite käitumist ega turvalisust.
 
@@ -213,7 +220,6 @@ Kolmandate osapoolte lähtekoodi ei levitata edasi — integratsioon toimub MCP-
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Kõik tootenimed, logod ja kaubamärgid kuuluvad nende vastavatele omanikele.

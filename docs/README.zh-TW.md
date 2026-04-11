@@ -3,7 +3,11 @@
 > **注意：** 本翻譯僅供參考。[英文原文](../README.md)為正式版本。
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — 先思考，再搜尋。" width="600">
+  <img src="assets/hero.png" alt="scout — 先思考，再搜尋。" width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout 在擷取前將 URL 分為三個等級：
 |---|---|---|
 | **公開** | 雲端 API（Jina Reader / WebFetch） | 部落格、文件、GitHub 公開儲存庫 |
 | **機密** | 僅限本機 Playwright | localhost、內部 Wiki、管理面板 |
-| **需認證** | Chrome DevTools（使用瀏覽器工作階段） | Notion、Slack、OAuth 認證後的頁面 |
+| **需認證** | Playwright CDP | Notion、Slack、OAuth 認證後的頁面 |
 
 此分類基於 LLM 的判斷，而非系統強制執行。請將其視為盡力而為的路由。對於高度敏感的資料，請在處理前驗證分類結果。
 
 **機密 URL 即使擷取失敗也不會傳送到外部 API** — 系統不會對機密頁面回退到雲端工具。
 
 <details>
-<summary>Chrome DevTools 設定（用於需認證的頁面）</summary>
+<summary>Chrome 偵錯模式設定（用於需認證的頁面）</summary>
 
-要擷取需要登入的頁面（OAuth、SaaS 儀表板等），請以偵錯模式啟動 Chrome：
+要擷取需要登入的頁面（OAuth、SaaS 儀表板等），請以偵錯模式啟動 Chrome： Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS：
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux：
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code**（必要）
 - `jq`（僅用於設定診斷）
 - Python 3.10+（僅用於 Playwright 本機擷取）
-- `npm`/`npx`（僅用於 Chrome DevTools MCP 伺服器）
 
 ## 安全性
 
@@ -199,7 +206,7 @@ API 金鑰儲存在外掛目錄內的 `.mcp.json` 中。
 
 **內容分類。** URL 隱私分類基於 LLM 判斷，可能存在誤差。請勿將其作為保護敏感資訊的唯一手段。
 
-**Web 擷取與瀏覽器自動化。** 本外掛包含透過 Playwright 和 Chrome DevTools 進行的無頭瀏覽器自動化工具。確保使用行為符合目標網站的服務條款、robots.txt 政策及適用法律，由使用者自行負責。
+**Web 擷取與瀏覽器自動化。** 本外掛包含透過 Playwright 進行的無頭瀏覽器自動化工具。確保使用行為符合目標網站的服務條款、robots.txt 政策及適用法律，由使用者自行負責。
 
 **MCP 伺服器。** 本外掛連接到第三方 MCP 伺服器。作者不控制、稽核或保證這些伺服器的行為或安全性。
 
@@ -213,7 +220,6 @@ API 金鑰儲存在外掛目錄內的 `.mcp.json` 中。
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 所有產品名稱、標誌和商標均為其各自擁有者的財產。

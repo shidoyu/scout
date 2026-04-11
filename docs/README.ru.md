@@ -3,7 +3,11 @@
 > **Примечание:** Этот перевод предоставлен исключительно для удобства. Официальной версией является [английский оригинал](../README.md).
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Сначала подумай. Потом ищи." width="600">
+  <img src="assets/hero.png" alt="scout — Сначала подумай. Потом ищи." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout классифицирует URL-адреса на три уровня п�
 |---|---|---|
 | **Публичные** | Облачные API (Jina Reader / WebFetch) | Блоги, документация, публичные репозитории GitHub |
 | **Конфиденциальные** | Только локальный Playwright | localhost, внутренние вики, панели администрирования |
-| **С аутентификацией** | Chrome DevTools (сессия браузера) | Notion, Slack, страницы после OAuth-аутентификации |
+| **С аутентификацией** | Playwright CDP | Notion, Slack, страницы после OAuth-аутентификации |
 
 Эта классификация основана на оценке LLM, а не на системном принуждении. Рассматривайте её как маршрутизацию по принципу наилучших усилий. Для высокочувствительных данных проверьте классификацию перед продолжением.
 
 **Конфиденциальные URL-адреса никогда не отправляются во внешние API, даже в случае неудачи** — система не переключается на облачные инструменты для конфиденциальных страниц.
 
 <details>
-<summary>Настройка Chrome DevTools (для страниц с аутентификацией)</summary>
+<summary>Настройка режима отладки Chrome (для страниц с аутентификацией)</summary>
 
-Для загрузки страниц, требующих входа (OAuth, SaaS-панели), запустите Chrome в режиме отладки:
+Для загрузки страниц, требующих входа (OAuth, SaaS-панели), запустите Chrome в режиме отладки. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (обязательно)
 - `jq` (только для диагностики настройки)
 - Python 3.10+ (только для локальной загрузки через Playwright)
-- `npm`/`npx` (только для MCP-сервера Chrome DevTools)
 
 ## Безопасность
 
@@ -199,7 +206,7 @@ API-ключи хранятся в файле `.mcp.json` в каталоге п
 
 **Классификация контента.** Классификация конфиденциальности URL-адресов основана на оценке LLM и может содержать ошибки. Не полагайтесь на неё как на единственное средство защиты конфиденциальной информации.
 
-**Веб-загрузка и автоматизация браузера.** Этот плагин содержит инструменты для автоматизации безголового браузера через Playwright и Chrome DevTools. Вы несёте ответственность за соблюдение условий обслуживания целевых сайтов, политик robots.txt и применимого законодательства.
+**Веб-загрузка и автоматизация браузера.** Этот плагин содержит инструменты для автоматизации безголового браузера через Playwright. Вы несёте ответственность за соблюдение условий обслуживания целевых сайтов, политик robots.txt и применимого законодательства.
 
 **MCP-серверы.** Этот плагин подключается к MCP-серверам третьих сторон. Автор не контролирует, не проверяет и не гарантирует поведение и безопасность этих серверов.
 
@@ -213,7 +220,6 @@ API-ключи хранятся в файле `.mcp.json` в каталоге п
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Все названия продуктов, логотипы и товарные знаки являются собственностью их соответствующих владельцев.

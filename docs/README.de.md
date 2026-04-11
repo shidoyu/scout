@@ -3,7 +3,11 @@
 > **Hinweis:** Diese Übersetzung dient der besseren Zugänglichkeit. Das [englische Original](../README.md) ist die maßgebliche Version.
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Erst denken. Dann suchen." width="600">
+  <img src="assets/hero.png" alt="scout — Erst denken. Dann suchen." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout klassifiziert URLs vor dem Abruf in drei Stufen:
 |---|---|---|
 | **Öffentlich** | Cloud-APIs (Jina Reader / WebFetch) | Blogs, Dokumentation, öffentliche GitHub-Repos |
 | **Vertraulich** | Nur lokaler Playwright | localhost, interne Wikis, Admin-Panels |
-| **Authentifiziert** | Chrome DevTools (Ihre Browser-Sitzung) | Notion, Slack, Post-OAuth-Seiten |
+| **Authentifiziert** | Playwright CDP | Notion, Slack, Post-OAuth-Seiten |
 
 Diese Klassifizierung basiert auf der Einschätzung des LLM, nicht auf technischer Durchsetzung. Betrachten Sie es als Best-Effort-Routing. Bei hochsensiblen Daten sollten Sie die Klassifizierung vor der Verarbeitung überprüfen.
 
 **Vertrauliche URLs werden niemals an externe APIs gesendet, auch nicht bei Fehlschlägen** — das System greift bei vertraulichen Seiten nicht auf Cloud-Tools zurück.
 
 <details>
-<summary>Chrome DevTools einrichten (für authentifizierte Seiten)</summary>
+<summary>Chrome-Debugmodus einrichten (für authentifizierte Seiten)</summary>
 
-Um Seiten abzurufen, die eine Anmeldung erfordern (OAuth, SaaS-Dashboards), starten Sie Chrome im Debug-Modus:
+Um Seiten abzurufen, die eine Anmeldung erfordern (OAuth, SaaS-Dashboards), starten Sie Chrome im Debug-Modus. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (erforderlich)
 - `jq` (nur für Setup-Diagnose)
 - Python 3.10+ (nur für lokales Abrufen mit Playwright)
-- `npm`/`npx` (nur für Chrome DevTools MCP Server)
 
 ## Sicherheit
 
@@ -199,7 +206,7 @@ Dieses Plugin wird unter der MIT-Lizenz „wie besehen" bereitgestellt, ohne jeg
 
 **Inhaltsklassifizierung.** Die Datenschutzklassifizierung von URLs basiert auf der Einschätzung des LLM und kann Fehler enthalten. Verlassen Sie sich nicht darauf als einzige Schutzmaßnahme für sensible Informationen.
 
-**Web-Abruf & Browser-Automatisierung.** Dieses Plugin enthält Tools für die Headless-Browser-Automatisierung über Playwright und Chrome DevTools. Sie sind dafür verantwortlich sicherzustellen, dass Ihre Nutzung den Nutzungsbedingungen der Zielwebsites, deren robots.txt-Richtlinien und geltenden Gesetzen entspricht.
+**Web-Abruf & Browser-Automatisierung.** Dieses Plugin enthält Tools für die Headless-Browser-Automatisierung über Playwright. Sie sind dafür verantwortlich sicherzustellen, dass Ihre Nutzung den Nutzungsbedingungen der Zielwebsites, deren robots.txt-Richtlinien und geltenden Gesetzen entspricht.
 
 **MCP Server.** Dieses Plugin verbindet sich mit MCP-Servern von Drittanbietern. Der Autor kontrolliert, prüft und garantiert weder das Verhalten noch die Sicherheit dieser Server.
 
@@ -213,7 +220,6 @@ Es wird kein Quellcode von Drittanbietern weiterverteilt — die Integration erf
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Alle Produktnamen, Logos und Marken sind Eigentum ihrer jeweiligen Inhaber.

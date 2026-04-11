@@ -3,7 +3,11 @@
 > **Not:** Bu çeviri yalnızca kolaylık amacıyla sunulmuştur. [İngilizce orijinal](../README.md) resmi sürümdür.
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Önce düşün. Sonra ara." width="600">
+  <img src="assets/hero.png" alt="scout — Önce düşün. Sonra ara." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout, getirmeden önce URL'leri üç seviyede sınıflandırır:
 |---|---|---|
 | **Genel** | Bulut API'leri (Jina Reader / WebFetch) | Bloglar, belgeler, GitHub genel depoları |
 | **Gizli** | Yalnızca yerel Playwright | localhost, dahili wikiler, yönetim panelleri |
-| **Kimlik doğrulamalı** | Chrome DevTools (tarayıcı oturumunuz) | Notion, Slack, OAuth sonrası sayfalar |
+| **Kimlik doğrulamalı** | Playwright CDP | Notion, Slack, OAuth sonrası sayfalar |
 
 Bu sınıflandırma LLM yargısına dayanır, sistem tarafından zorunlu kılınmaz. En iyi çaba yönlendirmesi olarak değerlendirin. Yüksek hassasiyetli veriler için işlem öncesi sınıflandırmayı doğrulayın.
 
 **Gizli URL'ler, başarısızlık durumunda bile asla harici API'lere gönderilmez** — sistem gizli sayfalar için bulut araçlarına geri dönmez.
 
 <details>
-<summary>Chrome DevTools kurulumu (kimlik doğrulamalı sayfalar için)</summary>
+<summary>Chrome hata ayıklama modu kurulumu (kimlik doğrulamalı sayfalar için)</summary>
 
-Giriş gerektiren sayfaları (OAuth, SaaS panelleri) getirmek için Chrome'u hata ayıklama modunda başlatın:
+Giriş gerektiren sayfaları (OAuth, SaaS panelleri) getirmek için Chrome'u hata ayıklama modunda başlatın. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (gerekli)
 - `jq` (yalnızca kurulum teşhisi için)
 - Python 3.10+ (yalnızca Playwright yerel getirme için)
-- `npm`/`npx` (yalnızca Chrome DevTools MCP sunucusu için)
 
 ## Güvenlik
 
@@ -199,7 +206,7 @@ Bu eklenti MIT Lisansı kapsamında "olduğu gibi" sağlanmakta olup hiçbir gar
 
 **İçerik Sınıflandırması.** URL gizlilik sınıflandırması LLM yargısına dayanır ve hatalar içerebilir. Hassas bilgiler için tek güvence olarak buna güvenmeyin.
 
-**Web Getirme ve Tarayıcı Otomasyonu.** Bu eklenti, Playwright ve Chrome DevTools aracılığıyla başsız tarayıcı otomasyon araçları içerir. Hedef web sitelerinin hizmet şartlarına, robots.txt politikalarına ve yürürlükteki yasalara uygunluğun sağlanması sizin sorumluluğunuzdadır.
+**Web Getirme ve Tarayıcı Otomasyonu.** Bu eklenti, Playwright aracılığıyla başsız tarayıcı otomasyon araçları içerir. Hedef web sitelerinin hizmet şartlarına, robots.txt politikalarına ve yürürlükteki yasalara uygunluğun sağlanması sizin sorumluluğunuzdadır.
 
 **MCP Sunucuları.** Bu eklenti üçüncü taraf MCP sunucularına bağlanır. Yazar, bu sunucuların davranışını veya güvenliğini kontrol etmez, denetlemez veya garanti etmez.
 
@@ -213,7 +220,6 @@ Bu eklenti MIT Lisansı kapsamında "olduğu gibi" sağlanmakta olup hiçbir gar
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Tüm ürün adları, logolar ve ticari markalar ilgili sahiplerinin mülkiyetindedir.

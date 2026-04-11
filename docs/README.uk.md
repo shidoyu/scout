@@ -3,7 +3,11 @@
 > **Примітка:** Цей переклад надається лише для зручності. Офіційною версією є [англійський оригінал](../README.md).
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Спочатку подумай. Потім шукай." width="600">
+  <img src="assets/hero.png" alt="scout — Спочатку подумай. Потім шукай." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout класифікує URL-адреси на три рівні перед з
 |---|---|---|
 | **Публічні** | Хмарні API (Jina Reader / WebFetch) | Блоги, документація, публічні репозиторії GitHub |
 | **Конфіденційні** | Лише локальний Playwright | localhost, внутрішні вікі, адмін-панелі |
-| **З автентифікацією** | Chrome DevTools (сесія браузера) | Notion, Slack, сторінки після OAuth-автентифікації |
+| **З автентифікацією** | Playwright CDP | Notion, Slack, сторінки після OAuth-автентифікації |
 
 Ця класифікація базується на оцінці LLM, а не на системному примусі. Розглядайте її як маршрутизацію за принципом найкращих зусиль. Для високочутливих даних перевірте класифікацію перед продовженням.
 
 **Конфіденційні URL-адреси ніколи не надсилаються до зовнішніх API, навіть у разі невдачі** — система не переключається на хмарні інструменти для конфіденційних сторінок.
 
 <details>
-<summary>Налаштування Chrome DevTools (для сторінок з автентифікацією)</summary>
+<summary>Налаштування режиму налагодження Chrome (для сторінок з автентифікацією)</summary>
 
-Для завантаження сторінок, що вимагають входу (OAuth, SaaS-панелі), запустіть Chrome у режимі налагодження:
+Для завантаження сторінок, що вимагають входу (OAuth, SaaS-панелі), запустіть Chrome у режимі налагодження. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (обов'язково)
 - `jq` (лише для діагностики налаштування)
 - Python 3.10+ (лише для локального завантаження через Playwright)
-- `npm`/`npx` (лише для MCP-сервера Chrome DevTools)
 
 ## Безпека
 
@@ -199,7 +206,7 @@ API-ключі зберігаються у файлі `.mcp.json` у катал�
 
 **Класифікація контенту.** Класифікація конфіденційності URL-адрес базується на оцінці LLM і може містити помилки. Не покладайтеся на неї як на єдиний засіб захисту конфіденційної інформації.
 
-**Веб-завантаження та автоматизація браузера.** Цей плагін містить інструменти для автоматизації безголового браузера через Playwright та Chrome DevTools. Ви несете відповідальність за дотримання умов обслуговування цільових сайтів, політик robots.txt та чинного законодавства.
+**Веб-завантаження та автоматизація браузера.** Цей плагін містить інструменти для автоматизації безголового браузера через Playwright. Ви несете відповідальність за дотримання умов обслуговування цільових сайтів, політик robots.txt та чинного законодавства.
 
 **MCP-сервери.** Цей плагін підключається до MCP-серверів третіх сторін. Автор не контролює, не перевіряє та не гарантує поведінку й безпеку цих серверів.
 
@@ -213,7 +220,6 @@ API-ключі зберігаються у файлі `.mcp.json` у катал�
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Усі назви продуктів, логотипи та торговельні марки є власністю їхніх відповідних власників.

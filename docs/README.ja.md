@@ -3,7 +3,11 @@
 > **注意:** この翻訳は便宜上のものです。[英語の原文](../README.md)が正式版です。
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — 考えてから、検索する。" width="600">
+  <img src="assets/hero.png" alt="scout — 考えてから、検索する。" width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout は取得前に URL を 3 段階に分類します:
 |---|---|---|
 | **公開** | クラウド API（Jina Reader / WebFetch） | ブログ、ドキュメント、GitHub 公開リポ |
 | **機密** | ローカル Playwright のみ | localhost、社内 Wiki、管理画面 |
-| **認証済み** | Chrome DevTools（ブラウザセッション使用） | Notion、Slack、OAuth 認証後のページ |
+| **認証済み** | Playwright CDP | Notion、Slack、OAuth 認証後のページ |
 
 この分類は LLM の判断に基づくもので、システムによる強制ではありません。ベストエフォートのルーティングとして扱ってください。機密性の高いデータの場合、処理前に分類結果を確認してください。
 
 **機密 URL は、取得に失敗した場合でも外部 API には送信されません** — 機密ページに対してクラウドツールへのフォールバックは行いません。
 
 <details>
-<summary>Chrome DevTools のセットアップ（認証済みページ用）</summary>
+<summary>Chrome デバッグモードのセットアップ（認証済みページ用）</summary>
 
-ログインが必要なページ（OAuth、SaaS ダッシュボードなど）を取得するには、Chrome をデバッグモードで起動します:
+ログインが必要なページ（OAuth、SaaS ダッシュボードなど）を取得するには、Chrome をデバッグモードで起動します. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code**（必須）
 - `jq`（セットアップ診断のみ）
 - Python 3.10+（Playwright ローカル取得のみ）
-- `npm`/`npx`（Chrome DevTools MCP サーバーのみ）
 
 ## セキュリティ
 
@@ -199,7 +206,7 @@ API キーはプラグインディレクトリ内の `.mcp.json` に保存され
 
 **コンテンツ分類。** URL のプライバシー分類は LLM の判断に基づいており、誤りが含まれる可能性があります。機密情報の唯一の保護手段として依存しないでください。
 
-**Web 取得 & ブラウザ自動化。** このプラグインは Playwright と Chrome DevTools によるヘッドレスブラウザ自動化ツールを含みます。対象サイトの利用規約、robots.txt ポリシー、適用法令への準拠はご自身の責任で確認してください。
+**Web 取得 & ブラウザ自動化。** このプラグインは Playwright によるヘッドレスブラウザ自動化ツールを含みます。対象サイトの利用規約、robots.txt ポリシー、適用法令への準拠はご自身の責任で確認してください。
 
 **MCP サーバー。** このプラグインはサードパーティの MCP サーバーに接続します。著者はこれらサーバーの動作やセキュリティを管理・監査・保証するものではありません。
 
@@ -213,7 +220,6 @@ API キーはプラグインディレクトリ内の `.mcp.json` に保存され
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 すべての製品名、ロゴ、商標はそれぞれの所有者の財産です。

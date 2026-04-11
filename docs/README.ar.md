@@ -3,7 +3,11 @@
 > **ملاحظة:** هذه الترجمة مقدّمة لأغراض التسهيل فقط. [النص الأصلي بالإنجليزية](../README.md) هو النسخة الرسمية.
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — فكّر أولاً. ابحث ثانياً." width="600">
+  <img src="assets/hero.png" alt="scout — فكّر أولاً. ابحث ثانياً." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout يُصنّف عناوين URL إلى ثلاث فئات قبل الجلب:
 |---|---|---|
 | **عام** | واجهات API السحابية (Jina Reader / WebFetch) | مدونات، توثيق، مستودعات GitHub العامة |
 | **سري** | Playwright محلي فقط | localhost، ويكي داخلي، لوحات الإدارة |
-| **مُصادق عليه** | Chrome DevTools (جلسة متصفحك) | Notion، Slack، صفحات ما بعد OAuth |
+| **مُصادق عليه** | Playwright CDP | Notion، Slack، صفحات ما بعد OAuth |
 
 هذا التصنيف مبني على حكم LLM، وليس إلزاماً من النظام. تعامل معه كتوجيه بأفضل جهد. للبيانات عالية الحساسية، تحقق من التصنيف قبل المتابعة.
 
 **عناوين URL السرية لا تُرسل أبداً إلى واجهات API خارجية، حتى عند الفشل** — النظام لا يلجأ إلى أدوات سحابية للصفحات السرية.
 
 <details>
-<summary>إعداد Chrome DevTools (للصفحات المُصادق عليها)</summary>
+<summary>إعداد وضع تصحيح Chrome (للصفحات المُصادق عليها)</summary>
 
-لجلب الصفحات التي تتطلب تسجيل دخول (OAuth، لوحات SaaS)، شغّل Chrome في وضع التصحيح:
+لجلب الصفحات التي تتطلب تسجيل دخول (OAuth، لوحات SaaS)، شغّل Chrome في وضع التصحيح. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (مطلوب)
 - `jq` (لتشخيص الإعداد فقط)
 - Python 3.10+ (لجلب Playwright المحلي فقط)
-- `npm`/`npx` (لخادم Chrome DevTools MCP فقط)
 
 ## الأمان
 
@@ -199,7 +206,7 @@ claude mcp remove context7
 
 **تصنيف المحتوى.** تصنيف خصوصية URL مبني على حكم LLM وقد يحتوي على أخطاء. لا تعتمد عليه كضمانة وحيدة للمعلومات الحساسة.
 
-**جلب الويب وأتمتة المتصفح.** تتضمن هذه الإضافة أدوات أتمتة متصفح بدون واجهة عبر Playwright وChrome DevTools. أنت مسؤول عن التأكد من أن استخدامك يتوافق مع شروط خدمة المواقع المستهدفة وسياسات robots.txt والقوانين المعمول بها.
+**جلب الويب وأتمتة المتصفح.** تتضمن هذه الإضافة أدوات أتمتة متصفح بدون واجهة عبر Playwright . أنت مسؤول عن التأكد من أن استخدامك يتوافق مع شروط خدمة المواقع المستهدفة وسياسات robots.txt والقوانين المعمول بها.
 
 **خوادم MCP.** تتصل هذه الإضافة بخوادم MCP لأطراف ثالثة. لا يتحكم المؤلف في سلوك أو أمان هذه الخوادم ولا يراقبها ولا يضمنها.
 
@@ -213,7 +220,6 @@ claude mcp remove context7
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 جميع أسماء المنتجات والشعارات والعلامات التجارية هي ملك لأصحابها المعنيين.

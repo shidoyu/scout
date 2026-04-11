@@ -3,7 +3,11 @@
 > **참고:** 이 번역은 편의를 위해 제공됩니다. [영어 원문](../README.md)이 정식 버전입니다.
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — 먼저 생각하고, 그 다음에 검색한다." width="600">
+  <img src="assets/hero.png" alt="scout — 먼저 생각하고, 그 다음에 검색한다." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout는 페치하기 전에 URL을 3단계로 분류합니다:
 |---|---|---|
 | **공개** | 클라우드 API (Jina Reader / WebFetch) | 블로그, 문서, GitHub 공개 리포 |
 | **기밀** | 로컬 Playwright만 사용 | localhost, 사내 위키, 관리자 패널 |
-| **인증 필요** | Chrome DevTools (브라우저 세션 사용) | Notion, Slack, OAuth 인증 후 페이지 |
+| **인증 필요** | Playwright CDP | Notion, Slack, OAuth 인증 후 페이지 |
 
 이 분류는 LLM의 판단에 기반하며, 시스템에 의한 강제가 아닙니다. 최선의 노력에 따른 라우팅으로 간주해 주세요. 기밀성이 높은 데이터의 경우 처리 전에 분류 결과를 확인하세요.
 
 **기밀 URL은 페치에 실패하더라도 외부 API로 전송되지 않습니다** — 기밀 페이지에 대해 클라우드 도구로의 폴백은 수행하지 않습니다.
 
 <details>
-<summary>Chrome DevTools 설정 (인증이 필요한 페이지용)</summary>
+<summary>Chrome 디버그 모드 설정 (인증이 필요한 페이지용)</summary>
 
-로그인이 필요한 페이지(OAuth, SaaS 대시보드 등)를 페치하려면 Chrome을 디버그 모드로 실행합니다:
+로그인이 필요한 페이지(OAuth, SaaS 대시보드 등)를 페치하려면 Chrome을 디버그 모드로 실행합니다. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (필수)
 - `jq` (설정 진단용)
 - Python 3.10+ (Playwright 로컬 페치용)
-- `npm`/`npx` (Chrome DevTools MCP 서버용)
 
 ## 보안
 
@@ -199,7 +206,7 @@ API 키는 플러그인 디렉터리 내의 `.mcp.json`에 저장됩니다.
 
 **콘텐츠 분류.** URL 프라이버시 분류는 LLM의 판단에 기반하며 오류가 포함될 수 있습니다. 민감한 정보의 유일한 보호 수단으로 의존하지 마세요.
 
-**웹 페치 & 브라우저 자동화.** 이 플러그인은 Playwright와 Chrome DevTools를 통한 헤드리스 브라우저 자동화 도구를 포함합니다. 대상 사이트의 이용 약관, robots.txt 정책, 적용 법률의 준수는 사용자의 책임입니다.
+**웹 페치 & 브라우저 자동화.** 이 플러그인은 Playwright를 통한 헤드리스 브라우저 자동화 도구를 포함합니다. 대상 사이트의 이용 약관, robots.txt 정책, 적용 법률의 준수는 사용자의 책임입니다.
 
 **MCP 서버.** 이 플러그인은 서드파티 MCP 서버에 연결합니다. 저자는 이러한 서버의 동작이나 보안을 관리, 감사, 보증하지 않습니다.
 
@@ -213,7 +220,6 @@ API 키는 플러그인 디렉터리 내의 `.mcp.json`에 저장됩니다.
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 모든 제품명, 로고, 상표는 각 소유자의 자산입니다.

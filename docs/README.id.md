@@ -3,7 +3,11 @@
 > **Catatan:** Terjemahan ini disediakan untuk kemudahan saja. [Versi asli dalam bahasa Inggris](../README.md) adalah versi resmi.
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Berpikir dulu. Baru cari." width="600">
+  <img src="assets/hero.png" alt="scout — Berpikir dulu. Baru cari." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout mengklasifikasikan URL ke dalam tiga tingkat sebelum mengambil:
 |---|---|---|
 | **Publik** | API Cloud (Jina Reader / WebFetch) | Blog, dokumentasi, repo publik GitHub |
 | **Rahasia** | Hanya Playwright lokal | localhost, wiki internal, panel admin |
-| **Terautentikasi** | Chrome DevTools (sesi browser Anda) | Notion, Slack, halaman setelah OAuth |
+| **Terautentikasi** | Playwright CDP | Notion, Slack, halaman setelah OAuth |
 
 Klasifikasi ini berdasarkan penilaian LLM, bukan penegakan sistem. Perlakukan sebagai routing best-effort. Untuk data yang sangat sensitif, verifikasi klasifikasinya sebelum melanjutkan.
 
 **URL rahasia tidak pernah dikirim ke API eksternal, bahkan saat gagal** — sistem tidak melakukan fallback ke alat cloud untuk halaman rahasia.
 
 <details>
-<summary>Setup Chrome DevTools (untuk halaman terautentikasi)</summary>
+<summary>Setup mode debug Chrome (untuk halaman terautentikasi)</summary>
 
-Untuk mengambil halaman yang memerlukan login (OAuth, dashboard SaaS), jalankan Chrome dalam mode debug:
+Untuk mengambil halaman yang memerlukan login (OAuth, dashboard SaaS), jalankan Chrome dalam mode debug. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (wajib)
 - `jq` (hanya untuk diagnostik setup)
 - Python 3.10+ (hanya untuk pengambilan lokal Playwright)
-- `npm`/`npx` (hanya untuk server Chrome DevTools MCP)
 
 ## Keamanan
 
@@ -199,7 +206,7 @@ Plugin ini disediakan "apa adanya" di bawah Lisensi MIT, tanpa jaminan apa pun.
 
 **Klasifikasi Konten.** Klasifikasi privasi URL berdasarkan penilaian LLM dan mungkin mengandung kesalahan. Jangan mengandalkannya sebagai satu-satunya perlindungan untuk informasi sensitif.
 
-**Web Fetching & Automasi Browser.** Plugin ini menyertakan alat automasi browser headless melalui Playwright dan Chrome DevTools. Anda bertanggung jawab untuk memastikan penggunaan Anda mematuhi ketentuan layanan situs target, kebijakan robots.txt, dan hukum yang berlaku.
+**Web Fetching & Automasi Browser.** Plugin ini menyertakan alat automasi browser headless melalui Playwright. Anda bertanggung jawab untuk memastikan penggunaan Anda mematuhi ketentuan layanan situs target, kebijakan robots.txt, dan hukum yang berlaku.
 
 **Server MCP.** Plugin ini terhubung ke server MCP pihak ketiga. Penulis tidak mengontrol, mengaudit, atau menjamin perilaku atau keamanan server-server ini.
 
@@ -213,7 +220,6 @@ Tidak ada kode sumber pihak ketiga yang didistribusikan ulang — integrasi dila
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Semua nama produk, logo, dan merek dagang adalah milik pemiliknya masing-masing.

@@ -3,7 +3,11 @@
 > **Uwaga:** To tłumaczenie udostępniane jest wyłącznie dla wygody. Wersją oficjalną jest [angielski oryginał](../README.md).
 
 <p align="center">
-  <img src="assets/hero.png" alt="scout — Najpierw pomyśl. Potem szukaj." width="600">
+  <img src="assets/hero.png" alt="scout — Najpierw pomyśl. Potem szukaj." width="820">
+</p>
+
+<p align="center">
+  <img src="assets/demo.gif" alt="scout demo" width="820">
 </p>
 
 <h1 align="center">scout</h1>
@@ -131,28 +135,32 @@ scout klasyfikuje adresy URL na trzy poziomy przed pobraniem:
 |---|---|---|
 | **Publiczne** | API w chmurze (Jina Reader / WebFetch) | Blogi, dokumentacja, publiczne repozytoria GitHub |
 | **Poufne** | Tylko lokalny Playwright | localhost, wewnętrzne wiki, panele administracyjne |
-| **Z uwierzytelnieniem** | Chrome DevTools (sesja przeglądarki) | Notion, Slack, strony po uwierzytelnieniu OAuth |
+| **Z uwierzytelnieniem** | Playwright CDP | Notion, Slack, strony po uwierzytelnieniu OAuth |
 
 Ta klasyfikacja opiera się na ocenie LLM, a nie na egzekwowaniu systemowym. Traktuj ją jako routing najlepszego wysiłku. W przypadku wysoce wrażliwych danych zweryfikuj klasyfikację przed kontynuowaniem.
 
 **Poufne adresy URL nigdy nie są wysyłane do zewnętrznych API, nawet w przypadku niepowodzenia** — system nie przechodzi na narzędzia chmurowe dla stron poufnych.
 
 <details>
-<summary>Konfiguracja Chrome DevTools (dla stron z uwierzytelnieniem)</summary>
+<summary>Konfiguracja trybu debugowania Chrome (dla stron z uwierzytelnieniem)</summary>
 
-Aby pobierać strony wymagające logowania (OAuth, panele SaaS), uruchom Chrome w trybie debugowania:
+Aby pobierać strony wymagające logowania (OAuth, panele SaaS), uruchom Chrome w trybie debugowania. Chrome 146+ requires a separate `--user-data-dir`:
 
 macOS:
 
 ```bash
-open -a "Google Chrome" --args --remote-debugging-port=9222
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --remote-debugging-port=9222 \
+  --user-data-dir=$HOME/.chrome-debug
 ```
 
 Linux:
 
 ```bash
-google-chrome --remote-debugging-port=9222
+google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug
 ```
+
+On first launch with a new `--user-data-dir`, you'll need to log in to your accounts again. After that, sessions persist across restarts.
 </details>
 
 <details>
@@ -182,7 +190,6 @@ claude mcp remove context7
 - **Claude Code** (wymagane)
 - `jq` (tylko do diagnostyki konfiguracji)
 - Python 3.10+ (tylko do lokalnego pobierania przez Playwright)
-- `npm`/`npx` (tylko do serwera MCP Chrome DevTools)
 
 ## Bezpieczeństwo
 
@@ -199,7 +206,7 @@ Ta wtyczka jest udostępniana „tak jak jest" na licencji MIT, bez jakiejkolwie
 
 **Klasyfikacja treści.** Klasyfikacja prywatności adresów URL opiera się na ocenie LLM i może zawierać błędy. Nie polegaj na niej jako jedynym zabezpieczeniu informacji wrażliwych.
 
-**Pobieranie stron i automatyzacja przeglądarki.** Ta wtyczka zawiera narzędzia do automatyzacji przeglądarki bezgłowej za pomocą Playwright i Chrome DevTools. To Ty odpowiadasz za zgodność z warunkami usług odwiedzanych stron, politykami robots.txt i obowiązującym prawem.
+**Pobieranie stron i automatyzacja przeglądarki.** Ta wtyczka zawiera narzędzia do automatyzacji przeglądarki bezgłowej za pomocą Playwright. To Ty odpowiadasz za zgodność z warunkami usług odwiedzanych stron, politykami robots.txt i obowiązującym prawem.
 
 **Serwery MCP.** Ta wtyczka łączy się z serwerami MCP firm trzecich. Autor nie kontroluje, nie audytuje ani nie gwarantuje działania i bezpieczeństwa tych serwerów.
 
@@ -213,7 +220,6 @@ Kod źródłowy firm trzecich nie jest redystrybuowany — integracja odbywa si�
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
-| [chrome-devtools-mcp](https://github.com/nichochar/chrome-devtools-mcp) | nichochar | Apache License 2.0 |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Wszystkie nazwy produktów, logo i znaki towarowe są własnością ich odpowiednich właścicieli.

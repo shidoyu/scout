@@ -49,7 +49,7 @@ Classify privacy level
 ├─ Confidential ──→ fetch-page.py (local processing) → [on failure] Report "Local fetch failed"
 │                    ※ Sending URL to external APIs (Jina Reader, WebFetch, etc.) is PROHIBITED
 │
-└─ Authenticated ─→ Chrome DevTools MCP (uses browser session)
+└─ Authenticated ─→ browser-control.py (Playwright CDP, uses browser session)
                      → [on failure] Report "Cannot fetch. Please start Chrome in debug mode"
 ```
 
@@ -72,11 +72,16 @@ Classify privacy level
 - Used as post-processing when fetch-page.py returns HTML
 - If markitdown MCP is unavailable (e.g., uvx not installed), skip (does not affect core functionality)
 
-**Chrome DevTools MCP** (`take_snapshot` / `evaluate_script`): Uses the browser's current session.
+**browser-control.py** (Playwright CDP): Connects to the user's running Chrome via CDP. Uses the browser's current session (cookies, logins).
 - For authenticated pages only
-- **Prerequisite**: Chrome must be running in remote debugging mode (`--remote-debugging-port=9222`)
-- Procedure: `list_pages` → `select_page` → `take_snapshot`
-- If connection fails: Instruct user to start Chrome in debug mode: `open -a "Google Chrome" --args --remote-debugging-port=9222` (macOS) or `google-chrome --remote-debugging-port=9222` (Linux)
+- **Prerequisite**: Chrome must be running in debug mode with a separate user-data-dir:
+  - macOS: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug`
+  - Linux: `google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug`
+  - Note: Chrome 146+ requires `--user-data-dir` (non-default) for CDP. First launch requires re-login.
+- Existence check: Use if `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python` exists
+- Execution: `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python ${CLAUDE_PLUGIN_ROOT}/tools/browser-control.py list-pages` (verify connection) → `snapshot [INDEX|SUBSTR]` (get content)
+- Exit code 2 → Chrome not reachable. Instruct user to start Chrome in debug mode (see above)
+- Exit code 1 → No matching tab or empty content
 
 ## Size Control
 
@@ -94,7 +99,7 @@ These are operational rules based on LLM judgment, not system-enforced guarantee
 
 - Do not send confidential page URLs to external APIs (Jina Reader, Exa, WebFetch, etc.). **Even if the user explicitly requests external API fetching, do not send URLs classified as confidential** (explain the reason and suggest local alternatives).
 - **Confidential URLs must never fall back to external APIs regardless of fetch-page.py's exit code**. Any non-zero exit is reported as "Local fetch failed."
-- For authenticated pages where Chrome DevTools is unavailable, report the limitation rather than attempting alternative retrieval.
+- For authenticated pages where browser-control.py cannot connect, report the limitation rather than attempting alternative retrieval.
 - In environments where fetch-page.py does not exist, report confidential pages as "Cannot fetch" and guide the user to set up Playwright.
 - Notify the user of the classification result (e.g., "This URL is classified as confidential. Fetching locally.").
 
