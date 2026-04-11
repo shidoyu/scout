@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/assets/demo.gif" alt="scout demo — Before/After comparison" width="600">
+  <img src="docs/assets/demo.gif" alt="scout demo — Before/After comparison" width="820">
 </p>
 
 <h1 align="center">scout</h1>
