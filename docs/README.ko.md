@@ -219,7 +219,7 @@ API 키는 플러그인 디렉터리 내의 `.mcp.json`에 저장됩니다.
 | [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
-| [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
+| [markitdown](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 모든 제품명, 로고, 상표는 각 소유자의 자산입니다.

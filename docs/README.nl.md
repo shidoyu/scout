@@ -219,7 +219,7 @@ Er wordt geen broncode van derden herverspreid — integratie vindt plaats via M
 | [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
-| [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
+| [markitdown](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Alle productnamen, logo's en handelsmerken zijn eigendom van hun respectieve houders.

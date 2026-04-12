@@ -219,7 +219,7 @@ Nessun codice sorgente di terze parti viene ridistribuito — l'integrazione avv
 | [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
 | [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
-| [markitdown-mcp](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
+| [markitdown](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |
 
 Tutti i nomi dei prodotti, i loghi e i marchi sono di proprietà dei rispettivi titolari.
