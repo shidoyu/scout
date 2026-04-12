@@ -68,9 +68,11 @@ Classify privacy level
 - Execution: `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python ${CLAUDE_PLUGIN_ROOT}/tools/fetch-page.py URL --text`
 - Any non-zero exit code → Report "Local fetch failed" (do NOT fall back to external APIs — see Privacy Rules)
 
-**markitdown MCP** (`convert_to_markdown`): HTML → Markdown conversion. Local processing.
+**markitdown CLI**: HTML → Markdown conversion. Local processing.
 - Used as post-processing when fetch-page.py returns HTML
-- If markitdown MCP is unavailable (e.g., uvx not installed), skip (does not affect core functionality)
+- Execution: `markitdown` (reads from stdin or file argument)
+- Example: `echo "$html" | markitdown` or `markitdown file.html`
+- If markitdown is not installed, skip (does not affect core functionality)
 
 **browser-control.py** (Playwright CDP): Connects to the user's running Chrome via CDP. Uses the browser's current session (cookies, logins).
 - For authenticated pages only
@@ -89,7 +91,7 @@ Handling oversized content:
 
 1. **Pre-estimation**: Jina Reader / WebFetch typically return reasonable sizes. fetch-page.py returns full page content — use with caution.
 2. **Post-fetch check**: If the result is clearly oversized (guideline: >50,000 characters):
-   - Convert HTML → Markdown via markitdown (removes navigation, footers, etc.)
+   - Convert HTML → Markdown via `markitdown` CLI (removes navigation, footers, etc.)
    - If still too large → Extract only the needed sections (via CSS selector or text search)
 3. **Multi-page fetching**: Fetch pages sequentially, one at a time. No parallel fetching (to avoid rate limits).
 

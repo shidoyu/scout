@@ -3,12 +3,6 @@
     "exa-free": {
       "type": "http",
       "url": "https://mcp.exa.ai/mcp"
-    },
-    "markitdown": {
-      "command": "uvx",
-      "args": [
-        "markitdown-mcp"
-      ]
     }
   }
 }
