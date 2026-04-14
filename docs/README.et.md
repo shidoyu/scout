@@ -93,7 +93,7 @@ Kasutab Claude Code'i WebSearch'i. Seadistamist pole vaja. See on see, mida sa s
 
 ### Tase 2: Ametlik dokumentatsioon + puhtam toomine
 
-Lisa [Context7](https://github.com/upstash/context7) teekide ja raamistike dokumentatsiooni otseküsimiseks. Jina Readeri üleliigse sisu eemaldamine on sisseehitatud — seadistamist pole vaja. Leheküljeülejääk eemaldatakse automaatselt, nii et konteksti täidab vähem teksti.
+Lisa [Context7](https://github.com/upstash/context7) teekide ja raamistike dokumentatsiooni otsepääsuks. Jina Reader eemaldab lehe müra, nii et kontekstis on vähem teksti ja säästad tokeneid. Töötab ilma võtmeta (20 req/min); tasuta API-võti avab 500 req/min.
 
 ### Tase 3: Semantiline otsing
 

@@ -93,7 +93,7 @@ scout 安裝後即可使用。每個層級增加功能 — 全部可選，全部
 
 ### 層級 2：官方文件 + 更乾淨的擷取
 
-加入 [Context7](https://github.com/upstash/context7) 以直接存取函式庫與框架的文件。Jina Reader 的冗餘內容清理功能已內建，無需任何設定。它會自動去除頁面雜訊，讓更少的文字佔用你的上下文空間。
+加入 [Context7](https://github.com/upstash/context7) 以直接存取函式庫與框架的文件。Jina Reader 會移除頁面雜訊，讓更少的文字佔用你的上下文，並節省 token。無需 key 即可使用（20 req/min）；免費的 API key 可解鎖 500 req/min。
 
 ### 層級 3：語意搜尋
 

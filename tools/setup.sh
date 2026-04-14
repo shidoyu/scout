@@ -44,12 +44,12 @@ else
   echo ""
 fi
 
-echo "scout setup (2 optional steps, all skippable)"
+echo "scout setup (3 optional steps, all skippable)"
 echo "scout works out of the box. Additional setup extends search and fetch capabilities."
 echo ""
 
-# --- [1/2] Exa ---
-echo "[1/2] Exa — finds niche results that keyword search misses"
+# --- [1/3] Exa ---
+echo "[1/3] Exa — finds niche results that keyword search misses"
 echo ""
 echo "  Searches by meaning, not exact words."
 echo "  Strong for academic papers and technical deep-dives."
@@ -61,7 +61,7 @@ if jq -e '.mcpServers.exa' "$MCP_JSON" > /dev/null 2>&1; then
   echo "  ✓ Already configured (enter a new key to reconfigure)"
 fi
 
-read -rp "  API key (or Enter to skip): " exa_key
+read -rp "  API key (or Enter to skip): " exa_key || exa_key=""
 
 if [ -n "$exa_key" ]; then
   if [[ ${#exa_key} -lt 10 ]]; then
@@ -78,15 +78,44 @@ if [ -n "$exa_key" ]; then
 fi
 echo ""
 
-# Remove legacy Jina Reader MCP if present (replaced by r.jina.ai URL prefix in fetch skill)
+# --- [2/3] Jina Reader ---
+echo "[2/3] Jina Reader — strips page boilerplate so less noise fills your context, saving tokens"
+echo ""
+echo "  No key:   20 req/min — free, no quota."
+echo "  With key: 500 req/min — free key includes 10M tokens. https://jina.ai/?newKey"
+echo ""
+
+# Detect existing configuration on re-run
 if jq -e '.mcpServers["jina-reader"]' "$MCP_JSON" > /dev/null 2>&1; then
-  jq 'del(.mcpServers["jina-reader"])' "$MCP_JSON" > "$MCP_JSON.tmp" && mv "$MCP_JSON.tmp" "$MCP_JSON"
-  echo "Note: Jina Reader MCP removed (now built into scout's fetch skill — no setup needed)."
-  echo ""
+  if jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1; then
+    echo "  ✓ API key already set (enter a new key to reconfigure)"
+  fi
 fi
 
-# --- [2/2] Playwright ---
-echo "[2/2] Playwright — unlocks JS-heavy pages without sending URLs to external services"
+read -rp "  API key (or Enter for free tier): " jina_key || jina_key=""
+
+if [ -n "$jina_key" ]; then
+  if [[ ! "$jina_key" == jina_* ]] || [[ ${#jina_key} -lt 10 ]]; then
+    echo "  ⚠ Invalid key format. Skipping."
+  else
+    jq --arg key "$jina_key" \
+      '.mcpServers["jina-reader"] = {
+        "type": "http",
+        "url": "https://mcp.jina.ai/v1",
+        "headers": { "Authorization": ("Bearer " + $key) }
+      }' "$MCP_JSON" > "$MCP_JSON.tmp" && mv "$MCP_JSON.tmp" "$MCP_JSON"
+    echo "  ✓ Jina Reader configured (API key, 500 req/min)."
+  fi
+else
+  if jq -e '.mcpServers["jina-reader"]' "$MCP_JSON" > /dev/null 2>&1; then
+    jq 'del(.mcpServers["jina-reader"])' "$MCP_JSON" > "$MCP_JSON.tmp" && mv "$MCP_JSON.tmp" "$MCP_JSON"
+  fi
+  echo "  ✓ Jina Reader configured (free tier, 20 req/min)."
+fi
+echo ""
+
+# --- [3/3] Playwright ---
+echo "[3/3] Playwright — unlocks JS-heavy pages without sending URLs to external services"
 echo ""
 echo "  For SPAs and paywalled sites that static fetch can't handle."
 echo "  Downloads Chromium (~200MB). May fail behind corporate proxies."
@@ -102,7 +131,7 @@ if [ -f "$VENV_DIR/bin/python" ] \
   pw_installed=true
 fi
 
-read -rp "  Set up Playwright? (y/N): " pw_answer
+read -rp "  Set up Playwright? (y/N): " pw_answer || pw_answer=""
 
 if [[ "$pw_answer" =~ ^[Yy]$ ]]; then
   echo "  Installing Playwright..."
@@ -133,9 +162,16 @@ not_configured=()
 
 # Check all configurations (including pre-existing ones from previous runs)
 exa_exists=false
+jina_keyed=false
 jq -e '.mcpServers.exa' "$MCP_JSON" > /dev/null 2>&1 && exa_exists=true
+jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1 && jina_keyed=true
 
 ([ -n "${exa_key:-}" ] || [ "$exa_exists" = true ]) && configured+=("Exa") || not_configured+=("Exa")
+if [ "$jina_keyed" = true ]; then
+  configured+=("Jina Reader (API key, 500 req/min)")
+else
+  configured+=("Jina Reader (free tier, 20 req/min)")
+fi
 [ "$pw_installed" = true ] && configured+=("Playwright") || not_configured+=("Playwright")
 
 if [ ${#configured[@]} -gt 0 ]; then
@@ -150,7 +186,11 @@ echo "  Available now:"
 exa_active=""
 ([ -n "${exa_key:-}" ] || [ "$exa_exists" = true ]) && exa_active="yes"
 echo "  - Web search (default${exa_active:+ + Exa} + WebSearch)"
-echo "  - URL content fetching (Jina Reader via r.jina.ai + WebFetch — no setup needed)"
+if [ "$jina_keyed" = true ]; then
+  echo "  - URL content fetching (Jina Reader + WebFetch)"
+else
+  echo "  - URL content fetching (Jina Reader via r.jina.ai + WebFetch — no setup needed)"
+fi
 [ "$pw_installed" = true ] && echo "  - SPA/dynamic page fetching (Playwright)"
 echo ""
 echo "  Note: Restart Claude Code (or run /mcp) for new MCP servers to take effect."

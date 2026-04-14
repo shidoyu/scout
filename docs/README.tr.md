@@ -93,7 +93,7 @@ Claude Code'un WebSearch'ünü kullanır. Yapılandırma gerekmez. Kutudan çık
 
 ### Seviye 2: Resmi Belgeler + Daha Temiz Getirme
 
-Kütüphane ve framework belgelerine doğrudan erişim için [Context7](https://github.com/upstash/context7) ekleyin. Jina Reader'ın gereksiz içerik temizleme özelliği yerleşik olarak gelir — kurulum gerekmez. Sayfa gürültüsünü otomatik olarak temizler, böylece bağlamınızı daha az metin doldurur.
+Kütüphane ve framework belgelerine doğrudan erişim için [Context7](https://github.com/upstash/context7) ekleyin. Jina Reader sayfa gürültüsünü temizler, böylece bağlamınızı daha az metin doldurur ve token tasarrufu sağlarsınız. Anahtar olmadan çalışır (20 req/min); ücretsiz bir API anahtarı 500 req/min kilidini açar.
 
 ### Seviye 3: Anlamsal Arama
 

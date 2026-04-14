@@ -93,7 +93,7 @@ Claude Code의 WebSearch를 사용합니다. 별도 설정 불필요. 설치한 
 
 ### 레벨 2: 공식 문서 + 더 깔끔한 페치
 
-[Context7](https://github.com/upstash/context7)을 추가하면 라이브러리/프레임워크 문서에 직접 접근할 수 있습니다. Jina Reader의 불필요한 텍스트 제거 기능이 기본 내장되어 있어 별도 설정이 필요 없습니다. 페이지의 잡음을 자동으로 제거하므로 컨텍스트를 더 효율적으로 활용할 수 있습니다.
+[Context7](https://github.com/upstash/context7)을 추가하면 라이브러리와 프레임워크 문서에 직접 접근할 수 있습니다. Jina Reader가 페이지 노이즈를 제거해 컨텍스트를 덜 차지하고 토큰을 절약할 수 있습니다. 키 없이 20 req/min, 무료 API 키로 500 req/min까지 사용할 수 있습니다.
 
 ### 레벨 3: 시맨틱 검색
 

@@ -44,31 +44,53 @@ Receive URL
   ↓
 Classify privacy level
   ↓
-┌─ Public ────────→ WebFetch via r.jina.ai → [on failure] WebFetch (direct) → [on failure] fetch-page.py
-│
-├─ Confidential ──→ fetch-page.py (local processing) → [on failure] Report "Local fetch failed"
-│                    ※ Sending URL to external APIs (Jina, WebFetch, etc.) is PROHIBITED
-│
-└─ Authenticated ─→ browser-control.py (Playwright CDP, uses browser session)
-                     → [on failure] Report "Cannot fetch. Please start Chrome in debug mode"
+Public (Jina MCP available = API key configured)
+  ↓
+Jina MCP (500 RPM)
+  ├─ [402] → r.jina.ai (keyless) + notice 「⚠ Jina token limit reached — falling back to free tier (20/min). Top up: https://jina.ai/」
+  ├─ [401] → r.jina.ai (keyless) + notice 「⚠ Jina API key rejected — falling back to free tier. Re-run setup: bash tools/setup.sh」
+  ├─ [429/5xx/403/408/connection failure] → r.jina.ai (keyless) silently
+  └─ [OK] → done
+  ※ If 402/401 already occurred in this session, skip MCP and omit notice
+  ※ All r.jina.ai fallbacks share the same failure chain:
+       r.jina.ai fails → fetch-page.py (if installed) → WebFetch (direct) → report failure
+
+Public (no Jina MCP = no API key)
+  ↓
+WebFetch via r.jina.ai (keyless, 20 RPM)
+  ├─ [429] → fetch-page.py + notice
+  │          「⚠ Jina rate limit hit (20/min). Free API key unlocks 500/min: https://jina.ai/?newKey」
+  ├─ [other errors] → fetch-page.py silently
+  └─ [OK] → done
+       └─ [fetch-page.py fails or unavailable] → WebFetch (direct)
+            └─ [fails] → report failure
+
+Confidential → fetch-page.py only → report failure (external APIs prohibited)
+Authenticated → browser-control.py only → report failure
 ```
 
 ### Tool Details
 
-**WebFetch via r.jina.ai** (primary for public pages): Strips page boilerplate (navigation, ads, sidebars) so less noise fills the context. No API key, no MCP, no token depletion.
+**MCP availability**: If Jina Reader MCP tools (e.g. `read_url`) are available in the current session, use MCP. Otherwise, use WebFetch via `r.jina.ai`.
+
+**Jina MCP** (for API key users): Same quality as `r.jina.ai` (Markdown, boilerplate removal, JS rendering) but authenticated via MCP headers. 500 RPM, consumes Jina token pool.
+- Available when `jina-reader` is configured in `.mcp.json` (set up via `bash tools/setup.sh`)
+- Falls back to `r.jina.ai` (keyless) on any error
+
+**WebFetch via r.jina.ai** (primary for public pages): Strips page boilerplate so less noise fills the context. No API key, no MCP, no token depletion.
 - Usage: `WebFetch(url="https://r.jina.ai/{target_url}", prompt="...")`
 - Rate: 20 req/min (free, no quota)
-- Falls back to direct WebFetch on any error (429, 503, timeout, etc.)
+- Falls back to direct WebFetch on any error
 
 **WebFetch** (built-in): URL → text. Built into Claude Code. Fetched via Anthropic infrastructure. Not shared with third-party services (Jina, Exa, etc.), but the URL is sent to Anthropic servers.
-- **Fallback for public pages only**. Do not use for confidential pages.
+- Fallback for public pages only. Do not use for confidential pages.
 
 **fetch-page.py** (local Playwright): URL → HTML/text. All processing is local.
 - Default tool for confidential pages
-- Existence check: Use if `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python` exists (the venv is created by `setup.sh`; if it does not exist, Playwright is not set up — skip to the "does not exist" path below)
+- Existence check: use if `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python` exists; if not, skip to WebFetch (direct)
 - `${CLAUDE_PLUGIN_ROOT}` is set automatically by Claude Code's plugin system. If unexpectedly empty, treat fetch-page.py as unavailable.
 - Execution: `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python ${CLAUDE_PLUGIN_ROOT}/tools/fetch-page.py URL --text`
-- Any non-zero exit code → Report "Local fetch failed" (do NOT fall back to external APIs — see Privacy Rules)
+- Any non-zero exit code → report `Local fetch failed`
 
 **markitdown CLI**: HTML → Markdown conversion. Local processing.
 - Used as post-processing when fetch-page.py returns HTML
@@ -82,10 +104,18 @@ Classify privacy level
   - macOS: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug`
   - Linux: `google-chrome --remote-debugging-port=9222 --user-data-dir=$HOME/.chrome-debug`
   - Note: Chrome 146+ requires `--user-data-dir` (non-default) for CDP. First launch requires re-login.
-- Existence check: Use if `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python` exists
+- Existence check: use if `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python` exists
 - Execution: `${CLAUDE_PLUGIN_ROOT}/tools/.venv/bin/python ${CLAUDE_PLUGIN_ROOT}/tools/browser-control.py list-pages` (verify connection) → `snapshot [INDEX|SUBSTR]` (get content)
 - Exit code 2 → Chrome not reachable. Instruct user to start Chrome in debug mode (see above)
 - Exit code 1 → No matching tab or empty content
+
+### Notices
+
+- Actionable errors only: 402 (top up), 401 (fix key), keyless 429 (get free key)
+- Transient errors: silent (429 with key, 5xx, 403, 408, connection failure)
+- Notices appear inline after successful retrieval, one line
+- Never block, never ask questions
+- Session memory: if the same error already occurred, skip MCP and omit notice; if forgotten, the notice may repeat harmlessly
 
 ## Size Control
 
@@ -102,10 +132,10 @@ Handling oversized content:
 These are operational rules based on LLM judgment, not system-enforced guarantees.
 
 - Do not send confidential page URLs to external APIs (Jina, Exa, WebFetch, etc.). **Even if the user explicitly requests external API fetching, do not send URLs classified as confidential** (explain the reason and suggest local alternatives).
-- **Confidential URLs must never fall back to external APIs regardless of fetch-page.py's exit code**. Any non-zero exit is reported as "Local fetch failed."
+- Confidential URLs must never fall back to external APIs regardless of fetch-page.py's exit code. Any non-zero exit is reported as `Local fetch failed`.
 - For authenticated pages where browser-control.py cannot connect, report the limitation rather than attempting alternative retrieval.
-- In environments where fetch-page.py does not exist, report confidential pages as "Cannot fetch" and guide the user to set up Playwright.
-- Notify the user of the classification result (e.g., "This URL is classified as confidential. Fetching locally.").
+- In environments where fetch-page.py does not exist, report confidential pages as `Cannot fetch` and guide the user to set up Playwright.
+- Notify the user of the classification result, e.g. `This URL is classified as confidential. Fetching locally.`
 
 ## Setup
 
@@ -118,13 +148,13 @@ Follow this section for first-time use or when additional configuration is neede
 ### Steps
 **Important**: The setup script is interactive (prompts for input). Do NOT run it via the Bash tool — it will hang. Instead, instruct the user to run it in their terminal:
 
-```
+```bash
 bash tools/setup.sh
 ```
 
-The script guides the user through 2 optional steps:
-1. [1/2] Exa — Semantic search engine: Enter API key (skippable)
-2. [2/2] Playwright — Local browser for JS-heavy pages: Install Chromium (skippable)
+The script guides the user through 3 optional steps:
+1. [1/3] Exa — Semantic search engine: Enter API key (skippable)
+2. [2/3] Jina Reader — API key for faster fetching: Enter key or skip for free tier (skippable)
+3. [3/3] Playwright — Local browser for JS-heavy pages: Install Chromium (skippable)
 
 After setup completes, the user must restart Claude Code (or run `/mcp`) for new MCP servers to take effect.
-

@@ -93,7 +93,7 @@ Utilise la WebSearch de Claude Code. Aucune configuration nécessaire. C'est ce 
 
 ### Niveau 2 : Documentation officielle + récupération améliorée
 
-Ajoutez [Context7](https://github.com/upstash/context7) pour accéder directement à la documentation des bibliothèques et frameworks. Le nettoyage du contenu superflu par Jina Reader est intégré — aucune configuration nécessaire. Le bruit des pages est automatiquement supprimé, ce qui réduit le texte occupant votre contexte.
+Ajoutez [Context7](https://github.com/upstash/context7) pour accéder directement à la documentation des bibliothèques et frameworks. Jina Reader supprime le bruit des pages, afin que moins de texte occupe votre contexte et que vous économisiez des tokens. Fonctionne sans clé (20 req/min) ; une clé API gratuite débloque 500 req/min.
 
 ### Niveau 3 : Recherche sémantique
 

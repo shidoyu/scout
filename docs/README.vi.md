@@ -93,7 +93,7 @@ Sử dụng WebSearch của Claude Code. Không cần cấu hình. Đây là tr�
 
 ### Cấp độ 2: Tài liệu chính thức + Truy xuất sạch hơn
 
-Thêm [Context7](https://github.com/upstash/context7) để truy cập trực tiếp tài liệu thư viện và framework. Tính năng loại bỏ nội dung thừa của Jina Reader đã được tích hợp sẵn — không cần cấu hình. Hệ thống tự động loại bỏ phần rác trên trang, giúp ít văn bản hơn chiếm dụng context của bạn.
+Thêm [Context7](https://github.com/upstash/context7) để truy cập trực tiếp tài liệu thư viện và framework. Jina Reader loại bỏ nhiễu trên trang, nên ít văn bản hơn sẽ chiếm dụng context của bạn và tiết kiệm token. Dùng được không cần key (20 req/min); một API key miễn phí mở khóa 500 req/min.
 
 ### Cấp độ 3: Tìm kiếm ngữ nghĩa
 

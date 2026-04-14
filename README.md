@@ -91,7 +91,7 @@ Uses Claude Code's WebSearch. No configuration needed. This is what you get out 
 
 ### Level 2: Official Docs + Cleaner Fetching
 
-Add [Context7](https://github.com/upstash/context7) for direct library/framework doc access. Jina Reader's boilerplate stripping is built in — no setup needed. It automatically strips page noise so less text fills your context.
+Add [Context7](https://github.com/upstash/context7) for direct library/framework doc access. Jina Reader strips page noise so less text fills your context, saving tokens. Works without a key (20 req/min); a free API key unlocks 500 req/min.
 
 ### Level 3: Semantic Search
 

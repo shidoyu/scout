@@ -93,7 +93,7 @@ Menggunakan WebSearch milik Claude Code. Tidak perlu konfigurasi. Inilah yang An
 
 ### Level 2: Dokumentasi Resmi + Pengambilan Lebih Bersih
 
-Tambahkan [Context7](https://github.com/upstash/context7) untuk akses langsung ke dokumentasi library dan framework. Pembersihan konten berlebih oleh Jina Reader sudah bawaan — tidak perlu pengaturan apa pun. Noise halaman otomatis dihapus sehingga lebih sedikit teks yang mengisi konteks Anda.
+Tambahkan [Context7](https://github.com/upstash/context7) untuk akses langsung ke dokumentasi library dan framework. Jina Reader menghapus noise halaman, sehingga lebih sedikit teks memenuhi konteks Anda dan token lebih hemat. Berfungsi tanpa key (20 req/min); API key gratis membuka 500 req/min.
 
 ### Level 3: Pencarian Semantik
 

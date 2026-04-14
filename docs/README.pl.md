@@ -93,7 +93,7 @@ Korzysta z WebSearch w Claude Code. Nie wymaga konfiguracji. To dostajesz od raz
 
 ### Poziom 2: Oficjalna dokumentacja + czystsze pobieranie
 
-Dodaj [Context7](https://github.com/upstash/context7), aby uzyskać bezpośredni dostęp do dokumentacji bibliotek i frameworków. Usuwanie zbędnych elementów przez Jina Reader jest wbudowane — nie wymaga konfiguracji. Automatycznie usuwa szum ze stron, więc mniej tekstu zajmuje Twój kontekst.
+Dodaj [Context7](https://github.com/upstash/context7), aby uzyskać bezpośredni dostęp do dokumentacji bibliotek i frameworków. Jina Reader usuwa szum strony, więc mniej tekstu zajmuje Twój kontekst i oszczędzasz tokeny. Działa bez klucza (20 req/min); darmowy klucz API odblokowuje 500 req/min.
 
 ### Poziom 3: Wyszukiwanie semantyczne
 
