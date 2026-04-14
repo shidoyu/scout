@@ -44,10 +44,10 @@ Receive URL
   ↓
 Classify privacy level
   ↓
-┌─ Public ────────→ Jina Reader MCP → [on failure] WebFetch
+┌─ Public ────────→ WebFetch via r.jina.ai → [on failure] WebFetch (direct) → [on failure] fetch-page.py
 │
 ├─ Confidential ──→ fetch-page.py (local processing) → [on failure] Report "Local fetch failed"
-│                    ※ Sending URL to external APIs (Jina Reader, WebFetch, etc.) is PROHIBITED
+│                    ※ Sending URL to external APIs (Jina, WebFetch, etc.) is PROHIBITED
 │
 └─ Authenticated ─→ browser-control.py (Playwright CDP, uses browser session)
                      → [on failure] Report "Cannot fetch. Please start Chrome in debug mode"
@@ -55,10 +55,12 @@ Classify privacy level
 
 ### Tool Details
 
-**Jina Reader MCP** (`read_url`): URL → Markdown. External API. Best for public pages.
-- Falls back to WebFetch when rate-limited
+**WebFetch via r.jina.ai** (primary for public pages): Strips page boilerplate (navigation, ads, sidebars) so less noise fills the context. No API key, no MCP, no token depletion.
+- Usage: `WebFetch(url="https://r.jina.ai/{target_url}", prompt="...")`
+- Rate: 20 req/min (free, no quota)
+- Falls back to direct WebFetch on any error (429, 503, timeout, etc.)
 
-**WebFetch** (built-in): URL → text. Built into Claude Code. Fetched via Anthropic infrastructure. Not shared with third-party services (Jina Reader, Exa, etc.), but the URL is sent to Anthropic servers.
+**WebFetch** (built-in): URL → text. Built into Claude Code. Fetched via Anthropic infrastructure. Not shared with third-party services (Jina, Exa, etc.), but the URL is sent to Anthropic servers.
 - **Fallback for public pages only**. Do not use for confidential pages.
 
 **fetch-page.py** (local Playwright): URL → HTML/text. All processing is local.
@@ -89,7 +91,7 @@ Classify privacy level
 
 Handling oversized content:
 
-1. **Pre-estimation**: Jina Reader / WebFetch typically return reasonable sizes. fetch-page.py returns full page content — use with caution.
+1. **Pre-estimation**: WebFetch (with or without r.jina.ai) typically returns reasonable sizes. fetch-page.py returns full page content — use with caution.
 2. **Post-fetch check**: If the result is clearly oversized (guideline: >50,000 characters):
    - Convert HTML → Markdown via `markitdown` CLI (removes navigation, footers, etc.)
    - If still too large → Extract only the needed sections (via CSS selector or text search)
@@ -99,7 +101,7 @@ Handling oversized content:
 
 These are operational rules based on LLM judgment, not system-enforced guarantees.
 
-- Do not send confidential page URLs to external APIs (Jina Reader, Exa, WebFetch, etc.). **Even if the user explicitly requests external API fetching, do not send URLs classified as confidential** (explain the reason and suggest local alternatives).
+- Do not send confidential page URLs to external APIs (Jina, Exa, WebFetch, etc.). **Even if the user explicitly requests external API fetching, do not send URLs classified as confidential** (explain the reason and suggest local alternatives).
 - **Confidential URLs must never fall back to external APIs regardless of fetch-page.py's exit code**. Any non-zero exit is reported as "Local fetch failed."
 - For authenticated pages where browser-control.py cannot connect, report the limitation rather than attempting alternative retrieval.
 - In environments where fetch-page.py does not exist, report confidential pages as "Cannot fetch" and guide the user to set up Playwright.
@@ -120,10 +122,9 @@ Follow this section for first-time use or when additional configuration is neede
 bash tools/setup.sh
 ```
 
-The script guides the user through 3 optional steps:
-1. [1/3] Exa — AI-native search engine: Enter API key (skippable)
-2. [2/3] Jina Reader — Web page structured fetching: Enter API key (skippable)
-3. [3/3] Playwright — Browser-based page fetching: Install Chromium (skippable)
+The script guides the user through 2 optional steps:
+1. [1/2] Exa — Semantic search engine: Enter API key (skippable)
+2. [2/2] Playwright — Local browser for JS-heavy pages: Install Chromium (skippable)
 
 After setup completes, the user must restart Claude Code (or run `/mcp`) for new MCP servers to take effect.
 

@@ -91,7 +91,7 @@ Uses Claude Code's WebSearch. No configuration needed. This is what you get out 
 
 ### Level 2: Official Docs + Cleaner Fetching
 
-Add [Context7](https://github.com/upstash/context7) for direct library/framework doc access, and [Jina Reader](https://jina.ai) to strip page boilerplate so less noise fills your context. No API key needed for either — Jina works at 20 req/min free with no quota.
+Add [Context7](https://github.com/upstash/context7) for direct library/framework doc access. Jina Reader's boilerplate stripping is built in — no setup needed. It automatically strips page noise so less text fills your context.
 
 ### Level 3: Semantic Search
 
@@ -131,7 +131,7 @@ scout classifies URLs into three tiers before fetching:
 
 | Classification | Routing | Examples |
 |---|---|---|
-| **Public** | Cloud APIs (Jina Reader / WebFetch) | Blogs, docs, GitHub public repos |
+| **Public** | Cloud APIs (r.jina.ai / WebFetch) | Blogs, docs, GitHub public repos |
 | **Confidential** | Local Playwright only | localhost, internal wikis, admin panels |
 | **Authenticated** | Playwright CDP (your browser session) | Notion, Slack, post-OAuth pages |
 
@@ -215,7 +215,7 @@ No third-party source code is redistributed — integration is via MCP connectio
 | Tool | Provider | License |
 |---|---|---|
 | [Exa API](https://exa.ai) | Exa Labs, Inc. | Proprietary (API terms) |
-| [Jina AI MCP Server](https://github.com/jina-ai/MCP) | Jina AI GmbH | Apache License 2.0 |
+| [Jina Reader API](https://jina.ai) (via r.jina.ai URL prefix) | Jina AI GmbH | — |
 | [Context7 MCP](https://github.com/upstash/context7) | Upstash, Inc. | Apache License 2.0 |
 | [markitdown](https://github.com/microsoft/markitdown) | Microsoft Corporation | MIT License |
 | [Playwright](https://github.com/microsoft/playwright-python) | Microsoft Corporation | Apache License 2.0 |

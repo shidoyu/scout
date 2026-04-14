@@ -327,7 +327,7 @@ Semantic search engine. Finds pages by meaning similarity rather than keyword ma
 ### URL Content Retrieval (Auxiliary)
 
 For deep-diving into source articles from search results. Retrieves URL content. Not a search tool — used to follow up on search results.
-Tool selection follows the **scout:fetch workflow** (privacy classification → tool selection → fallback). If the scout:fetch skill is not available, use WebFetch or Jina Reader directly for public URLs.
+Tool selection follows the **scout:fetch workflow** (privacy classification → tool selection → fallback). If the scout:fetch skill is not available, use WebFetch directly for public URLs (prepend `https://r.jina.ai/` for cleaner output).
 
 ## Domain Classification Table
 
