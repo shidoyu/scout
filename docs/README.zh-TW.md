@@ -93,7 +93,7 @@ scout 安裝後即可使用。每個層級增加功能 — 全部可選，全部
 
 ### 層級 2：官方文件 + 更乾淨的擷取
 
-新增 [Context7](https://github.com/upstash/context7) 直接存取程式庫/框架的官方文件，新增 [Jina Reader](https://jina.ai) 取得更乾淨的頁面讀取。Context7 無需 API 金鑰；Jina 提供選用金鑰以放寬速率限制。
+新增 [Context7](https://github.com/upstash/context7) 以直接存取函式庫與框架文件，以及 [Jina Reader](https://jina.ai) 用來去除頁面多餘內容，降低 context 中的雜訊。兩者皆無需 API key — Jina 免費提供 20 req/min，不設配額上限。
 
 ### 層級 3：語意搜尋
 

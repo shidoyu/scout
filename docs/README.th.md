@@ -93,7 +93,7 @@ scout ทำงานได้ทันทีหลังติดตั้ง �
 
 ### ระดับ 2: เอกสารทางการ + การดึงข้อมูลที่สะอาดขึ้น
 
-เพิ่ม [Context7](https://github.com/upstash/context7) สำหรับเข้าถึงเอกสาร library/framework โดยตรง และ [Jina Reader](https://jina.ai) สำหรับอ่านหน้าเว็บที่สะอาดขึ้น Context7 ไม่ต้องใช้ API key; key เสริมสำหรับ rate limit ของ Jina
+เพิ่ม [Context7](https://github.com/upstash/context7) สำหรับเข้าถึงเอกสาร library และ framework โดยตรง และ [Jina Reader](https://jina.ai) เพื่อตัดส่วนที่ไม่จำเป็นออกจากหน้าเว็บ ช่วยลด noise ใน context ของคุณ ทั้งสองไม่ต้องใช้ API key — Jina ใช้งานฟรีที่ 20 req/min โดยไม่มีโควต้า
 
 ### ระดับ 3: การค้นหาเชิงความหมาย
 

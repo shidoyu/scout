@@ -93,7 +93,7 @@ Claude Code의 WebSearch를 사용합니다. 별도 설정 불필요. 설치한 
 
 ### 레벨 2: 공식 문서 + 더 깔끔한 페치
 
-[Context7](https://github.com/upstash/context7)으로 라이브러리/프레임워크 공식 문서에 직접 액세스, [Jina Reader](https://jina.ai)로 더 깔끔한 페이지 읽기. Context7은 API 키 불필요. Jina는 레이트 제한 완화를 위한 선택적 키 제공.
+라이브러리·프레임워크 문서에 바로 접근할 수 있는 [Context7](https://github.com/upstash/context7)와, 페이지의 불필요한 요소를 제거해 컨텍스트 노이즈를 줄여주는 [Jina Reader](https://jina.ai)를 추가했습니다. 둘 다 API 키 불필요 — Jina는 무료로 20 req/min, 쿼터 제한 없이 사용 가능합니다.
 
 ### 레벨 3: 시맨틱 검색
 

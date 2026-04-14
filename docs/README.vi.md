@@ -93,7 +93,7 @@ Sử dụng WebSearch của Claude Code. Không cần cấu hình. Đây là tr�
 
 ### Cấp độ 2: Tài liệu chính thức + Truy xuất sạch hơn
 
-Thêm [Context7](https://github.com/upstash/context7) để truy cập trực tiếp tài liệu thư viện/framework, và [Jina Reader](https://jina.ai) để đọc trang sạch hơn. Context7 không cần API key; Jina có key tùy chọn để nới lỏng giới hạn tốc độ.
+Thêm [Context7](https://github.com/upstash/context7) để truy cập trực tiếp tài liệu thư viện và framework, cùng với [Jina Reader](https://jina.ai) để loại bỏ nội dung thừa trên trang web, giảm nhiễu trong context của bạn. Cả hai đều không cần API key — Jina hoạt động miễn phí ở mức 20 req/min, không giới hạn quota.
 
 ### Cấp độ 3: Tìm kiếm ngữ nghĩa
 

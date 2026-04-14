@@ -93,7 +93,7 @@ Claude Code'un WebSearch'ünü kullanır. Yapılandırma gerekmez. Kutudan çık
 
 ### Seviye 2: Resmi Belgeler + Daha Temiz Getirme
 
-Kütüphane/framework belgelerine doğrudan erişim için [Context7](https://github.com/upstash/context7), daha temiz sayfa okuma için [Jina Reader](https://jina.ai). Context7 için API anahtarı gerekmez; Jina hız sınırları için isteğe bağlı anahtar.
+Kütüphane ve framework belgelerine doğrudan erişim için [Context7](https://github.com/upstash/context7)'yi, sayfalardaki gereksiz öğeleri temizleyerek bağlamınızdaki gürültüyü azaltmak için ise [Jina Reader](https://jina.ai)'ı ekleyin. Her ikisi için de API anahtarı gerekmez — Jina, kota olmaksızın 20 req/min ücretsiz çalışır.
 
 ### Seviye 3: Anlamsal Arama
 

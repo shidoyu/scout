@@ -93,7 +93,7 @@ Claude Code の WebSearch を使用します。設定不要。インストール
 
 ### レベル 2: 公式ドキュメント + よりクリーンな取得
 
-[Context7](https://github.com/upstash/context7) でライブラリ/フレームワークの公式ドキュメントに直接アクセス、[Jina Reader](https://jina.ai) でよりクリーンなページ読み取り。Context7 は API キー不要。Jina はレート制限緩和のためのオプションキーあり。
+ライブラリ・フレームワークのドキュメントに直接アクセスできる [Context7](https://github.com/upstash/context7) と、ページの余分な装飾を除去してコンテキストのノイズを減らす [Jina Reader](https://jina.ai) を追加。どちらも API キー不要 — Jina は無料で 20 req/min、クォータ制限なしで使えます。
 
 ### レベル 3: セマンティック検索
 

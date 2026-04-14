@@ -93,7 +93,7 @@ Usa a WebSearch do Claude Code. Nenhuma configuração necessária. É o que voc
 
 ### Nível 2: Documentação oficial + busca mais limpa
 
-[Context7](https://github.com/upstash/context7) para acesso direto à documentação de bibliotecas/frameworks, e [Jina Reader](https://jina.ai) para uma leitura de páginas mais limpa. Context7 não precisa de chave de API; chave opcional para os limites de taxa do Jina.
+Adicione o [Context7](https://github.com/upstash/context7) para acesso direto à documentação de bibliotecas e frameworks, e o [Jina Reader](https://jina.ai) para remover o excesso das páginas e reduzir o ruído no seu contexto. Nenhum dos dois exige API key — o Jina funciona gratuitamente a 20 req/min sem cota.
 
 ### Nível 3: Pesquisa semântica
 

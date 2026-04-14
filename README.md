@@ -91,7 +91,7 @@ Uses Claude Code's WebSearch. No configuration needed. This is what you get out 
 
 ### Level 2: Official Docs + Cleaner Fetching
 
-Add [Context7](https://github.com/upstash/context7) for direct library/framework doc access, and [Jina Reader](https://jina.ai) for cleaner page reading. No API key needed for Context7; optional key for Jina rate limits.
+Add [Context7](https://github.com/upstash/context7) for direct library/framework doc access, and [Jina Reader](https://jina.ai) to strip page boilerplate so less noise fills your context. No API key needed for either — Jina works at 20 req/min free with no quota.
 
 ### Level 3: Semantic Search
 

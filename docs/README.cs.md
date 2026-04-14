@@ -93,7 +93,7 @@ Používá WebSearch v Claude Code. Není potřeba konfigurace. To je to, co dos
 
 ### Úroveň 2: Oficiální dokumentace + čistší načítání
 
-Přidejte [Context7](https://github.com/upstash/context7) pro přímý přístup k dokumentaci knihoven/frameworků a [Jina Reader](https://jina.ai) pro čistší čtení stránek. Context7 nevyžaduje API klíč; volitelný klíč pro Jina zvyšuje limity.
+Přidejte [Context7](https://github.com/upstash/context7) pro přímý přístup k dokumentaci knihoven a frameworků a [Jina Reader](https://jina.ai) k odstranění zbytečných prvků stránek, aby váš kontext obsahoval méně šumu. API key není potřeba pro žádný z nich — Jina funguje zdarma s limitem 20 req/min bez kvóty.
 
 ### Úroveň 3: Sémantické vyhledávání
 

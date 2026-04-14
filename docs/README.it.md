@@ -93,7 +93,7 @@ Usa la WebSearch di Claude Code. Nessuna configurazione necessaria. È quello ch
 
 ### Livello 2: Documentazione Ufficiale + Recupero Più Pulito
 
-Aggiungi [Context7](https://github.com/upstash/context7) per l'accesso diretto alla documentazione di librerie/framework, e [Jina Reader](https://jina.ai) per una lettura più pulita delle pagine. Nessuna API key necessaria per Context7; chiave opzionale per Jina per i limiti di frequenza.
+Aggiungi [Context7](https://github.com/upstash/context7) per accedere direttamente alla documentazione di librerie e framework, e [Jina Reader](https://jina.ai) per eliminare gli elementi superflui delle pagine e ridurre il rumore nel tuo contesto. Nessuno dei due richiede una API key — Jina funziona gratuitamente a 20 req/min senza quota.
 
 ### Livello 3: Ricerca Semantica
 
