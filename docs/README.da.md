@@ -93,7 +93,7 @@ Bruger Claude Codes WebSearch. Ingen konfiguration nødvendig. Dette er, hvad du
 
 ### Niveau 2: Officiel dokumentation + renere hentning
 
-Tilføj [Context7](https://github.com/upstash/context7) til direkte adgang til biblioteks- og frameworkdokumentation, og [Jina Reader](https://jina.ai) til at fjerne siderod, så mindre støj fylder din kontekst. Ingen API key nødvendig til nogen af dem — Jina fungerer gratis med 20 req/min uden kvote.
+Tilføj [Context7](https://github.com/upstash/context7) for direkte adgang til dokumentation for biblioteker og frameworks. Jina Readers fjernelse af overflødigt indhold er indbygget — ingen opsætning nødvendig. Sidestøj filtreres automatisk fra, så mindre tekst fylder din kontekst.
 
 ### Niveau 3: Semantisk søgning
 

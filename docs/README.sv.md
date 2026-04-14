@@ -93,7 +93,7 @@ Använder Claude Codes WebSearch. Ingen konfiguration behövs. Detta är vad du 
 
 ### Nivå 2: Officiell dokumentation + renare hämtning
 
-Lägg till [Context7](https://github.com/upstash/context7) för direkt åtkomst till biblioteks- och ramverksdokumentation, och [Jina Reader](https://jina.ai) för att rensa bort sidstök så att mindre brus fyller ditt kontext. Ingen API-nyckel krävs för något av dem — Jina fungerar gratis på 20 req/min utan kvot.
+Lägg till [Context7](https://github.com/upstash/context7) för direkt åtkomst till dokumentation för bibliotek och ramverk. Jina Readers rensning av överflödig text är inbyggd — ingen konfiguration krävs. Sidbruset rensas bort automatiskt så att mindre text tar upp plats i din kontext.
 
 ### Nivå 3: Semantisk sökning
 

@@ -93,7 +93,7 @@ Usa a WebSearch do Claude Code. Nenhuma configuração necessária. É o que voc
 
 ### Nível 2: Documentação oficial + busca mais limpa
 
-Adicione o [Context7](https://github.com/upstash/context7) para acesso direto à documentação de bibliotecas e frameworks, e o [Jina Reader](https://jina.ai) para remover o excesso das páginas e reduzir o ruído no seu contexto. Nenhum dos dois exige API key — o Jina funciona gratuitamente a 20 req/min sem cota.
+Adicione o [Context7](https://github.com/upstash/context7) para acessar diretamente a documentação de bibliotecas e frameworks. A limpeza de conteúdo desnecessário do Jina Reader já vem integrada — sem necessidade de configuração. Ele remove automaticamente o ruído das páginas, ocupando menos espaço no seu contexto.
 
 ### Nível 3: Pesquisa semântica
 

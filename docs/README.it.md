@@ -93,7 +93,7 @@ Usa la WebSearch di Claude Code. Nessuna configurazione necessaria. È quello ch
 
 ### Livello 2: Documentazione Ufficiale + Recupero Più Pulito
 
-Aggiungi [Context7](https://github.com/upstash/context7) per accedere direttamente alla documentazione di librerie e framework, e [Jina Reader](https://jina.ai) per eliminare gli elementi superflui delle pagine e ridurre il rumore nel tuo contesto. Nessuno dei due richiede una API key — Jina funziona gratuitamente a 20 req/min senza quota.
+Aggiungi [Context7](https://github.com/upstash/context7) per accedere direttamente alla documentazione di librerie e framework. La rimozione del contenuto superfluo tramite Jina Reader è integrata — nessuna configurazione necessaria. Il rumore delle pagine viene eliminato automaticamente, così meno testo occupa il contesto.
 
 ### Livello 3: Ricerca Semantica
 

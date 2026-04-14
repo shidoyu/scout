@@ -93,7 +93,7 @@ scout 安装后即可使用。每个级别增加功能 — 全部可选，全部
 
 ### 级别 2：官方文档 + 更干净的抓取
 
-添加 [Context7](https://github.com/upstash/context7) 以直接访问库和框架文档，以及 [Jina Reader](https://jina.ai) 用于去除页面冗余内容，减少 context 中的噪音。两者均无需 API key — Jina 免费支持 20 req/min，无配额限制。
+添加 [Context7](https://github.com/upstash/context7) 以直接访问库和框架的文档。Jina Reader 的冗余内容清理功能已内置，无需任何配置。它会自动去除页面噪音，让更少的文本占用你的上下文空间。
 
 ### 级别 3：语义搜索
 
