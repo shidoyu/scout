@@ -49,17 +49,19 @@ echo "scout works out of the box. Additional setup extends search and fetch capa
 echo ""
 
 # --- [1/3] Exa ---
-echo "[1/3] Exa — AI-native search engine"
-echo "  Searches by meaning, which helps when exact terms are unclear."
-echo "  Strong for academic papers and niche technical articles."
-echo "  Create account & get API key: https://exa.ai"
+echo "[1/3] Exa — finds niche results that keyword search misses"
+echo ""
+echo "  Searches by meaning, not exact words."
+echo "  Strong for academic papers and technical deep-dives."
+echo "  Free tier: 1,000 searches/month. https://exa.ai"
+echo ""
 
 # Detect existing configuration on re-run
 if jq -e '.mcpServers.exa' "$MCP_JSON" > /dev/null 2>&1; then
   echo "  ✓ Already configured (enter a new key to reconfigure)"
 fi
 
-read -rp "  API key (Enter to skip): " exa_key
+read -rp "  API key (or Enter to skip): " exa_key
 
 if [ -n "$exa_key" ]; then
   if [[ ${#exa_key} -lt 10 ]]; then
@@ -77,20 +79,25 @@ fi
 echo ""
 
 # --- [2/3] Jina Reader ---
-echo "[2/3] Jina Reader — Web page structured fetching"
-echo "  Strips navigation and boilerplate, then returns cleaner Markdown text."
-echo "  That often means less text reaches the model, which can save tokens."
-echo "  Works without a key for lighter usage. Add a key if you want higher rate limits: https://jina.ai/?newKey"
+echo "[2/3] Jina Reader — strips page boilerplate so less noise fills your context"
+echo ""
+echo "  No key:   20 req/min — free, no quota."
+echo "  With key: 500 req/min — Jina's 10M token pool; fails when empty."
+echo ""
 
-# Detect existing API key on re-run
-if jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1; then
-  echo "  ✓ API key already set (enter a new key to reconfigure)"
+# Detect existing configuration on re-run
+if jq -e '.mcpServers["jina-reader"]' "$MCP_JSON" > /dev/null 2>&1; then
+  if jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1; then
+    echo "  ✓ API key already set (enter a new key to reconfigure)"
+  else
+    echo "  ✓ Already configured (keyless)"
+  fi
 fi
 
-read -rp "  API key (Enter to skip): " jina_key
+read -rp "  API key (or Enter for free tier): " jina_key
 
 if [ -n "$jina_key" ]; then
-  if [[ ! "$jina_key" == jina_* ]] && [[ ${#jina_key} -lt 10 ]]; then
+  if [[ ! "$jina_key" == jina_* ]] || [[ ${#jina_key} -lt 10 ]]; then
     echo "  ⚠ Invalid key format. Skipping."
     jina_key=""
   else
@@ -100,16 +107,26 @@ if [ -n "$jina_key" ]; then
         "url": "https://mcp.jina.ai/v1",
         "headers": { "Authorization": ("Bearer " + $key) }
       }' "$MCP_JSON" > "$MCP_JSON.tmp" && mv "$MCP_JSON.tmp" "$MCP_JSON"
-    echo "  ✓ Jina Reader API key configured."
+    echo "  ✓ Jina Reader configured (API key)."
   fi
+fi
+
+# Add Jina Reader keyless if not yet configured (Enter = add without key, not skip)
+if ! jq -e '.mcpServers["jina-reader"]' "$MCP_JSON" > /dev/null 2>&1; then
+  jq '.mcpServers["jina-reader"] = {
+    "type": "http",
+    "url": "https://mcp.jina.ai/v1"
+  }' "$MCP_JSON" > "$MCP_JSON.tmp" && mv "$MCP_JSON.tmp" "$MCP_JSON"
+  echo "  ✓ Jina Reader configured (free tier)."
 fi
 echo ""
 
 # --- [3/3] Playwright ---
-echo "[3/3] Playwright — Browser-based page fetching"
-echo "  Handles JavaScript-rendered pages and keeps confidential URLs on your machine."
-echo "  Downloads Chromium browser (~200MB, may take a few minutes)."
-echo "  Note: May fail on corporate networks or behind proxies."
+echo "[3/3] Playwright — unlocks JS-heavy pages without sending URLs to external services"
+echo ""
+echo "  For SPAs and paywalled sites that static fetch can't handle."
+echo "  Downloads Chromium (~200MB). May fail behind corporate proxies."
+echo ""
 
 VENV_DIR="$PLUGIN_ROOT/tools/.venv"
 pw_installed=false
@@ -152,12 +169,20 @@ not_configured=()
 
 # Check all configurations (including pre-existing ones from previous runs)
 exa_exists=false
-jina_key_exists=false
+jina_exists=false
+jina_keyed=false
 jq -e '.mcpServers.exa' "$MCP_JSON" > /dev/null 2>&1 && exa_exists=true
-jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1 && jina_key_exists=true
+jq -e '.mcpServers["jina-reader"]' "$MCP_JSON" > /dev/null 2>&1 && jina_exists=true
+jq -e '.mcpServers["jina-reader"].headers.Authorization // empty | length > 0' "$MCP_JSON" > /dev/null 2>&1 && jina_keyed=true
 
 ([ -n "${exa_key:-}" ] || [ "$exa_exists" = true ]) && configured+=("Exa") || not_configured+=("Exa")
-([ -n "${jina_key:-}" ] || [ "$jina_key_exists" = true ]) && configured+=("Jina Reader API key") || not_configured+=("Jina Reader API key")
+if [ "$jina_keyed" = true ]; then
+  configured+=("Jina Reader (API key, 500 req/min)")
+elif [ "$jina_exists" = true ]; then
+  configured+=("Jina Reader (free tier, 20 req/min)")
+else
+  not_configured+=("Jina Reader")
+fi
 [ "$pw_installed" = true ] && configured+=("Playwright") || not_configured+=("Playwright")
 
 if [ ${#configured[@]} -gt 0 ]; then
@@ -172,12 +197,10 @@ echo "  Available now:"
 exa_active=""
 ([ -n "${exa_key:-}" ] || [ "$exa_exists" = true ]) && exa_active="yes"
 echo "  - Web search (default${exa_active:+ + Exa} + WebSearch)"
-jina_active=""
-([ -n "${jina_key:-}" ] || [ "$jina_key_exists" = true ]) && jina_active="yes"
-if [ -n "$jina_active" ]; then
+if [ "$jina_exists" = true ]; then
   echo "  - URL content fetching (Jina Reader + WebFetch)"
 else
-  echo "  - URL content fetching (WebFetch only — add Jina Reader API key for cleaner output and potential token savings)"
+  echo "  - URL content fetching (WebFetch only)"
 fi
 [ "$pw_installed" = true ] && echo "  - SPA/dynamic page fetching (Playwright)"
 echo ""
