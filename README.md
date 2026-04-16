@@ -232,7 +232,7 @@ Setup instructions are provided in your language by the AI assistant. Translated
 
 ## Author
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## License
 

@@ -234,7 +234,7 @@ Hướng dẫn thiết lập được trợ lý AI cung cấp bằng ngôn ngữ
 
 ## Tác giả
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Giấy phép
 

@@ -234,7 +234,7 @@ API-ключи хранятся в файле `.mcp.json` в каталоге п
 
 ## Автор
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Лицензия
 

@@ -234,7 +234,7 @@ API 密钥存储在插件目录内的 `.mcp.json` 中。
 
 ## 作者
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## 许可证
 

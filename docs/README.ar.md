@@ -234,7 +234,7 @@ claude mcp remove context7
 
 ## المؤلف
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## الرخصة
 

@@ -234,7 +234,7 @@ API キーはプラグインディレクトリ内の `.mcp.json` に保存され
 
 ## 著者
 
-**SHIDO, Yuichiro**（[@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)）— AI Operations Designer
+**SHIDO, Yuichiro**（[@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)）— AI Workflow Designer
 
 ## ライセンス
 

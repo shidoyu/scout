@@ -234,7 +234,7 @@ Installationsinstruktioner tillhandahålls på ditt språk av AI-assistenten. Ö
 
 ## Författare
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Licens
 

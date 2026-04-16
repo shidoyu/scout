@@ -234,7 +234,7 @@ Instruksi setup disediakan dalam bahasa Anda oleh asisten AI. Terjemahan ini unt
 
 ## Penulis
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Lisensi
 

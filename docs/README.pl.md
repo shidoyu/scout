@@ -234,7 +234,7 @@ Instrukcje konfiguracji są dostarczane w Twoim języku przez asystenta AI. Prze
 
 ## Autor
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Licencja
 

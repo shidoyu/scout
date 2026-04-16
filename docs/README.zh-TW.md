@@ -234,7 +234,7 @@ API 金鑰儲存在外掛目錄內的 `.mcp.json` 中。
 
 ## 作者
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## 授權條款
 

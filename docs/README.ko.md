@@ -234,7 +234,7 @@ API 키는 플러그인 디렉터리 내의 `.mcp.json`에 저장됩니다.
 
 ## 저자
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## 라이선스
 

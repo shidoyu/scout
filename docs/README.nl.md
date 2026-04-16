@@ -234,7 +234,7 @@ Configuratie-instructies worden door de AI-assistent in je taal aangeboden. Vert
 
 ## Auteur
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Licentie
 

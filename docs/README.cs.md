@@ -234,7 +234,7 @@ Pokyny k nastavení jsou poskytovány ve vašem jazyce prostřednictvím AI asis
 
 ## Autor
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Licence
 

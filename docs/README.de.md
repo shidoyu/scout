@@ -234,7 +234,7 @@ Die Einrichtungsanweisungen werden vom KI-Assistenten in Ihrer Sprache bereitges
 
 ## Autor
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Lizenz
 

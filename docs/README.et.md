@@ -234,7 +234,7 @@ Seadistusjuhised esitatakse sinu keeles AI-assistendi poolt. Tõlgitud README-fa
 
 ## Autor
 
-**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Operations Designer
+**SHIDO, Yuichiro** ([@SHIDO_Yuichiro](https://x.com/SHIDO_Yuichiro)) — AI Workflow Designer
 
 ## Litsents
 
