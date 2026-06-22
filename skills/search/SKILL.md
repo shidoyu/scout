@@ -278,7 +278,7 @@ Official documentation search for libraries and frameworks. Retrieves current, i
 **Strengths**:
 - Direct access to official, up-to-date documentation — no secondary-source bias
 - Returns code snippets and structured content
-- No API key required (free, npx-based)
+- No API key required (free)
 
 **Limitations**:
 - Only covers indexed libraries/frameworks (not all projects are indexed)

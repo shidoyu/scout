@@ -176,13 +176,13 @@ Convey this (adapt to user's language, do NOT copy verbatim):
 If user consents, run:
 
 ```bash
-claude mcp add -s user context7 -- npx -y @upstash/context7-mcp
+claude mcp add --transport http -s user context7 https://mcp.context7.com/mcp
 ```
 
 If the command fails (e.g. `claude` not in PATH), show the manual alternative:
 ```
 Run this in your terminal:
-claude mcp add -s user context7 -- npx -y @upstash/context7-mcp
+claude mcp add --transport http -s user context7 https://mcp.context7.com/mcp
 ```
 
 Confirm briefly, then move to next item.
